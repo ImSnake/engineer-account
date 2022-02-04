@@ -1,0 +1,9 @@
+/* Disabled style */
+
+.uDisabled,
+.uDisabledBef:before,
+.uDisabledAft:after {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}

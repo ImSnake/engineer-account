@@ -1,17 +1,73 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="" id="engineer-account" class="hydraLoader elzTheme-dark">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+	  <link href="<%= BASE_URL %>style/auth.css" rel="stylesheet" type="text/css">
+<!--	  <link href="<%= BASE_URL %>style/_compilation.css" rel="stylesheet" type="text/css">-->
     <title><%= htmlWebpackPlugin.options.title %></title>
+
   </head>
   <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
+
+
+    <div class="authWrap bg bg-primary">
+	    <div class="circle">
+		    <svg class="authLogo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 188 35">
+			    <defs>
+				    <mask id="authMaskA" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
+					    <g class="letter authLogoA1" fill="#ffffff">
+						    <path d="M13.9,19L19,8l5,11h6.8L22.2,0h-6.5L7.2,19H13.9z"/>
+						    <g>
+							    <path d="M33.3,24.8h-6.8l4.7,9.3H38L33.3,24.8z"/>
+							    <path d="M0,34h6.7l4.6-9.2l-6.7,0L0,34z"/>
+						    </g>
+					    </g>
+				    </mask>
+				    <linearGradient id="authLoadGradient" x1="0" x2="0" y1="0" y2="1">
+					    <stop offset="0%" stop-color="rgba(255, 255, 255, 0)"/>
+					    <stop offset="50%" stop-color="rgba(255, 255, 255, 0.25)"/>
+					    <stop offset="100%" stop-color="rgba(255, 255, 255, 0)"/>
+				    </linearGradient>
+			    </defs>
+			    <g class="letters fill-CC fn fn-primary-t">
+				    <g class="letter authLogoN1">
+					    <path d="M31,0v34h-5.5l-19-22.5V34H0V0h5.5l19,23.5V0H31z"/>
+				    </g>
+				    <g class="letter authLogoU1">
+					    <path d="M0,19.5V0h6.4v19c0,7.1,3.1,10.4,8.6,10.4s8.7-3.3,8.7-10.4V0H30v19.5C30,29.6,24.3,35,15,35C5.6,35,0,29.6,0,19.5z"/>
+				    </g>
+				    <g class="letter authLogoK1">
+					    <path d="M6.5,0H0v34h6.5V0z"/>
+					    <path d="M17,17L30.5,0h-7.4L11.5,14v6l12.8,14H32L17,17z"/>
+				    </g>
+				    <g class="letter authLogoA2">
+					    <path class="brandCap fill-CC fn fn-brand" d="M13.9,19L19,8l5,11h6.8L22.2,0h-6.5L7.2,19H13.9z"/>
+					    <g>
+						    <path d="M33.3,24.8h-6.8l4.7,9.3H38L33.3,24.8z"/>
+						    <path d="M0,34h6.7l4.6-9.2l-6.7,0L0,34z"/>
+					    </g>
+				    </g>
+				    <g class="letter loader" mask="url(#authMaskA)">
+					    <rect class="loaderBottom" opacity="0" x="0" y="22" width="100%" height="12.5">
+						    <animate attributeName="opacity" from="0" to="1" dur="0.25s" begin="0.1s" fill="freeze"/>
+					    </rect>
+					    <rect class="brandCap loaderHead fill-CC fn fn-brand" opacity="0" x="0" y="0" width="100%" height="22">
+						    <animate attributeName="opacity" from="0" to="1" dur="0.25s" begin="0.35s" fill="freeze"/>
+					    </rect>
+					    <rect class="loaderGradient" width="100%" height="100%" x="0" y="35" fill="url(#authLoadGradient)">
+						    <animateTransform attributeName="transform" type="translate" from="0 0" to="0 -70" begin="0.65s" dur="0.75s" repeatCount="indefinite"/>
+					    </rect>
+				    </g>
+			    </g>
+		    </svg>
+	    </div>
+    </div>
+
+    <div id="app-engineer-account"></div>
     <!-- built files will be auto injected -->
+
   </body>
 </html>

@@ -1,0 +1,12 @@
+/* Link style */
+
+.uLink {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.uLink:not(.bg) { background-color: transparent; }
+.uLink:not(.fn) { color: inherit; }
+.uLink:not(.br) { border-color: transparent; }
+
+.uLink:active { opacity: 0.7; }

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+    <g style="transform: rotate(180deg); transform-origin: 8px 8px;">
+        <path d="M8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zM9 13h-2v-6h2v6zM9 5h-2v-2h2v2z"/>
+    </g>
+</svg>

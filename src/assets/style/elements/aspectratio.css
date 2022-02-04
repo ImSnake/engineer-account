@@ -1,0 +1,21 @@
+/* Aspect ratio */
+
+.uAspect:before,
+.uAspectBef:before,
+.uAspectAft:after {
+    content: "";
+    display: block;
+    pointer-events: none;
+}
+
+.uAspect.x1y1:before,   .uAspectBef.x1y1:before,   .uAspectAft.x1y1:after   { padding-top:            100%; }
+.uAspect.x2y1:before,   .uAspectBef.x2y1:before,   .uAspectAft.x2y1:after   { padding-top:             50%; }
+.uAspect.x1y2:before,   .uAspectBef.x1y2:before,   .uAspectAft.x1y2:after   { padding-top:            200%; }
+.uAspect.x16y9:before,  .uAspectBef.x16y9:before,  .uAspectAft.x16y9:after  { padding-top:          56.25%; }
+.uAspect.x16y10:before, .uAspectBef.x16y10:before, .uAspectAft.x16y10:after { padding-top:           62.5%; }
+.uAspect.x9y16:before,  .uAspectBef.x9y16:before,  .uAspectAft.x9y16:after  { padding-top: 177.7777777777%; }
+.uAspect.x10y16:before, .uAspectBef.x10y16:before, .uAspectAft.x10y16:after { padding-top:            160%; }
+.uAspect.x4y3:before,   .uAspectBef.x4y3:before,   .uAspectAft.x4y3:after   { padding-top:             75%; }
+.uAspect.x3y4:before,   .uAspectBef.x3y4:before,   .uAspectAft.x3y4:after   { padding-top: 133.3333333333%; }
+.uAspect.x21y9:before,  .uAspectBef.x21y9:before,  .uAspectAft.x21y9:after  { padding-top: 42.85714285714%; }
+.uAspect.x9y21:before,  .uAspectBef.x9y21:before,  .uAspectAft.x9y21:after  { padding-top: 233.3333333333%; }

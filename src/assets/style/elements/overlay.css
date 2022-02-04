@@ -1,0 +1,71 @@
+/* Elize overlay main settings */
+
+:root { --elzEPSize: 56px; }
+
+.elizeUI.p-fixed { z-index: 100; }
+
+
+
+
+
+
+
+
+
+
+/* Elize over menu */
+
+.elizeOverMenu { z-index: 1000; }
+
+.elizeOverMenu .elizeMenu,
+.elizeOverMenu .elizeOverMenuOverlay {
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.elizeOverMenu .elizeMenu {
+    width: 320px;
+    max-width: 100%;
+    box-shadow: 0 0 24px hsla(0, 0%, 0%, 0.25);
+    transition-duration: 0.4s;
+}
+
+@media (max-width: 480px) {
+    .elizeOverMenu .elizeMenu { width: 100%; }
+    .elizeOverMenu .elizeOverMenuOverlay { pointer-events: none; }
+}
+
+.elizeOverMenu.menuShow .elizeMenu,
+.elizeOverMenu.menuShow .elizeOverMenuOverlay {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
+}
+
+.elizeOverMenu.menuShow .elizeMenu { transform: translateX(100%); }
+
+.elizeOverMenu .elizeProfileWrap { padding-bottom: 64px; }
+
+@media (max-height: 640px) {
+    .elizeOverMenu .elizeProfileWrap { position: relative; }
+}
+
+/* Menu inner animation */
+
+.elizeOverMenu .elizeMenuList { transition-duration: 0.4s; }
+
+.elizeOverMenu .elizeMenuList:not(.listActive) > .elizeMenuItem > .elizeMenuList,
+.elizeOverMenu .elizeMenuList.listActive       > .elizeMenuItem > .elizeItemInner {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.elizeOverMenu .elizeMenuList:not(.listActive) > .elizeMenuItem > .elizeMenuList  { transform: translateX(-100%); }
+.elizeOverMenu .elizeMenuList.listActive       > .elizeMenuItem > .elizeItemInner,
+.elizeOverMenu .elizeMenuList:not(.listActive)   .elizeMenuList > .elizeMenuItem > .elizeItemInner { margin-top: -1000%; }
+
+.elizeMenuItem.listActive       > .elizeMenuList   .elizeItemInner { transition-delay: 0s; }
+.elizeMenuList.listActive       > .elizeMenuItem > .elizeItemInner,
+.elizeMenuItem:not(.listActive) > .elizeMenuList   .elizeItemInner { transition-delay: 0.4s; }

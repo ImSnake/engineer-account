@@ -1,0 +1,33 @@
+.elzIc {
+    transform: none !important;
+}
+
+.elzCSSNHideOldOverlay .elzCSSNui,
+.elizeUI { display: none; }
+
+.elzCSSNHideOldOverlay .elizeUI { display: block; }
+
+:root:not(.elzCSSNHideOldOverlay) { --elzEPSize: 48px; }
+
+/* Pickr */
+
+.pickrAlwaysShowWrap .pcr-app {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    height: 100%;
+}
+
+.pickrAlwaysShowWrap .pcr-app .pcr-interaction .pcr-result.pcr-result {
+    background-color: #ffffff;
+    color: #000000;
+}
+.pickrAlwaysShowWrap .pcr-app .pcr-interaction .pcr-type:not(.active) { background-color: rgba(0, 0, 0, 0.1); color: #444444; }
+.pickrAlwaysShowWrap .pcr-app.pcr-app { width: auto; }
+.elzPLT, .hxdGridSize .grid,
+.hxdTxGridCont > .contOut.main > .contIn { background-repeat: repeat; }
+.elzCLSoverDescr .pcr-app[data-theme='nano'] .pcr-selection .pcr-color-palette { margin: 0; }
+.elzCLSoverDescr .pcr-app .pcr-interaction .pcr-result { width: 96px; }
+/*
+.pickrAlwaysShowWrap .pcr-app .pcr-current-color,
+.pickrAlwaysShowWrap .pcr-app .pcr-last-color { background: currentColor; }*/

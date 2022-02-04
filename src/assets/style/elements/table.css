@@ -1,0 +1,49 @@
+.elzTable > .tbody:not(.cbx):not(.bbx),
+.elzTable > .tbody > .tr:not(.cbx):not(.bbx),
+.elzTable > .tbody > .tr > .td:not(.cbx):not(.bbx) { box-sizing: inherit; }
+
+.elzTable > .tbody:not(.bold),
+.elzTable > .tbody > .tr:not(.bold),
+.elzTable > .tbody > .tr > .td:not(.bold) { font-weight: inherit; }
+
+.elzTable > .tbody:not(.va-T):not(.va-M):not(.va-B),
+.elzTable > .tbody > .tr:not(.va-T):not(.va-M):not(.va-B),
+.elzTable > .tbody > .tr > .td:not(.va-T):not(.va-M):not(.va-B) { vertical-align: inherit; }
+
+.elzTable > .tbody:not(.al-left):not(.al-center):not(.al-right):not(.al-justify),
+.elzTable > .tbody > .tr:not(.al-left):not(.al-center):not(.al-right):not(.al-justify),
+.elzTable > .tbody > .tr > .td:not(.al-left):not(.al-center):not(.al-right):not(.al-justify) { text-align: inherit; }
+
+.elzTable > .tbody:not(.pad),
+.elzTable > .tbody > .tr:not(.pad),
+.elzTable > .tbody > .tr > .td:not(.pad) { padding: inherit; }
+
+.elzTable > .tbody:not(.bor),
+.elzTable > .tbody > .tr:not(.bor),
+.elzTable > .tbody > .tr > .td:not(.bor) { border-width: inherit; }
+
+.elzTable > .tbody:not(.bg),
+.elzTable > .tbody > .tr:not(.bg),
+.elzTable > .tbody > .tr > .td:not(.bg) { background-color: inherit; }
+
+.elzTable > .tbody:not(.br),
+.elzTable > .tbody > .tr:not(.br),
+.elzTable > .tbody > .tr > .td:not(.br) { border-color: inherit; }
+
+.elzTable > .tbody:not(.fn),
+.elzTable > .tbody > .tr:not(.fn),
+.elzTable > .tbody > .tr > .td:not(.fn) { color: inherit; }
+
+.elzTable > .tbody:not(.br-solid):not(.br-dashed):not(.br-dotted):not(.br-double),
+.elzTable > .tbody > .tr:not(.br-solid):not(.br-dashed):not(.br-dotted):not(.br-double),
+.elzTable > .tbody > .tr > .td:not(.br-solid):not(.br-dashed):not(.br-dotted):not(.br-double) { border-style: inherit; }
+
+
+
+.elzTable.borNoneIn > .tbody:first-child > .tr:first-child,
+.elzTable.borNoneIn > .tbody:first-child > .tr:first-child > .td { border-top-width:    0; }
+.elzTable.borNoneIn > .tbody:last-child > .tr:last-child,
+.elzTable.borNoneIn > .tbody:last-child > .tr:last-child > .td   { border-bottom-width: 0; }
+
+.elzTable.borNoneIn > .tbody > .tr > .td:first-child { border-left-width:   0; }
+.elzTable.borNoneIn > .tbody > .tr > .td:last-child  { border-right-width:  0; }

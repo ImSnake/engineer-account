@@ -1,0 +1,1015 @@
+/*
+default
+Hov     - [:hover, :active]
+Hav     - [:hover(ONLY)(NOT FORCE)]
+Oct     - [:active(ONLY)(NOT FORCE)]
+Act     - [:active(FORCE 2)]
+Focus   - [:focus(FORCE 2)]
+Checked - [:checked(FORCE 2)]
+Sel     - [.sel(FORCE 3)]
+
+Extra Dark
+main { color: hsl(0, 0%, 17%); }
+
+Dark
+main { color: hsl(0, 0%, 30%); }
+
+Grey
+main { color: hsl(0, 0%, 69%); }
+
+Light
+main { color: hsl(0, 0%, 91%); }
+
+~= {Значения разделенные пробелами}
+*= {Сочетание встречается везде}
+*/
+
+
+
+
+
+
+.elzTheme-light { color-scheme: light; }
+.elzTheme-dark  { color-scheme:  dark; }
+
+/* [элемент: bg/br/fn][статус: hover, active, check][инверсия][для темы] */
+
+/* Background color */
+
+.bg,
+.bgBef,
+.bgAft,
+.bgHov:hover,
+.cHovOut:hover  .bgHovIn,
+.cHovOut1:hover .bgHovIn1,
+.cHovOut2:hover .bgHovIn2,
+.bgHov:active,
+.cHovOut:active  .bgHovIn,
+.cHovOut1:active .bgHovIn1,
+.cHovOut2:active .bgHovIn2,
+.bgAct:active:active,
+.cActOut:active:active .bgActIn,
+.bgSel.sel.sel.sel,
+.cSelOut.sel.sel.sel .bgSelIn,
+.cSelOut1.sel.sel.sel .bgSelIn1,
+.cSelOut2.sel.sel.sel .bgSelIn2,
+.bgChk:checked:checked,
+.cLblSib:checked:checked + .bgLblLing,
+.cLbtSib:checked:checked ~ .bgLbtLing,
+.bgFoc:focus:focus,
+.bgFow:focus-within:focus-within {
+    --bg-L-mod:    0%;
+    --bg-L-factor: 0%;
+    --bg-A-main:       1;
+    --bg-L-mod-inv:    1;
+    --bg-L-factor-inv: 1;
+}
+
+.bg,
+.bgBef:before,
+.bgAft:after,
+.bgHov:hover,
+.cHovOut:hover  .bgHovIn,
+.cHovOut1:hover .bgHovIn1,
+.cHovOut2:hover .bgHovIn2,
+.bgHov:active,
+.cHovOut:active  .bgHovIn,
+.cHovOut1:active .bgHovIn1,
+.cHovOut2:active .bgHovIn2,
+.bgAct:active:active,
+.cActOut:active:active .bgActIn,
+.bgSel.sel.sel.sel,
+.cSelOut.sel.sel.sel .bgSelIn,
+.cSelOut1.sel.sel.sel .bgSelIn1,
+.cSelOut2.sel.sel.sel .bgSelIn2,
+.bgChk:checked:checked,
+.cLblSib:checked:checked + .bgLblLing,
+.cLbtSib:checked:checked ~ .bgLbtLing,
+.bgFoc:focus:focus,
+.bgFow:focus-within:focus-within {
+    background-color: hsla(
+            var(--bg-H-main),
+            var(--bg-S-main),
+            calc(var(--bg-L-main) + (var(--bg-L-mod) * var(--bg-L-mod-inv)) + (var(--bg-L-factor) * var(--bg-L-factor-inv))),
+            var(--bg-A-main)
+    );
+}
+
+.elzTheme-light .cLInvL,
+.elzTheme-light .bgLInvL,
+.elzTheme-light .bgHovLInvL:hover,  .elzTheme-light .cHovOut:hover  .bgHovInLInvL, .elzTheme-light .cHovOut1:hover  .bgHovIn1LInvL, .elzTheme-light .cHovOut2:hover  .bgHovIn2LInvL,
+.elzTheme-light .bgHovLInvL:active, .elzTheme-light .cHovOut:active .bgHovInLInvL, .elzTheme-light .cHovOut1:active .bgHovIn1LInvL, .elzTheme-light .cHovOut2:active .bgHovIn2LInvL,
+.elzTheme-light .bgActLInvL:active:active, .elzTheme-light .cActOut:active:active .bgActInLInvL,
+.elzTheme-light .bgSelLInvL.sel.sel.sel,
+.elzTheme-light .cSelOut.sel.sel.sel .bgSelInLInvL, .elzTheme-light .cSelOut1.sel.sel.sel .bgSelIn1LInvL, .elzTheme-light .cSelOut2.sel.sel.sel .bgSelIn2LInvL,
+.elzTheme-light .bgChkLInvL:checked:checked,
+.elzTheme-light .cLblSib:checked:checked + .bgLblLingLInvL,
+.elzTheme-light .cLbtSib:checked:checked ~ .bgLbtLingLInvL,
+.elzTheme-light .bgFocLInvL:focus:focus,
+.elzTheme-light .bgFowLInvL:focus-within:focus-within,
+
+.elzTheme-dark .cLInvD,
+.elzTheme-dark .bgLInvD,
+.elzTheme-dark .bgHovLInvD:hover,  .elzTheme-dark .cHovOut:hover  .bgHovInLInvD, .elzTheme-dark .cHovOut1:hover  .bgHovIn1LInvD, .elzTheme-dark .cHovOut2:hover  .bgHovIn2LInvD,
+.elzTheme-dark .bgHovLInvD:active, .elzTheme-dark .cHovOut:active .bgHovInLInvD, .elzTheme-dark .cHovOut1:active .bgHovIn1LInvD, .elzTheme-dark .cHovOut2:active .bgHovIn2LInvD,
+.elzTheme-dark .bgActLInvD:active:active, .elzTheme-dark .cActOut:active:active .bgActInLInvD,
+.elzTheme-dark .bgSelLInvD.sel.sel.sel,
+.elzTheme-dark .cSelOut.sel.sel.sel .bgSelInLInvD, .elzTheme-dark .cSelOut1.sel.sel.sel .bgSelIn1LInvD, .elzTheme-dark .cSelOut2.sel.sel.sel .bgSelIn2LInvD,
+.elzTheme-dark .bgChkLInvD:checked:checked,
+.elzTheme-dark .cLblSib:checked:checked + .bgLblLingLInvD,
+.elzTheme-dark .cLbtSib:checked:checked ~ .bgLbtLingLInvD,
+.elzTheme-dark .bgFocLInvD:focus:focus,
+.elzTheme-dark .bgFowLInvD:focus-within:focus-within { --bg-L-mod-inv: -1; }
+
+.elzTheme-light .cFInvL,
+.elzTheme-light .bgFInvL,
+.elzTheme-light .bgHovFInvL:hover,  .elzTheme-light .cHovOut:hover  .bgHovInFInvL, .elzTheme-light .cHovOut1:hover  .bgHovIn1FInvL, .elzTheme-light .cHovOut2:hover  .bgHovIn2FInvL,
+.elzTheme-light .bgHovFInvL:active, .elzTheme-light .cHovOut:active .bgHovInFInvL, .elzTheme-light .cHovOut1:active .bgHovIn1FInvL, .elzTheme-light .cHovOut2:active .bgHovIn2FInvL,
+.elzTheme-light .bgActFInvL:active:active, .elzTheme-light .cActOut:active:active .bgActInFInvL,
+.elzTheme-light .bgSelFInvL.sel.sel.sel,
+.elzTheme-light .cSelOut.sel.sel.sel .bgSelInFInvL, .elzTheme-light .cSelOut1.sel.sel.sel .bgSelIn1FInvL, .elzTheme-light .cSelOut2.sel.sel.sel .bgSelIn2FInvL,
+.elzTheme-light .bgChkFInvL:checked:checked,
+.elzTheme-light .cLblSib:checked:checked + .bgLblLingFInvL,
+.elzTheme-light .cLbtSib:checked:checked ~ .bgLbtLingFInvL,
+.elzTheme-light .bgFocFInvL:focus:focus,
+.elzTheme-light .bgFowFInvL:focus-within:focus-within,
+
+.elzTheme-dark .cFInvD,
+.elzTheme-dark .bgFInvD,
+.elzTheme-dark .bgHovFInvD:hover,  .elzTheme-dark .cHovOut:hover  .bgHovInFInvD, .elzTheme-dark .cHovOut1:hover  .bgHovIn1FInvD, .elzTheme-dark .cHovOut2:hover  .bgHovIn2FInvD,
+.elzTheme-dark .bgHovFInvD:active, .elzTheme-dark .cHovOut:active .bgHovInFInvD, .elzTheme-dark .cHovOut1:active .bgHovIn1FInvD, .elzTheme-dark .cHovOut2:active .bgHovIn2FInvD,
+.elzTheme-dark .bgActFInvD:active:active, .elzTheme-dark .cActOut:active:active .bgActInFInvD,
+.elzTheme-dark .bgSelFInvD.sel.sel.sel,
+.elzTheme-dark .cSelOut.sel.sel.sel .bgSelInFInvD, .elzTheme-dark .cSelOut1.sel.sel.sel .bgSelIn1FInvD, .elzTheme-dark .cSelOut2.sel.sel.sel .bgSelIn2FInvD,
+.elzTheme-dark .bgChkFInvD:checked:checked,
+.elzTheme-dark .cLblSib:checked:checked + .bgLblLingFInvD,
+.elzTheme-dark .cLbtSib:checked:checked ~ .bgLbtLingFInvD,
+.elzTheme-dark .bgFocFInvD:focus:focus,
+.elzTheme-dark .bgFowFInvD:focus-within:focus-within { --bg-L-factor-inv: -1; }
+
+.elzTheme-dark .cFL,
+.elzTheme-dark .bgFL,
+.elzTheme-dark .bgHovFL:hover,  .elzTheme-dark .cHovOut:hover  .bgHovInFL, .elzTheme-dark .cHovOut1:hover  .bgHovIn1FL, .elzTheme-dark .cHovOut2:hover  .bgHovIn2FL,
+.elzTheme-dark .bgHovFL:active, .elzTheme-dark .cHovOut:active .bgHovInFL, .elzTheme-dark .cHovOut1:active .bgHovIn1FL, .elzTheme-dark .cHovOut2:active .bgHovIn2FL,
+.elzTheme-dark .bgActFL:active:active, .elzTheme-dark .cActOut:active:active .bgActInFL,
+.elzTheme-dark .bgSelFL.sel.sel.sel,
+.elzTheme-dark .cSelOut.sel.sel.sel .bgSelInFL, .elzTheme-dark .cSelOut1.sel.sel.sel .bgSelIn1FL, .elzTheme-dark .cSelOut2.sel.sel.sel .bgSelIn2FL,
+.elzTheme-dark .bgChkFL:checked:checked,
+.elzTheme-dark .cLblSib:checked:checked + .bgLblLingFL,
+.elzTheme-dark .cLbtSib:checked:checked ~ .bgLbtLingFL,
+.elzTheme-dark .bgFocFL:focus:focus,
+.elzTheme-dark .bgFowFL:focus-within:focus-within,
+
+.elzTheme-light .cFD,
+.elzTheme-light .bgFD,
+.elzTheme-light .bgHovFD:hover,  .elzTheme-light .cHovOut:hover  .bgHovInFD, .elzTheme-light .cHovOut1:hover  .bgHovIn1FD, .elzTheme-light .cHovOut2:hover  .bgHovIn2FD,
+.elzTheme-light .bgHovFD:active, .elzTheme-light .cHovOut:active .bgHovInFD, .elzTheme-light .cHovOut1:active .bgHovIn1FD, .elzTheme-light .cHovOut2:active .bgHovIn2FD,
+.elzTheme-light .bgActFD:active:active, .elzTheme-light .cActOut:active:active .bgActInFD,
+.elzTheme-light .bgSelFD.sel.sel.sel,
+.elzTheme-light .cSelOut.sel.sel.sel .bgSelInFD, .elzTheme-light .cSelOut1.sel.sel.sel .bgSelIn1FD, .elzTheme-light .cSelOut2.sel.sel.sel .bgSelIn2FD,
+.elzTheme-light .bgChkFD:checked:checked,
+.elzTheme-light .cLblSib:checked:checked + .bgLblLingFD,
+.elzTheme-light .cLbtSib:checked:checked ~ .bgLbtLingFD,
+.elzTheme-light .bgFocFD:focus:focus,
+.elzTheme-light .bgFowFD:focus-within:focus-within { --bg-L-factor-inv: 0; }
+
+/* HSLA(L) */
+
+.bgLF0,  .bgHovLF0:hover,   .cHovOut:hover  .bgHovInLF0,  .cHovOut1:hover  .bgHovIn1LF0,  .cHovOut2:hover  .bgHovIn2LF0,  .bgHovLF0:active,  .cHovOut:active .bgHovInLF0,  .cHovOut1:active .bgHovIn1LF0,  .cHovOut2:active .bgHovIn2LF0,  .bgActLF0:active:active,  .cActOut:active:active .bgActInLF0,  .bgSelLF0.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInLF0,  .cSelOut1.sel.sel.sel .bgSelIn1LF0,  .cSelOut2.sel.sel.sel .bgSelIn2LF0,  .bgChkLF0:checked:checked,  .cLblSib:checked:checked + .bgLblLingLF0,  .cLbtSib:checked:checked ~ .bgLbtLingLF0,  .bgFocLF0:focus:focus,  .bgFowLF0:focus-within:focus-within  { --bg-L-factor:  0%; }
+.bgLF5,  .bgHovLF5:hover,   .cHovOut:hover  .bgHovInLF5,  .cHovOut1:hover  .bgHovIn1LF5,  .cHovOut2:hover  .bgHovIn2LF5,  .bgHovLF5:active,  .cHovOut:active .bgHovInLF5,  .cHovOut1:active .bgHovIn1LF5,  .cHovOut2:active .bgHovIn2LF5,  .bgActLF5:active:active,  .cActOut:active:active .bgActInLF5,  .bgSelLF5.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInLF5,  .cSelOut1.sel.sel.sel .bgSelIn1LF5,  .cSelOut2.sel.sel.sel .bgSelIn2LF5,  .bgChkLF5:checked:checked,  .cLblSib:checked:checked + .bgLblLingLF5,  .cLbtSib:checked:checked ~ .bgLbtLingLF5,  .bgFocLF5:focus:focus,  .bgFowLF5:focus-within:focus-within  { --bg-L-factor:  5%; }
+.bgLF10, .bgHovLF10:hover,  .cHovOut:hover  .bgHovInLF10, .cHovOut1:hover  .bgHovIn1LF10, .cHovOut2:hover  .bgHovIn2LF10, .bgHovLF10:active, .cHovOut:active .bgHovInLF10, .cHovOut1:active .bgHovIn1LF10, .cHovOut2:active .bgHovIn2LF10, .bgActLF10:active:active, .cActOut:active:active .bgActInLF10, .bgSelLF10.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF10, .cSelOut1.sel.sel.sel .bgSelIn1LF10, .cSelOut2.sel.sel.sel .bgSelIn2LF10, .bgChkLF10:checked:checked, .cLblSib:checked:checked + .bgLblLingLF10, .cLbtSib:checked:checked ~ .bgLbtLingLF10, .bgFocLF10:focus:focus, .bgFowLF10:focus-within:focus-within { --bg-L-factor: 10%; }
+.bgLF15, .bgHovLF15:hover,  .cHovOut:hover  .bgHovInLF15, .cHovOut1:hover  .bgHovIn1LF15, .cHovOut2:hover  .bgHovIn2LF15, .bgHovLF15:active, .cHovOut:active .bgHovInLF15, .cHovOut1:active .bgHovIn1LF15, .cHovOut2:active .bgHovIn2LF15, .bgActLF15:active:active, .cActOut:active:active .bgActInLF15, .bgSelLF15.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF15, .cSelOut1.sel.sel.sel .bgSelIn1LF15, .cSelOut2.sel.sel.sel .bgSelIn2LF15, .bgChkLF15:checked:checked, .cLblSib:checked:checked + .bgLblLingLF15, .cLbtSib:checked:checked ~ .bgLbtLingLF15, .bgFocLF15:focus:focus, .bgFowLF15:focus-within:focus-within { --bg-L-factor: 15%; }
+.bgLF20, .bgHovLF20:hover,  .cHovOut:hover  .bgHovInLF20, .cHovOut1:hover  .bgHovIn1LF20, .cHovOut2:hover  .bgHovIn2LF20, .bgHovLF20:active, .cHovOut:active .bgHovInLF20, .cHovOut1:active .bgHovIn1LF20, .cHovOut2:active .bgHovIn2LF20, .bgActLF20:active:active, .cActOut:active:active .bgActInLF20, .bgSelLF20.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF20, .cSelOut1.sel.sel.sel .bgSelIn1LF20, .cSelOut2.sel.sel.sel .bgSelIn2LF20, .bgChkLF20:checked:checked, .cLblSib:checked:checked + .bgLblLingLF20, .cLbtSib:checked:checked ~ .bgLbtLingLF20, .bgFocLF20:focus:focus, .bgFowLF20:focus-within:focus-within { --bg-L-factor: 20%; }
+.bgLF25, .bgHovLF25:hover,  .cHovOut:hover  .bgHovInLF25, .cHovOut1:hover  .bgHovIn1LF25, .cHovOut2:hover  .bgHovIn2LF25, .bgHovLF25:active, .cHovOut:active .bgHovInLF25, .cHovOut1:active .bgHovIn1LF25, .cHovOut2:active .bgHovIn2LF25, .bgActLF25:active:active, .cActOut:active:active .bgActInLF25, .bgSelLF25.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF25, .cSelOut1.sel.sel.sel .bgSelIn1LF25, .cSelOut2.sel.sel.sel .bgSelIn2LF25, .bgChkLF25:checked:checked, .cLblSib:checked:checked + .bgLblLingLF25, .cLbtSib:checked:checked ~ .bgLbtLingLF25, .bgFocLF25:focus:focus, .bgFowLF25:focus-within:focus-within { --bg-L-factor: 25%; }
+.bgLF30, .bgHovLF30:hover,  .cHovOut:hover  .bgHovInLF30, .cHovOut1:hover  .bgHovIn1LF30, .cHovOut2:hover  .bgHovIn2LF30, .bgHovLF30:active, .cHovOut:active .bgHovInLF30, .cHovOut1:active .bgHovIn1LF30, .cHovOut2:active .bgHovIn2LF30, .bgActLF30:active:active, .cActOut:active:active .bgActInLF30, .bgSelLF30.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF30, .cSelOut1.sel.sel.sel .bgSelIn1LF30, .cSelOut2.sel.sel.sel .bgSelIn2LF30, .bgChkLF30:checked:checked, .cLblSib:checked:checked + .bgLblLingLF30, .cLbtSib:checked:checked ~ .bgLbtLingLF30, .bgFocLF30:focus:focus, .bgFowLF30:focus-within:focus-within { --bg-L-factor: 30%; }
+.bgLF40, .bgHovLF40:hover,  .cHovOut:hover  .bgHovInLF40, .cHovOut1:hover  .bgHovIn1LF40, .cHovOut2:hover  .bgHovIn2LF40, .bgHovLF40:active, .cHovOut:active .bgHovInLF40, .cHovOut1:active .bgHovIn1LF40, .cHovOut2:active .bgHovIn2LF40, .bgActLF40:active:active, .cActOut:active:active .bgActInLF40, .bgSelLF40.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF40, .cSelOut1.sel.sel.sel .bgSelIn1LF40, .cSelOut2.sel.sel.sel .bgSelIn2LF40, .bgChkLF40:checked:checked, .cLblSib:checked:checked + .bgLblLingLF40, .cLbtSib:checked:checked ~ .bgLbtLingLF40, .bgFocLF40:focus:focus, .bgFowLF40:focus-within:focus-within { --bg-L-factor: 40%; }
+.bgLF50, .bgHovLF50:hover,  .cHovOut:hover  .bgHovInLF50, .cHovOut1:hover  .bgHovIn1LF50, .cHovOut2:hover  .bgHovIn2LF50, .bgHovLF50:active, .cHovOut:active .bgHovInLF50, .cHovOut1:active .bgHovIn1LF50, .cHovOut2:active .bgHovIn2LF50, .bgActLF50:active:active, .cActOut:active:active .bgActInLF50, .bgSelLF50.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF50, .cSelOut1.sel.sel.sel .bgSelIn1LF50, .cSelOut2.sel.sel.sel .bgSelIn2LF50, .bgChkLF50:checked:checked, .cLblSib:checked:checked + .bgLblLingLF50, .cLbtSib:checked:checked ~ .bgLbtLingLF50, .bgFocLF50:focus:focus, .bgFowLF50:focus-within:focus-within { --bg-L-factor: 50%; }
+.bgLF60, .bgHovLF60:hover,  .cHovOut:hover  .bgHovInLF60, .cHovOut1:hover  .bgHovIn1LF60, .cHovOut2:hover  .bgHovIn2LF60, .bgHovLF60:active, .cHovOut:active .bgHovInLF60, .cHovOut1:active .bgHovIn1LF60, .cHovOut2:active .bgHovIn2LF60, .bgActLF60:active:active, .cActOut:active:active .bgActInLF60, .bgSelLF60.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF60, .cSelOut1.sel.sel.sel .bgSelIn1LF60, .cSelOut2.sel.sel.sel .bgSelIn2LF60, .bgChkLF60:checked:checked, .cLblSib:checked:checked + .bgLblLingLF60, .cLbtSib:checked:checked ~ .bgLbtLingLF60, .bgFocLF60:focus:focus, .bgFowLF60:focus-within:focus-within { --bg-L-factor: 60%; }
+.bgLF70, .bgHovLF70:hover,  .cHovOut:hover  .bgHovInLF70, .cHovOut1:hover  .bgHovIn1LF70, .cHovOut2:hover  .bgHovIn2LF70, .bgHovLF70:active, .cHovOut:active .bgHovInLF70, .cHovOut1:active .bgHovIn1LF70, .cHovOut2:active .bgHovIn2LF70, .bgActLF70:active:active, .cActOut:active:active .bgActInLF70, .bgSelLF70.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF70, .cSelOut1.sel.sel.sel .bgSelIn1LF70, .cSelOut2.sel.sel.sel .bgSelIn2LF70, .bgChkLF70:checked:checked, .cLblSib:checked:checked + .bgLblLingLF70, .cLbtSib:checked:checked ~ .bgLbtLingLF70, .bgFocLF70:focus:focus, .bgFowLF70:focus-within:focus-within { --bg-L-factor: 70%; }
+.bgLF80, .bgHovLF80:hover,  .cHovOut:hover  .bgHovInLF80, .cHovOut1:hover  .bgHovIn1LF80, .cHovOut2:hover  .bgHovIn2LF80, .bgHovLF80:active, .cHovOut:active .bgHovInLF80, .cHovOut1:active .bgHovIn1LF80, .cHovOut2:active .bgHovIn2LF80, .bgActLF80:active:active, .cActOut:active:active .bgActInLF80, .bgSelLF80.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF80, .cSelOut1.sel.sel.sel .bgSelIn1LF80, .cSelOut2.sel.sel.sel .bgSelIn2LF80, .bgChkLF80:checked:checked, .cLblSib:checked:checked + .bgLblLingLF80, .cLbtSib:checked:checked ~ .bgLbtLingLF80, .bgFocLF80:focus:focus, .bgFowLF80:focus-within:focus-within { --bg-L-factor: 80%; }
+.bgLF90, .bgHovLF90:hover,  .cHovOut:hover  .bgHovInLF90, .cHovOut1:hover  .bgHovIn1LF90, .cHovOut2:hover  .bgHovIn2LF90, .bgHovLF90:active, .cHovOut:active .bgHovInLF90, .cHovOut1:active .bgHovIn1LF90, .cHovOut2:active .bgHovIn2LF90, .bgActLF90:active:active, .cActOut:active:active .bgActInLF90, .bgSelLF90.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF90, .cSelOut1.sel.sel.sel .bgSelIn1LF90, .cSelOut2.sel.sel.sel .bgSelIn2LF90, .bgChkLF90:checked:checked, .cLblSib:checked:checked + .bgLblLingLF90, .cLbtSib:checked:checked ~ .bgLbtLingLF90, .bgFocLF90:focus:focus, .bgFowLF90:focus-within:focus-within { --bg-L-factor: 90%; }
+
+.bgLF-5,  .bgHovLF-5:hover,   .cHovOut:hover  .bgHovInLF-5,  .cHovOut1:hover  .bgHovIn1LF-5,  .cHovOut2:hover  .bgHovIn2LF-5,  .bgHovLF-5:active,  .cHovOut:active .bgHovInLF-5,  .cHovOut1:active .bgHovIn1LF-5,  .cHovOut2:active .bgHovIn2LF-5,  .bgActLF-5:active:active,  .cActOut:active:active .bgActInLF-5,  .bgSelLF-5.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInLF-5,  .cSelOut1.sel.sel.sel .bgSelIn1LF-5,  .cSelOut2.sel.sel.sel .bgSelIn2LF-5,  .bgChkLF-5:checked:checked,  .cLblSib:checked:checked + .bgLblLingLF-5,  .cLbtSib:checked:checked ~ .bgLbtLingLF-5,  .bgFocLF-5:focus:focus,  .bgFowLF-5:focus-within:focus-within  { --bg-L-factor:  -5%; }
+.bgLF-10, .bgHovLF-10:hover,  .cHovOut:hover  .bgHovInLF-10, .cHovOut1:hover  .bgHovIn1LF-10, .cHovOut2:hover  .bgHovIn2LF-10, .bgHovLF-10:active, .cHovOut:active .bgHovInLF-10, .cHovOut1:active .bgHovIn1LF-10, .cHovOut2:active .bgHovIn2LF-10, .bgActLF-10:active:active, .cActOut:active:active .bgActInLF-10, .bgSelLF-10.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF-10, .cSelOut1.sel.sel.sel .bgSelIn1LF-10, .cSelOut2.sel.sel.sel .bgSelIn2LF-10, .bgChkLF-10:checked:checked, .cLblSib:checked:checked + .bgLblLingLF-10, .cLbtSib:checked:checked ~ .bgLbtLingLF-10, .bgFocLF-10:focus:focus, .bgFowLF-10:focus-within:focus-within { --bg-L-factor: -10%; }
+.bgLF-15, .bgHovLF-15:hover,  .cHovOut:hover  .bgHovInLF-15, .cHovOut1:hover  .bgHovIn1LF-15, .cHovOut2:hover  .bgHovIn2LF-15, .bgHovLF-15:active, .cHovOut:active .bgHovInLF-15, .cHovOut1:active .bgHovIn1LF-15, .cHovOut2:active .bgHovIn2LF-15, .bgActLF-15:active:active, .cActOut:active:active .bgActInLF-15, .bgSelLF-15.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF-15, .cSelOut1.sel.sel.sel .bgSelIn1LF-15, .cSelOut2.sel.sel.sel .bgSelIn2LF-15, .bgChkLF-15:checked:checked, .cLblSib:checked:checked + .bgLblLingLF-15, .cLbtSib:checked:checked ~ .bgLbtLingLF-15, .bgFocLF-15:focus:focus, .bgFowLF-15:focus-within:focus-within { --bg-L-factor: -15%; }
+.bgLF-20, .bgHovLF-20:hover,  .cHovOut:hover  .bgHovInLF-20, .cHovOut1:hover  .bgHovIn1LF-20, .cHovOut2:hover  .bgHovIn2LF-20, .bgHovLF-20:active, .cHovOut:active .bgHovInLF-20, .cHovOut1:active .bgHovIn1LF-20, .cHovOut2:active .bgHovIn2LF-20, .bgActLF-20:active:active, .cActOut:active:active .bgActInLF-20, .bgSelLF-20.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF-20, .cSelOut1.sel.sel.sel .bgSelIn1LF-20, .cSelOut2.sel.sel.sel .bgSelIn2LF-20, .bgChkLF-20:checked:checked, .cLblSib:checked:checked + .bgLblLingLF-20, .cLbtSib:checked:checked ~ .bgLbtLingLF-20, .bgFocLF-20:focus:focus, .bgFowLF-20:focus-within:focus-within { --bg-L-factor: -20%; }
+.bgLF-25, .bgHovLF-25:hover,  .cHovOut:hover  .bgHovInLF-25, .cHovOut1:hover  .bgHovIn1LF-25, .cHovOut2:hover  .bgHovIn2LF-25, .bgHovLF-25:active, .cHovOut:active .bgHovInLF-25, .cHovOut1:active .bgHovIn1LF-25, .cHovOut2:active .bgHovIn2LF-25, .bgActLF-25:active:active, .cActOut:active:active .bgActInLF-25, .bgSelLF-25.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF-25, .cSelOut1.sel.sel.sel .bgSelIn1LF-25, .cSelOut2.sel.sel.sel .bgSelIn2LF-25, .bgChkLF-25:checked:checked, .cLblSib:checked:checked + .bgLblLingLF-25, .cLbtSib:checked:checked ~ .bgLbtLingLF-25, .bgFocLF-25:focus:focus, .bgFowLF-25:focus-within:focus-within { --bg-L-factor: -25%; }
+.bgLF-30, .bgHovLF-30:hover,  .cHovOut:hover  .bgHovInLF-30, .cHovOut1:hover  .bgHovIn1LF-30, .cHovOut2:hover  .bgHovIn2LF-30, .bgHovLF-30:active, .cHovOut:active .bgHovInLF-30, .cHovOut1:active .bgHovIn1LF-30, .cHovOut2:active .bgHovIn2LF-30, .bgActLF-30:active:active, .cActOut:active:active .bgActInLF-30, .bgSelLF-30.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF-30, .cSelOut1.sel.sel.sel .bgSelIn1LF-30, .cSelOut2.sel.sel.sel .bgSelIn2LF-30, .bgChkLF-30:checked:checked, .cLblSib:checked:checked + .bgLblLingLF-30, .cLbtSib:checked:checked ~ .bgLbtLingLF-30, .bgFocLF-30:focus:focus, .bgFowLF-30:focus-within:focus-within { --bg-L-factor: -30%; }
+.bgLF-40, .bgHovLF-40:hover,  .cHovOut:hover  .bgHovInLF-40, .cHovOut1:hover  .bgHovIn1LF-40, .cHovOut2:hover  .bgHovIn2LF-40, .bgHovLF-40:active, .cHovOut:active .bgHovInLF-40, .cHovOut1:active .bgHovIn1LF-40, .cHovOut2:active .bgHovIn2LF-40, .bgActLF-40:active:active, .cActOut:active:active .bgActInLF-40, .bgSelLF-40.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF-40, .cSelOut1.sel.sel.sel .bgSelIn1LF-40, .cSelOut2.sel.sel.sel .bgSelIn2LF-40, .bgChkLF-40:checked:checked, .cLblSib:checked:checked + .bgLblLingLF-40, .cLbtSib:checked:checked ~ .bgLbtLingLF-40, .bgFocLF-40:focus:focus, .bgFowLF-40:focus-within:focus-within { --bg-L-factor: -40%; }
+.bgLF-50, .bgHovLF-50:hover,  .cHovOut:hover  .bgHovInLF-50, .cHovOut1:hover  .bgHovIn1LF-50, .cHovOut2:hover  .bgHovIn2LF-50, .bgHovLF-50:active, .cHovOut:active .bgHovInLF-50, .cHovOut1:active .bgHovIn1LF-50, .cHovOut2:active .bgHovIn2LF-50, .bgActLF-50:active:active, .cActOut:active:active .bgActInLF-50, .bgSelLF-50.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF-50, .cSelOut1.sel.sel.sel .bgSelIn1LF-50, .cSelOut2.sel.sel.sel .bgSelIn2LF-50, .bgChkLF-50:checked:checked, .cLblSib:checked:checked + .bgLblLingLF-50, .cLbtSib:checked:checked ~ .bgLbtLingLF-50, .bgFocLF-50:focus:focus, .bgFowLF-50:focus-within:focus-within { --bg-L-factor: -50%; }
+.bgLF-60, .bgHovLF-60:hover,  .cHovOut:hover  .bgHovInLF-60, .cHovOut1:hover  .bgHovIn1LF-60, .cHovOut2:hover  .bgHovIn2LF-60, .bgHovLF-60:active, .cHovOut:active .bgHovInLF-60, .cHovOut1:active .bgHovIn1LF-60, .cHovOut2:active .bgHovIn2LF-60, .bgActLF-60:active:active, .cActOut:active:active .bgActInLF-60, .bgSelLF-60.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF-60, .cSelOut1.sel.sel.sel .bgSelIn1LF-60, .cSelOut2.sel.sel.sel .bgSelIn2LF-60, .bgChkLF-60:checked:checked, .cLblSib:checked:checked + .bgLblLingLF-60, .cLbtSib:checked:checked ~ .bgLbtLingLF-60, .bgFocLF-60:focus:focus, .bgFowLF-60:focus-within:focus-within { --bg-L-factor: -60%; }
+.bgLF-70, .bgHovLF-70:hover,  .cHovOut:hover  .bgHovInLF-70, .cHovOut1:hover  .bgHovIn1LF-70, .cHovOut2:hover  .bgHovIn2LF-70, .bgHovLF-70:active, .cHovOut:active .bgHovInLF-70, .cHovOut1:active .bgHovIn1LF-70, .cHovOut2:active .bgHovIn2LF-70, .bgActLF-70:active:active, .cActOut:active:active .bgActInLF-70, .bgSelLF-70.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF-70, .cSelOut1.sel.sel.sel .bgSelIn1LF-70, .cSelOut2.sel.sel.sel .bgSelIn2LF-70, .bgChkLF-70:checked:checked, .cLblSib:checked:checked + .bgLblLingLF-70, .cLbtSib:checked:checked ~ .bgLbtLingLF-70, .bgFocLF-70:focus:focus, .bgFowLF-70:focus-within:focus-within { --bg-L-factor: -70%; }
+.bgLF-80, .bgHovLF-80:hover,  .cHovOut:hover  .bgHovInLF-80, .cHovOut1:hover  .bgHovIn1LF-80, .cHovOut2:hover  .bgHovIn2LF-80, .bgHovLF-80:active, .cHovOut:active .bgHovInLF-80, .cHovOut1:active .bgHovIn1LF-80, .cHovOut2:active .bgHovIn2LF-80, .bgActLF-80:active:active, .cActOut:active:active .bgActInLF-80, .bgSelLF-80.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF-80, .cSelOut1.sel.sel.sel .bgSelIn1LF-80, .cSelOut2.sel.sel.sel .bgSelIn2LF-80, .bgChkLF-80:checked:checked, .cLblSib:checked:checked + .bgLblLingLF-80, .cLbtSib:checked:checked ~ .bgLbtLingLF-80, .bgFocLF-80:focus:focus, .bgFowLF-80:focus-within:focus-within { --bg-L-factor: -80%; }
+.bgLF-90, .bgHovLF-90:hover,  .cHovOut:hover  .bgHovInLF-90, .cHovOut1:hover  .bgHovIn1LF-90, .cHovOut2:hover  .bgHovIn2LF-90, .bgHovLF-90:active, .cHovOut:active .bgHovInLF-90, .cHovOut1:active .bgHovIn1LF-90, .cHovOut2:active .bgHovIn2LF-90, .bgActLF-90:active:active, .cActOut:active:active .bgActInLF-90, .bgSelLF-90.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInLF-90, .cSelOut1.sel.sel.sel .bgSelIn1LF-90, .cSelOut2.sel.sel.sel .bgSelIn2LF-90, .bgChkLF-90:checked:checked, .cLblSib:checked:checked + .bgLblLingLF-90, .cLbtSib:checked:checked ~ .bgLbtLingLF-90, .bgFocLF-90:focus:focus, .bgFowLF-90:focus-within:focus-within { --bg-L-factor: -90%; }
+
+.bgL0, .bgHovL0:hover, .cHovOut:hover  .bgHovInL0, .cHovOut1:hover  .bgHovIn1L0, .cHovOut2:hover  .bgHovIn2L0, .bgHovL0:active, .cHovOut:active .bgHovInL0, .cHovOut1:active .bgHovIn1L0, .cHovOut2:active .bgHovIn2L0, .bgActL0:active:active, .cActOut:active:active .bgActInL0, .bgSelL0.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL0, .bgChkL0:checked:checked, .cLblSib:checked:checked + .bgLblLingL0, .cLbtSib:checked:checked ~ .bgLbtLingL0, .bgFocL0:focus:focus, .bgFowL0:focus-within:focus-within { --bg-L-mod: 0%; }
+.bgL1, .bgHovL1:hover, .cHovOut:hover  .bgHovInL1, .cHovOut1:hover  .bgHovIn1L1, .cHovOut2:hover  .bgHovIn2L1, .bgHovL1:active, .cHovOut:active .bgHovInL1, .cHovOut1:active .bgHovIn1L1, .cHovOut2:active .bgHovIn2L1, .bgActL1:active:active, .cActOut:active:active .bgActInL1, .bgSelL1.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL1, .bgChkL1:checked:checked, .cLblSib:checked:checked + .bgLblLingL1, .cLbtSib:checked:checked ~ .bgLbtLingL1, .bgFocL1:focus:focus, .bgFowL1:focus-within:focus-within { --bg-L-mod: 1%; }
+.bgL2, .bgHovL2:hover, .cHovOut:hover  .bgHovInL2, .cHovOut1:hover  .bgHovIn1L2, .cHovOut2:hover  .bgHovIn2L2, .bgHovL2:active, .cHovOut:active .bgHovInL2, .cHovOut1:active .bgHovIn1L2, .cHovOut2:active .bgHovIn2L2, .bgActL2:active:active, .cActOut:active:active .bgActInL2, .bgSelL2.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL2, .bgChkL2:checked:checked, .cLblSib:checked:checked + .bgLblLingL2, .cLbtSib:checked:checked ~ .bgLbtLingL2, .bgFocL2:focus:focus, .bgFowL2:focus-within:focus-within { --bg-L-mod: 2%; }
+.bgL3, .bgHovL3:hover, .cHovOut:hover  .bgHovInL3, .cHovOut1:hover  .bgHovIn1L3, .cHovOut2:hover  .bgHovIn2L3, .bgHovL3:active, .cHovOut:active .bgHovInL3, .cHovOut1:active .bgHovIn1L3, .cHovOut2:active .bgHovIn2L3, .bgActL3:active:active, .cActOut:active:active .bgActInL3, .bgSelL3.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL3, .bgChkL3:checked:checked, .cLblSib:checked:checked + .bgLblLingL3, .cLbtSib:checked:checked ~ .bgLbtLingL3, .bgFocL3:focus:focus, .bgFowL3:focus-within:focus-within { --bg-L-mod: 3%; }
+.bgL4, .bgHovL4:hover, .cHovOut:hover  .bgHovInL4, .cHovOut1:hover  .bgHovIn1L4, .cHovOut2:hover  .bgHovIn2L4, .bgHovL4:active, .cHovOut:active .bgHovInL4, .cHovOut1:active .bgHovIn1L4, .cHovOut2:active .bgHovIn2L4, .bgActL4:active:active, .cActOut:active:active .bgActInL4, .bgSelL4.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL4, .bgChkL4:checked:checked, .cLblSib:checked:checked + .bgLblLingL4, .cLbtSib:checked:checked ~ .bgLbtLingL4, .bgFocL4:focus:focus, .bgFowL4:focus-within:focus-within { --bg-L-mod: 4%; }
+.bgL5, .bgHovL5:hover, .cHovOut:hover  .bgHovInL5, .cHovOut1:hover  .bgHovIn1L5, .cHovOut2:hover  .bgHovIn2L5, .bgHovL5:active, .cHovOut:active .bgHovInL5, .cHovOut1:active .bgHovIn1L5, .cHovOut2:active .bgHovIn2L5, .bgActL5:active:active, .cActOut:active:active .bgActInL5, .bgSelL5.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL5, .bgChkL5:checked:checked, .cLblSib:checked:checked + .bgLblLingL5, .cLbtSib:checked:checked ~ .bgLbtLingL5, .bgFocL5:focus:focus, .bgFowL5:focus-within:focus-within { --bg-L-mod: 5%; }
+.bgL6, .bgHovL6:hover, .cHovOut:hover  .bgHovInL6, .cHovOut1:hover  .bgHovIn1L6, .cHovOut2:hover  .bgHovIn2L6, .bgHovL6:active, .cHovOut:active .bgHovInL6, .cHovOut1:active .bgHovIn1L6, .cHovOut2:active .bgHovIn2L6, .bgActL6:active:active, .cActOut:active:active .bgActInL6, .bgSelL6.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL6, .bgChkL6:checked:checked, .cLblSib:checked:checked + .bgLblLingL6, .cLbtSib:checked:checked ~ .bgLbtLingL6, .bgFocL6:focus:focus, .bgFowL6:focus-within:focus-within { --bg-L-mod: 6%; }
+.bgL7, .bgHovL7:hover, .cHovOut:hover  .bgHovInL7, .cHovOut1:hover  .bgHovIn1L7, .cHovOut2:hover  .bgHovIn2L7, .bgHovL7:active, .cHovOut:active .bgHovInL7, .cHovOut1:active .bgHovIn1L7, .cHovOut2:active .bgHovIn2L7, .bgActL7:active:active, .cActOut:active:active .bgActInL7, .bgSelL7.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL7, .bgChkL7:checked:checked, .cLblSib:checked:checked + .bgLblLingL7, .cLbtSib:checked:checked ~ .bgLbtLingL7, .bgFocL7:focus:focus, .bgFowL7:focus-within:focus-within { --bg-L-mod: 7%; }
+.bgL8, .bgHovL8:hover, .cHovOut:hover  .bgHovInL8, .cHovOut1:hover  .bgHovIn1L8, .cHovOut2:hover  .bgHovIn2L8, .bgHovL8:active, .cHovOut:active .bgHovInL8, .cHovOut1:active .bgHovIn1L8, .cHovOut2:active .bgHovIn2L8, .bgActL8:active:active, .cActOut:active:active .bgActInL8, .bgSelL8.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL8, .bgChkL8:checked:checked, .cLblSib:checked:checked + .bgLblLingL8, .cLbtSib:checked:checked ~ .bgLbtLingL8, .bgFocL8:focus:focus, .bgFowL8:focus-within:focus-within { --bg-L-mod: 8%; }
+.bgL9, .bgHovL9:hover, .cHovOut:hover  .bgHovInL9, .cHovOut1:hover  .bgHovIn1L9, .cHovOut2:hover  .bgHovIn2L9, .bgHovL9:active, .cHovOut:active .bgHovInL9, .cHovOut1:active .bgHovIn1L9, .cHovOut2:active .bgHovIn2L9, .bgActL9:active:active, .cActOut:active:active .bgActInL9, .bgSelL9.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL9, .bgChkL9:checked:checked, .cLblSib:checked:checked + .bgLblLingL9, .cLbtSib:checked:checked ~ .bgLbtLingL9, .bgFocL9:focus:focus, .bgFowL9:focus-within:focus-within { --bg-L-mod: 9%; }
+
+.bgL10, .bgHovL10:hover, .cHovOut:hover  .bgHovInL10, .cHovOut1:hover  .bgHovIn1L10, .cHovOut2:hover  .bgHovIn2L10, .bgHovL10:active, .cHovOut:active .bgHovInL10, .cHovOut1:active .bgHovIn1L10, .cHovOut2:active .bgHovIn2L10, .bgActL10:active:active, .cActOut:active:active .bgActInL10, .bgSelL10.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL10, .bgChkL10:checked:checked, .cLblSib:checked:checked + .bgLblLingL10, .cLbtSib:checked:checked ~ .bgLbtLingL10, .bgFocL10:focus:focus, .bgFowL10:focus-within:focus-within { --bg-L-mod: 10%; }
+.bgL11, .bgHovL11:hover, .cHovOut:hover  .bgHovInL11, .cHovOut1:hover  .bgHovIn1L11, .cHovOut2:hover  .bgHovIn2L11, .bgHovL11:active, .cHovOut:active .bgHovInL11, .cHovOut1:active .bgHovIn1L11, .cHovOut2:active .bgHovIn2L11, .bgActL11:active:active, .cActOut:active:active .bgActInL11, .bgSelL11.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL11, .bgChkL11:checked:checked, .cLblSib:checked:checked + .bgLblLingL11, .cLbtSib:checked:checked ~ .bgLbtLingL11, .bgFocL11:focus:focus, .bgFowL11:focus-within:focus-within { --bg-L-mod: 11%; }
+.bgL12, .bgHovL12:hover, .cHovOut:hover  .bgHovInL12, .cHovOut1:hover  .bgHovIn1L12, .cHovOut2:hover  .bgHovIn2L12, .bgHovL12:active, .cHovOut:active .bgHovInL12, .cHovOut1:active .bgHovIn1L12, .cHovOut2:active .bgHovIn2L12, .bgActL12:active:active, .cActOut:active:active .bgActInL12, .bgSelL12.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL12, .bgChkL12:checked:checked, .cLblSib:checked:checked + .bgLblLingL12, .cLbtSib:checked:checked ~ .bgLbtLingL12, .bgFocL12:focus:focus, .bgFowL12:focus-within:focus-within { --bg-L-mod: 12%; }
+.bgL13, .bgHovL13:hover, .cHovOut:hover  .bgHovInL13, .cHovOut1:hover  .bgHovIn1L13, .cHovOut2:hover  .bgHovIn2L13, .bgHovL13:active, .cHovOut:active .bgHovInL13, .cHovOut1:active .bgHovIn1L13, .cHovOut2:active .bgHovIn2L13, .bgActL13:active:active, .cActOut:active:active .bgActInL13, .bgSelL13.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL13, .bgChkL13:checked:checked, .cLblSib:checked:checked + .bgLblLingL13, .cLbtSib:checked:checked ~ .bgLbtLingL13, .bgFocL13:focus:focus, .bgFowL13:focus-within:focus-within { --bg-L-mod: 13%; }
+.bgL14, .bgHovL14:hover, .cHovOut:hover  .bgHovInL14, .cHovOut1:hover  .bgHovIn1L14, .cHovOut2:hover  .bgHovIn2L14, .bgHovL14:active, .cHovOut:active .bgHovInL14, .cHovOut1:active .bgHovIn1L14, .cHovOut2:active .bgHovIn2L14, .bgActL14:active:active, .cActOut:active:active .bgActInL14, .bgSelL14.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL14, .bgChkL14:checked:checked, .cLblSib:checked:checked + .bgLblLingL14, .cLbtSib:checked:checked ~ .bgLbtLingL14, .bgFocL14:focus:focus, .bgFowL14:focus-within:focus-within { --bg-L-mod: 14%; }
+.bgL15, .bgHovL15:hover, .cHovOut:hover  .bgHovInL15, .cHovOut1:hover  .bgHovIn1L15, .cHovOut2:hover  .bgHovIn2L15, .bgHovL15:active, .cHovOut:active .bgHovInL15, .cHovOut1:active .bgHovIn1L15, .cHovOut2:active .bgHovIn2L15, .bgActL15:active:active, .cActOut:active:active .bgActInL15, .bgSelL15.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL15, .bgChkL15:checked:checked, .cLblSib:checked:checked + .bgLblLingL15, .cLbtSib:checked:checked ~ .bgLbtLingL15, .bgFocL15:focus:focus, .bgFowL15:focus-within:focus-within { --bg-L-mod: 15%; }
+.bgL16, .bgHovL16:hover, .cHovOut:hover  .bgHovInL16, .cHovOut1:hover  .bgHovIn1L16, .cHovOut2:hover  .bgHovIn2L16, .bgHovL16:active, .cHovOut:active .bgHovInL16, .cHovOut1:active .bgHovIn1L16, .cHovOut2:active .bgHovIn2L16, .bgActL16:active:active, .cActOut:active:active .bgActInL16, .bgSelL16.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL16, .bgChkL16:checked:checked, .cLblSib:checked:checked + .bgLblLingL16, .cLbtSib:checked:checked ~ .bgLbtLingL16, .bgFocL16:focus:focus, .bgFowL16:focus-within:focus-within { --bg-L-mod: 16%; }
+.bgL17, .bgHovL17:hover, .cHovOut:hover  .bgHovInL17, .cHovOut1:hover  .bgHovIn1L17, .cHovOut2:hover  .bgHovIn2L17, .bgHovL17:active, .cHovOut:active .bgHovInL17, .cHovOut1:active .bgHovIn1L17, .cHovOut2:active .bgHovIn2L17, .bgActL17:active:active, .cActOut:active:active .bgActInL17, .bgSelL17.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL17, .bgChkL17:checked:checked, .cLblSib:checked:checked + .bgLblLingL17, .cLbtSib:checked:checked ~ .bgLbtLingL17, .bgFocL17:focus:focus, .bgFowL17:focus-within:focus-within { --bg-L-mod: 17%; }
+.bgL18, .bgHovL18:hover, .cHovOut:hover  .bgHovInL18, .cHovOut1:hover  .bgHovIn1L18, .cHovOut2:hover  .bgHovIn2L18, .bgHovL18:active, .cHovOut:active .bgHovInL18, .cHovOut1:active .bgHovIn1L18, .cHovOut2:active .bgHovIn2L18, .bgActL18:active:active, .cActOut:active:active .bgActInL18, .bgSelL18.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL18, .bgChkL18:checked:checked, .cLblSib:checked:checked + .bgLblLingL18, .cLbtSib:checked:checked ~ .bgLbtLingL18, .bgFocL18:focus:focus, .bgFowL18:focus-within:focus-within { --bg-L-mod: 18%; }
+.bgL19, .bgHovL19:hover, .cHovOut:hover  .bgHovInL19, .cHovOut1:hover  .bgHovIn1L19, .cHovOut2:hover  .bgHovIn2L19, .bgHovL19:active, .cHovOut:active .bgHovInL19, .cHovOut1:active .bgHovIn1L19, .cHovOut2:active .bgHovIn2L19, .bgActL19:active:active, .cActOut:active:active .bgActInL19, .bgSelL19.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL19, .bgChkL19:checked:checked, .cLblSib:checked:checked + .bgLblLingL19, .cLbtSib:checked:checked ~ .bgLbtLingL19, .bgFocL19:focus:focus, .bgFowL19:focus-within:focus-within { --bg-L-mod: 19%; }
+.bgL20, .bgHovL20:hover, .cHovOut:hover  .bgHovInL20, .cHovOut1:hover  .bgHovIn1L20, .cHovOut2:hover  .bgHovIn2L20, .bgHovL20:active, .cHovOut:active .bgHovInL20, .cHovOut1:active .bgHovIn1L20, .cHovOut2:active .bgHovIn2L20, .bgActL20:active:active, .cActOut:active:active .bgActInL20, .bgSelL20.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL20, .bgChkL20:checked:checked, .cLblSib:checked:checked + .bgLblLingL20, .cLbtSib:checked:checked ~ .bgLbtLingL20, .bgFocL20:focus:focus, .bgFowL20:focus-within:focus-within { --bg-L-mod: 20%; }
+
+.bgL-1, .bgHovL-1:hover, .cHovOut:hover  .bgHovInL-1, .cHovOut1:hover  .bgHovIn1L-1, .cHovOut2:hover  .bgHovIn2L-1, .bgHovL-1:active, .cHovOut:active .bgHovInL-1, .cHovOut1:active .bgHovIn1L-1, .cHovOut2:active .bgHovIn2L-1, .bgActL-1:active:active, .cActOut:active:active .bgActInL-1, .bgSelL-1.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-1, .bgChkL-1:checked:checked, .cLblSib:checked:checked + .bgLblLingL-1, .cLbtSib:checked:checked ~ .bgLbtLingL-1, .bgFocL-1:focus:focus, .bgFowL-1:focus-within:focus-within { --bg-L-mod: -1%; }
+.bgL-2, .bgHovL-2:hover, .cHovOut:hover  .bgHovInL-2, .cHovOut1:hover  .bgHovIn1L-2, .cHovOut2:hover  .bgHovIn2L-2, .bgHovL-2:active, .cHovOut:active .bgHovInL-2, .cHovOut1:active .bgHovIn1L-2, .cHovOut2:active .bgHovIn2L-2, .bgActL-2:active:active, .cActOut:active:active .bgActInL-2, .bgSelL-2.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-2, .bgChkL-2:checked:checked, .cLblSib:checked:checked + .bgLblLingL-2, .cLbtSib:checked:checked ~ .bgLbtLingL-2, .bgFocL-2:focus:focus, .bgFowL-2:focus-within:focus-within { --bg-L-mod: -2%; }
+.bgL-3, .bgHovL-3:hover, .cHovOut:hover  .bgHovInL-3, .cHovOut1:hover  .bgHovIn1L-3, .cHovOut2:hover  .bgHovIn2L-3, .bgHovL-3:active, .cHovOut:active .bgHovInL-3, .cHovOut1:active .bgHovIn1L-3, .cHovOut2:active .bgHovIn2L-3, .bgActL-3:active:active, .cActOut:active:active .bgActInL-3, .bgSelL-3.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-3, .bgChkL-3:checked:checked, .cLblSib:checked:checked + .bgLblLingL-3, .cLbtSib:checked:checked ~ .bgLbtLingL-3, .bgFocL-3:focus:focus, .bgFowL-3:focus-within:focus-within { --bg-L-mod: -3%; }
+.bgL-4, .bgHovL-4:hover, .cHovOut:hover  .bgHovInL-4, .cHovOut1:hover  .bgHovIn1L-4, .cHovOut2:hover  .bgHovIn2L-4, .bgHovL-4:active, .cHovOut:active .bgHovInL-4, .cHovOut1:active .bgHovIn1L-4, .cHovOut2:active .bgHovIn2L-4, .bgActL-4:active:active, .cActOut:active:active .bgActInL-4, .bgSelL-4.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-4, .bgChkL-4:checked:checked, .cLblSib:checked:checked + .bgLblLingL-4, .cLbtSib:checked:checked ~ .bgLbtLingL-4, .bgFocL-4:focus:focus, .bgFowL-4:focus-within:focus-within { --bg-L-mod: -4%; }
+.bgL-5, .bgHovL-5:hover, .cHovOut:hover  .bgHovInL-5, .cHovOut1:hover  .bgHovIn1L-5, .cHovOut2:hover  .bgHovIn2L-5, .bgHovL-5:active, .cHovOut:active .bgHovInL-5, .cHovOut1:active .bgHovIn1L-5, .cHovOut2:active .bgHovIn2L-5, .bgActL-5:active:active, .cActOut:active:active .bgActInL-5, .bgSelL-5.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-5, .bgChkL-5:checked:checked, .cLblSib:checked:checked + .bgLblLingL-5, .cLbtSib:checked:checked ~ .bgLbtLingL-5, .bgFocL-5:focus:focus, .bgFowL-5:focus-within:focus-within { --bg-L-mod: -5%; }
+.bgL-6, .bgHovL-6:hover, .cHovOut:hover  .bgHovInL-6, .cHovOut1:hover  .bgHovIn1L-6, .cHovOut2:hover  .bgHovIn2L-6, .bgHovL-6:active, .cHovOut:active .bgHovInL-6, .cHovOut1:active .bgHovIn1L-6, .cHovOut2:active .bgHovIn2L-6, .bgActL-6:active:active, .cActOut:active:active .bgActInL-6, .bgSelL-6.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-6, .bgChkL-6:checked:checked, .cLblSib:checked:checked + .bgLblLingL-6, .cLbtSib:checked:checked ~ .bgLbtLingL-6, .bgFocL-6:focus:focus, .bgFowL-6:focus-within:focus-within { --bg-L-mod: -6%; }
+.bgL-7, .bgHovL-7:hover, .cHovOut:hover  .bgHovInL-7, .cHovOut1:hover  .bgHovIn1L-7, .cHovOut2:hover  .bgHovIn2L-7, .bgHovL-7:active, .cHovOut:active .bgHovInL-7, .cHovOut1:active .bgHovIn1L-7, .cHovOut2:active .bgHovIn2L-7, .bgActL-7:active:active, .cActOut:active:active .bgActInL-7, .bgSelL-7.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-7, .bgChkL-7:checked:checked, .cLblSib:checked:checked + .bgLblLingL-7, .cLbtSib:checked:checked ~ .bgLbtLingL-7, .bgFocL-7:focus:focus, .bgFowL-7:focus-within:focus-within { --bg-L-mod: -7%; }
+.bgL-8, .bgHovL-8:hover, .cHovOut:hover  .bgHovInL-8, .cHovOut1:hover  .bgHovIn1L-8, .cHovOut2:hover  .bgHovIn2L-8, .bgHovL-8:active, .cHovOut:active .bgHovInL-8, .cHovOut1:active .bgHovIn1L-8, .cHovOut2:active .bgHovIn2L-8, .bgActL-8:active:active, .cActOut:active:active .bgActInL-8, .bgSelL-8.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-8, .bgChkL-8:checked:checked, .cLblSib:checked:checked + .bgLblLingL-8, .cLbtSib:checked:checked ~ .bgLbtLingL-8, .bgFocL-8:focus:focus, .bgFowL-8:focus-within:focus-within { --bg-L-mod: -8%; }
+.bgL-9, .bgHovL-9:hover, .cHovOut:hover  .bgHovInL-9, .cHovOut1:hover  .bgHovIn1L-9, .cHovOut2:hover  .bgHovIn2L-9, .bgHovL-9:active, .cHovOut:active .bgHovInL-9, .cHovOut1:active .bgHovIn1L-9, .cHovOut2:active .bgHovIn2L-9, .bgActL-9:active:active, .cActOut:active:active .bgActInL-9, .bgSelL-9.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-9, .bgChkL-9:checked:checked, .cLblSib:checked:checked + .bgLblLingL-9, .cLbtSib:checked:checked ~ .bgLbtLingL-9, .bgFocL-9:focus:focus, .bgFowL-9:focus-within:focus-within { --bg-L-mod: -9%; }
+
+.bgL-10, .bgHovL-10:hover, .cHovOut:hover  .bgHovInL-10, .cHovOut1:hover  .bgHovIn1L-10, .cHovOut2:hover  .bgHovIn2L-10, .bgHovL-10:active, .cHovOut:active .bgHovInL-10, .cHovOut1:active .bgHovIn1L-10, .cHovOut2:active .bgHovIn2L-10, .bgActL-10:active:active, .cActOut:active:active .bgActInL-10, .bgSelL-10.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-10, .bgChkL-10:checked:checked, .cLblSib:checked:checked + .bgLblLingL-10, .cLbtSib:checked:checked ~ .bgLbtLingL-10, .bgFocL-10:focus:focus, .bgFowL-10:focus-within:focus-within { --bg-L-mod: -10%; }
+.bgL-11, .bgHovL-11:hover, .cHovOut:hover  .bgHovInL-11, .cHovOut1:hover  .bgHovIn1L-11, .cHovOut2:hover  .bgHovIn2L-11, .bgHovL-11:active, .cHovOut:active .bgHovInL-11, .cHovOut1:active .bgHovIn1L-11, .cHovOut2:active .bgHovIn2L-11, .bgActL-11:active:active, .cActOut:active:active .bgActInL-11, .bgSelL-11.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-11, .bgChkL-11:checked:checked, .cLblSib:checked:checked + .bgLblLingL-11, .cLbtSib:checked:checked ~ .bgLbtLingL-11, .bgFocL-11:focus:focus, .bgFowL-11:focus-within:focus-within { --bg-L-mod: -11%; }
+.bgL-12, .bgHovL-12:hover, .cHovOut:hover  .bgHovInL-12, .cHovOut1:hover  .bgHovIn1L-12, .cHovOut2:hover  .bgHovIn2L-12, .bgHovL-12:active, .cHovOut:active .bgHovInL-12, .cHovOut1:active .bgHovIn1L-12, .cHovOut2:active .bgHovIn2L-12, .bgActL-12:active:active, .cActOut:active:active .bgActInL-12, .bgSelL-12.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-12, .bgChkL-12:checked:checked, .cLblSib:checked:checked + .bgLblLingL-12, .cLbtSib:checked:checked ~ .bgLbtLingL-12, .bgFocL-12:focus:focus, .bgFowL-12:focus-within:focus-within { --bg-L-mod: -12%; }
+.bgL-13, .bgHovL-13:hover, .cHovOut:hover  .bgHovInL-13, .cHovOut1:hover  .bgHovIn1L-13, .cHovOut2:hover  .bgHovIn2L-13, .bgHovL-13:active, .cHovOut:active .bgHovInL-13, .cHovOut1:active .bgHovIn1L-13, .cHovOut2:active .bgHovIn2L-13, .bgActL-13:active:active, .cActOut:active:active .bgActInL-13, .bgSelL-13.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-13, .bgChkL-13:checked:checked, .cLblSib:checked:checked + .bgLblLingL-13, .cLbtSib:checked:checked ~ .bgLbtLingL-13, .bgFocL-13:focus:focus, .bgFowL-13:focus-within:focus-within { --bg-L-mod: -13%; }
+.bgL-14, .bgHovL-14:hover, .cHovOut:hover  .bgHovInL-14, .cHovOut1:hover  .bgHovIn1L-14, .cHovOut2:hover  .bgHovIn2L-14, .bgHovL-14:active, .cHovOut:active .bgHovInL-14, .cHovOut1:active .bgHovIn1L-14, .cHovOut2:active .bgHovIn2L-14, .bgActL-14:active:active, .cActOut:active:active .bgActInL-14, .bgSelL-14.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-14, .bgChkL-14:checked:checked, .cLblSib:checked:checked + .bgLblLingL-14, .cLbtSib:checked:checked ~ .bgLbtLingL-14, .bgFocL-14:focus:focus, .bgFowL-14:focus-within:focus-within { --bg-L-mod: -14%; }
+.bgL-15, .bgHovL-15:hover, .cHovOut:hover  .bgHovInL-15, .cHovOut1:hover  .bgHovIn1L-15, .cHovOut2:hover  .bgHovIn2L-15, .bgHovL-15:active, .cHovOut:active .bgHovInL-15, .cHovOut1:active .bgHovIn1L-15, .cHovOut2:active .bgHovIn2L-15, .bgActL-15:active:active, .cActOut:active:active .bgActInL-15, .bgSelL-15.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-15, .bgChkL-15:checked:checked, .cLblSib:checked:checked + .bgLblLingL-15, .cLbtSib:checked:checked ~ .bgLbtLingL-15, .bgFocL-15:focus:focus, .bgFowL-15:focus-within:focus-within { --bg-L-mod: -15%; }
+.bgL-16, .bgHovL-16:hover, .cHovOut:hover  .bgHovInL-16, .cHovOut1:hover  .bgHovIn1L-16, .cHovOut2:hover  .bgHovIn2L-16, .bgHovL-16:active, .cHovOut:active .bgHovInL-16, .cHovOut1:active .bgHovIn1L-16, .cHovOut2:active .bgHovIn2L-16, .bgActL-16:active:active, .cActOut:active:active .bgActInL-16, .bgSelL-16.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-16, .bgChkL-16:checked:checked, .cLblSib:checked:checked + .bgLblLingL-16, .cLbtSib:checked:checked ~ .bgLbtLingL-16, .bgFocL-16:focus:focus, .bgFowL-16:focus-within:focus-within { --bg-L-mod: -16%; }
+.bgL-17, .bgHovL-17:hover, .cHovOut:hover  .bgHovInL-17, .cHovOut1:hover  .bgHovIn1L-17, .cHovOut2:hover  .bgHovIn2L-17, .bgHovL-17:active, .cHovOut:active .bgHovInL-17, .cHovOut1:active .bgHovIn1L-17, .cHovOut2:active .bgHovIn2L-17, .bgActL-17:active:active, .cActOut:active:active .bgActInL-17, .bgSelL-17.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-17, .bgChkL-17:checked:checked, .cLblSib:checked:checked + .bgLblLingL-17, .cLbtSib:checked:checked ~ .bgLbtLingL-17, .bgFocL-17:focus:focus, .bgFowL-17:focus-within:focus-within { --bg-L-mod: -17%; }
+.bgL-18, .bgHovL-18:hover, .cHovOut:hover  .bgHovInL-18, .cHovOut1:hover  .bgHovIn1L-18, .cHovOut2:hover  .bgHovIn2L-18, .bgHovL-18:active, .cHovOut:active .bgHovInL-18, .cHovOut1:active .bgHovIn1L-18, .cHovOut2:active .bgHovIn2L-18, .bgActL-18:active:active, .cActOut:active:active .bgActInL-18, .bgSelL-18.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-18, .bgChkL-18:checked:checked, .cLblSib:checked:checked + .bgLblLingL-18, .cLbtSib:checked:checked ~ .bgLbtLingL-18, .bgFocL-18:focus:focus, .bgFowL-18:focus-within:focus-within { --bg-L-mod: -18%; }
+.bgL-19, .bgHovL-19:hover, .cHovOut:hover  .bgHovInL-19, .cHovOut1:hover  .bgHovIn1L-19, .cHovOut2:hover  .bgHovIn2L-19, .bgHovL-19:active, .cHovOut:active .bgHovInL-19, .cHovOut1:active .bgHovIn1L-19, .cHovOut2:active .bgHovIn2L-19, .bgActL-19:active:active, .cActOut:active:active .bgActInL-19, .bgSelL-19.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-19, .bgChkL-19:checked:checked, .cLblSib:checked:checked + .bgLblLingL-19, .cLbtSib:checked:checked ~ .bgLbtLingL-19, .bgFocL-19:focus:focus, .bgFowL-19:focus-within:focus-within { --bg-L-mod: -19%; }
+.bgL-20, .bgHovL-20:hover, .cHovOut:hover  .bgHovInL-20, .cHovOut1:hover  .bgHovIn1L-20, .cHovOut2:hover  .bgHovIn2L-20, .bgHovL-20:active, .cHovOut:active .bgHovInL-20, .cHovOut1:active .bgHovIn1L-20, .cHovOut2:active .bgHovIn2L-20, .bgActL-20:active:active, .cActOut:active:active .bgActInL-20, .bgSelL-20.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInL-20, .bgChkL-20:checked:checked, .cLblSib:checked:checked + .bgLblLingL-20, .cLbtSib:checked:checked ~ .bgLbtLingL-20, .bgFocL-20:focus:focus, .bgFowL-20:focus-within:focus-within { --bg-L-mod: -20%; }
+
+/* HSLA(A) */
+
+.bgA0,   .bgHovA0:hover,   .cHovOut:hover  .bgHovInA0,   .cHovOut1:hover  .bgHovIn1A0,   .cHovOut2:hover  .bgHovIn2A0,   .bgHovA0:active,   .cHovOut:active .bgHovInA0,   .cHovOut1:active .bgHovIn1A0,   .cHovOut2:active .bgHovIn2A0,   .bgActA0:active:active,   .cActOut:active:active .bgActInA0,   .bgSelA0.sel.sel.sel,   .cSelOut.sel.sel.sel .bgSelInA0,   .bgChkA0:checked:checked,   .cLblSib:checked:checked + .bgLblLingA0,   .cLbtSib:checked:checked ~ .bgLbtLingA0,   .bgFocA0:focus:focus,   .bgFowA0:focus-within:focus-within   { --bg-A-main:    0; }
+.bgA5,   .bgHovA5:hover,   .cHovOut:hover  .bgHovInA5,   .cHovOut1:hover  .bgHovIn1A5,   .cHovOut2:hover  .bgHovIn2A5,   .bgHovA5:active,   .cHovOut:active .bgHovInA5,   .cHovOut1:active .bgHovIn1A5,   .cHovOut2:active .bgHovIn2A5,   .bgActA5:active:active,   .cActOut:active:active .bgActInA5,   .bgSelA5.sel.sel.sel,   .cSelOut.sel.sel.sel .bgSelInA5,   .bgChkA5:checked:checked,   .cLblSib:checked:checked + .bgLblLingA5,   .cLbtSib:checked:checked ~ .bgLbtLingA5,   .bgFocA5:focus:focus,   .bgFowA5:focus-within:focus-within   { --bg-A-main: 0.05; }
+.bgA10,  .bgHovA10:hover,  .cHovOut:hover  .bgHovInA10,  .cHovOut1:hover  .bgHovIn1A10,  .cHovOut2:hover  .bgHovIn2A10,  .bgHovA10:active,  .cHovOut:active .bgHovInA10,  .cHovOut1:active .bgHovIn1A10,  .cHovOut2:active .bgHovIn2A10,  .bgActA10:active:active,  .cActOut:active:active .bgActInA10,  .bgSelA10.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA10,  .bgChkA10:checked:checked,  .cLblSib:checked:checked + .bgLblLingA10,  .cLbtSib:checked:checked ~ .bgLbtLingA10,  .bgFocA10:focus:focus,  .bgFowA10:focus-within:focus-within  { --bg-A-main:  0.1; }
+.bgA15,  .bgHovA15:hover,  .cHovOut:hover  .bgHovInA15,  .cHovOut1:hover  .bgHovIn1A15,  .cHovOut2:hover  .bgHovIn2A15,  .bgHovA15:active,  .cHovOut:active .bgHovInA15,  .cHovOut1:active .bgHovIn1A15,  .cHovOut2:active .bgHovIn2A15,  .bgActA15:active:active,  .cActOut:active:active .bgActInA15,  .bgSelA15.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA15,  .bgChkA15:checked:checked,  .cLblSib:checked:checked + .bgLblLingA15,  .cLbtSib:checked:checked ~ .bgLbtLingA15,  .bgFocA15:focus:focus,  .bgFowA15:focus-within:focus-within  { --bg-A-main: 0.15; }
+.bgA20,  .bgHovA20:hover,  .cHovOut:hover  .bgHovInA20,  .cHovOut1:hover  .bgHovIn1A20,  .cHovOut2:hover  .bgHovIn2A20,  .bgHovA20:active,  .cHovOut:active .bgHovInA20,  .cHovOut1:active .bgHovIn1A20,  .cHovOut2:active .bgHovIn2A20,  .bgActA20:active:active,  .cActOut:active:active .bgActInA20,  .bgSelA20.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA20,  .bgChkA20:checked:checked,  .cLblSib:checked:checked + .bgLblLingA20,  .cLbtSib:checked:checked ~ .bgLbtLingA20,  .bgFocA20:focus:focus,  .bgFowA20:focus-within:focus-within  { --bg-A-main:  0.2; }
+.bgA25,  .bgHovA25:hover,  .cHovOut:hover  .bgHovInA25,  .cHovOut1:hover  .bgHovIn1A25,  .cHovOut2:hover  .bgHovIn2A25,  .bgHovA25:active,  .cHovOut:active .bgHovInA25,  .cHovOut1:active .bgHovIn1A25,  .cHovOut2:active .bgHovIn2A25,  .bgActA25:active:active,  .cActOut:active:active .bgActInA25,  .bgSelA25.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA25,  .bgChkA25:checked:checked,  .cLblSib:checked:checked + .bgLblLingA25,  .cLbtSib:checked:checked ~ .bgLbtLingA25,  .bgFocA25:focus:focus,  .bgFowA25:focus-within:focus-within  { --bg-A-main: 0.25; }
+.bgA30,  .bgHovA30:hover,  .cHovOut:hover  .bgHovInA30,  .cHovOut1:hover  .bgHovIn1A30,  .cHovOut2:hover  .bgHovIn2A30,  .bgHovA30:active,  .cHovOut:active .bgHovInA30,  .cHovOut1:active .bgHovIn1A30,  .cHovOut2:active .bgHovIn2A30,  .bgActA30:active:active,  .cActOut:active:active .bgActInA30,  .bgSelA30.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA30,  .bgChkA30:checked:checked,  .cLblSib:checked:checked + .bgLblLingA30,  .cLbtSib:checked:checked ~ .bgLbtLingA30,  .bgFocA30:focus:focus,  .bgFowA30:focus-within:focus-within  { --bg-A-main:  0.3; }
+.bgA35,  .bgHovA35:hover,  .cHovOut:hover  .bgHovInA35,  .cHovOut1:hover  .bgHovIn1A35,  .cHovOut2:hover  .bgHovIn2A35,  .bgHovA35:active,  .cHovOut:active .bgHovInA35,  .cHovOut1:active .bgHovIn1A35,  .cHovOut2:active .bgHovIn2A35,  .bgActA35:active:active,  .cActOut:active:active .bgActInA35,  .bgSelA35.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA35,  .bgChkA35:checked:checked,  .cLblSib:checked:checked + .bgLblLingA35,  .cLbtSib:checked:checked ~ .bgLbtLingA35,  .bgFocA35:focus:focus,  .bgFowA35:focus-within:focus-within  { --bg-A-main: 0.35; }
+.bgA40,  .bgHovA40:hover,  .cHovOut:hover  .bgHovInA40,  .cHovOut1:hover  .bgHovIn1A40,  .cHovOut2:hover  .bgHovIn2A40,  .bgHovA40:active,  .cHovOut:active .bgHovInA40,  .cHovOut1:active .bgHovIn1A40,  .cHovOut2:active .bgHovIn2A40,  .bgActA40:active:active,  .cActOut:active:active .bgActInA40,  .bgSelA40.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA40,  .bgChkA40:checked:checked,  .cLblSib:checked:checked + .bgLblLingA40,  .cLbtSib:checked:checked ~ .bgLbtLingA40,  .bgFocA40:focus:focus,  .bgFowA40:focus-within:focus-within  { --bg-A-main:  0.4; }
+.bgA45,  .bgHovA45:hover,  .cHovOut:hover  .bgHovInA45,  .cHovOut1:hover  .bgHovIn1A45,  .cHovOut2:hover  .bgHovIn2A45,  .bgHovA45:active,  .cHovOut:active .bgHovInA45,  .cHovOut1:active .bgHovIn1A45,  .cHovOut2:active .bgHovIn2A45,  .bgActA45:active:active,  .cActOut:active:active .bgActInA45,  .bgSelA45.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA45,  .bgChkA45:checked:checked,  .cLblSib:checked:checked + .bgLblLingA45,  .cLbtSib:checked:checked ~ .bgLbtLingA45,  .bgFocA45:focus:focus,  .bgFowA45:focus-within:focus-within  { --bg-A-main: 0.45; }
+.bgA50,  .bgHovA50:hover,  .cHovOut:hover  .bgHovInA50,  .cHovOut1:hover  .bgHovIn1A50,  .cHovOut2:hover  .bgHovIn2A50,  .bgHovA50:active,  .cHovOut:active .bgHovInA50,  .cHovOut1:active .bgHovIn1A50,  .cHovOut2:active .bgHovIn2A50,  .bgActA50:active:active,  .cActOut:active:active .bgActInA50,  .bgSelA50.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA50,  .bgChkA50:checked:checked,  .cLblSib:checked:checked + .bgLblLingA50,  .cLbtSib:checked:checked ~ .bgLbtLingA50,  .bgFocA50:focus:focus,  .bgFowA50:focus-within:focus-within  { --bg-A-main:  0.5; }
+.bgA55,  .bgHovA55:hover,  .cHovOut:hover  .bgHovInA55,  .cHovOut1:hover  .bgHovIn1A55,  .cHovOut2:hover  .bgHovIn2A55,  .bgHovA55:active,  .cHovOut:active .bgHovInA55,  .cHovOut1:active .bgHovIn1A55,  .cHovOut2:active .bgHovIn2A55,  .bgActA55:active:active,  .cActOut:active:active .bgActInA55,  .bgSelA55.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA55,  .bgChkA55:checked:checked,  .cLblSib:checked:checked + .bgLblLingA55,  .cLbtSib:checked:checked ~ .bgLbtLingA55,  .bgFocA55:focus:focus,  .bgFowA55:focus-within:focus-within  { --bg-A-main: 0.55; }
+.bgA60,  .bgHovA60:hover,  .cHovOut:hover  .bgHovInA60,  .cHovOut1:hover  .bgHovIn1A60,  .cHovOut2:hover  .bgHovIn2A60,  .bgHovA60:active,  .cHovOut:active .bgHovInA60,  .cHovOut1:active .bgHovIn1A60,  .cHovOut2:active .bgHovIn2A60,  .bgActA60:active:active,  .cActOut:active:active .bgActInA60,  .bgSelA60.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA60,  .bgChkA60:checked:checked,  .cLblSib:checked:checked + .bgLblLingA60,  .cLbtSib:checked:checked ~ .bgLbtLingA60,  .bgFocA60:focus:focus,  .bgFowA60:focus-within:focus-within  { --bg-A-main:  0.6; }
+.bgA65,  .bgHovA65:hover,  .cHovOut:hover  .bgHovInA65,  .cHovOut1:hover  .bgHovIn1A65,  .cHovOut2:hover  .bgHovIn2A65,  .bgHovA65:active,  .cHovOut:active .bgHovInA65,  .cHovOut1:active .bgHovIn1A65,  .cHovOut2:active .bgHovIn2A65,  .bgActA65:active:active,  .cActOut:active:active .bgActInA65,  .bgSelA65.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA65,  .bgChkA65:checked:checked,  .cLblSib:checked:checked + .bgLblLingA65,  .cLbtSib:checked:checked ~ .bgLbtLingA65,  .bgFocA65:focus:focus,  .bgFowA65:focus-within:focus-within  { --bg-A-main: 0.65; }
+.bgA70,  .bgHovA70:hover,  .cHovOut:hover  .bgHovInA70,  .cHovOut1:hover  .bgHovIn1A70,  .cHovOut2:hover  .bgHovIn2A70,  .bgHovA70:active,  .cHovOut:active .bgHovInA70,  .cHovOut1:active .bgHovIn1A70,  .cHovOut2:active .bgHovIn2A70,  .bgActA70:active:active,  .cActOut:active:active .bgActInA70,  .bgSelA70.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA70,  .bgChkA70:checked:checked,  .cLblSib:checked:checked + .bgLblLingA70,  .cLbtSib:checked:checked ~ .bgLbtLingA70,  .bgFocA70:focus:focus,  .bgFowA70:focus-within:focus-within  { --bg-A-main:  0.7; }
+.bgA75,  .bgHovA75:hover,  .cHovOut:hover  .bgHovInA75,  .cHovOut1:hover  .bgHovIn1A75,  .cHovOut2:hover  .bgHovIn2A75,  .bgHovA75:active,  .cHovOut:active .bgHovInA75,  .cHovOut1:active .bgHovIn1A75,  .cHovOut2:active .bgHovIn2A75,  .bgActA75:active:active,  .cActOut:active:active .bgActInA75,  .bgSelA75.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA75,  .bgChkA75:checked:checked,  .cLblSib:checked:checked + .bgLblLingA75,  .cLbtSib:checked:checked ~ .bgLbtLingA75,  .bgFocA75:focus:focus,  .bgFowA75:focus-within:focus-within  { --bg-A-main: 0.75; }
+.bgA80,  .bgHovA80:hover,  .cHovOut:hover  .bgHovInA80,  .cHovOut1:hover  .bgHovIn1A80,  .cHovOut2:hover  .bgHovIn2A80,  .bgHovA80:active,  .cHovOut:active .bgHovInA80,  .cHovOut1:active .bgHovIn1A80,  .cHovOut2:active .bgHovIn2A80,  .bgActA80:active:active,  .cActOut:active:active .bgActInA80,  .bgSelA80.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA80,  .bgChkA80:checked:checked,  .cLblSib:checked:checked + .bgLblLingA80,  .cLbtSib:checked:checked ~ .bgLbtLingA80,  .bgFocA80:focus:focus,  .bgFowA80:focus-within:focus-within  { --bg-A-main:  0.8; }
+.bgA85,  .bgHovA85:hover,  .cHovOut:hover  .bgHovInA85,  .cHovOut1:hover  .bgHovIn1A85,  .cHovOut2:hover  .bgHovIn2A85,  .bgHovA85:active,  .cHovOut:active .bgHovInA85,  .cHovOut1:active .bgHovIn1A85,  .cHovOut2:active .bgHovIn2A85,  .bgActA85:active:active,  .cActOut:active:active .bgActInA85,  .bgSelA85.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA85,  .bgChkA85:checked:checked,  .cLblSib:checked:checked + .bgLblLingA85,  .cLbtSib:checked:checked ~ .bgLbtLingA85,  .bgFocA85:focus:focus,  .bgFowA85:focus-within:focus-within  { --bg-A-main: 0.85; }
+.bgA90,  .bgHovA90:hover,  .cHovOut:hover  .bgHovInA90,  .cHovOut1:hover  .bgHovIn1A90,  .cHovOut2:hover  .bgHovIn2A90,  .bgHovA90:active,  .cHovOut:active .bgHovInA90,  .cHovOut1:active .bgHovIn1A90,  .cHovOut2:active .bgHovIn2A90,  .bgActA90:active:active,  .cActOut:active:active .bgActInA90,  .bgSelA90.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA90,  .bgChkA90:checked:checked,  .cLblSib:checked:checked + .bgLblLingA90,  .cLbtSib:checked:checked ~ .bgLbtLingA90,  .bgFocA90:focus:focus,  .bgFowA90:focus-within:focus-within  { --bg-A-main:  0.9; }
+.bgA95,  .bgHovA95:hover,  .cHovOut:hover  .bgHovInA95,  .cHovOut1:hover  .bgHovIn1A95,  .cHovOut2:hover  .bgHovIn2A95,  .bgHovA95:active,  .cHovOut:active .bgHovInA95,  .cHovOut1:active .bgHovIn1A95,  .cHovOut2:active .bgHovIn2A95,  .bgActA95:active:active,  .cActOut:active:active .bgActInA95,  .bgSelA95.sel.sel.sel,  .cSelOut.sel.sel.sel .bgSelInA95,  .bgChkA95:checked:checked,  .cLblSib:checked:checked + .bgLblLingA95,  .cLbtSib:checked:checked ~ .bgLbtLingA95,  .bgFocA95:focus:focus,  .bgFowA95:focus-within:focus-within  { --bg-A-main: 0.95; }
+.bgA100, .bgHovA100:hover, .cHovOut:hover  .bgHovInA100, .cHovOut1:hover  .bgHovIn1A100, .cHovOut2:hover  .bgHovIn2A100, .bgHovA100:active, .cHovOut:active .bgHovInA100, .cHovOut1:active .bgHovIn1A100, .cHovOut2:active .bgHovIn2A100, .bgActA100:active:active, .cActOut:active:active .bgActInA100, .bgSelA100.sel.sel.sel, .cSelOut.sel.sel.sel .bgSelInA100, .bgChkA100:checked:checked, .cLblSib:checked:checked + .bgLblLingA100, .cLbtSib:checked:checked ~ .bgLbtLingA100, .bgFocA100:focus:focus, .bgFowA100:focus-within:focus-within { --bg-A-main:    1; }
+
+
+
+
+
+
+
+
+
+
+/* Border color */
+
+.br,
+.brBef,
+.brAft,
+.brHov:hover,
+.cHovOut:hover  .brHovIn,
+.cHovOut1:hover .brHovIn1,
+.cHovOut2:hover .brHovIn2,
+.brHov:active,
+.cHovOut:active  .brHovIn,
+.cHovOut1:active .brHovIn1,
+.cHovOut2:active .brHovIn2,
+.brAct:active:active,
+.cActOut:active:active .brActIn,
+.brSel.sel.sel.sel,
+.cSelOut.sel.sel.sel .brSelIn,
+.cSelOut1.sel.sel.sel .brSelIn1,
+.cSelOut2.sel.sel.sel .brSelIn2,
+.brChk:checked:checked,
+.cLblSib:checked:checked + .brLblLing,
+.cLbtSib:checked:checked ~ .brLbtLing,
+.brFoc:focus:focus, .brFow:focus-within:focus-within {
+    --br-L-mod:    0%;
+    --br-L-factor: 0%;
+    --br-A-main:       1;
+    --br-L-mod-inv:    1;
+    --br-L-factor-inv: 1;
+}
+
+.br,
+.brBef:before,
+.brAft:after,
+.brHov:hover,
+.cHovOut:hover  .brHovIn,
+.cHovOut1:hover .brHovIn1,
+.cHovOut2:hover .brHovIn2,
+.brHov:active,
+.cHovOut:active  .brHovIn,
+.cHovOut1:active .brHovIn1,
+.cHovOut2:active .brHovIn2,
+.brAct:active:active,
+.cActOut:active:active .brActIn,
+.brSel.sel.sel.sel,
+.cSelOut.sel.sel.sel .brSelIn,
+.cSelOut1.sel.sel.sel .brSelIn1,
+.cSelOut2.sel.sel.sel .brSelIn2,
+.brChk:checked:checked,
+.cLblSib:checked:checked + .brLblLing,
+.cLbtSib:checked:checked ~ .brLbtLing,
+.brFoc:focus:focus,
+.brFow:focus-within:focus-within {
+    border-color: hsla(
+            var(--br-H-main),
+            var(--br-S-main),
+            calc(var(--br-L-main) + (var(--br-L-mod) * var(--br-L-mod-inv)) + (var(--br-L-factor) * var(--br-L-factor-inv))),
+            var(--br-A-main)
+    );
+}
+
+.elzTheme-light .cLInvL,
+.elzTheme-light .brLInvL,
+.elzTheme-light .brHovLInvL:hover,  .elzTheme-light .cHovOut:hover  .brHovInLInvL, .elzTheme-light .cHovOut1:hover  .brHovIn1LInvL, .elzTheme-light .cHovOut2:hover  .brHovIn2LInvL,
+.elzTheme-light .brHovLInvL:active, .elzTheme-light .cHovOut:active .brHovInLInvL, .elzTheme-light .cHovOut1:active .brHovIn1LInvL, .elzTheme-light .cHovOut2:active .brHovIn2LInvL,
+.elzTheme-light .brActLInvL:active:active, .elzTheme-light .cActOut:active:active .brActInLInvL,
+.elzTheme-light .brSelLInvL.sel.sel.sel,
+.elzTheme-light .cSelOut.sel.sel.sel .brSelInLInvL, .elzTheme-light .cSelOut1.sel.sel.sel .brSelIn1LInvL, .elzTheme-light .cSelOut2.sel.sel.sel .brSelIn2LInvL,
+.elzTheme-light .brChkLInvL:checked:checked,
+.elzTheme-light .cLblSib:checked:checked + .brLblLingLInvL,
+.elzTheme-light .cLbtSib:checked:checked ~ .brLbtLingLInvL,
+.elzTheme-light .brFocLInvL:focus:focus,
+.elzTheme-light .brFowLInvL:focus-within:focus-within,
+
+.elzTheme-dark .cLInvD,
+.elzTheme-dark .brLInvD,
+.elzTheme-dark .brHovLInvD:hover,  .elzTheme-dark .cHovOut:hover  .brHovInLInvD, .elzTheme-dark .cHovOut1:hover  .brHovIn1LInvD, .elzTheme-dark .cHovOut2:hover  .brHovIn2LInvD,
+.elzTheme-dark .brHovLInvD:active, .elzTheme-dark .cHovOut:active .brHovInLInvD, .elzTheme-dark .cHovOut1:active .brHovIn1LInvD, .elzTheme-dark .cHovOut2:active .brHovIn2LInvD,
+.elzTheme-dark .brActLInvD:active:active, .elzTheme-dark .cActOut:active:active .brActInLInvD,
+.elzTheme-dark .brSelLInvD.sel.sel.sel,
+.elzTheme-dark .cSelOut.sel.sel.sel .brSelInLInvD, .elzTheme-dark .cSelOut1.sel.sel.sel .brSelIn1LInvD, .elzTheme-dark .cSelOut2.sel.sel.sel .brSelIn2LInvD,
+.elzTheme-dark .brChkLInvD:checked:checked,
+.elzTheme-dark .cLblSib:checked:checked + .brLblLingLInvD,
+.elzTheme-dark .cLbtSib:checked:checked ~ .brLbtLingLInvD,
+.elzTheme-dark .brFocLInvD:focus:focus,
+.elzTheme-dark .brFowLInvD:focus-within:focus-within { --br-L-mod-inv: -1; }
+
+.elzTheme-light .cFInvL,
+.elzTheme-light .brFInvL,
+.elzTheme-light .brHovFInvL:hover,  .elzTheme-light .cHovOut:hover  .brHovInFInvL, .elzTheme-light .cHovOut1:hover  .brHovIn1FInvL, .elzTheme-light .cHovOut2:hover  .brHovIn2FInvL,
+.elzTheme-light .brHovFInvL:active, .elzTheme-light .cHovOut:active .brHovInFInvL, .elzTheme-light .cHovOut1:active .brHovIn1FInvL, .elzTheme-light .cHovOut2:active .brHovIn2FInvL,
+.elzTheme-light .brActFInvL:active:active, .elzTheme-light .cActOut:active:active .brActInFInvL,
+.elzTheme-light .brSelFInvL.sel.sel.sel,
+.elzTheme-light .cSelOut.sel.sel.sel .brSelInFInvL, .elzTheme-light .cSelOut1.sel.sel.sel .brSelIn1FInvL, .elzTheme-light .cSelOut2.sel.sel.sel .brSelIn2FInvL,
+.elzTheme-light .brChkFInvL:checked:checked,
+.elzTheme-light .cLblSib:checked:checked + .brLblLingFInvL,
+.elzTheme-light .cLbtSib:checked:checked ~ .brLbtLingFInvL,
+.elzTheme-light .brFocFInvL:focus:focus,
+.elzTheme-light .brFowFInvL:focus-within:focus-within,
+
+.elzTheme-dark .cFInvD,
+.elzTheme-dark .brFInvD,
+.elzTheme-dark .brHovFInvD:hover,  .elzTheme-dark .cHovOut:hover  .brHovInFInvD, .elzTheme-dark .cHovOut1:hover  .brHovIn1FInvD, .elzTheme-dark .cHovOut2:hover  .brHovIn2FInvD,
+.elzTheme-dark .brHovFInvD:active, .elzTheme-dark .cHovOut:active .brHovInFInvD, .elzTheme-dark .cHovOut1:active .brHovIn1FInvD, .elzTheme-dark .cHovOut2:active .brHovIn2FInvD,
+.elzTheme-dark .brActFInvD:active:active, .elzTheme-dark .cActOut:active:active .brActInFInvD,
+.elzTheme-dark .brSelFInvD.sel.sel.sel,
+.elzTheme-dark .cSelOut.sel.sel.sel .brSelInFInvD, .elzTheme-dark .cSelOut1.sel.sel.sel .brSelIn1FInvD, .elzTheme-dark .cSelOut2.sel.sel.sel .brSelIn2FInvD,
+.elzTheme-dark .brChkFInvD:checked:checked,
+.elzTheme-dark .cLblSib:checked:checked + .brLblLingFInvD,
+.elzTheme-dark .cLbtSib:checked:checked ~ .brLbtLingFInvD,
+.elzTheme-dark .brFocFInvD:focus:focus,
+.elzTheme-dark .brFowFInvD:focus-within:focus-within { --br-L-factor-inv: -1; }
+
+.elzTheme-dark .cFL,
+.elzTheme-dark .brFL,
+.elzTheme-dark .brHovFL:hover,  .elzTheme-dark .cHovOut:hover  .brHovInFL, .elzTheme-dark .cHovOut1:hover  .brHovIn1FL, .elzTheme-dark .cHovOut2:hover  .brHovIn2FL,
+.elzTheme-dark .brHovFL:active, .elzTheme-dark .cHovOut:active .brHovInFL, .elzTheme-dark .cHovOut1:active .brHovIn1FL, .elzTheme-dark .cHovOut2:active .brHovIn2FL,
+.elzTheme-dark .brActFL:active:active, .elzTheme-dark .cActOut:active:active .brActInFL,
+.elzTheme-dark .brSelFL.sel.sel.sel,
+.elzTheme-dark .cSelOut.sel.sel.sel .brSelInFL, .elzTheme-dark .cSelOut1.sel.sel.sel .brSelIn1FL, .elzTheme-dark .cSelOut2.sel.sel.sel .brSelIn2FL,
+.elzTheme-dark .brChkFL:checked:checked,
+.elzTheme-dark .cLblSib:checked:checked + .brLblLingFL,
+.elzTheme-dark .cLbtSib:checked:checked ~ .brLbtLingFL,
+.elzTheme-dark .brFocFL:focus:focus,
+.elzTheme-dark .brFowFL:focus-within:focus-within,
+
+.elzTheme-light .cFD,
+.elzTheme-light .brFD,
+.elzTheme-light .brHovFD:hover,  .elzTheme-light .cHovOut:hover  .brHovInFD, .elzTheme-light .cHovOut1:hover  .brHovIn1FD, .elzTheme-light .cHovOut2:hover  .brHovIn2FD,
+.elzTheme-light .brHovFD:active, .elzTheme-light .cHovOut:active .brHovInFD, .elzTheme-light .cHovOut1:active .brHovIn1FD, .elzTheme-light .cHovOut2:active .brHovIn2FD,
+.elzTheme-light .brActFD:active:active, .elzTheme-light .cActOut:active:active .brActInFD,
+.elzTheme-light .brSelFD.sel.sel.sel,
+.elzTheme-light .cSelOut.sel.sel.sel .brSelInFD, .elzTheme-light .cSelOut1.sel.sel.sel .brSelIn1FD, .elzTheme-light .cSelOut2.sel.sel.sel .brSelIn2FD,
+.elzTheme-light .brChkFD:checked:checked,
+.elzTheme-light .cLblSib:checked:checked + .brLblLingFD,
+.elzTheme-light .cLbtSib:checked:checked ~ .brLbtLingFD,
+.elzTheme-light .brFocFD:focus:focus,
+.elzTheme-light .brFowFD:focus-within:focus-within { --br-L-factor-inv: 0; }
+
+/* HSLA(L) */
+
+.brLF0,  .brHovLF0:hover,   .cHovOut:hover  .brHovInLF0,  .cHovOut1:hover  .brHovIn1LF0,  .cHovOut2:hover  .brHovIn2LF0,  .brHovLF0:active,  .cHovOut:active .brHovInLF0,  .cHovOut1:active .brHovIn1LF0,  .cHovOut2:active .brHovIn2LF0,  .brActLF0:active:active,  .cActOut:active:active .brActInLF0,  .brSelLF0.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInLF0,  .cSelOut1.sel.sel.sel .brSelIn1LF0,  .cSelOut2.sel.sel.sel .brSelIn2LF0,  .brChkLF0:checked:checked,  .cLblSib:checked:checked + .brLblLingLF0,  .cLbtSib:checked:checked ~ .brLbtLingLF0,  .brFocLF0:focus:focus,  .brFowLF0:focus-within:focus-within  { --br-L-factor:  0%; }
+.brLF5,  .brHovLF5:hover,   .cHovOut:hover  .brHovInLF5,  .cHovOut1:hover  .brHovIn1LF5,  .cHovOut2:hover  .brHovIn2LF5,  .brHovLF5:active,  .cHovOut:active .brHovInLF5,  .cHovOut1:active .brHovIn1LF5,  .cHovOut2:active .brHovIn2LF5,  .brActLF5:active:active,  .cActOut:active:active .brActInLF5,  .brSelLF5.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInLF5,  .cSelOut1.sel.sel.sel .brSelIn1LF5,  .cSelOut2.sel.sel.sel .brSelIn2LF5,  .brChkLF5:checked:checked,  .cLblSib:checked:checked + .brLblLingLF5,  .cLbtSib:checked:checked ~ .brLbtLingLF5,  .brFocLF5:focus:focus,  .brFowLF5:focus-within:focus-within  { --br-L-factor:  5%; }
+.brLF10, .brHovLF10:hover,  .cHovOut:hover  .brHovInLF10, .cHovOut1:hover  .brHovIn1LF10, .cHovOut2:hover  .brHovIn2LF10, .brHovLF10:active, .cHovOut:active .brHovInLF10, .cHovOut1:active .brHovIn1LF10, .cHovOut2:active .brHovIn2LF10, .brActLF10:active:active, .cActOut:active:active .brActInLF10, .brSelLF10.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF10, .cSelOut1.sel.sel.sel .brSelIn1LF10, .cSelOut2.sel.sel.sel .brSelIn2LF10, .brChkLF10:checked:checked, .cLblSib:checked:checked + .brLblLingLF10, .cLbtSib:checked:checked ~ .brLbtLingLF10, .brFocLF10:focus:focus, .brFowLF10:focus-within:focus-within { --br-L-factor: 10%; }
+.brLF15, .brHovLF15:hover,  .cHovOut:hover  .brHovInLF15, .cHovOut1:hover  .brHovIn1LF15, .cHovOut2:hover  .brHovIn2LF15, .brHovLF15:active, .cHovOut:active .brHovInLF15, .cHovOut1:active .brHovIn1LF15, .cHovOut2:active .brHovIn2LF15, .brActLF15:active:active, .cActOut:active:active .brActInLF15, .brSelLF15.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF15, .cSelOut1.sel.sel.sel .brSelIn1LF15, .cSelOut2.sel.sel.sel .brSelIn2LF15, .brChkLF15:checked:checked, .cLblSib:checked:checked + .brLblLingLF15, .cLbtSib:checked:checked ~ .brLbtLingLF15, .brFocLF15:focus:focus, .brFowLF15:focus-within:focus-within { --br-L-factor: 15%; }
+.brLF20, .brHovLF20:hover,  .cHovOut:hover  .brHovInLF20, .cHovOut1:hover  .brHovIn1LF20, .cHovOut2:hover  .brHovIn2LF20, .brHovLF20:active, .cHovOut:active .brHovInLF20, .cHovOut1:active .brHovIn1LF20, .cHovOut2:active .brHovIn2LF20, .brActLF20:active:active, .cActOut:active:active .brActInLF20, .brSelLF20.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF20, .cSelOut1.sel.sel.sel .brSelIn1LF20, .cSelOut2.sel.sel.sel .brSelIn2LF20, .brChkLF20:checked:checked, .cLblSib:checked:checked + .brLblLingLF20, .cLbtSib:checked:checked ~ .brLbtLingLF20, .brFocLF20:focus:focus, .brFowLF20:focus-within:focus-within { --br-L-factor: 20%; }
+.brLF25, .brHovLF25:hover,  .cHovOut:hover  .brHovInLF25, .cHovOut1:hover  .brHovIn1LF25, .cHovOut2:hover  .brHovIn2LF25, .brHovLF25:active, .cHovOut:active .brHovInLF25, .cHovOut1:active .brHovIn1LF25, .cHovOut2:active .brHovIn2LF25, .brActLF25:active:active, .cActOut:active:active .brActInLF25, .brSelLF25.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF25, .cSelOut1.sel.sel.sel .brSelIn1LF25, .cSelOut2.sel.sel.sel .brSelIn2LF25, .brChkLF25:checked:checked, .cLblSib:checked:checked + .brLblLingLF25, .cLbtSib:checked:checked ~ .brLbtLingLF25, .brFocLF25:focus:focus, .brFowLF25:focus-within:focus-within { --br-L-factor: 25%; }
+.brLF30, .brHovLF30:hover,  .cHovOut:hover  .brHovInLF30, .cHovOut1:hover  .brHovIn1LF30, .cHovOut2:hover  .brHovIn2LF30, .brHovLF30:active, .cHovOut:active .brHovInLF30, .cHovOut1:active .brHovIn1LF30, .cHovOut2:active .brHovIn2LF30, .brActLF30:active:active, .cActOut:active:active .brActInLF30, .brSelLF30.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF30, .cSelOut1.sel.sel.sel .brSelIn1LF30, .cSelOut2.sel.sel.sel .brSelIn2LF30, .brChkLF30:checked:checked, .cLblSib:checked:checked + .brLblLingLF30, .cLbtSib:checked:checked ~ .brLbtLingLF30, .brFocLF30:focus:focus, .brFowLF30:focus-within:focus-within { --br-L-factor: 30%; }
+.brLF40, .brHovLF40:hover,  .cHovOut:hover  .brHovInLF40, .cHovOut1:hover  .brHovIn1LF40, .cHovOut2:hover  .brHovIn2LF40, .brHovLF40:active, .cHovOut:active .brHovInLF40, .cHovOut1:active .brHovIn1LF40, .cHovOut2:active .brHovIn2LF40, .brActLF40:active:active, .cActOut:active:active .brActInLF40, .brSelLF40.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF40, .cSelOut1.sel.sel.sel .brSelIn1LF40, .cSelOut2.sel.sel.sel .brSelIn2LF40, .brChkLF40:checked:checked, .cLblSib:checked:checked + .brLblLingLF40, .cLbtSib:checked:checked ~ .brLbtLingLF40, .brFocLF40:focus:focus, .brFowLF40:focus-within:focus-within { --br-L-factor: 40%; }
+.brLF50, .brHovLF50:hover,  .cHovOut:hover  .brHovInLF50, .cHovOut1:hover  .brHovIn1LF50, .cHovOut2:hover  .brHovIn2LF50, .brHovLF50:active, .cHovOut:active .brHovInLF50, .cHovOut1:active .brHovIn1LF50, .cHovOut2:active .brHovIn2LF50, .brActLF50:active:active, .cActOut:active:active .brActInLF50, .brSelLF50.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF50, .cSelOut1.sel.sel.sel .brSelIn1LF50, .cSelOut2.sel.sel.sel .brSelIn2LF50, .brChkLF50:checked:checked, .cLblSib:checked:checked + .brLblLingLF50, .cLbtSib:checked:checked ~ .brLbtLingLF50, .brFocLF50:focus:focus, .brFowLF50:focus-within:focus-within { --br-L-factor: 50%; }
+.brLF60, .brHovLF60:hover,  .cHovOut:hover  .brHovInLF60, .cHovOut1:hover  .brHovIn1LF60, .cHovOut2:hover  .brHovIn2LF60, .brHovLF60:active, .cHovOut:active .brHovInLF60, .cHovOut1:active .brHovIn1LF60, .cHovOut2:active .brHovIn2LF60, .brActLF60:active:active, .cActOut:active:active .brActInLF60, .brSelLF60.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF60, .cSelOut1.sel.sel.sel .brSelIn1LF60, .cSelOut2.sel.sel.sel .brSelIn2LF60, .brChkLF60:checked:checked, .cLblSib:checked:checked + .brLblLingLF60, .cLbtSib:checked:checked ~ .brLbtLingLF60, .brFocLF60:focus:focus, .brFowLF60:focus-within:focus-within { --br-L-factor: 60%; }
+.brLF70, .brHovLF70:hover,  .cHovOut:hover  .brHovInLF70, .cHovOut1:hover  .brHovIn1LF70, .cHovOut2:hover  .brHovIn2LF70, .brHovLF70:active, .cHovOut:active .brHovInLF70, .cHovOut1:active .brHovIn1LF70, .cHovOut2:active .brHovIn2LF70, .brActLF70:active:active, .cActOut:active:active .brActInLF70, .brSelLF70.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF70, .cSelOut1.sel.sel.sel .brSelIn1LF70, .cSelOut2.sel.sel.sel .brSelIn2LF70, .brChkLF70:checked:checked, .cLblSib:checked:checked + .brLblLingLF70, .cLbtSib:checked:checked ~ .brLbtLingLF70, .brFocLF70:focus:focus, .brFowLF70:focus-within:focus-within { --br-L-factor: 70%; }
+.brLF80, .brHovLF80:hover,  .cHovOut:hover  .brHovInLF80, .cHovOut1:hover  .brHovIn1LF80, .cHovOut2:hover  .brHovIn2LF80, .brHovLF80:active, .cHovOut:active .brHovInLF80, .cHovOut1:active .brHovIn1LF80, .cHovOut2:active .brHovIn2LF80, .brActLF80:active:active, .cActOut:active:active .brActInLF80, .brSelLF80.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF80, .cSelOut1.sel.sel.sel .brSelIn1LF80, .cSelOut2.sel.sel.sel .brSelIn2LF80, .brChkLF80:checked:checked, .cLblSib:checked:checked + .brLblLingLF80, .cLbtSib:checked:checked ~ .brLbtLingLF80, .brFocLF80:focus:focus, .brFowLF80:focus-within:focus-within { --br-L-factor: 80%; }
+.brLF90, .brHovLF90:hover,  .cHovOut:hover  .brHovInLF90, .cHovOut1:hover  .brHovIn1LF90, .cHovOut2:hover  .brHovIn2LF90, .brHovLF90:active, .cHovOut:active .brHovInLF90, .cHovOut1:active .brHovIn1LF90, .cHovOut2:active .brHovIn2LF90, .brActLF90:active:active, .cActOut:active:active .brActInLF90, .brSelLF90.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF90, .cSelOut1.sel.sel.sel .brSelIn1LF90, .cSelOut2.sel.sel.sel .brSelIn2LF90, .brChkLF90:checked:checked, .cLblSib:checked:checked + .brLblLingLF90, .cLbtSib:checked:checked ~ .brLbtLingLF90, .brFocLF90:focus:focus, .brFowLF90:focus-within:focus-within { --br-L-factor: 90%; }
+
+.brLF-5,  .brHovLF-5:hover,   .cHovOut:hover  .brHovInLF-5,  .cHovOut1:hover  .brHovIn1LF-5,  .cHovOut2:hover  .brHovIn2LF-5,  .brHovLF-5:active,  .cHovOut:active .brHovInLF-5,  .cHovOut1:active .brHovIn1LF-5,  .cHovOut2:active .brHovIn2LF-5,  .brActLF-5:active:active,  .cActOut:active:active .brActInLF-5,  .brSelLF-5.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInLF-5,  .cSelOut1.sel.sel.sel .brSelIn1LF-5,  .cSelOut2.sel.sel.sel .brSelIn2LF-5,  .brChkLF-5:checked:checked,  .cLblSib:checked:checked + .brLblLingLF-5,  .cLbtSib:checked:checked ~ .brLbtLingLF-5,  .brFocLF-5:focus:focus,  .brFowLF-5:focus-within:focus-within  { --br-L-factor:  -5%; }
+.brLF-10, .brHovLF-10:hover,  .cHovOut:hover  .brHovInLF-10, .cHovOut1:hover  .brHovIn1LF-10, .cHovOut2:hover  .brHovIn2LF-10, .brHovLF-10:active, .cHovOut:active .brHovInLF-10, .cHovOut1:active .brHovIn1LF-10, .cHovOut2:active .brHovIn2LF-10, .brActLF-10:active:active, .cActOut:active:active .brActInLF-10, .brSelLF-10.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF-10, .cSelOut1.sel.sel.sel .brSelIn1LF-10, .cSelOut2.sel.sel.sel .brSelIn2LF-10, .brChkLF-10:checked:checked, .cLblSib:checked:checked + .brLblLingLF-10, .cLbtSib:checked:checked ~ .brLbtLingLF-10, .brFocLF-10:focus:focus, .brFowLF-10:focus-within:focus-within { --br-L-factor: -10%; }
+.brLF-15, .brHovLF-15:hover,  .cHovOut:hover  .brHovInLF-15, .cHovOut1:hover  .brHovIn1LF-15, .cHovOut2:hover  .brHovIn2LF-15, .brHovLF-15:active, .cHovOut:active .brHovInLF-15, .cHovOut1:active .brHovIn1LF-15, .cHovOut2:active .brHovIn2LF-15, .brActLF-15:active:active, .cActOut:active:active .brActInLF-15, .brSelLF-15.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF-15, .cSelOut1.sel.sel.sel .brSelIn1LF-15, .cSelOut2.sel.sel.sel .brSelIn2LF-15, .brChkLF-15:checked:checked, .cLblSib:checked:checked + .brLblLingLF-15, .cLbtSib:checked:checked ~ .brLbtLingLF-15, .brFocLF-15:focus:focus, .brFowLF-15:focus-within:focus-within { --br-L-factor: -15%; }
+.brLF-20, .brHovLF-20:hover,  .cHovOut:hover  .brHovInLF-20, .cHovOut1:hover  .brHovIn1LF-20, .cHovOut2:hover  .brHovIn2LF-20, .brHovLF-20:active, .cHovOut:active .brHovInLF-20, .cHovOut1:active .brHovIn1LF-20, .cHovOut2:active .brHovIn2LF-20, .brActLF-20:active:active, .cActOut:active:active .brActInLF-20, .brSelLF-20.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF-20, .cSelOut1.sel.sel.sel .brSelIn1LF-20, .cSelOut2.sel.sel.sel .brSelIn2LF-20, .brChkLF-20:checked:checked, .cLblSib:checked:checked + .brLblLingLF-20, .cLbtSib:checked:checked ~ .brLbtLingLF-20, .brFocLF-20:focus:focus, .brFowLF-20:focus-within:focus-within { --br-L-factor: -20%; }
+.brLF-25, .brHovLF-25:hover,  .cHovOut:hover  .brHovInLF-25, .cHovOut1:hover  .brHovIn1LF-25, .cHovOut2:hover  .brHovIn2LF-25, .brHovLF-25:active, .cHovOut:active .brHovInLF-25, .cHovOut1:active .brHovIn1LF-25, .cHovOut2:active .brHovIn2LF-25, .brActLF-25:active:active, .cActOut:active:active .brActInLF-25, .brSelLF-25.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF-25, .cSelOut1.sel.sel.sel .brSelIn1LF-25, .cSelOut2.sel.sel.sel .brSelIn2LF-25, .brChkLF-25:checked:checked, .cLblSib:checked:checked + .brLblLingLF-25, .cLbtSib:checked:checked ~ .brLbtLingLF-25, .brFocLF-25:focus:focus, .brFowLF-25:focus-within:focus-within { --br-L-factor: -25%; }
+.brLF-30, .brHovLF-30:hover,  .cHovOut:hover  .brHovInLF-30, .cHovOut1:hover  .brHovIn1LF-30, .cHovOut2:hover  .brHovIn2LF-30, .brHovLF-30:active, .cHovOut:active .brHovInLF-30, .cHovOut1:active .brHovIn1LF-30, .cHovOut2:active .brHovIn2LF-30, .brActLF-30:active:active, .cActOut:active:active .brActInLF-30, .brSelLF-30.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF-30, .cSelOut1.sel.sel.sel .brSelIn1LF-30, .cSelOut2.sel.sel.sel .brSelIn2LF-30, .brChkLF-30:checked:checked, .cLblSib:checked:checked + .brLblLingLF-30, .cLbtSib:checked:checked ~ .brLbtLingLF-30, .brFocLF-30:focus:focus, .brFowLF-30:focus-within:focus-within { --br-L-factor: -30%; }
+.brLF-40, .brHovLF-40:hover,  .cHovOut:hover  .brHovInLF-40, .cHovOut1:hover  .brHovIn1LF-40, .cHovOut2:hover  .brHovIn2LF-40, .brHovLF-40:active, .cHovOut:active .brHovInLF-40, .cHovOut1:active .brHovIn1LF-40, .cHovOut2:active .brHovIn2LF-40, .brActLF-40:active:active, .cActOut:active:active .brActInLF-40, .brSelLF-40.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF-40, .cSelOut1.sel.sel.sel .brSelIn1LF-40, .cSelOut2.sel.sel.sel .brSelIn2LF-40, .brChkLF-40:checked:checked, .cLblSib:checked:checked + .brLblLingLF-40, .cLbtSib:checked:checked ~ .brLbtLingLF-40, .brFocLF-40:focus:focus, .brFowLF-40:focus-within:focus-within { --br-L-factor: -40%; }
+.brLF-50, .brHovLF-50:hover,  .cHovOut:hover  .brHovInLF-50, .cHovOut1:hover  .brHovIn1LF-50, .cHovOut2:hover  .brHovIn2LF-50, .brHovLF-50:active, .cHovOut:active .brHovInLF-50, .cHovOut1:active .brHovIn1LF-50, .cHovOut2:active .brHovIn2LF-50, .brActLF-50:active:active, .cActOut:active:active .brActInLF-50, .brSelLF-50.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF-50, .cSelOut1.sel.sel.sel .brSelIn1LF-50, .cSelOut2.sel.sel.sel .brSelIn2LF-50, .brChkLF-50:checked:checked, .cLblSib:checked:checked + .brLblLingLF-50, .cLbtSib:checked:checked ~ .brLbtLingLF-50, .brFocLF-50:focus:focus, .brFowLF-50:focus-within:focus-within { --br-L-factor: -50%; }
+.brLF-60, .brHovLF-60:hover,  .cHovOut:hover  .brHovInLF-60, .cHovOut1:hover  .brHovIn1LF-60, .cHovOut2:hover  .brHovIn2LF-60, .brHovLF-60:active, .cHovOut:active .brHovInLF-60, .cHovOut1:active .brHovIn1LF-60, .cHovOut2:active .brHovIn2LF-60, .brActLF-60:active:active, .cActOut:active:active .brActInLF-60, .brSelLF-60.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF-60, .cSelOut1.sel.sel.sel .brSelIn1LF-60, .cSelOut2.sel.sel.sel .brSelIn2LF-60, .brChkLF-60:checked:checked, .cLblSib:checked:checked + .brLblLingLF-60, .cLbtSib:checked:checked ~ .brLbtLingLF-60, .brFocLF-60:focus:focus, .brFowLF-60:focus-within:focus-within { --br-L-factor: -60%; }
+.brLF-70, .brHovLF-70:hover,  .cHovOut:hover  .brHovInLF-70, .cHovOut1:hover  .brHovIn1LF-70, .cHovOut2:hover  .brHovIn2LF-70, .brHovLF-70:active, .cHovOut:active .brHovInLF-70, .cHovOut1:active .brHovIn1LF-70, .cHovOut2:active .brHovIn2LF-70, .brActLF-70:active:active, .cActOut:active:active .brActInLF-70, .brSelLF-70.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF-70, .cSelOut1.sel.sel.sel .brSelIn1LF-70, .cSelOut2.sel.sel.sel .brSelIn2LF-70, .brChkLF-70:checked:checked, .cLblSib:checked:checked + .brLblLingLF-70, .cLbtSib:checked:checked ~ .brLbtLingLF-70, .brFocLF-70:focus:focus, .brFowLF-70:focus-within:focus-within { --br-L-factor: -70%; }
+.brLF-80, .brHovLF-80:hover,  .cHovOut:hover  .brHovInLF-80, .cHovOut1:hover  .brHovIn1LF-80, .cHovOut2:hover  .brHovIn2LF-80, .brHovLF-80:active, .cHovOut:active .brHovInLF-80, .cHovOut1:active .brHovIn1LF-80, .cHovOut2:active .brHovIn2LF-80, .brActLF-80:active:active, .cActOut:active:active .brActInLF-80, .brSelLF-80.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF-80, .cSelOut1.sel.sel.sel .brSelIn1LF-80, .cSelOut2.sel.sel.sel .brSelIn2LF-80, .brChkLF-80:checked:checked, .cLblSib:checked:checked + .brLblLingLF-80, .cLbtSib:checked:checked ~ .brLbtLingLF-80, .brFocLF-80:focus:focus, .brFowLF-80:focus-within:focus-within { --br-L-factor: -80%; }
+.brLF-90, .brHovLF-90:hover,  .cHovOut:hover  .brHovInLF-90, .cHovOut1:hover  .brHovIn1LF-90, .cHovOut2:hover  .brHovIn2LF-90, .brHovLF-90:active, .cHovOut:active .brHovInLF-90, .cHovOut1:active .brHovIn1LF-90, .cHovOut2:active .brHovIn2LF-90, .brActLF-90:active:active, .cActOut:active:active .brActInLF-90, .brSelLF-90.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInLF-90, .cSelOut1.sel.sel.sel .brSelIn1LF-90, .cSelOut2.sel.sel.sel .brSelIn2LF-90, .brChkLF-90:checked:checked, .cLblSib:checked:checked + .brLblLingLF-90, .cLbtSib:checked:checked ~ .brLbtLingLF-90, .brFocLF-90:focus:focus, .brFowLF-90:focus-within:focus-within { --br-L-factor: -90%; }
+
+.brL0, .brHovL0:hover, .cHovOut:hover  .brHovInL0, .cHovOut1:hover  .brHovIn1L0, .cHovOut2:hover  .brHovIn2L0, .brHovL0:active, .cHovOut:active .brHovInL0, .cHovOut1:active .brHovIn1L0, .cHovOut2:active .brHovIn2L0, .brActL0:active:active, .cActOut:active:active .brActInL0, .brSelL0.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL0, .brChkL0:checked:checked, .cLblSib:checked:checked + .brLblLingL0, .cLbtSib:checked:checked ~ .brLbtLingL0, .brFocL0:focus:focus, .brFowL0:focus-within:focus-within { --br-L-mod: 0%; }
+.brL1, .brHovL1:hover, .cHovOut:hover  .brHovInL1, .cHovOut1:hover  .brHovIn1L1, .cHovOut2:hover  .brHovIn2L1, .brHovL1:active, .cHovOut:active .brHovInL1, .cHovOut1:active .brHovIn1L1, .cHovOut2:active .brHovIn2L1, .brActL1:active:active, .cActOut:active:active .brActInL1, .brSelL1.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL1, .brChkL1:checked:checked, .cLblSib:checked:checked + .brLblLingL1, .cLbtSib:checked:checked ~ .brLbtLingL1, .brFocL1:focus:focus, .brFowL1:focus-within:focus-within { --br-L-mod: 1%; }
+.brL2, .brHovL2:hover, .cHovOut:hover  .brHovInL2, .cHovOut1:hover  .brHovIn1L2, .cHovOut2:hover  .brHovIn2L2, .brHovL2:active, .cHovOut:active .brHovInL2, .cHovOut1:active .brHovIn1L2, .cHovOut2:active .brHovIn2L2, .brActL2:active:active, .cActOut:active:active .brActInL2, .brSelL2.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL2, .brChkL2:checked:checked, .cLblSib:checked:checked + .brLblLingL2, .cLbtSib:checked:checked ~ .brLbtLingL2, .brFocL2:focus:focus, .brFowL2:focus-within:focus-within { --br-L-mod: 2%; }
+.brL3, .brHovL3:hover, .cHovOut:hover  .brHovInL3, .cHovOut1:hover  .brHovIn1L3, .cHovOut2:hover  .brHovIn2L3, .brHovL3:active, .cHovOut:active .brHovInL3, .cHovOut1:active .brHovIn1L3, .cHovOut2:active .brHovIn2L3, .brActL3:active:active, .cActOut:active:active .brActInL3, .brSelL3.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL3, .brChkL3:checked:checked, .cLblSib:checked:checked + .brLblLingL3, .cLbtSib:checked:checked ~ .brLbtLingL3, .brFocL3:focus:focus, .brFowL3:focus-within:focus-within { --br-L-mod: 3%; }
+.brL4, .brHovL4:hover, .cHovOut:hover  .brHovInL4, .cHovOut1:hover  .brHovIn1L4, .cHovOut2:hover  .brHovIn2L4, .brHovL4:active, .cHovOut:active .brHovInL4, .cHovOut1:active .brHovIn1L4, .cHovOut2:active .brHovIn2L4, .brActL4:active:active, .cActOut:active:active .brActInL4, .brSelL4.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL4, .brChkL4:checked:checked, .cLblSib:checked:checked + .brLblLingL4, .cLbtSib:checked:checked ~ .brLbtLingL4, .brFocL4:focus:focus, .brFowL4:focus-within:focus-within { --br-L-mod: 4%; }
+.brL5, .brHovL5:hover, .cHovOut:hover  .brHovInL5, .cHovOut1:hover  .brHovIn1L5, .cHovOut2:hover  .brHovIn2L5, .brHovL5:active, .cHovOut:active .brHovInL5, .cHovOut1:active .brHovIn1L5, .cHovOut2:active .brHovIn2L5, .brActL5:active:active, .cActOut:active:active .brActInL5, .brSelL5.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL5, .brChkL5:checked:checked, .cLblSib:checked:checked + .brLblLingL5, .cLbtSib:checked:checked ~ .brLbtLingL5, .brFocL5:focus:focus, .brFowL5:focus-within:focus-within { --br-L-mod: 5%; }
+.brL6, .brHovL6:hover, .cHovOut:hover  .brHovInL6, .cHovOut1:hover  .brHovIn1L6, .cHovOut2:hover  .brHovIn2L6, .brHovL6:active, .cHovOut:active .brHovInL6, .cHovOut1:active .brHovIn1L6, .cHovOut2:active .brHovIn2L6, .brActL6:active:active, .cActOut:active:active .brActInL6, .brSelL6.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL6, .brChkL6:checked:checked, .cLblSib:checked:checked + .brLblLingL6, .cLbtSib:checked:checked ~ .brLbtLingL6, .brFocL6:focus:focus, .brFowL6:focus-within:focus-within { --br-L-mod: 6%; }
+.brL7, .brHovL7:hover, .cHovOut:hover  .brHovInL7, .cHovOut1:hover  .brHovIn1L7, .cHovOut2:hover  .brHovIn2L7, .brHovL7:active, .cHovOut:active .brHovInL7, .cHovOut1:active .brHovIn1L7, .cHovOut2:active .brHovIn2L7, .brActL7:active:active, .cActOut:active:active .brActInL7, .brSelL7.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL7, .brChkL7:checked:checked, .cLblSib:checked:checked + .brLblLingL7, .cLbtSib:checked:checked ~ .brLbtLingL7, .brFocL7:focus:focus, .brFowL7:focus-within:focus-within { --br-L-mod: 7%; }
+.brL8, .brHovL8:hover, .cHovOut:hover  .brHovInL8, .cHovOut1:hover  .brHovIn1L8, .cHovOut2:hover  .brHovIn2L8, .brHovL8:active, .cHovOut:active .brHovInL8, .cHovOut1:active .brHovIn1L8, .cHovOut2:active .brHovIn2L8, .brActL8:active:active, .cActOut:active:active .brActInL8, .brSelL8.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL8, .brChkL8:checked:checked, .cLblSib:checked:checked + .brLblLingL8, .cLbtSib:checked:checked ~ .brLbtLingL8, .brFocL8:focus:focus, .brFowL8:focus-within:focus-within { --br-L-mod: 8%; }
+.brL9, .brHovL9:hover, .cHovOut:hover  .brHovInL9, .cHovOut1:hover  .brHovIn1L9, .cHovOut2:hover  .brHovIn2L9, .brHovL9:active, .cHovOut:active .brHovInL9, .cHovOut1:active .brHovIn1L9, .cHovOut2:active .brHovIn2L9, .brActL9:active:active, .cActOut:active:active .brActInL9, .brSelL9.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL9, .brChkL9:checked:checked, .cLblSib:checked:checked + .brLblLingL9, .cLbtSib:checked:checked ~ .brLbtLingL9, .brFocL9:focus:focus, .brFowL9:focus-within:focus-within { --br-L-mod: 9%; }
+
+.brL10, .brHovL10:hover, .cHovOut:hover  .brHovInL10, .cHovOut1:hover  .brHovIn1L10, .cHovOut2:hover  .brHovIn2L10, .brHovL10:active, .cHovOut:active .brHovInL10, .cHovOut1:active .brHovIn1L10, .cHovOut2:active .brHovIn2L10, .brActL10:active:active, .cActOut:active:active .brActInL10, .brSelL10.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL10, .brChkL10:checked:checked, .cLblSib:checked:checked + .brLblLingL10, .cLbtSib:checked:checked ~ .brLbtLingL10, .brFocL10:focus:focus, .brFowL10:focus-within:focus-within { --br-L-mod: 10%; }
+.brL11, .brHovL11:hover, .cHovOut:hover  .brHovInL11, .cHovOut1:hover  .brHovIn1L11, .cHovOut2:hover  .brHovIn2L11, .brHovL11:active, .cHovOut:active .brHovInL11, .cHovOut1:active .brHovIn1L11, .cHovOut2:active .brHovIn2L11, .brActL11:active:active, .cActOut:active:active .brActInL11, .brSelL11.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL11, .brChkL11:checked:checked, .cLblSib:checked:checked + .brLblLingL11, .cLbtSib:checked:checked ~ .brLbtLingL11, .brFocL11:focus:focus, .brFowL11:focus-within:focus-within { --br-L-mod: 11%; }
+.brL12, .brHovL12:hover, .cHovOut:hover  .brHovInL12, .cHovOut1:hover  .brHovIn1L12, .cHovOut2:hover  .brHovIn2L12, .brHovL12:active, .cHovOut:active .brHovInL12, .cHovOut1:active .brHovIn1L12, .cHovOut2:active .brHovIn2L12, .brActL12:active:active, .cActOut:active:active .brActInL12, .brSelL12.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL12, .brChkL12:checked:checked, .cLblSib:checked:checked + .brLblLingL12, .cLbtSib:checked:checked ~ .brLbtLingL12, .brFocL12:focus:focus, .brFowL12:focus-within:focus-within { --br-L-mod: 12%; }
+.brL13, .brHovL13:hover, .cHovOut:hover  .brHovInL13, .cHovOut1:hover  .brHovIn1L13, .cHovOut2:hover  .brHovIn2L13, .brHovL13:active, .cHovOut:active .brHovInL13, .cHovOut1:active .brHovIn1L13, .cHovOut2:active .brHovIn2L13, .brActL13:active:active, .cActOut:active:active .brActInL13, .brSelL13.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL13, .brChkL13:checked:checked, .cLblSib:checked:checked + .brLblLingL13, .cLbtSib:checked:checked ~ .brLbtLingL13, .brFocL13:focus:focus, .brFowL13:focus-within:focus-within { --br-L-mod: 13%; }
+.brL14, .brHovL14:hover, .cHovOut:hover  .brHovInL14, .cHovOut1:hover  .brHovIn1L14, .cHovOut2:hover  .brHovIn2L14, .brHovL14:active, .cHovOut:active .brHovInL14, .cHovOut1:active .brHovIn1L14, .cHovOut2:active .brHovIn2L14, .brActL14:active:active, .cActOut:active:active .brActInL14, .brSelL14.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL14, .brChkL14:checked:checked, .cLblSib:checked:checked + .brLblLingL14, .cLbtSib:checked:checked ~ .brLbtLingL14, .brFocL14:focus:focus, .brFowL14:focus-within:focus-within { --br-L-mod: 14%; }
+.brL15, .brHovL15:hover, .cHovOut:hover  .brHovInL15, .cHovOut1:hover  .brHovIn1L15, .cHovOut2:hover  .brHovIn2L15, .brHovL15:active, .cHovOut:active .brHovInL15, .cHovOut1:active .brHovIn1L15, .cHovOut2:active .brHovIn2L15, .brActL15:active:active, .cActOut:active:active .brActInL15, .brSelL15.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL15, .brChkL15:checked:checked, .cLblSib:checked:checked + .brLblLingL15, .cLbtSib:checked:checked ~ .brLbtLingL15, .brFocL15:focus:focus, .brFowL15:focus-within:focus-within { --br-L-mod: 15%; }
+.brL16, .brHovL16:hover, .cHovOut:hover  .brHovInL16, .cHovOut1:hover  .brHovIn1L16, .cHovOut2:hover  .brHovIn2L16, .brHovL16:active, .cHovOut:active .brHovInL16, .cHovOut1:active .brHovIn1L16, .cHovOut2:active .brHovIn2L16, .brActL16:active:active, .cActOut:active:active .brActInL16, .brSelL16.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL16, .brChkL16:checked:checked, .cLblSib:checked:checked + .brLblLingL16, .cLbtSib:checked:checked ~ .brLbtLingL16, .brFocL16:focus:focus, .brFowL16:focus-within:focus-within { --br-L-mod: 16%; }
+.brL17, .brHovL17:hover, .cHovOut:hover  .brHovInL17, .cHovOut1:hover  .brHovIn1L17, .cHovOut2:hover  .brHovIn2L17, .brHovL17:active, .cHovOut:active .brHovInL17, .cHovOut1:active .brHovIn1L17, .cHovOut2:active .brHovIn2L17, .brActL17:active:active, .cActOut:active:active .brActInL17, .brSelL17.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL17, .brChkL17:checked:checked, .cLblSib:checked:checked + .brLblLingL17, .cLbtSib:checked:checked ~ .brLbtLingL17, .brFocL17:focus:focus, .brFowL17:focus-within:focus-within { --br-L-mod: 17%; }
+.brL18, .brHovL18:hover, .cHovOut:hover  .brHovInL18, .cHovOut1:hover  .brHovIn1L18, .cHovOut2:hover  .brHovIn2L18, .brHovL18:active, .cHovOut:active .brHovInL18, .cHovOut1:active .brHovIn1L18, .cHovOut2:active .brHovIn2L18, .brActL18:active:active, .cActOut:active:active .brActInL18, .brSelL18.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL18, .brChkL18:checked:checked, .cLblSib:checked:checked + .brLblLingL18, .cLbtSib:checked:checked ~ .brLbtLingL18, .brFocL18:focus:focus, .brFowL18:focus-within:focus-within { --br-L-mod: 18%; }
+.brL19, .brHovL19:hover, .cHovOut:hover  .brHovInL19, .cHovOut1:hover  .brHovIn1L19, .cHovOut2:hover  .brHovIn2L19, .brHovL19:active, .cHovOut:active .brHovInL19, .cHovOut1:active .brHovIn1L19, .cHovOut2:active .brHovIn2L19, .brActL19:active:active, .cActOut:active:active .brActInL19, .brSelL19.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL19, .brChkL19:checked:checked, .cLblSib:checked:checked + .brLblLingL19, .cLbtSib:checked:checked ~ .brLbtLingL19, .brFocL19:focus:focus, .brFowL19:focus-within:focus-within { --br-L-mod: 19%; }
+.brL20, .brHovL20:hover, .cHovOut:hover  .brHovInL20, .cHovOut1:hover  .brHovIn1L20, .cHovOut2:hover  .brHovIn2L20, .brHovL20:active, .cHovOut:active .brHovInL20, .cHovOut1:active .brHovIn1L20, .cHovOut2:active .brHovIn2L20, .brActL20:active:active, .cActOut:active:active .brActInL20, .brSelL20.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL20, .brChkL20:checked:checked, .cLblSib:checked:checked + .brLblLingL20, .cLbtSib:checked:checked ~ .brLbtLingL20, .brFocL20:focus:focus, .brFowL20:focus-within:focus-within { --br-L-mod: 20%; }
+
+.brL-1, .brHovL-1:hover, .cHovOut:hover  .brHovInL-1, .cHovOut1:hover  .brHovIn1L-1, .cHovOut2:hover  .brHovIn2L-1, .brHovL-1:active, .cHovOut:active .brHovInL-1, .cHovOut1:active .brHovIn1L-1, .cHovOut2:active .brHovIn2L-1, .brActL-1:active:active, .cActOut:active:active .brActInL-1, .brSelL-1.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-1, .brChkL-1:checked:checked, .cLblSib:checked:checked + .brLblLingL-1, .cLbtSib:checked:checked ~ .brLbtLingL-1, .brFocL-1:focus:focus, .brFowL-1:focus-within:focus-within { --br-L-mod: -1%; }
+.brL-2, .brHovL-2:hover, .cHovOut:hover  .brHovInL-2, .cHovOut1:hover  .brHovIn1L-2, .cHovOut2:hover  .brHovIn2L-2, .brHovL-2:active, .cHovOut:active .brHovInL-2, .cHovOut1:active .brHovIn1L-2, .cHovOut2:active .brHovIn2L-2, .brActL-2:active:active, .cActOut:active:active .brActInL-2, .brSelL-2.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-2, .brChkL-2:checked:checked, .cLblSib:checked:checked + .brLblLingL-2, .cLbtSib:checked:checked ~ .brLbtLingL-2, .brFocL-2:focus:focus, .brFowL-2:focus-within:focus-within { --br-L-mod: -2%; }
+.brL-3, .brHovL-3:hover, .cHovOut:hover  .brHovInL-3, .cHovOut1:hover  .brHovIn1L-3, .cHovOut2:hover  .brHovIn2L-3, .brHovL-3:active, .cHovOut:active .brHovInL-3, .cHovOut1:active .brHovIn1L-3, .cHovOut2:active .brHovIn2L-3, .brActL-3:active:active, .cActOut:active:active .brActInL-3, .brSelL-3.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-3, .brChkL-3:checked:checked, .cLblSib:checked:checked + .brLblLingL-3, .cLbtSib:checked:checked ~ .brLbtLingL-3, .brFocL-3:focus:focus, .brFowL-3:focus-within:focus-within { --br-L-mod: -3%; }
+.brL-4, .brHovL-4:hover, .cHovOut:hover  .brHovInL-4, .cHovOut1:hover  .brHovIn1L-4, .cHovOut2:hover  .brHovIn2L-4, .brHovL-4:active, .cHovOut:active .brHovInL-4, .cHovOut1:active .brHovIn1L-4, .cHovOut2:active .brHovIn2L-4, .brActL-4:active:active, .cActOut:active:active .brActInL-4, .brSelL-4.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-4, .brChkL-4:checked:checked, .cLblSib:checked:checked + .brLblLingL-4, .cLbtSib:checked:checked ~ .brLbtLingL-4, .brFocL-4:focus:focus, .brFowL-4:focus-within:focus-within { --br-L-mod: -4%; }
+.brL-5, .brHovL-5:hover, .cHovOut:hover  .brHovInL-5, .cHovOut1:hover  .brHovIn1L-5, .cHovOut2:hover  .brHovIn2L-5, .brHovL-5:active, .cHovOut:active .brHovInL-5, .cHovOut1:active .brHovIn1L-5, .cHovOut2:active .brHovIn2L-5, .brActL-5:active:active, .cActOut:active:active .brActInL-5, .brSelL-5.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-5, .brChkL-5:checked:checked, .cLblSib:checked:checked + .brLblLingL-5, .cLbtSib:checked:checked ~ .brLbtLingL-5, .brFocL-5:focus:focus, .brFowL-5:focus-within:focus-within { --br-L-mod: -5%; }
+.brL-6, .brHovL-6:hover, .cHovOut:hover  .brHovInL-6, .cHovOut1:hover  .brHovIn1L-6, .cHovOut2:hover  .brHovIn2L-6, .brHovL-6:active, .cHovOut:active .brHovInL-6, .cHovOut1:active .brHovIn1L-6, .cHovOut2:active .brHovIn2L-6, .brActL-6:active:active, .cActOut:active:active .brActInL-6, .brSelL-6.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-6, .brChkL-6:checked:checked, .cLblSib:checked:checked + .brLblLingL-6, .cLbtSib:checked:checked ~ .brLbtLingL-6, .brFocL-6:focus:focus, .brFowL-6:focus-within:focus-within { --br-L-mod: -6%; }
+.brL-7, .brHovL-7:hover, .cHovOut:hover  .brHovInL-7, .cHovOut1:hover  .brHovIn1L-7, .cHovOut2:hover  .brHovIn2L-7, .brHovL-7:active, .cHovOut:active .brHovInL-7, .cHovOut1:active .brHovIn1L-7, .cHovOut2:active .brHovIn2L-7, .brActL-7:active:active, .cActOut:active:active .brActInL-7, .brSelL-7.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-7, .brChkL-7:checked:checked, .cLblSib:checked:checked + .brLblLingL-7, .cLbtSib:checked:checked ~ .brLbtLingL-7, .brFocL-7:focus:focus, .brFowL-7:focus-within:focus-within { --br-L-mod: -7%; }
+.brL-8, .brHovL-8:hover, .cHovOut:hover  .brHovInL-8, .cHovOut1:hover  .brHovIn1L-8, .cHovOut2:hover  .brHovIn2L-8, .brHovL-8:active, .cHovOut:active .brHovInL-8, .cHovOut1:active .brHovIn1L-8, .cHovOut2:active .brHovIn2L-8, .brActL-8:active:active, .cActOut:active:active .brActInL-8, .brSelL-8.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-8, .brChkL-8:checked:checked, .cLblSib:checked:checked + .brLblLingL-8, .cLbtSib:checked:checked ~ .brLbtLingL-8, .brFocL-8:focus:focus, .brFowL-8:focus-within:focus-within { --br-L-mod: -8%; }
+.brL-9, .brHovL-9:hover, .cHovOut:hover  .brHovInL-9, .cHovOut1:hover  .brHovIn1L-9, .cHovOut2:hover  .brHovIn2L-9, .brHovL-9:active, .cHovOut:active .brHovInL-9, .cHovOut1:active .brHovIn1L-9, .cHovOut2:active .brHovIn2L-9, .brActL-9:active:active, .cActOut:active:active .brActInL-9, .brSelL-9.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-9, .brChkL-9:checked:checked, .cLblSib:checked:checked + .brLblLingL-9, .cLbtSib:checked:checked ~ .brLbtLingL-9, .brFocL-9:focus:focus, .brFowL-9:focus-within:focus-within { --br-L-mod: -9%; }
+
+.brL-10, .brHovL-10:hover, .cHovOut:hover  .brHovInL-10, .cHovOut1:hover  .brHovIn1L-10, .cHovOut2:hover  .brHovIn2L-10, .brHovL-10:active, .cHovOut:active .brHovInL-10, .cHovOut1:active .brHovIn1L-10, .cHovOut2:active .brHovIn2L-10, .brActL-10:active:active, .cActOut:active:active .brActInL-10, .brSelL-10.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-10, .brChkL-10:checked:checked, .cLblSib:checked:checked + .brLblLingL-10, .cLbtSib:checked:checked ~ .brLbtLingL-10, .brFocL-10:focus:focus, .brFowL-10:focus-within:focus-within { --br-L-mod: -10%; }
+.brL-11, .brHovL-11:hover, .cHovOut:hover  .brHovInL-11, .cHovOut1:hover  .brHovIn1L-11, .cHovOut2:hover  .brHovIn2L-11, .brHovL-11:active, .cHovOut:active .brHovInL-11, .cHovOut1:active .brHovIn1L-11, .cHovOut2:active .brHovIn2L-11, .brActL-11:active:active, .cActOut:active:active .brActInL-11, .brSelL-11.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-11, .brChkL-11:checked:checked, .cLblSib:checked:checked + .brLblLingL-11, .cLbtSib:checked:checked ~ .brLbtLingL-11, .brFocL-11:focus:focus, .brFowL-11:focus-within:focus-within { --br-L-mod: -11%; }
+.brL-12, .brHovL-12:hover, .cHovOut:hover  .brHovInL-12, .cHovOut1:hover  .brHovIn1L-12, .cHovOut2:hover  .brHovIn2L-12, .brHovL-12:active, .cHovOut:active .brHovInL-12, .cHovOut1:active .brHovIn1L-12, .cHovOut2:active .brHovIn2L-12, .brActL-12:active:active, .cActOut:active:active .brActInL-12, .brSelL-12.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-12, .brChkL-12:checked:checked, .cLblSib:checked:checked + .brLblLingL-12, .cLbtSib:checked:checked ~ .brLbtLingL-12, .brFocL-12:focus:focus, .brFowL-12:focus-within:focus-within { --br-L-mod: -12%; }
+.brL-13, .brHovL-13:hover, .cHovOut:hover  .brHovInL-13, .cHovOut1:hover  .brHovIn1L-13, .cHovOut2:hover  .brHovIn2L-13, .brHovL-13:active, .cHovOut:active .brHovInL-13, .cHovOut1:active .brHovIn1L-13, .cHovOut2:active .brHovIn2L-13, .brActL-13:active:active, .cActOut:active:active .brActInL-13, .brSelL-13.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-13, .brChkL-13:checked:checked, .cLblSib:checked:checked + .brLblLingL-13, .cLbtSib:checked:checked ~ .brLbtLingL-13, .brFocL-13:focus:focus, .brFowL-13:focus-within:focus-within { --br-L-mod: -13%; }
+.brL-14, .brHovL-14:hover, .cHovOut:hover  .brHovInL-14, .cHovOut1:hover  .brHovIn1L-14, .cHovOut2:hover  .brHovIn2L-14, .brHovL-14:active, .cHovOut:active .brHovInL-14, .cHovOut1:active .brHovIn1L-14, .cHovOut2:active .brHovIn2L-14, .brActL-14:active:active, .cActOut:active:active .brActInL-14, .brSelL-14.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-14, .brChkL-14:checked:checked, .cLblSib:checked:checked + .brLblLingL-14, .cLbtSib:checked:checked ~ .brLbtLingL-14, .brFocL-14:focus:focus, .brFowL-14:focus-within:focus-within { --br-L-mod: -14%; }
+.brL-15, .brHovL-15:hover, .cHovOut:hover  .brHovInL-15, .cHovOut1:hover  .brHovIn1L-15, .cHovOut2:hover  .brHovIn2L-15, .brHovL-15:active, .cHovOut:active .brHovInL-15, .cHovOut1:active .brHovIn1L-15, .cHovOut2:active .brHovIn2L-15, .brActL-15:active:active, .cActOut:active:active .brActInL-15, .brSelL-15.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-15, .brChkL-15:checked:checked, .cLblSib:checked:checked + .brLblLingL-15, .cLbtSib:checked:checked ~ .brLbtLingL-15, .brFocL-15:focus:focus, .brFowL-15:focus-within:focus-within { --br-L-mod: -15%; }
+.brL-16, .brHovL-16:hover, .cHovOut:hover  .brHovInL-16, .cHovOut1:hover  .brHovIn1L-16, .cHovOut2:hover  .brHovIn2L-16, .brHovL-16:active, .cHovOut:active .brHovInL-16, .cHovOut1:active .brHovIn1L-16, .cHovOut2:active .brHovIn2L-16, .brActL-16:active:active, .cActOut:active:active .brActInL-16, .brSelL-16.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-16, .brChkL-16:checked:checked, .cLblSib:checked:checked + .brLblLingL-16, .cLbtSib:checked:checked ~ .brLbtLingL-16, .brFocL-16:focus:focus, .brFowL-16:focus-within:focus-within { --br-L-mod: -16%; }
+.brL-17, .brHovL-17:hover, .cHovOut:hover  .brHovInL-17, .cHovOut1:hover  .brHovIn1L-17, .cHovOut2:hover  .brHovIn2L-17, .brHovL-17:active, .cHovOut:active .brHovInL-17, .cHovOut1:active .brHovIn1L-17, .cHovOut2:active .brHovIn2L-17, .brActL-17:active:active, .cActOut:active:active .brActInL-17, .brSelL-17.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-17, .brChkL-17:checked:checked, .cLblSib:checked:checked + .brLblLingL-17, .cLbtSib:checked:checked ~ .brLbtLingL-17, .brFocL-17:focus:focus, .brFowL-17:focus-within:focus-within { --br-L-mod: -17%; }
+.brL-18, .brHovL-18:hover, .cHovOut:hover  .brHovInL-18, .cHovOut1:hover  .brHovIn1L-18, .cHovOut2:hover  .brHovIn2L-18, .brHovL-18:active, .cHovOut:active .brHovInL-18, .cHovOut1:active .brHovIn1L-18, .cHovOut2:active .brHovIn2L-18, .brActL-18:active:active, .cActOut:active:active .brActInL-18, .brSelL-18.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-18, .brChkL-18:checked:checked, .cLblSib:checked:checked + .brLblLingL-18, .cLbtSib:checked:checked ~ .brLbtLingL-18, .brFocL-18:focus:focus, .brFowL-18:focus-within:focus-within { --br-L-mod: -18%; }
+.brL-19, .brHovL-19:hover, .cHovOut:hover  .brHovInL-19, .cHovOut1:hover  .brHovIn1L-19, .cHovOut2:hover  .brHovIn2L-19, .brHovL-19:active, .cHovOut:active .brHovInL-19, .cHovOut1:active .brHovIn1L-19, .cHovOut2:active .brHovIn2L-19, .brActL-19:active:active, .cActOut:active:active .brActInL-19, .brSelL-19.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-19, .brChkL-19:checked:checked, .cLblSib:checked:checked + .brLblLingL-19, .cLbtSib:checked:checked ~ .brLbtLingL-19, .brFocL-19:focus:focus, .brFowL-19:focus-within:focus-within { --br-L-mod: -19%; }
+.brL-20, .brHovL-20:hover, .cHovOut:hover  .brHovInL-20, .cHovOut1:hover  .brHovIn1L-20, .cHovOut2:hover  .brHovIn2L-20, .brHovL-20:active, .cHovOut:active .brHovInL-20, .cHovOut1:active .brHovIn1L-20, .cHovOut2:active .brHovIn2L-20, .brActL-20:active:active, .cActOut:active:active .brActInL-20, .brSelL-20.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInL-20, .brChkL-20:checked:checked, .cLblSib:checked:checked + .brLblLingL-20, .cLbtSib:checked:checked ~ .brLbtLingL-20, .brFocL-20:focus:focus, .brFowL-20:focus-within:focus-within { --br-L-mod: -20%; }
+
+/* HSLA(A) */
+
+.brA0,   .brHovA0:hover,   .cHovOut:hover  .brHovInA0,   .cHovOut1:hover  .brHovIn1A0,   .cHovOut2:hover  .brHovIn2A0,   .brHovA0:active,   .cHovOut:active .brHovInA0,   .cHovOut1:active .brHovIn1A0,   .cHovOut2:active .brHovIn2A0,   .brActA0:active:active,   .cActOut:active:active .brActInA0,   .brSelA0.sel.sel.sel,   .cSelOut.sel.sel.sel .brSelInA0,   .brChkA0:checked:checked,   .cLblSib:checked:checked + .brLblLingA0,   .cLbtSib:checked:checked ~ .brLbtLingA0,   .brFocA0:focus:focus,   .brFowA0:focus-within:focus-within   { --br-A-main:    0; }
+.brA5,   .brHovA5:hover,   .cHovOut:hover  .brHovInA5,   .cHovOut1:hover  .brHovIn1A5,   .cHovOut2:hover  .brHovIn2A5,   .brHovA5:active,   .cHovOut:active .brHovInA5,   .cHovOut1:active .brHovIn1A5,   .cHovOut2:active .brHovIn2A5,   .brActA5:active:active,   .cActOut:active:active .brActInA5,   .brSelA5.sel.sel.sel,   .cSelOut.sel.sel.sel .brSelInA5,   .brChkA5:checked:checked,   .cLblSib:checked:checked + .brLblLingA5,   .cLbtSib:checked:checked ~ .brLbtLingA5,   .brFocA5:focus:focus,   .brFowA5:focus-within:focus-within   { --br-A-main: 0.05; }
+.brA10,  .brHovA10:hover,  .cHovOut:hover  .brHovInA10,  .cHovOut1:hover  .brHovIn1A10,  .cHovOut2:hover  .brHovIn2A10,  .brHovA10:active,  .cHovOut:active .brHovInA10,  .cHovOut1:active .brHovIn1A10,  .cHovOut2:active .brHovIn2A10,  .brActA10:active:active,  .cActOut:active:active .brActInA10,  .brSelA10.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA10,  .brChkA10:checked:checked,  .cLblSib:checked:checked + .brLblLingA10,  .cLbtSib:checked:checked ~ .brLbtLingA10,  .brFocA10:focus:focus,  .brFowA10:focus-within:focus-within  { --br-A-main:  0.1; }
+.brA15,  .brHovA15:hover,  .cHovOut:hover  .brHovInA15,  .cHovOut1:hover  .brHovIn1A15,  .cHovOut2:hover  .brHovIn2A15,  .brHovA15:active,  .cHovOut:active .brHovInA15,  .cHovOut1:active .brHovIn1A15,  .cHovOut2:active .brHovIn2A15,  .brActA15:active:active,  .cActOut:active:active .brActInA15,  .brSelA15.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA15,  .brChkA15:checked:checked,  .cLblSib:checked:checked + .brLblLingA15,  .cLbtSib:checked:checked ~ .brLbtLingA15,  .brFocA15:focus:focus,  .brFowA15:focus-within:focus-within  { --br-A-main: 0.15; }
+.brA20,  .brHovA20:hover,  .cHovOut:hover  .brHovInA20,  .cHovOut1:hover  .brHovIn1A20,  .cHovOut2:hover  .brHovIn2A20,  .brHovA20:active,  .cHovOut:active .brHovInA20,  .cHovOut1:active .brHovIn1A20,  .cHovOut2:active .brHovIn2A20,  .brActA20:active:active,  .cActOut:active:active .brActInA20,  .brSelA20.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA20,  .brChkA20:checked:checked,  .cLblSib:checked:checked + .brLblLingA20,  .cLbtSib:checked:checked ~ .brLbtLingA20,  .brFocA20:focus:focus,  .brFowA20:focus-within:focus-within  { --br-A-main:  0.2; }
+.brA25,  .brHovA25:hover,  .cHovOut:hover  .brHovInA25,  .cHovOut1:hover  .brHovIn1A25,  .cHovOut2:hover  .brHovIn2A25,  .brHovA25:active,  .cHovOut:active .brHovInA25,  .cHovOut1:active .brHovIn1A25,  .cHovOut2:active .brHovIn2A25,  .brActA25:active:active,  .cActOut:active:active .brActInA25,  .brSelA25.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA25,  .brChkA25:checked:checked,  .cLblSib:checked:checked + .brLblLingA25,  .cLbtSib:checked:checked ~ .brLbtLingA25,  .brFocA25:focus:focus,  .brFowA25:focus-within:focus-within  { --br-A-main: 0.25; }
+.brA30,  .brHovA30:hover,  .cHovOut:hover  .brHovInA30,  .cHovOut1:hover  .brHovIn1A30,  .cHovOut2:hover  .brHovIn2A30,  .brHovA30:active,  .cHovOut:active .brHovInA30,  .cHovOut1:active .brHovIn1A30,  .cHovOut2:active .brHovIn2A30,  .brActA30:active:active,  .cActOut:active:active .brActInA30,  .brSelA30.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA30,  .brChkA30:checked:checked,  .cLblSib:checked:checked + .brLblLingA30,  .cLbtSib:checked:checked ~ .brLbtLingA30,  .brFocA30:focus:focus,  .brFowA30:focus-within:focus-within  { --br-A-main:  0.3; }
+.brA35,  .brHovA35:hover,  .cHovOut:hover  .brHovInA35,  .cHovOut1:hover  .brHovIn1A35,  .cHovOut2:hover  .brHovIn2A35,  .brHovA35:active,  .cHovOut:active .brHovInA35,  .cHovOut1:active .brHovIn1A35,  .cHovOut2:active .brHovIn2A35,  .brActA35:active:active,  .cActOut:active:active .brActInA35,  .brSelA35.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA35,  .brChkA35:checked:checked,  .cLblSib:checked:checked + .brLblLingA35,  .cLbtSib:checked:checked ~ .brLbtLingA35,  .brFocA35:focus:focus,  .brFowA35:focus-within:focus-within  { --br-A-main: 0.35; }
+.brA40,  .brHovA40:hover,  .cHovOut:hover  .brHovInA40,  .cHovOut1:hover  .brHovIn1A40,  .cHovOut2:hover  .brHovIn2A40,  .brHovA40:active,  .cHovOut:active .brHovInA40,  .cHovOut1:active .brHovIn1A40,  .cHovOut2:active .brHovIn2A40,  .brActA40:active:active,  .cActOut:active:active .brActInA40,  .brSelA40.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA40,  .brChkA40:checked:checked,  .cLblSib:checked:checked + .brLblLingA40,  .cLbtSib:checked:checked ~ .brLbtLingA40,  .brFocA40:focus:focus,  .brFowA40:focus-within:focus-within  { --br-A-main:  0.4; }
+.brA45,  .brHovA45:hover,  .cHovOut:hover  .brHovInA45,  .cHovOut1:hover  .brHovIn1A45,  .cHovOut2:hover  .brHovIn2A45,  .brHovA45:active,  .cHovOut:active .brHovInA45,  .cHovOut1:active .brHovIn1A45,  .cHovOut2:active .brHovIn2A45,  .brActA45:active:active,  .cActOut:active:active .brActInA45,  .brSelA45.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA45,  .brChkA45:checked:checked,  .cLblSib:checked:checked + .brLblLingA45,  .cLbtSib:checked:checked ~ .brLbtLingA45,  .brFocA45:focus:focus,  .brFowA45:focus-within:focus-within  { --br-A-main: 0.45; }
+.brA50,  .brHovA50:hover,  .cHovOut:hover  .brHovInA50,  .cHovOut1:hover  .brHovIn1A50,  .cHovOut2:hover  .brHovIn2A50,  .brHovA50:active,  .cHovOut:active .brHovInA50,  .cHovOut1:active .brHovIn1A50,  .cHovOut2:active .brHovIn2A50,  .brActA50:active:active,  .cActOut:active:active .brActInA50,  .brSelA50.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA50,  .brChkA50:checked:checked,  .cLblSib:checked:checked + .brLblLingA50,  .cLbtSib:checked:checked ~ .brLbtLingA50,  .brFocA50:focus:focus,  .brFowA50:focus-within:focus-within  { --br-A-main:  0.5; }
+.brA55,  .brHovA55:hover,  .cHovOut:hover  .brHovInA55,  .cHovOut1:hover  .brHovIn1A55,  .cHovOut2:hover  .brHovIn2A55,  .brHovA55:active,  .cHovOut:active .brHovInA55,  .cHovOut1:active .brHovIn1A55,  .cHovOut2:active .brHovIn2A55,  .brActA55:active:active,  .cActOut:active:active .brActInA55,  .brSelA55.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA55,  .brChkA55:checked:checked,  .cLblSib:checked:checked + .brLblLingA55,  .cLbtSib:checked:checked ~ .brLbtLingA55,  .brFocA55:focus:focus,  .brFowA55:focus-within:focus-within  { --br-A-main: 0.55; }
+.brA60,  .brHovA60:hover,  .cHovOut:hover  .brHovInA60,  .cHovOut1:hover  .brHovIn1A60,  .cHovOut2:hover  .brHovIn2A60,  .brHovA60:active,  .cHovOut:active .brHovInA60,  .cHovOut1:active .brHovIn1A60,  .cHovOut2:active .brHovIn2A60,  .brActA60:active:active,  .cActOut:active:active .brActInA60,  .brSelA60.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA60,  .brChkA60:checked:checked,  .cLblSib:checked:checked + .brLblLingA60,  .cLbtSib:checked:checked ~ .brLbtLingA60,  .brFocA60:focus:focus,  .brFowA60:focus-within:focus-within  { --br-A-main:  0.6; }
+.brA65,  .brHovA65:hover,  .cHovOut:hover  .brHovInA65,  .cHovOut1:hover  .brHovIn1A65,  .cHovOut2:hover  .brHovIn2A65,  .brHovA65:active,  .cHovOut:active .brHovInA65,  .cHovOut1:active .brHovIn1A65,  .cHovOut2:active .brHovIn2A65,  .brActA65:active:active,  .cActOut:active:active .brActInA65,  .brSelA65.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA65,  .brChkA65:checked:checked,  .cLblSib:checked:checked + .brLblLingA65,  .cLbtSib:checked:checked ~ .brLbtLingA65,  .brFocA65:focus:focus,  .brFowA65:focus-within:focus-within  { --br-A-main: 0.65; }
+.brA70,  .brHovA70:hover,  .cHovOut:hover  .brHovInA70,  .cHovOut1:hover  .brHovIn1A70,  .cHovOut2:hover  .brHovIn2A70,  .brHovA70:active,  .cHovOut:active .brHovInA70,  .cHovOut1:active .brHovIn1A70,  .cHovOut2:active .brHovIn2A70,  .brActA70:active:active,  .cActOut:active:active .brActInA70,  .brSelA70.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA70,  .brChkA70:checked:checked,  .cLblSib:checked:checked + .brLblLingA70,  .cLbtSib:checked:checked ~ .brLbtLingA70,  .brFocA70:focus:focus,  .brFowA70:focus-within:focus-within  { --br-A-main:  0.7; }
+.brA75,  .brHovA75:hover,  .cHovOut:hover  .brHovInA75,  .cHovOut1:hover  .brHovIn1A75,  .cHovOut2:hover  .brHovIn2A75,  .brHovA75:active,  .cHovOut:active .brHovInA75,  .cHovOut1:active .brHovIn1A75,  .cHovOut2:active .brHovIn2A75,  .brActA75:active:active,  .cActOut:active:active .brActInA75,  .brSelA75.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA75,  .brChkA75:checked:checked,  .cLblSib:checked:checked + .brLblLingA75,  .cLbtSib:checked:checked ~ .brLbtLingA75,  .brFocA75:focus:focus,  .brFowA75:focus-within:focus-within  { --br-A-main: 0.75; }
+.brA80,  .brHovA80:hover,  .cHovOut:hover  .brHovInA80,  .cHovOut1:hover  .brHovIn1A80,  .cHovOut2:hover  .brHovIn2A80,  .brHovA80:active,  .cHovOut:active .brHovInA80,  .cHovOut1:active .brHovIn1A80,  .cHovOut2:active .brHovIn2A80,  .brActA80:active:active,  .cActOut:active:active .brActInA80,  .brSelA80.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA80,  .brChkA80:checked:checked,  .cLblSib:checked:checked + .brLblLingA80,  .cLbtSib:checked:checked ~ .brLbtLingA80,  .brFocA80:focus:focus,  .brFowA80:focus-within:focus-within  { --br-A-main:  0.8; }
+.brA85,  .brHovA85:hover,  .cHovOut:hover  .brHovInA85,  .cHovOut1:hover  .brHovIn1A85,  .cHovOut2:hover  .brHovIn2A85,  .brHovA85:active,  .cHovOut:active .brHovInA85,  .cHovOut1:active .brHovIn1A85,  .cHovOut2:active .brHovIn2A85,  .brActA85:active:active,  .cActOut:active:active .brActInA85,  .brSelA85.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA85,  .brChkA85:checked:checked,  .cLblSib:checked:checked + .brLblLingA85,  .cLbtSib:checked:checked ~ .brLbtLingA85,  .brFocA85:focus:focus,  .brFowA85:focus-within:focus-within  { --br-A-main: 0.85; }
+.brA90,  .brHovA90:hover,  .cHovOut:hover  .brHovInA90,  .cHovOut1:hover  .brHovIn1A90,  .cHovOut2:hover  .brHovIn2A90,  .brHovA90:active,  .cHovOut:active .brHovInA90,  .cHovOut1:active .brHovIn1A90,  .cHovOut2:active .brHovIn2A90,  .brActA90:active:active,  .cActOut:active:active .brActInA90,  .brSelA90.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA90,  .brChkA90:checked:checked,  .cLblSib:checked:checked + .brLblLingA90,  .cLbtSib:checked:checked ~ .brLbtLingA90,  .brFocA90:focus:focus,  .brFowA90:focus-within:focus-within  { --br-A-main:  0.9; }
+.brA95,  .brHovA95:hover,  .cHovOut:hover  .brHovInA95,  .cHovOut1:hover  .brHovIn1A95,  .cHovOut2:hover  .brHovIn2A95,  .brHovA95:active,  .cHovOut:active .brHovInA95,  .cHovOut1:active .brHovIn1A95,  .cHovOut2:active .brHovIn2A95,  .brActA95:active:active,  .cActOut:active:active .brActInA95,  .brSelA95.sel.sel.sel,  .cSelOut.sel.sel.sel .brSelInA95,  .brChkA95:checked:checked,  .cLblSib:checked:checked + .brLblLingA95,  .cLbtSib:checked:checked ~ .brLbtLingA95,  .brFocA95:focus:focus,  .brFowA95:focus-within:focus-within  { --br-A-main: 0.95; }
+.brA100, .brHovA100:hover, .cHovOut:hover  .brHovInA100, .cHovOut1:hover  .brHovIn1A100, .cHovOut2:hover  .brHovIn2A100, .brHovA100:active, .cHovOut:active .brHovInA100, .cHovOut1:active .brHovIn1A100, .cHovOut2:active .brHovIn2A100, .brActA100:active:active, .cActOut:active:active .brActInA100, .brSelA100.sel.sel.sel, .cSelOut.sel.sel.sel .brSelInA100, .brChkA100:checked:checked, .cLblSib:checked:checked + .brLblLingA100, .cLbtSib:checked:checked ~ .brLbtLingA100, .brFocA100:focus:focus, .brFowA100:focus-within:focus-within { --br-A-main:    1; }
+
+
+
+
+
+
+
+
+
+
+/* Font color */
+
+.fn,
+.fnBef,
+.fnAft,
+.fnHov:hover,
+.cHovOut:hover  .fnHovIn,
+.cHovOut1:hover .fnHovIn1,
+.cHovOut2:hover .fnHovIn2,
+.fnHov:active,
+.cHovOut:active  .fnHovIn,
+.cHovOut1:active .fnHovIn1,
+.cHovOut2:active .fnHovIn2,
+.fnAct:active:active,
+.cActOut:active:active .fnActIn,
+.fnSel.sel.sel.sel,
+.cSelOut.sel.sel.sel .fnSelIn,
+.cSelOut1.sel.sel.sel .fnSelIn1,
+.cSelOut2.sel.sel.sel .fnSelIn2,
+.fnChk:checked:checked,
+.cLblSib:checked:checked + .fnLblLing,
+.cLbtSib:checked:checked ~ .fnLbtLing,
+.fnFoc:focus:focus, .fnFow:focus-within:focus-within {
+    --fn-L-mod:    0%;
+    --fn-L-factor: 0%;
+    --fn-A-main:       1;
+    --fn-L-mod-inv:    1;
+    --fn-L-factor-inv: 1;
+}
+
+.fn,
+.fnBef:before,
+.fnAft:after,
+.fnHov:hover,
+.cHovOut:hover  .fnHovIn,
+.cHovOut1:hover .fnHovIn1,
+.cHovOut2:hover .fnHovIn2,
+.fnHov:active,
+.cHovOut:active  .fnHovIn,
+.cHovOut1:active .fnHovIn1,
+.cHovOut2:active .fnHovIn2,
+.fnAct:active:active,
+.cActOut:active:active .fnActIn,
+.fnSel.sel.sel.sel,
+.cSelOut.sel.sel.sel .fnSelIn,
+.cSelOut1.sel.sel.sel .fnSelIn1,
+.cSelOut2.sel.sel.sel .fnSelIn2,
+.fnChk:checked:checked,
+.cLblSib:checked:checked + .fnLblLing,
+.cLbtSib:checked:checked ~ .fnLbtLing,
+.fnFoc:focus:focus, .fnFow:focus-within:focus-within {
+    color: hsla(
+            var(--fn-H-main),
+            var(--fn-S-main),
+            calc(var(--fn-L-main) + (var(--fn-L-mod) * var(--fn-L-mod-inv)) + (var(--fn-L-factor) * var(--fn-L-factor-inv))),
+            var(--fn-A-main, 1)
+    );
+}
+
+.elzTheme-light .cLInvL,
+.elzTheme-light .fnLInvL,
+.elzTheme-light .fnHovLInvL:hover,  .elzTheme-light .cHovOut:hover  .fnHovInLInvL, .elzTheme-light .cHovOut1:hover  .fnHovIn1LInvL, .elzTheme-light .cHovOut2:hover  .fnHovIn2LInvL,
+.elzTheme-light .fnHovLInvL:active, .elzTheme-light .cHovOut:active .fnHovInLInvL, .elzTheme-light .cHovOut1:active .fnHovIn1LInvL, .elzTheme-light .cHovOut2:active .fnHovIn2LInvL,
+.elzTheme-light .fnActLInvL:active:active, .elzTheme-light .cActOut:active:active .fnActInLInvL,
+.elzTheme-light .fnSelLInvL.sel.sel.sel,
+.elzTheme-light .cSelOut.sel.sel.sel .fnSelInLInvL, .elzTheme-light .cSelOut1.sel.sel.sel .fnSelIn1LInvL, .elzTheme-light .cSelOut2.sel.sel.sel .fnSelIn2LInvL,
+.elzTheme-light .fnChkLInvL:checked:checked,
+.elzTheme-light .cLblSib:checked:checked + .fnLblLingLInvL,
+.elzTheme-light .cLbtSib:checked:checked ~ .fnLbtLingLInvL,
+.elzTheme-light .fnFocLInvL:focus:focus,
+.elzTheme-light .fnFowLInvL:focus-within:focus-within,
+
+.elzTheme-dark .cLInvD,
+.elzTheme-dark .fnLInvD,
+.elzTheme-dark .fnHovLInvD:hover,  .elzTheme-dark .cHovOut:hover  .fnHovInLInvD, .elzTheme-dark .cHovOut1:hover  .fnHovIn1LInvD, .elzTheme-dark .cHovOut2:hover  .fnHovIn2LInvD,
+.elzTheme-dark .fnHovLInvD:active, .elzTheme-dark .cHovOut:active .fnHovInLInvD, .elzTheme-dark .cHovOut1:active .fnHovIn1LInvD, .elzTheme-dark .cHovOut2:active .fnHovIn2LInvD,
+.elzTheme-dark .fnActLInvD:active:active, .elzTheme-dark .cActOut:active:active .fnActInLInvD,
+.elzTheme-dark .fnSelLInvD.sel.sel.sel,
+.elzTheme-dark .cSelOut.sel.sel.sel .fnSelInLInvD, .elzTheme-dark .cSelOut1.sel.sel.sel .fnSelIn1LInvD, .elzTheme-dark .cSelOut2.sel.sel.sel .fnSelIn2LInvD,
+.elzTheme-dark .fnChkLInvD:checked:checked,
+.elzTheme-dark .cLblSib:checked:checked + .fnLblLingLInvD,
+.elzTheme-dark .cLbtSib:checked:checked ~ .fnLbtLingLInvD,
+.elzTheme-dark .fnFocLInvD:focus:focus,
+.elzTheme-dark .fnFowLInvD:focus-within:focus-within { --fn-L-mod-inv: -1; }
+
+.elzTheme-light .cFInvL,
+.elzTheme-light .fnFInvL,
+.elzTheme-light .fnHovFInvL:hover,  .elzTheme-light .cHovOut:hover  .fnHovInFInvL, .elzTheme-light .cHovOut1:hover  .fnHovIn1FInvL, .elzTheme-light .cHovOut2:hover  .fnHovIn2FInvL,
+.elzTheme-light .fnHovFInvL:active, .elzTheme-light .cHovOut:active .fnHovInFInvL, .elzTheme-light .cHovOut1:active .fnHovIn1FInvL, .elzTheme-light .cHovOut2:active .fnHovIn2FInvL,
+.elzTheme-light .fnActFInvL:active:active, .elzTheme-light .cActOut:active:active .fnActInFInvL,
+.elzTheme-light .fnSelFInvL.sel.sel.sel,
+.elzTheme-light .cSelOut.sel.sel.sel .fnSelInFInvL, .elzTheme-light .cSelOut1.sel.sel.sel .fnSelIn1FInvL, .elzTheme-light .cSelOut2.sel.sel.sel .fnSelIn2FInvL,
+.elzTheme-light .fnChkFInvL:checked:checked,
+.elzTheme-light .cLblSib:checked:checked + .fnLblLingFInvL,
+.elzTheme-light .cLbtSib:checked:checked ~ .fnLbtLingFInvL,
+.elzTheme-light .fnFocFInvL:focus:focus,
+.elzTheme-light .fnFowFInvL:focus-within:focus-within,
+
+.elzTheme-dark .cFInvD,
+.elzTheme-dark .fnFInvD,
+.elzTheme-dark .fnHovFInvD:hover,  .elzTheme-dark .cHovOut:hover  .fnHovInFInvD, .elzTheme-dark .cHovOut1:hover  .fnHovIn1FInvD, .elzTheme-dark .cHovOut2:hover  .fnHovIn2FInvD,
+.elzTheme-dark .fnHovFInvD:active, .elzTheme-dark .cHovOut:active .fnHovInFInvD, .elzTheme-dark .cHovOut1:active .fnHovIn1FInvD, .elzTheme-dark .cHovOut2:active .fnHovIn2FInvD,
+.elzTheme-dark .fnActFInvD:active:active, .elzTheme-dark .cActOut:active:active .fnActInFInvD,
+.elzTheme-dark .fnSelFInvD.sel.sel.sel,
+.elzTheme-dark .cSelOut.sel.sel.sel .fnSelInFInvD, .elzTheme-dark .cSelOut1.sel.sel.sel .fnSelIn1FInvD, .elzTheme-dark .cSelOut2.sel.sel.sel .fnSelIn2FInvD,
+.elzTheme-dark .fnChkFInvD:checked:checked,
+.elzTheme-dark .cLblSib:checked:checked + .fnLblLingFInvD,
+.elzTheme-dark .cLbtSib:checked:checked ~ .fnLbtLingFInvD,
+.elzTheme-dark .fnFocFInvD:focus:focus,
+.elzTheme-dark .fnFowFInvD:focus-within:focus-within { --fn-L-factor-inv: -1; }
+
+.elzTheme-dark .cFL,
+.elzTheme-dark .fnFL,
+.elzTheme-dark .fnHovFL:hover,  .elzTheme-dark .cHovOut:hover  .fnHovInFL, .elzTheme-dark .cHovOut1:hover  .fnHovIn1FL, .elzTheme-dark .cHovOut2:hover  .fnHovIn2FL,
+.elzTheme-dark .fnHovFL:active, .elzTheme-dark .cHovOut:active .fnHovInFL, .elzTheme-dark .cHovOut1:active .fnHovIn1FL, .elzTheme-dark .cHovOut2:active .fnHovIn2FL,
+.elzTheme-dark .fnActFL:active:active, .elzTheme-dark .cActOut:active:active .fnActInFL,
+.elzTheme-dark .fnSelFL.sel.sel.sel,
+.elzTheme-dark .cSelOut.sel.sel.sel .fnSelInFL, .elzTheme-dark .cSelOut1.sel.sel.sel .fnSelIn1FL, .elzTheme-dark .cSelOut2.sel.sel.sel .fnSelIn2FL,
+.elzTheme-dark .fnChkFL:checked:checked,
+.elzTheme-dark .cLblSib:checked:checked + .fnLblLingFL,
+.elzTheme-dark .cLbtSib:checked:checked ~ .fnLbtLingFL,
+.elzTheme-dark .fnFocFL:focus:focus,
+.elzTheme-dark .fnFowFL:focus-within:focus-within,
+
+.elzTheme-light .cFD,
+.elzTheme-light .fnFD,
+.elzTheme-light .fnHovFD:hover,  .elzTheme-light .cHovOut:hover  .fnHovInFD, .elzTheme-light .cHovOut1:hover  .fnHovIn1FD, .elzTheme-light .cHovOut2:hover  .fnHovIn2FD,
+.elzTheme-light .fnHovFD:active, .elzTheme-light .cHovOut:active .fnHovInFD, .elzTheme-light .cHovOut1:active .fnHovIn1FD, .elzTheme-light .cHovOut2:active .fnHovIn2FD,
+.elzTheme-light .fnActFD:active:active, .elzTheme-light .cActOut:active:active .fnActInFD,
+.elzTheme-light .fnSelFD.sel.sel.sel,
+.elzTheme-light .cSelOut.sel.sel.sel .fnSelInFD, .elzTheme-light .cSelOut1.sel.sel.sel .fnSelIn1FD, .elzTheme-light .cSelOut2.sel.sel.sel .fnSelIn2FD,
+.elzTheme-light .fnChkFD:checked:checked,
+.elzTheme-light .cLblSib:checked:checked + .fnLblLingFD,
+.elzTheme-light .cLbtSib:checked:checked ~ .fnLbtLingFD,
+.elzTheme-light .fnFocFD:focus:focus,
+.elzTheme-light .fnFowFD:focus-within:focus-within { --fn-L-factor-inv: 0; }
+
+/* HSLA(L) */
+
+.fnLF0,  .fnHovLF0:hover,   .cHovOut:hover  .fnHovInLF0,  .cHovOut1:hover  .fnHovIn1LF0,  .cHovOut2:hover  .fnHovIn2LF0,  .fnHovLF0:active,  .cHovOut:active .fnHovInLF0,  .cHovOut1:active .fnHovIn1LF0,  .cHovOut2:active .fnHovIn2LF0,  .fnActLF0:active:active,  .cActOut:active:active .fnActInLF0,  .fnSelLF0.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInLF0,  .cSelOut1.sel.sel.sel .fnSelIn1LF0,  .cSelOut2.sel.sel.sel .fnSelIn2LF0,  .fnChkLF0:checked:checked,  .cLblSib:checked:checked + .fnLblLingLF0,  .cLbtSib:checked:checked ~ .fnLbtLingLF0,  .fnFocLF0:focus:focus,  .fnFowLF0:focus-within:focus-within  { --fn-L-factor:  0%; }
+.fnLF5,  .fnHovLF5:hover,   .cHovOut:hover  .fnHovInLF5,  .cHovOut1:hover  .fnHovIn1LF5,  .cHovOut2:hover  .fnHovIn2LF5,  .fnHovLF5:active,  .cHovOut:active .fnHovInLF5,  .cHovOut1:active .fnHovIn1LF5,  .cHovOut2:active .fnHovIn2LF5,  .fnActLF5:active:active,  .cActOut:active:active .fnActInLF5,  .fnSelLF5.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInLF5,  .cSelOut1.sel.sel.sel .fnSelIn1LF5,  .cSelOut2.sel.sel.sel .fnSelIn2LF5,  .fnChkLF5:checked:checked,  .cLblSib:checked:checked + .fnLblLingLF5,  .cLbtSib:checked:checked ~ .fnLbtLingLF5,  .fnFocLF5:focus:focus,  .fnFowLF5:focus-within:focus-within  { --fn-L-factor:  5%; }
+.fnLF10, .fnHovLF10:hover,  .cHovOut:hover  .fnHovInLF10, .cHovOut1:hover  .fnHovIn1LF10, .cHovOut2:hover  .fnHovIn2LF10, .fnHovLF10:active, .cHovOut:active .fnHovInLF10, .cHovOut1:active .fnHovIn1LF10, .cHovOut2:active .fnHovIn2LF10, .fnActLF10:active:active, .cActOut:active:active .fnActInLF10, .fnSelLF10.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF10, .cSelOut1.sel.sel.sel .fnSelIn1LF10, .cSelOut2.sel.sel.sel .fnSelIn2LF10, .fnChkLF10:checked:checked, .cLblSib:checked:checked + .fnLblLingLF10, .cLbtSib:checked:checked ~ .fnLbtLingLF10, .fnFocLF10:focus:focus, .fnFowLF10:focus-within:focus-within { --fn-L-factor: 10%; }
+.fnLF15, .fnHovLF15:hover,  .cHovOut:hover  .fnHovInLF15, .cHovOut1:hover  .fnHovIn1LF15, .cHovOut2:hover  .fnHovIn2LF15, .fnHovLF15:active, .cHovOut:active .fnHovInLF15, .cHovOut1:active .fnHovIn1LF15, .cHovOut2:active .fnHovIn2LF15, .fnActLF15:active:active, .cActOut:active:active .fnActInLF15, .fnSelLF15.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF15, .cSelOut1.sel.sel.sel .fnSelIn1LF15, .cSelOut2.sel.sel.sel .fnSelIn2LF15, .fnChkLF15:checked:checked, .cLblSib:checked:checked + .fnLblLingLF15, .cLbtSib:checked:checked ~ .fnLbtLingLF15, .fnFocLF15:focus:focus, .fnFowLF15:focus-within:focus-within { --fn-L-factor: 15%; }
+.fnLF20, .fnHovLF20:hover,  .cHovOut:hover  .fnHovInLF20, .cHovOut1:hover  .fnHovIn1LF20, .cHovOut2:hover  .fnHovIn2LF20, .fnHovLF20:active, .cHovOut:active .fnHovInLF20, .cHovOut1:active .fnHovIn1LF20, .cHovOut2:active .fnHovIn2LF20, .fnActLF20:active:active, .cActOut:active:active .fnActInLF20, .fnSelLF20.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF20, .cSelOut1.sel.sel.sel .fnSelIn1LF20, .cSelOut2.sel.sel.sel .fnSelIn2LF20, .fnChkLF20:checked:checked, .cLblSib:checked:checked + .fnLblLingLF20, .cLbtSib:checked:checked ~ .fnLbtLingLF20, .fnFocLF20:focus:focus, .fnFowLF20:focus-within:focus-within { --fn-L-factor: 20%; }
+.fnLF25, .fnHovLF25:hover,  .cHovOut:hover  .fnHovInLF25, .cHovOut1:hover  .fnHovIn1LF25, .cHovOut2:hover  .fnHovIn2LF25, .fnHovLF25:active, .cHovOut:active .fnHovInLF25, .cHovOut1:active .fnHovIn1LF25, .cHovOut2:active .fnHovIn2LF25, .fnActLF25:active:active, .cActOut:active:active .fnActInLF25, .fnSelLF25.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF25, .cSelOut1.sel.sel.sel .fnSelIn1LF25, .cSelOut2.sel.sel.sel .fnSelIn2LF25, .fnChkLF25:checked:checked, .cLblSib:checked:checked + .fnLblLingLF25, .cLbtSib:checked:checked ~ .fnLbtLingLF25, .fnFocLF25:focus:focus, .fnFowLF25:focus-within:focus-within { --fn-L-factor: 25%; }
+.fnLF30, .fnHovLF30:hover,  .cHovOut:hover  .fnHovInLF30, .cHovOut1:hover  .fnHovIn1LF30, .cHovOut2:hover  .fnHovIn2LF30, .fnHovLF30:active, .cHovOut:active .fnHovInLF30, .cHovOut1:active .fnHovIn1LF30, .cHovOut2:active .fnHovIn2LF30, .fnActLF30:active:active, .cActOut:active:active .fnActInLF30, .fnSelLF30.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF30, .cSelOut1.sel.sel.sel .fnSelIn1LF30, .cSelOut2.sel.sel.sel .fnSelIn2LF30, .fnChkLF30:checked:checked, .cLblSib:checked:checked + .fnLblLingLF30, .cLbtSib:checked:checked ~ .fnLbtLingLF30, .fnFocLF30:focus:focus, .fnFowLF30:focus-within:focus-within { --fn-L-factor: 30%; }
+.fnLF40, .fnHovLF40:hover,  .cHovOut:hover  .fnHovInLF40, .cHovOut1:hover  .fnHovIn1LF40, .cHovOut2:hover  .fnHovIn2LF40, .fnHovLF40:active, .cHovOut:active .fnHovInLF40, .cHovOut1:active .fnHovIn1LF40, .cHovOut2:active .fnHovIn2LF40, .fnActLF40:active:active, .cActOut:active:active .fnActInLF40, .fnSelLF40.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF40, .cSelOut1.sel.sel.sel .fnSelIn1LF40, .cSelOut2.sel.sel.sel .fnSelIn2LF40, .fnChkLF40:checked:checked, .cLblSib:checked:checked + .fnLblLingLF40, .cLbtSib:checked:checked ~ .fnLbtLingLF40, .fnFocLF40:focus:focus, .fnFowLF40:focus-within:focus-within { --fn-L-factor: 40%; }
+.fnLF50, .fnHovLF50:hover,  .cHovOut:hover  .fnHovInLF50, .cHovOut1:hover  .fnHovIn1LF50, .cHovOut2:hover  .fnHovIn2LF50, .fnHovLF50:active, .cHovOut:active .fnHovInLF50, .cHovOut1:active .fnHovIn1LF50, .cHovOut2:active .fnHovIn2LF50, .fnActLF50:active:active, .cActOut:active:active .fnActInLF50, .fnSelLF50.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF50, .cSelOut1.sel.sel.sel .fnSelIn1LF50, .cSelOut2.sel.sel.sel .fnSelIn2LF50, .fnChkLF50:checked:checked, .cLblSib:checked:checked + .fnLblLingLF50, .cLbtSib:checked:checked ~ .fnLbtLingLF50, .fnFocLF50:focus:focus, .fnFowLF50:focus-within:focus-within { --fn-L-factor: 50%; }
+.fnLF60, .fnHovLF60:hover,  .cHovOut:hover  .fnHovInLF60, .cHovOut1:hover  .fnHovIn1LF60, .cHovOut2:hover  .fnHovIn2LF60, .fnHovLF60:active, .cHovOut:active .fnHovInLF60, .cHovOut1:active .fnHovIn1LF60, .cHovOut2:active .fnHovIn2LF60, .fnActLF60:active:active, .cActOut:active:active .fnActInLF60, .fnSelLF60.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF60, .cSelOut1.sel.sel.sel .fnSelIn1LF60, .cSelOut2.sel.sel.sel .fnSelIn2LF60, .fnChkLF60:checked:checked, .cLblSib:checked:checked + .fnLblLingLF60, .cLbtSib:checked:checked ~ .fnLbtLingLF60, .fnFocLF60:focus:focus, .fnFowLF60:focus-within:focus-within { --fn-L-factor: 60%; }
+.fnLF70, .fnHovLF70:hover,  .cHovOut:hover  .fnHovInLF70, .cHovOut1:hover  .fnHovIn1LF70, .cHovOut2:hover  .fnHovIn2LF70, .fnHovLF70:active, .cHovOut:active .fnHovInLF70, .cHovOut1:active .fnHovIn1LF70, .cHovOut2:active .fnHovIn2LF70, .fnActLF70:active:active, .cActOut:active:active .fnActInLF70, .fnSelLF70.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF70, .cSelOut1.sel.sel.sel .fnSelIn1LF70, .cSelOut2.sel.sel.sel .fnSelIn2LF70, .fnChkLF70:checked:checked, .cLblSib:checked:checked + .fnLblLingLF70, .cLbtSib:checked:checked ~ .fnLbtLingLF70, .fnFocLF70:focus:focus, .fnFowLF70:focus-within:focus-within { --fn-L-factor: 70%; }
+.fnLF80, .fnHovLF80:hover,  .cHovOut:hover  .fnHovInLF80, .cHovOut1:hover  .fnHovIn1LF80, .cHovOut2:hover  .fnHovIn2LF80, .fnHovLF80:active, .cHovOut:active .fnHovInLF80, .cHovOut1:active .fnHovIn1LF80, .cHovOut2:active .fnHovIn2LF80, .fnActLF80:active:active, .cActOut:active:active .fnActInLF80, .fnSelLF80.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF80, .cSelOut1.sel.sel.sel .fnSelIn1LF80, .cSelOut2.sel.sel.sel .fnSelIn2LF80, .fnChkLF80:checked:checked, .cLblSib:checked:checked + .fnLblLingLF80, .cLbtSib:checked:checked ~ .fnLbtLingLF80, .fnFocLF80:focus:focus, .fnFowLF80:focus-within:focus-within { --fn-L-factor: 80%; }
+.fnLF90, .fnHovLF90:hover,  .cHovOut:hover  .fnHovInLF90, .cHovOut1:hover  .fnHovIn1LF90, .cHovOut2:hover  .fnHovIn2LF90, .fnHovLF90:active, .cHovOut:active .fnHovInLF90, .cHovOut1:active .fnHovIn1LF90, .cHovOut2:active .fnHovIn2LF90, .fnActLF90:active:active, .cActOut:active:active .fnActInLF90, .fnSelLF90.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF90, .cSelOut1.sel.sel.sel .fnSelIn1LF90, .cSelOut2.sel.sel.sel .fnSelIn2LF90, .fnChkLF90:checked:checked, .cLblSib:checked:checked + .fnLblLingLF90, .cLbtSib:checked:checked ~ .fnLbtLingLF90, .fnFocLF90:focus:focus, .fnFowLF90:focus-within:focus-within { --fn-L-factor: 90%; }
+
+.fnLF-5,  .fnHovLF-5:hover,   .cHovOut:hover  .fnHovInLF-5,  .cHovOut1:hover  .fnHovIn1LF-5,  .cHovOut2:hover  .fnHovIn2LF-5,  .fnHovLF-5:active,  .cHovOut:active .fnHovInLF-5,  .cHovOut1:active .fnHovIn1LF-5,  .cHovOut2:active .fnHovIn2LF-5,  .fnActLF-5:active:active,  .cActOut:active:active .fnActInLF-5,  .fnSelLF-5.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInLF-5,  .cSelOut1.sel.sel.sel .fnSelIn1LF-5,  .cSelOut2.sel.sel.sel .fnSelIn2LF-5,  .fnChkLF-5:checked:checked,  .cLblSib:checked:checked + .fnLblLingLF-5,  .cLbtSib:checked:checked ~ .fnLbtLingLF-5,  .fnFocLF-5:focus:focus,  .fnFowLF-5:focus-within:focus-within  { --fn-L-factor:  -5%; }
+.fnLF-10, .fnHovLF-10:hover,  .cHovOut:hover  .fnHovInLF-10, .cHovOut1:hover  .fnHovIn1LF-10, .cHovOut2:hover  .fnHovIn2LF-10, .fnHovLF-10:active, .cHovOut:active .fnHovInLF-10, .cHovOut1:active .fnHovIn1LF-10, .cHovOut2:active .fnHovIn2LF-10, .fnActLF-10:active:active, .cActOut:active:active .fnActInLF-10, .fnSelLF-10.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF-10, .cSelOut1.sel.sel.sel .fnSelIn1LF-10, .cSelOut2.sel.sel.sel .fnSelIn2LF-10, .fnChkLF-10:checked:checked, .cLblSib:checked:checked + .fnLblLingLF-10, .cLbtSib:checked:checked ~ .fnLbtLingLF-10, .fnFocLF-10:focus:focus, .fnFowLF-10:focus-within:focus-within { --fn-L-factor: -10%; }
+.fnLF-15, .fnHovLF-15:hover,  .cHovOut:hover  .fnHovInLF-15, .cHovOut1:hover  .fnHovIn1LF-15, .cHovOut2:hover  .fnHovIn2LF-15, .fnHovLF-15:active, .cHovOut:active .fnHovInLF-15, .cHovOut1:active .fnHovIn1LF-15, .cHovOut2:active .fnHovIn2LF-15, .fnActLF-15:active:active, .cActOut:active:active .fnActInLF-15, .fnSelLF-15.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF-15, .cSelOut1.sel.sel.sel .fnSelIn1LF-15, .cSelOut2.sel.sel.sel .fnSelIn2LF-15, .fnChkLF-15:checked:checked, .cLblSib:checked:checked + .fnLblLingLF-15, .cLbtSib:checked:checked ~ .fnLbtLingLF-15, .fnFocLF-15:focus:focus, .fnFowLF-15:focus-within:focus-within { --fn-L-factor: -15%; }
+.fnLF-20, .fnHovLF-20:hover,  .cHovOut:hover  .fnHovInLF-20, .cHovOut1:hover  .fnHovIn1LF-20, .cHovOut2:hover  .fnHovIn2LF-20, .fnHovLF-20:active, .cHovOut:active .fnHovInLF-20, .cHovOut1:active .fnHovIn1LF-20, .cHovOut2:active .fnHovIn2LF-20, .fnActLF-20:active:active, .cActOut:active:active .fnActInLF-20, .fnSelLF-20.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF-20, .cSelOut1.sel.sel.sel .fnSelIn1LF-20, .cSelOut2.sel.sel.sel .fnSelIn2LF-20, .fnChkLF-20:checked:checked, .cLblSib:checked:checked + .fnLblLingLF-20, .cLbtSib:checked:checked ~ .fnLbtLingLF-20, .fnFocLF-20:focus:focus, .fnFowLF-20:focus-within:focus-within { --fn-L-factor: -20%; }
+.fnLF-25, .fnHovLF-25:hover,  .cHovOut:hover  .fnHovInLF-25, .cHovOut1:hover  .fnHovIn1LF-25, .cHovOut2:hover  .fnHovIn2LF-25, .fnHovLF-25:active, .cHovOut:active .fnHovInLF-25, .cHovOut1:active .fnHovIn1LF-25, .cHovOut2:active .fnHovIn2LF-25, .fnActLF-25:active:active, .cActOut:active:active .fnActInLF-25, .fnSelLF-25.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF-25, .cSelOut1.sel.sel.sel .fnSelIn1LF-25, .cSelOut2.sel.sel.sel .fnSelIn2LF-25, .fnChkLF-25:checked:checked, .cLblSib:checked:checked + .fnLblLingLF-25, .cLbtSib:checked:checked ~ .fnLbtLingLF-25, .fnFocLF-25:focus:focus, .fnFowLF-25:focus-within:focus-within { --fn-L-factor: -25%; }
+.fnLF-30, .fnHovLF-30:hover,  .cHovOut:hover  .fnHovInLF-30, .cHovOut1:hover  .fnHovIn1LF-30, .cHovOut2:hover  .fnHovIn2LF-30, .fnHovLF-30:active, .cHovOut:active .fnHovInLF-30, .cHovOut1:active .fnHovIn1LF-30, .cHovOut2:active .fnHovIn2LF-30, .fnActLF-30:active:active, .cActOut:active:active .fnActInLF-30, .fnSelLF-30.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF-30, .cSelOut1.sel.sel.sel .fnSelIn1LF-30, .cSelOut2.sel.sel.sel .fnSelIn2LF-30, .fnChkLF-30:checked:checked, .cLblSib:checked:checked + .fnLblLingLF-30, .cLbtSib:checked:checked ~ .fnLbtLingLF-30, .fnFocLF-30:focus:focus, .fnFowLF-30:focus-within:focus-within { --fn-L-factor: -30%; }
+.fnLF-40, .fnHovLF-40:hover,  .cHovOut:hover  .fnHovInLF-40, .cHovOut1:hover  .fnHovIn1LF-40, .cHovOut2:hover  .fnHovIn2LF-40, .fnHovLF-40:active, .cHovOut:active .fnHovInLF-40, .cHovOut1:active .fnHovIn1LF-40, .cHovOut2:active .fnHovIn2LF-40, .fnActLF-40:active:active, .cActOut:active:active .fnActInLF-40, .fnSelLF-40.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF-40, .cSelOut1.sel.sel.sel .fnSelIn1LF-40, .cSelOut2.sel.sel.sel .fnSelIn2LF-40, .fnChkLF-40:checked:checked, .cLblSib:checked:checked + .fnLblLingLF-40, .cLbtSib:checked:checked ~ .fnLbtLingLF-40, .fnFocLF-40:focus:focus, .fnFowLF-40:focus-within:focus-within { --fn-L-factor: -40%; }
+.fnLF-50, .fnHovLF-50:hover,  .cHovOut:hover  .fnHovInLF-50, .cHovOut1:hover  .fnHovIn1LF-50, .cHovOut2:hover  .fnHovIn2LF-50, .fnHovLF-50:active, .cHovOut:active .fnHovInLF-50, .cHovOut1:active .fnHovIn1LF-50, .cHovOut2:active .fnHovIn2LF-50, .fnActLF-50:active:active, .cActOut:active:active .fnActInLF-50, .fnSelLF-50.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF-50, .cSelOut1.sel.sel.sel .fnSelIn1LF-50, .cSelOut2.sel.sel.sel .fnSelIn2LF-50, .fnChkLF-50:checked:checked, .cLblSib:checked:checked + .fnLblLingLF-50, .cLbtSib:checked:checked ~ .fnLbtLingLF-50, .fnFocLF-50:focus:focus, .fnFowLF-50:focus-within:focus-within { --fn-L-factor: -50%; }
+.fnLF-60, .fnHovLF-60:hover,  .cHovOut:hover  .fnHovInLF-60, .cHovOut1:hover  .fnHovIn1LF-60, .cHovOut2:hover  .fnHovIn2LF-60, .fnHovLF-60:active, .cHovOut:active .fnHovInLF-60, .cHovOut1:active .fnHovIn1LF-60, .cHovOut2:active .fnHovIn2LF-60, .fnActLF-60:active:active, .cActOut:active:active .fnActInLF-60, .fnSelLF-60.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF-60, .cSelOut1.sel.sel.sel .fnSelIn1LF-60, .cSelOut2.sel.sel.sel .fnSelIn2LF-60, .fnChkLF-60:checked:checked, .cLblSib:checked:checked + .fnLblLingLF-60, .cLbtSib:checked:checked ~ .fnLbtLingLF-60, .fnFocLF-60:focus:focus, .fnFowLF-60:focus-within:focus-within { --fn-L-factor: -60%; }
+.fnLF-70, .fnHovLF-70:hover,  .cHovOut:hover  .fnHovInLF-70, .cHovOut1:hover  .fnHovIn1LF-70, .cHovOut2:hover  .fnHovIn2LF-70, .fnHovLF-70:active, .cHovOut:active .fnHovInLF-70, .cHovOut1:active .fnHovIn1LF-70, .cHovOut2:active .fnHovIn2LF-70, .fnActLF-70:active:active, .cActOut:active:active .fnActInLF-70, .fnSelLF-70.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF-70, .cSelOut1.sel.sel.sel .fnSelIn1LF-70, .cSelOut2.sel.sel.sel .fnSelIn2LF-70, .fnChkLF-70:checked:checked, .cLblSib:checked:checked + .fnLblLingLF-70, .cLbtSib:checked:checked ~ .fnLbtLingLF-70, .fnFocLF-70:focus:focus, .fnFowLF-70:focus-within:focus-within { --fn-L-factor: -70%; }
+.fnLF-80, .fnHovLF-80:hover,  .cHovOut:hover  .fnHovInLF-80, .cHovOut1:hover  .fnHovIn1LF-80, .cHovOut2:hover  .fnHovIn2LF-80, .fnHovLF-80:active, .cHovOut:active .fnHovInLF-80, .cHovOut1:active .fnHovIn1LF-80, .cHovOut2:active .fnHovIn2LF-80, .fnActLF-80:active:active, .cActOut:active:active .fnActInLF-80, .fnSelLF-80.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF-80, .cSelOut1.sel.sel.sel .fnSelIn1LF-80, .cSelOut2.sel.sel.sel .fnSelIn2LF-80, .fnChkLF-80:checked:checked, .cLblSib:checked:checked + .fnLblLingLF-80, .cLbtSib:checked:checked ~ .fnLbtLingLF-80, .fnFocLF-80:focus:focus, .fnFowLF-80:focus-within:focus-within { --fn-L-factor: -80%; }
+.fnLF-90, .fnHovLF-90:hover,  .cHovOut:hover  .fnHovInLF-90, .cHovOut1:hover  .fnHovIn1LF-90, .cHovOut2:hover  .fnHovIn2LF-90, .fnHovLF-90:active, .cHovOut:active .fnHovInLF-90, .cHovOut1:active .fnHovIn1LF-90, .cHovOut2:active .fnHovIn2LF-90, .fnActLF-90:active:active, .cActOut:active:active .fnActInLF-90, .fnSelLF-90.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInLF-90, .cSelOut1.sel.sel.sel .fnSelIn1LF-90, .cSelOut2.sel.sel.sel .fnSelIn2LF-90, .fnChkLF-90:checked:checked, .cLblSib:checked:checked + .fnLblLingLF-90, .cLbtSib:checked:checked ~ .fnLbtLingLF-90, .fnFocLF-90:focus:focus, .fnFowLF-90:focus-within:focus-within { --fn-L-factor: -90%; }
+
+.fnL0, .fnHovL0:hover, .cHovOut:hover  .fnHovInL0, .cHovOut1:hover  .fnHovIn1L0, .cHovOut2:hover  .fnHovIn2L0, .fnHovL0:active, .cHovOut:active .fnHovInL0, .cHovOut1:active .fnHovIn1L0, .cHovOut2:active .fnHovIn2L0, .fnActL0:active:active, .cActOut:active:active .fnActInL0, .fnSelL0.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL0, .fnChkL0:checked:checked, .cLblSib:checked:checked + .fnLblLingL0, .cLbtSib:checked:checked ~ .fnLbtLingL0, .fnFocL0:focus:focus, .fnFowL0:focus-within:focus-within { --fn-L-mod: 0%; }
+.fnL1, .fnHovL1:hover, .cHovOut:hover  .fnHovInL1, .cHovOut1:hover  .fnHovIn1L1, .cHovOut2:hover  .fnHovIn2L1, .fnHovL1:active, .cHovOut:active .fnHovInL1, .cHovOut1:active .fnHovIn1L1, .cHovOut2:active .fnHovIn2L1, .fnActL1:active:active, .cActOut:active:active .fnActInL1, .fnSelL1.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL1, .fnChkL1:checked:checked, .cLblSib:checked:checked + .fnLblLingL1, .cLbtSib:checked:checked ~ .fnLbtLingL1, .fnFocL1:focus:focus, .fnFowL1:focus-within:focus-within { --fn-L-mod: 1%; }
+.fnL2, .fnHovL2:hover, .cHovOut:hover  .fnHovInL2, .cHovOut1:hover  .fnHovIn1L2, .cHovOut2:hover  .fnHovIn2L2, .fnHovL2:active, .cHovOut:active .fnHovInL2, .cHovOut1:active .fnHovIn1L2, .cHovOut2:active .fnHovIn2L2, .fnActL2:active:active, .cActOut:active:active .fnActInL2, .fnSelL2.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL2, .fnChkL2:checked:checked, .cLblSib:checked:checked + .fnLblLingL2, .cLbtSib:checked:checked ~ .fnLbtLingL2, .fnFocL2:focus:focus, .fnFowL2:focus-within:focus-within { --fn-L-mod: 2%; }
+.fnL3, .fnHovL3:hover, .cHovOut:hover  .fnHovInL3, .cHovOut1:hover  .fnHovIn1L3, .cHovOut2:hover  .fnHovIn2L3, .fnHovL3:active, .cHovOut:active .fnHovInL3, .cHovOut1:active .fnHovIn1L3, .cHovOut2:active .fnHovIn2L3, .fnActL3:active:active, .cActOut:active:active .fnActInL3, .fnSelL3.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL3, .fnChkL3:checked:checked, .cLblSib:checked:checked + .fnLblLingL3, .cLbtSib:checked:checked ~ .fnLbtLingL3, .fnFocL3:focus:focus, .fnFowL3:focus-within:focus-within { --fn-L-mod: 3%; }
+.fnL4, .fnHovL4:hover, .cHovOut:hover  .fnHovInL4, .cHovOut1:hover  .fnHovIn1L4, .cHovOut2:hover  .fnHovIn2L4, .fnHovL4:active, .cHovOut:active .fnHovInL4, .cHovOut1:active .fnHovIn1L4, .cHovOut2:active .fnHovIn2L4, .fnActL4:active:active, .cActOut:active:active .fnActInL4, .fnSelL4.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL4, .fnChkL4:checked:checked, .cLblSib:checked:checked + .fnLblLingL4, .cLbtSib:checked:checked ~ .fnLbtLingL4, .fnFocL4:focus:focus, .fnFowL4:focus-within:focus-within { --fn-L-mod: 4%; }
+.fnL5, .fnHovL5:hover, .cHovOut:hover  .fnHovInL5, .cHovOut1:hover  .fnHovIn1L5, .cHovOut2:hover  .fnHovIn2L5, .fnHovL5:active, .cHovOut:active .fnHovInL5, .cHovOut1:active .fnHovIn1L5, .cHovOut2:active .fnHovIn2L5, .fnActL5:active:active, .cActOut:active:active .fnActInL5, .fnSelL5.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL5, .fnChkL5:checked:checked, .cLblSib:checked:checked + .fnLblLingL5, .cLbtSib:checked:checked ~ .fnLbtLingL5, .fnFocL5:focus:focus, .fnFowL5:focus-within:focus-within { --fn-L-mod: 5%; }
+.fnL6, .fnHovL6:hover, .cHovOut:hover  .fnHovInL6, .cHovOut1:hover  .fnHovIn1L6, .cHovOut2:hover  .fnHovIn2L6, .fnHovL6:active, .cHovOut:active .fnHovInL6, .cHovOut1:active .fnHovIn1L6, .cHovOut2:active .fnHovIn2L6, .fnActL6:active:active, .cActOut:active:active .fnActInL6, .fnSelL6.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL6, .fnChkL6:checked:checked, .cLblSib:checked:checked + .fnLblLingL6, .cLbtSib:checked:checked ~ .fnLbtLingL6, .fnFocL6:focus:focus, .fnFowL6:focus-within:focus-within { --fn-L-mod: 6%; }
+.fnL7, .fnHovL7:hover, .cHovOut:hover  .fnHovInL7, .cHovOut1:hover  .fnHovIn1L7, .cHovOut2:hover  .fnHovIn2L7, .fnHovL7:active, .cHovOut:active .fnHovInL7, .cHovOut1:active .fnHovIn1L7, .cHovOut2:active .fnHovIn2L7, .fnActL7:active:active, .cActOut:active:active .fnActInL7, .fnSelL7.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL7, .fnChkL7:checked:checked, .cLblSib:checked:checked + .fnLblLingL7, .cLbtSib:checked:checked ~ .fnLbtLingL7, .fnFocL7:focus:focus, .fnFowL7:focus-within:focus-within { --fn-L-mod: 7%; }
+.fnL8, .fnHovL8:hover, .cHovOut:hover  .fnHovInL8, .cHovOut1:hover  .fnHovIn1L8, .cHovOut2:hover  .fnHovIn2L8, .fnHovL8:active, .cHovOut:active .fnHovInL8, .cHovOut1:active .fnHovIn1L8, .cHovOut2:active .fnHovIn2L8, .fnActL8:active:active, .cActOut:active:active .fnActInL8, .fnSelL8.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL8, .fnChkL8:checked:checked, .cLblSib:checked:checked + .fnLblLingL8, .cLbtSib:checked:checked ~ .fnLbtLingL8, .fnFocL8:focus:focus, .fnFowL8:focus-within:focus-within { --fn-L-mod: 8%; }
+.fnL9, .fnHovL9:hover, .cHovOut:hover  .fnHovInL9, .cHovOut1:hover  .fnHovIn1L9, .cHovOut2:hover  .fnHovIn2L9, .fnHovL9:active, .cHovOut:active .fnHovInL9, .cHovOut1:active .fnHovIn1L9, .cHovOut2:active .fnHovIn2L9, .fnActL9:active:active, .cActOut:active:active .fnActInL9, .fnSelL9.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL9, .fnChkL9:checked:checked, .cLblSib:checked:checked + .fnLblLingL9, .cLbtSib:checked:checked ~ .fnLbtLingL9, .fnFocL9:focus:focus, .fnFowL9:focus-within:focus-within { --fn-L-mod: 9%; }
+
+.fnL10, .fnHovL10:hover, .cHovOut:hover  .fnHovInL10, .cHovOut1:hover  .fnHovIn1L10, .cHovOut2:hover  .fnHovIn2L10, .fnHovL10:active, .cHovOut:active .fnHovInL10, .cHovOut1:active .fnHovIn1L10, .cHovOut2:active .fnHovIn2L10, .fnActL10:active:active, .cActOut:active:active .fnActInL10, .fnSelL10.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL10, .fnChkL10:checked:checked, .cLblSib:checked:checked + .fnLblLingL10, .cLbtSib:checked:checked ~ .fnLbtLingL10, .fnFocL10:focus:focus, .fnFowL10:focus-within:focus-within { --fn-L-mod: 10%; }
+.fnL11, .fnHovL11:hover, .cHovOut:hover  .fnHovInL11, .cHovOut1:hover  .fnHovIn1L11, .cHovOut2:hover  .fnHovIn2L11, .fnHovL11:active, .cHovOut:active .fnHovInL11, .cHovOut1:active .fnHovIn1L11, .cHovOut2:active .fnHovIn2L11, .fnActL11:active:active, .cActOut:active:active .fnActInL11, .fnSelL11.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL11, .fnChkL11:checked:checked, .cLblSib:checked:checked + .fnLblLingL11, .cLbtSib:checked:checked ~ .fnLbtLingL11, .fnFocL11:focus:focus, .fnFowL11:focus-within:focus-within { --fn-L-mod: 11%; }
+.fnL12, .fnHovL12:hover, .cHovOut:hover  .fnHovInL12, .cHovOut1:hover  .fnHovIn1L12, .cHovOut2:hover  .fnHovIn2L12, .fnHovL12:active, .cHovOut:active .fnHovInL12, .cHovOut1:active .fnHovIn1L12, .cHovOut2:active .fnHovIn2L12, .fnActL12:active:active, .cActOut:active:active .fnActInL12, .fnSelL12.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL12, .fnChkL12:checked:checked, .cLblSib:checked:checked + .fnLblLingL12, .cLbtSib:checked:checked ~ .fnLbtLingL12, .fnFocL12:focus:focus, .fnFowL12:focus-within:focus-within { --fn-L-mod: 12%; }
+.fnL13, .fnHovL13:hover, .cHovOut:hover  .fnHovInL13, .cHovOut1:hover  .fnHovIn1L13, .cHovOut2:hover  .fnHovIn2L13, .fnHovL13:active, .cHovOut:active .fnHovInL13, .cHovOut1:active .fnHovIn1L13, .cHovOut2:active .fnHovIn2L13, .fnActL13:active:active, .cActOut:active:active .fnActInL13, .fnSelL13.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL13, .fnChkL13:checked:checked, .cLblSib:checked:checked + .fnLblLingL13, .cLbtSib:checked:checked ~ .fnLbtLingL13, .fnFocL13:focus:focus, .fnFowL13:focus-within:focus-within { --fn-L-mod: 13%; }
+.fnL14, .fnHovL14:hover, .cHovOut:hover  .fnHovInL14, .cHovOut1:hover  .fnHovIn1L14, .cHovOut2:hover  .fnHovIn2L14, .fnHovL14:active, .cHovOut:active .fnHovInL14, .cHovOut1:active .fnHovIn1L14, .cHovOut2:active .fnHovIn2L14, .fnActL14:active:active, .cActOut:active:active .fnActInL14, .fnSelL14.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL14, .fnChkL14:checked:checked, .cLblSib:checked:checked + .fnLblLingL14, .cLbtSib:checked:checked ~ .fnLbtLingL14, .fnFocL14:focus:focus, .fnFowL14:focus-within:focus-within { --fn-L-mod: 14%; }
+.fnL15, .fnHovL15:hover, .cHovOut:hover  .fnHovInL15, .cHovOut1:hover  .fnHovIn1L15, .cHovOut2:hover  .fnHovIn2L15, .fnHovL15:active, .cHovOut:active .fnHovInL15, .cHovOut1:active .fnHovIn1L15, .cHovOut2:active .fnHovIn2L15, .fnActL15:active:active, .cActOut:active:active .fnActInL15, .fnSelL15.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL15, .fnChkL15:checked:checked, .cLblSib:checked:checked + .fnLblLingL15, .cLbtSib:checked:checked ~ .fnLbtLingL15, .fnFocL15:focus:focus, .fnFowL15:focus-within:focus-within { --fn-L-mod: 15%; }
+.fnL16, .fnHovL16:hover, .cHovOut:hover  .fnHovInL16, .cHovOut1:hover  .fnHovIn1L16, .cHovOut2:hover  .fnHovIn2L16, .fnHovL16:active, .cHovOut:active .fnHovInL16, .cHovOut1:active .fnHovIn1L16, .cHovOut2:active .fnHovIn2L16, .fnActL16:active:active, .cActOut:active:active .fnActInL16, .fnSelL16.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL16, .fnChkL16:checked:checked, .cLblSib:checked:checked + .fnLblLingL16, .cLbtSib:checked:checked ~ .fnLbtLingL16, .fnFocL16:focus:focus, .fnFowL16:focus-within:focus-within { --fn-L-mod: 16%; }
+.fnL17, .fnHovL17:hover, .cHovOut:hover  .fnHovInL17, .cHovOut1:hover  .fnHovIn1L17, .cHovOut2:hover  .fnHovIn2L17, .fnHovL17:active, .cHovOut:active .fnHovInL17, .cHovOut1:active .fnHovIn1L17, .cHovOut2:active .fnHovIn2L17, .fnActL17:active:active, .cActOut:active:active .fnActInL17, .fnSelL17.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL17, .fnChkL17:checked:checked, .cLblSib:checked:checked + .fnLblLingL17, .cLbtSib:checked:checked ~ .fnLbtLingL17, .fnFocL17:focus:focus, .fnFowL17:focus-within:focus-within { --fn-L-mod: 17%; }
+.fnL18, .fnHovL18:hover, .cHovOut:hover  .fnHovInL18, .cHovOut1:hover  .fnHovIn1L18, .cHovOut2:hover  .fnHovIn2L18, .fnHovL18:active, .cHovOut:active .fnHovInL18, .cHovOut1:active .fnHovIn1L18, .cHovOut2:active .fnHovIn2L18, .fnActL18:active:active, .cActOut:active:active .fnActInL18, .fnSelL18.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL18, .fnChkL18:checked:checked, .cLblSib:checked:checked + .fnLblLingL18, .cLbtSib:checked:checked ~ .fnLbtLingL18, .fnFocL18:focus:focus, .fnFowL18:focus-within:focus-within { --fn-L-mod: 18%; }
+.fnL19, .fnHovL19:hover, .cHovOut:hover  .fnHovInL19, .cHovOut1:hover  .fnHovIn1L19, .cHovOut2:hover  .fnHovIn2L19, .fnHovL19:active, .cHovOut:active .fnHovInL19, .cHovOut1:active .fnHovIn1L19, .cHovOut2:active .fnHovIn2L19, .fnActL19:active:active, .cActOut:active:active .fnActInL19, .fnSelL19.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL19, .fnChkL19:checked:checked, .cLblSib:checked:checked + .fnLblLingL19, .cLbtSib:checked:checked ~ .fnLbtLingL19, .fnFocL19:focus:focus, .fnFowL19:focus-within:focus-within { --fn-L-mod: 19%; }
+.fnL20, .fnHovL20:hover, .cHovOut:hover  .fnHovInL20, .cHovOut1:hover  .fnHovIn1L20, .cHovOut2:hover  .fnHovIn2L20, .fnHovL20:active, .cHovOut:active .fnHovInL20, .cHovOut1:active .fnHovIn1L20, .cHovOut2:active .fnHovIn2L20, .fnActL20:active:active, .cActOut:active:active .fnActInL20, .fnSelL20.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL20, .fnChkL20:checked:checked, .cLblSib:checked:checked + .fnLblLingL20, .cLbtSib:checked:checked ~ .fnLbtLingL20, .fnFocL20:focus:focus, .fnFowL20:focus-within:focus-within { --fn-L-mod: 20%; }
+
+.fnL-1, .fnHovL-1:hover, .cHovOut:hover  .fnHovInL-1, .cHovOut1:hover  .fnHovIn1L-1, .cHovOut2:hover  .fnHovIn2L-1, .fnHovL-1:active, .cHovOut:active .fnHovInL-1, .cHovOut1:active .fnHovIn1L-1, .cHovOut2:active .fnHovIn2L-1, .fnActL-1:active:active, .cActOut:active:active .fnActInL-1, .fnSelL-1.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-1, .fnChkL-1:checked:checked, .cLblSib:checked:checked + .fnLblLingL-1, .cLbtSib:checked:checked ~ .fnLbtLingL-1, .fnFocL-1:focus:focus, .fnFowL-1:focus-within:focus-within { --fn-L-mod: -1%; }
+.fnL-2, .fnHovL-2:hover, .cHovOut:hover  .fnHovInL-2, .cHovOut1:hover  .fnHovIn1L-2, .cHovOut2:hover  .fnHovIn2L-2, .fnHovL-2:active, .cHovOut:active .fnHovInL-2, .cHovOut1:active .fnHovIn1L-2, .cHovOut2:active .fnHovIn2L-2, .fnActL-2:active:active, .cActOut:active:active .fnActInL-2, .fnSelL-2.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-2, .fnChkL-2:checked:checked, .cLblSib:checked:checked + .fnLblLingL-2, .cLbtSib:checked:checked ~ .fnLbtLingL-2, .fnFocL-2:focus:focus, .fnFowL-2:focus-within:focus-within { --fn-L-mod: -2%; }
+.fnL-3, .fnHovL-3:hover, .cHovOut:hover  .fnHovInL-3, .cHovOut1:hover  .fnHovIn1L-3, .cHovOut2:hover  .fnHovIn2L-3, .fnHovL-3:active, .cHovOut:active .fnHovInL-3, .cHovOut1:active .fnHovIn1L-3, .cHovOut2:active .fnHovIn2L-3, .fnActL-3:active:active, .cActOut:active:active .fnActInL-3, .fnSelL-3.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-3, .fnChkL-3:checked:checked, .cLblSib:checked:checked + .fnLblLingL-3, .cLbtSib:checked:checked ~ .fnLbtLingL-3, .fnFocL-3:focus:focus, .fnFowL-3:focus-within:focus-within { --fn-L-mod: -3%; }
+.fnL-4, .fnHovL-4:hover, .cHovOut:hover  .fnHovInL-4, .cHovOut1:hover  .fnHovIn1L-4, .cHovOut2:hover  .fnHovIn2L-4, .fnHovL-4:active, .cHovOut:active .fnHovInL-4, .cHovOut1:active .fnHovIn1L-4, .cHovOut2:active .fnHovIn2L-4, .fnActL-4:active:active, .cActOut:active:active .fnActInL-4, .fnSelL-4.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-4, .fnChkL-4:checked:checked, .cLblSib:checked:checked + .fnLblLingL-4, .cLbtSib:checked:checked ~ .fnLbtLingL-4, .fnFocL-4:focus:focus, .fnFowL-4:focus-within:focus-within { --fn-L-mod: -4%; }
+.fnL-5, .fnHovL-5:hover, .cHovOut:hover  .fnHovInL-5, .cHovOut1:hover  .fnHovIn1L-5, .cHovOut2:hover  .fnHovIn2L-5, .fnHovL-5:active, .cHovOut:active .fnHovInL-5, .cHovOut1:active .fnHovIn1L-5, .cHovOut2:active .fnHovIn2L-5, .fnActL-5:active:active, .cActOut:active:active .fnActInL-5, .fnSelL-5.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-5, .fnChkL-5:checked:checked, .cLblSib:checked:checked + .fnLblLingL-5, .cLbtSib:checked:checked ~ .fnLbtLingL-5, .fnFocL-5:focus:focus, .fnFowL-5:focus-within:focus-within { --fn-L-mod: -5%; }
+.fnL-6, .fnHovL-6:hover, .cHovOut:hover  .fnHovInL-6, .cHovOut1:hover  .fnHovIn1L-6, .cHovOut2:hover  .fnHovIn2L-6, .fnHovL-6:active, .cHovOut:active .fnHovInL-6, .cHovOut1:active .fnHovIn1L-6, .cHovOut2:active .fnHovIn2L-6, .fnActL-6:active:active, .cActOut:active:active .fnActInL-6, .fnSelL-6.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-6, .fnChkL-6:checked:checked, .cLblSib:checked:checked + .fnLblLingL-6, .cLbtSib:checked:checked ~ .fnLbtLingL-6, .fnFocL-6:focus:focus, .fnFowL-6:focus-within:focus-within { --fn-L-mod: -6%; }
+.fnL-7, .fnHovL-7:hover, .cHovOut:hover  .fnHovInL-7, .cHovOut1:hover  .fnHovIn1L-7, .cHovOut2:hover  .fnHovIn2L-7, .fnHovL-7:active, .cHovOut:active .fnHovInL-7, .cHovOut1:active .fnHovIn1L-7, .cHovOut2:active .fnHovIn2L-7, .fnActL-7:active:active, .cActOut:active:active .fnActInL-7, .fnSelL-7.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-7, .fnChkL-7:checked:checked, .cLblSib:checked:checked + .fnLblLingL-7, .cLbtSib:checked:checked ~ .fnLbtLingL-7, .fnFocL-7:focus:focus, .fnFowL-7:focus-within:focus-within { --fn-L-mod: -7%; }
+.fnL-8, .fnHovL-8:hover, .cHovOut:hover  .fnHovInL-8, .cHovOut1:hover  .fnHovIn1L-8, .cHovOut2:hover  .fnHovIn2L-8, .fnHovL-8:active, .cHovOut:active .fnHovInL-8, .cHovOut1:active .fnHovIn1L-8, .cHovOut2:active .fnHovIn2L-8, .fnActL-8:active:active, .cActOut:active:active .fnActInL-8, .fnSelL-8.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-8, .fnChkL-8:checked:checked, .cLblSib:checked:checked + .fnLblLingL-8, .cLbtSib:checked:checked ~ .fnLbtLingL-8, .fnFocL-8:focus:focus, .fnFowL-8:focus-within:focus-within { --fn-L-mod: -8%; }
+.fnL-9, .fnHovL-9:hover, .cHovOut:hover  .fnHovInL-9, .cHovOut1:hover  .fnHovIn1L-9, .cHovOut2:hover  .fnHovIn2L-9, .fnHovL-9:active, .cHovOut:active .fnHovInL-9, .cHovOut1:active .fnHovIn1L-9, .cHovOut2:active .fnHovIn2L-9, .fnActL-9:active:active, .cActOut:active:active .fnActInL-9, .fnSelL-9.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-9, .fnChkL-9:checked:checked, .cLblSib:checked:checked + .fnLblLingL-9, .cLbtSib:checked:checked ~ .fnLbtLingL-9, .fnFocL-9:focus:focus, .fnFowL-9:focus-within:focus-within { --fn-L-mod: -9%; }
+
+.fnL-10, .fnHovL-10:hover, .cHovOut:hover  .fnHovInL-10, .cHovOut1:hover  .fnHovIn1L-10, .cHovOut2:hover  .fnHovIn2L-10, .fnHovL-10:active, .cHovOut:active .fnHovInL-10, .cHovOut1:active .fnHovIn1L-10, .cHovOut2:active .fnHovIn2L-10, .fnActL-10:active:active, .cActOut:active:active .fnActInL-10, .fnSelL-10.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-10, .fnChkL-10:checked:checked, .cLblSib:checked:checked + .fnLblLingL-10, .cLbtSib:checked:checked ~ .fnLbtLingL-10, .fnFocL-10:focus:focus, .fnFowL-10:focus-within:focus-within { --fn-L-mod: -10%; }
+.fnL-11, .fnHovL-11:hover, .cHovOut:hover  .fnHovInL-11, .cHovOut1:hover  .fnHovIn1L-11, .cHovOut2:hover  .fnHovIn2L-11, .fnHovL-11:active, .cHovOut:active .fnHovInL-11, .cHovOut1:active .fnHovIn1L-11, .cHovOut2:active .fnHovIn2L-11, .fnActL-11:active:active, .cActOut:active:active .fnActInL-11, .fnSelL-11.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-11, .fnChkL-11:checked:checked, .cLblSib:checked:checked + .fnLblLingL-11, .cLbtSib:checked:checked ~ .fnLbtLingL-11, .fnFocL-11:focus:focus, .fnFowL-11:focus-within:focus-within { --fn-L-mod: -11%; }
+.fnL-12, .fnHovL-12:hover, .cHovOut:hover  .fnHovInL-12, .cHovOut1:hover  .fnHovIn1L-12, .cHovOut2:hover  .fnHovIn2L-12, .fnHovL-12:active, .cHovOut:active .fnHovInL-12, .cHovOut1:active .fnHovIn1L-12, .cHovOut2:active .fnHovIn2L-12, .fnActL-12:active:active, .cActOut:active:active .fnActInL-12, .fnSelL-12.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-12, .fnChkL-12:checked:checked, .cLblSib:checked:checked + .fnLblLingL-12, .cLbtSib:checked:checked ~ .fnLbtLingL-12, .fnFocL-12:focus:focus, .fnFowL-12:focus-within:focus-within { --fn-L-mod: -12%; }
+.fnL-13, .fnHovL-13:hover, .cHovOut:hover  .fnHovInL-13, .cHovOut1:hover  .fnHovIn1L-13, .cHovOut2:hover  .fnHovIn2L-13, .fnHovL-13:active, .cHovOut:active .fnHovInL-13, .cHovOut1:active .fnHovIn1L-13, .cHovOut2:active .fnHovIn2L-13, .fnActL-13:active:active, .cActOut:active:active .fnActInL-13, .fnSelL-13.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-13, .fnChkL-13:checked:checked, .cLblSib:checked:checked + .fnLblLingL-13, .cLbtSib:checked:checked ~ .fnLbtLingL-13, .fnFocL-13:focus:focus, .fnFowL-13:focus-within:focus-within { --fn-L-mod: -13%; }
+.fnL-14, .fnHovL-14:hover, .cHovOut:hover  .fnHovInL-14, .cHovOut1:hover  .fnHovIn1L-14, .cHovOut2:hover  .fnHovIn2L-14, .fnHovL-14:active, .cHovOut:active .fnHovInL-14, .cHovOut1:active .fnHovIn1L-14, .cHovOut2:active .fnHovIn2L-14, .fnActL-14:active:active, .cActOut:active:active .fnActInL-14, .fnSelL-14.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-14, .fnChkL-14:checked:checked, .cLblSib:checked:checked + .fnLblLingL-14, .cLbtSib:checked:checked ~ .fnLbtLingL-14, .fnFocL-14:focus:focus, .fnFowL-14:focus-within:focus-within { --fn-L-mod: -14%; }
+.fnL-15, .fnHovL-15:hover, .cHovOut:hover  .fnHovInL-15, .cHovOut1:hover  .fnHovIn1L-15, .cHovOut2:hover  .fnHovIn2L-15, .fnHovL-15:active, .cHovOut:active .fnHovInL-15, .cHovOut1:active .fnHovIn1L-15, .cHovOut2:active .fnHovIn2L-15, .fnActL-15:active:active, .cActOut:active:active .fnActInL-15, .fnSelL-15.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-15, .fnChkL-15:checked:checked, .cLblSib:checked:checked + .fnLblLingL-15, .cLbtSib:checked:checked ~ .fnLbtLingL-15, .fnFocL-15:focus:focus, .fnFowL-15:focus-within:focus-within { --fn-L-mod: -15%; }
+.fnL-16, .fnHovL-16:hover, .cHovOut:hover  .fnHovInL-16, .cHovOut1:hover  .fnHovIn1L-16, .cHovOut2:hover  .fnHovIn2L-16, .fnHovL-16:active, .cHovOut:active .fnHovInL-16, .cHovOut1:active .fnHovIn1L-16, .cHovOut2:active .fnHovIn2L-16, .fnActL-16:active:active, .cActOut:active:active .fnActInL-16, .fnSelL-16.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-16, .fnChkL-16:checked:checked, .cLblSib:checked:checked + .fnLblLingL-16, .cLbtSib:checked:checked ~ .fnLbtLingL-16, .fnFocL-16:focus:focus, .fnFowL-16:focus-within:focus-within { --fn-L-mod: -16%; }
+.fnL-17, .fnHovL-17:hover, .cHovOut:hover  .fnHovInL-17, .cHovOut1:hover  .fnHovIn1L-17, .cHovOut2:hover  .fnHovIn2L-17, .fnHovL-17:active, .cHovOut:active .fnHovInL-17, .cHovOut1:active .fnHovIn1L-17, .cHovOut2:active .fnHovIn2L-17, .fnActL-17:active:active, .cActOut:active:active .fnActInL-17, .fnSelL-17.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-17, .fnChkL-17:checked:checked, .cLblSib:checked:checked + .fnLblLingL-17, .cLbtSib:checked:checked ~ .fnLbtLingL-17, .fnFocL-17:focus:focus, .fnFowL-17:focus-within:focus-within { --fn-L-mod: -17%; }
+.fnL-18, .fnHovL-18:hover, .cHovOut:hover  .fnHovInL-18, .cHovOut1:hover  .fnHovIn1L-18, .cHovOut2:hover  .fnHovIn2L-18, .fnHovL-18:active, .cHovOut:active .fnHovInL-18, .cHovOut1:active .fnHovIn1L-18, .cHovOut2:active .fnHovIn2L-18, .fnActL-18:active:active, .cActOut:active:active .fnActInL-18, .fnSelL-18.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-18, .fnChkL-18:checked:checked, .cLblSib:checked:checked + .fnLblLingL-18, .cLbtSib:checked:checked ~ .fnLbtLingL-18, .fnFocL-18:focus:focus, .fnFowL-18:focus-within:focus-within { --fn-L-mod: -18%; }
+.fnL-19, .fnHovL-19:hover, .cHovOut:hover  .fnHovInL-19, .cHovOut1:hover  .fnHovIn1L-19, .cHovOut2:hover  .fnHovIn2L-19, .fnHovL-19:active, .cHovOut:active .fnHovInL-19, .cHovOut1:active .fnHovIn1L-19, .cHovOut2:active .fnHovIn2L-19, .fnActL-19:active:active, .cActOut:active:active .fnActInL-19, .fnSelL-19.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-19, .fnChkL-19:checked:checked, .cLblSib:checked:checked + .fnLblLingL-19, .cLbtSib:checked:checked ~ .fnLbtLingL-19, .fnFocL-19:focus:focus, .fnFowL-19:focus-within:focus-within { --fn-L-mod: -19%; }
+.fnL-20, .fnHovL-20:hover, .cHovOut:hover  .fnHovInL-20, .cHovOut1:hover  .fnHovIn1L-20, .cHovOut2:hover  .fnHovIn2L-20, .fnHovL-20:active, .cHovOut:active .fnHovInL-20, .cHovOut1:active .fnHovIn1L-20, .cHovOut2:active .fnHovIn2L-20, .fnActL-20:active:active, .cActOut:active:active .fnActInL-20, .fnSelL-20.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInL-20, .fnChkL-20:checked:checked, .cLblSib:checked:checked + .fnLblLingL-20, .cLbtSib:checked:checked ~ .fnLbtLingL-20, .fnFocL-20:focus:focus, .fnFowL-20:focus-within:focus-within { --fn-L-mod: -20%; }
+
+/* HSLA(A) */
+
+.fnA0,   .fnHovA0:hover,   .cHovOut:hover  .fnHovInA0,   .cHovOut1:hover  .fnHovIn1A0,   .cHovOut2:hover  .fnHovIn2A0,   .fnHovA0:active,   .cHovOut:active .fnHovInA0,   .cHovOut1:active .fnHovIn1A0,   .cHovOut2:active .fnHovIn2A0,   .fnActA0:active:active,   .cActOut:active:active .fnActInA0,   .fnSelA0.sel.sel.sel,   .cSelOut.sel.sel.sel .fnSelInA0,   .fnChkA0:checked:checked,   .cLblSib:checked:checked + .fnLblLingA0,   .cLbtSib:checked:checked ~ .fnLbtLingA0,   .fnFocA0:focus:focus,   .fnFowA0:focus-within:focus-within   { --fn-A-main:    0; }
+.fnA5,   .fnHovA5:hover,   .cHovOut:hover  .fnHovInA5,   .cHovOut1:hover  .fnHovIn1A5,   .cHovOut2:hover  .fnHovIn2A5,   .fnHovA5:active,   .cHovOut:active .fnHovInA5,   .cHovOut1:active .fnHovIn1A5,   .cHovOut2:active .fnHovIn2A5,   .fnActA5:active:active,   .cActOut:active:active .fnActInA5,   .fnSelA5.sel.sel.sel,   .cSelOut.sel.sel.sel .fnSelInA5,   .fnChkA5:checked:checked,   .cLblSib:checked:checked + .fnLblLingA5,   .cLbtSib:checked:checked ~ .fnLbtLingA5,   .fnFocA5:focus:focus,   .fnFowA5:focus-within:focus-within   { --fn-A-main: 0.05; }
+.fnA10,  .fnHovA10:hover,  .cHovOut:hover  .fnHovInA10,  .cHovOut1:hover  .fnHovIn1A10,  .cHovOut2:hover  .fnHovIn2A10,  .fnHovA10:active,  .cHovOut:active .fnHovInA10,  .cHovOut1:active .fnHovIn1A10,  .cHovOut2:active .fnHovIn2A10,  .fnActA10:active:active,  .cActOut:active:active .fnActInA10,  .fnSelA10.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA10,  .fnChkA10:checked:checked,  .cLblSib:checked:checked + .fnLblLingA10,  .cLbtSib:checked:checked ~ .fnLbtLingA10,  .fnFocA10:focus:focus,  .fnFowA10:focus-within:focus-within  { --fn-A-main:  0.1; }
+.fnA15,  .fnHovA15:hover,  .cHovOut:hover  .fnHovInA15,  .cHovOut1:hover  .fnHovIn1A15,  .cHovOut2:hover  .fnHovIn2A15,  .fnHovA15:active,  .cHovOut:active .fnHovInA15,  .cHovOut1:active .fnHovIn1A15,  .cHovOut2:active .fnHovIn2A15,  .fnActA15:active:active,  .cActOut:active:active .fnActInA15,  .fnSelA15.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA15,  .fnChkA15:checked:checked,  .cLblSib:checked:checked + .fnLblLingA15,  .cLbtSib:checked:checked ~ .fnLbtLingA15,  .fnFocA15:focus:focus,  .fnFowA15:focus-within:focus-within  { --fn-A-main: 0.15; }
+.fnA20,  .fnHovA20:hover,  .cHovOut:hover  .fnHovInA20,  .cHovOut1:hover  .fnHovIn1A20,  .cHovOut2:hover  .fnHovIn2A20,  .fnHovA20:active,  .cHovOut:active .fnHovInA20,  .cHovOut1:active .fnHovIn1A20,  .cHovOut2:active .fnHovIn2A20,  .fnActA20:active:active,  .cActOut:active:active .fnActInA20,  .fnSelA20.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA20,  .fnChkA20:checked:checked,  .cLblSib:checked:checked + .fnLblLingA20,  .cLbtSib:checked:checked ~ .fnLbtLingA20,  .fnFocA20:focus:focus,  .fnFowA20:focus-within:focus-within  { --fn-A-main:  0.2; }
+.fnA25,  .fnHovA25:hover,  .cHovOut:hover  .fnHovInA25,  .cHovOut1:hover  .fnHovIn1A25,  .cHovOut2:hover  .fnHovIn2A25,  .fnHovA25:active,  .cHovOut:active .fnHovInA25,  .cHovOut1:active .fnHovIn1A25,  .cHovOut2:active .fnHovIn2A25,  .fnActA25:active:active,  .cActOut:active:active .fnActInA25,  .fnSelA25.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA25,  .fnChkA25:checked:checked,  .cLblSib:checked:checked + .fnLblLingA25,  .cLbtSib:checked:checked ~ .fnLbtLingA25,  .fnFocA25:focus:focus,  .fnFowA25:focus-within:focus-within  { --fn-A-main: 0.25; }
+.fnA30,  .fnHovA30:hover,  .cHovOut:hover  .fnHovInA30,  .cHovOut1:hover  .fnHovIn1A30,  .cHovOut2:hover  .fnHovIn2A30,  .fnHovA30:active,  .cHovOut:active .fnHovInA30,  .cHovOut1:active .fnHovIn1A30,  .cHovOut2:active .fnHovIn2A30,  .fnActA30:active:active,  .cActOut:active:active .fnActInA30,  .fnSelA30.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA30,  .fnChkA30:checked:checked,  .cLblSib:checked:checked + .fnLblLingA30,  .cLbtSib:checked:checked ~ .fnLbtLingA30,  .fnFocA30:focus:focus,  .fnFowA30:focus-within:focus-within  { --fn-A-main:  0.3; }
+.fnA35,  .fnHovA35:hover,  .cHovOut:hover  .fnHovInA35,  .cHovOut1:hover  .fnHovIn1A35,  .cHovOut2:hover  .fnHovIn2A35,  .fnHovA35:active,  .cHovOut:active .fnHovInA35,  .cHovOut1:active .fnHovIn1A35,  .cHovOut2:active .fnHovIn2A35,  .fnActA35:active:active,  .cActOut:active:active .fnActInA35,  .fnSelA35.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA35,  .fnChkA35:checked:checked,  .cLblSib:checked:checked + .fnLblLingA35,  .cLbtSib:checked:checked ~ .fnLbtLingA35,  .fnFocA35:focus:focus,  .fnFowA35:focus-within:focus-within  { --fn-A-main: 0.35; }
+.fnA40,  .fnHovA40:hover,  .cHovOut:hover  .fnHovInA40,  .cHovOut1:hover  .fnHovIn1A40,  .cHovOut2:hover  .fnHovIn2A40,  .fnHovA40:active,  .cHovOut:active .fnHovInA40,  .cHovOut1:active .fnHovIn1A40,  .cHovOut2:active .fnHovIn2A40,  .fnActA40:active:active,  .cActOut:active:active .fnActInA40,  .fnSelA40.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA40,  .fnChkA40:checked:checked,  .cLblSib:checked:checked + .fnLblLingA40,  .cLbtSib:checked:checked ~ .fnLbtLingA40,  .fnFocA40:focus:focus,  .fnFowA40:focus-within:focus-within  { --fn-A-main:  0.4; }
+.fnA45,  .fnHovA45:hover,  .cHovOut:hover  .fnHovInA45,  .cHovOut1:hover  .fnHovIn1A45,  .cHovOut2:hover  .fnHovIn2A45,  .fnHovA45:active,  .cHovOut:active .fnHovInA45,  .cHovOut1:active .fnHovIn1A45,  .cHovOut2:active .fnHovIn2A45,  .fnActA45:active:active,  .cActOut:active:active .fnActInA45,  .fnSelA45.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA45,  .fnChkA45:checked:checked,  .cLblSib:checked:checked + .fnLblLingA45,  .cLbtSib:checked:checked ~ .fnLbtLingA45,  .fnFocA45:focus:focus,  .fnFowA45:focus-within:focus-within  { --fn-A-main: 0.45; }
+.fnA50,  .fnHovA50:hover,  .cHovOut:hover  .fnHovInA50,  .cHovOut1:hover  .fnHovIn1A50,  .cHovOut2:hover  .fnHovIn2A50,  .fnHovA50:active,  .cHovOut:active .fnHovInA50,  .cHovOut1:active .fnHovIn1A50,  .cHovOut2:active .fnHovIn2A50,  .fnActA50:active:active,  .cActOut:active:active .fnActInA50,  .fnSelA50.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA50,  .fnChkA50:checked:checked,  .cLblSib:checked:checked + .fnLblLingA50,  .cLbtSib:checked:checked ~ .fnLbtLingA50,  .fnFocA50:focus:focus,  .fnFowA50:focus-within:focus-within  { --fn-A-main:  0.5; }
+.fnA55,  .fnHovA55:hover,  .cHovOut:hover  .fnHovInA55,  .cHovOut1:hover  .fnHovIn1A55,  .cHovOut2:hover  .fnHovIn2A55,  .fnHovA55:active,  .cHovOut:active .fnHovInA55,  .cHovOut1:active .fnHovIn1A55,  .cHovOut2:active .fnHovIn2A55,  .fnActA55:active:active,  .cActOut:active:active .fnActInA55,  .fnSelA55.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA55,  .fnChkA55:checked:checked,  .cLblSib:checked:checked + .fnLblLingA55,  .cLbtSib:checked:checked ~ .fnLbtLingA55,  .fnFocA55:focus:focus,  .fnFowA55:focus-within:focus-within  { --fn-A-main: 0.55; }
+.fnA60,  .fnHovA60:hover,  .cHovOut:hover  .fnHovInA60,  .cHovOut1:hover  .fnHovIn1A60,  .cHovOut2:hover  .fnHovIn2A60,  .fnHovA60:active,  .cHovOut:active .fnHovInA60,  .cHovOut1:active .fnHovIn1A60,  .cHovOut2:active .fnHovIn2A60,  .fnActA60:active:active,  .cActOut:active:active .fnActInA60,  .fnSelA60.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA60,  .fnChkA60:checked:checked,  .cLblSib:checked:checked + .fnLblLingA60,  .cLbtSib:checked:checked ~ .fnLbtLingA60,  .fnFocA60:focus:focus,  .fnFowA60:focus-within:focus-within  { --fn-A-main:  0.6; }
+.fnA65,  .fnHovA65:hover,  .cHovOut:hover  .fnHovInA65,  .cHovOut1:hover  .fnHovIn1A65,  .cHovOut2:hover  .fnHovIn2A65,  .fnHovA65:active,  .cHovOut:active .fnHovInA65,  .cHovOut1:active .fnHovIn1A65,  .cHovOut2:active .fnHovIn2A65,  .fnActA65:active:active,  .cActOut:active:active .fnActInA65,  .fnSelA65.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA65,  .fnChkA65:checked:checked,  .cLblSib:checked:checked + .fnLblLingA65,  .cLbtSib:checked:checked ~ .fnLbtLingA65,  .fnFocA65:focus:focus,  .fnFowA65:focus-within:focus-within  { --fn-A-main: 0.65; }
+.fnA70,  .fnHovA70:hover,  .cHovOut:hover  .fnHovInA70,  .cHovOut1:hover  .fnHovIn1A70,  .cHovOut2:hover  .fnHovIn2A70,  .fnHovA70:active,  .cHovOut:active .fnHovInA70,  .cHovOut1:active .fnHovIn1A70,  .cHovOut2:active .fnHovIn2A70,  .fnActA70:active:active,  .cActOut:active:active .fnActInA70,  .fnSelA70.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA70,  .fnChkA70:checked:checked,  .cLblSib:checked:checked + .fnLblLingA70,  .cLbtSib:checked:checked ~ .fnLbtLingA70,  .fnFocA70:focus:focus,  .fnFowA70:focus-within:focus-within  { --fn-A-main:  0.7; }
+.fnA75,  .fnHovA75:hover,  .cHovOut:hover  .fnHovInA75,  .cHovOut1:hover  .fnHovIn1A75,  .cHovOut2:hover  .fnHovIn2A75,  .fnHovA75:active,  .cHovOut:active .fnHovInA75,  .cHovOut1:active .fnHovIn1A75,  .cHovOut2:active .fnHovIn2A75,  .fnActA75:active:active,  .cActOut:active:active .fnActInA75,  .fnSelA75.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA75,  .fnChkA75:checked:checked,  .cLblSib:checked:checked + .fnLblLingA75,  .cLbtSib:checked:checked ~ .fnLbtLingA75,  .fnFocA75:focus:focus,  .fnFowA75:focus-within:focus-within  { --fn-A-main: 0.75; }
+.fnA80,  .fnHovA80:hover,  .cHovOut:hover  .fnHovInA80,  .cHovOut1:hover  .fnHovIn1A80,  .cHovOut2:hover  .fnHovIn2A80,  .fnHovA80:active,  .cHovOut:active .fnHovInA80,  .cHovOut1:active .fnHovIn1A80,  .cHovOut2:active .fnHovIn2A80,  .fnActA80:active:active,  .cActOut:active:active .fnActInA80,  .fnSelA80.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA80,  .fnChkA80:checked:checked,  .cLblSib:checked:checked + .fnLblLingA80,  .cLbtSib:checked:checked ~ .fnLbtLingA80,  .fnFocA80:focus:focus,  .fnFowA80:focus-within:focus-within  { --fn-A-main:  0.8; }
+.fnA85,  .fnHovA85:hover,  .cHovOut:hover  .fnHovInA85,  .cHovOut1:hover  .fnHovIn1A85,  .cHovOut2:hover  .fnHovIn2A85,  .fnHovA85:active,  .cHovOut:active .fnHovInA85,  .cHovOut1:active .fnHovIn1A85,  .cHovOut2:active .fnHovIn2A85,  .fnActA85:active:active,  .cActOut:active:active .fnActInA85,  .fnSelA85.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA85,  .fnChkA85:checked:checked,  .cLblSib:checked:checked + .fnLblLingA85,  .cLbtSib:checked:checked ~ .fnLbtLingA85,  .fnFocA85:focus:focus,  .fnFowA85:focus-within:focus-within  { --fn-A-main: 0.85; }
+.fnA90,  .fnHovA90:hover,  .cHovOut:hover  .fnHovInA90,  .cHovOut1:hover  .fnHovIn1A90,  .cHovOut2:hover  .fnHovIn2A90,  .fnHovA90:active,  .cHovOut:active .fnHovInA90,  .cHovOut1:active .fnHovIn1A90,  .cHovOut2:active .fnHovIn2A90,  .fnActA90:active:active,  .cActOut:active:active .fnActInA90,  .fnSelA90.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA90,  .fnChkA90:checked:checked,  .cLblSib:checked:checked + .fnLblLingA90,  .cLbtSib:checked:checked ~ .fnLbtLingA90,  .fnFocA90:focus:focus,  .fnFowA90:focus-within:focus-within  { --fn-A-main:  0.9; }
+.fnA95,  .fnHovA95:hover,  .cHovOut:hover  .fnHovInA95,  .cHovOut1:hover  .fnHovIn1A95,  .cHovOut2:hover  .fnHovIn2A95,  .fnHovA95:active,  .cHovOut:active .fnHovInA95,  .cHovOut1:active .fnHovIn1A95,  .cHovOut2:active .fnHovIn2A95,  .fnActA95:active:active,  .cActOut:active:active .fnActInA95,  .fnSelA95.sel.sel.sel,  .cSelOut.sel.sel.sel .fnSelInA95,  .fnChkA95:checked:checked,  .cLblSib:checked:checked + .fnLblLingA95,  .cLbtSib:checked:checked ~ .fnLbtLingA95,  .fnFocA95:focus:focus,  .fnFowA95:focus-within:focus-within  { --fn-A-main: 0.95; }
+.fnA100, .fnHovA100:hover, .cHovOut:hover  .fnHovInA100, .cHovOut1:hover  .fnHovIn1A100, .cHovOut2:hover  .fnHovIn2A100, .fnHovA100:active, .cHovOut:active .fnHovInA100, .cHovOut1:active .fnHovIn1A100, .cHovOut2:active .fnHovIn2A100, .fnActA100:active:active, .cActOut:active:active .fnActInA100, .fnSelA100.sel.sel.sel, .cSelOut.sel.sel.sel .fnSelInA100, .fnChkA100:checked:checked, .cLblSib:checked:checked + .fnLblLingA100, .cLbtSib:checked:checked ~ .fnLbtLingA100, .fnFocA100:focus:focus, .fnFowA100:focus-within:focus-within { --fn-A-main:    1; }
+
+
+
+@media (prefers-color-scheme: light) {
+    .elzTheme-device { color-scheme: light; }
+
+    .elzTheme-device .cLInvL,
+    .elzTheme-device .bgLInvL,
+    .elzTheme-device .bgHovLInvL:hover,  .elzTheme-device .cHovOut:hover  .bgHovInLInvL, .elzTheme-device .cHovOut1:hover  .bgHovIn1LInvL, .elzTheme-device .cHovOut2:hover  .bgHovIn2LInvL,
+    .elzTheme-device .bgHovLInvL:active, .elzTheme-device .cHovOut:active .bgHovInLInvL, .elzTheme-device .cHovOut1:active .bgHovIn1LInvL, .elzTheme-device .cHovOut2:active .bgHovIn2LInvL,
+    .elzTheme-device .bgActLInvL:active:active, .elzTheme-device .cActOut:active:active .bgActInLInvL,
+    .elzTheme-device .bgSelLInvL.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .bgSelInLInvL, .elzTheme-device .cSelOut1.sel.sel.sel .bgSelIn1LInvL, .elzTheme-device .cSelOut2.sel.sel.sel .bgSelIn2LInvL,
+    .elzTheme-device .bgChkLInvL:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .bgLblLingLInvL,
+    .elzTheme-device .cLbtSib:checked:checked ~ .bgLbtLingLInvL,
+    .elzTheme-device .bgFocLInvL:focus:focus,
+    .elzTheme-device .bgFowLInvL:focus-within:focus-within { --bg-L-mod-inv: -1; }
+
+    .elzTheme-device .cFInvL,
+    .elzTheme-device .bgFInvL,
+    .elzTheme-device .bgHovFInvL:hover,  .elzTheme-device .cHovOut:hover  .bgHovInFInvL, .elzTheme-device .cHovOut1:hover  .bgHovIn1FInvL, .elzTheme-device .cHovOut2:hover  .bgHovIn2FInvL,
+    .elzTheme-device .bgHovFInvL:active, .elzTheme-device .cHovOut:active .bgHovInFInvL, .elzTheme-device .cHovOut1:active .bgHovIn1FInvL, .elzTheme-device .cHovOut2:active .bgHovIn2FInvL,
+    .elzTheme-device .bgActFInvL:active:active, .elzTheme-device .cActOut:active:active .bgActInFInvL,
+    .elzTheme-device .bgSelFInvL.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .bgSelInFInvL, .elzTheme-device .cSelOut1.sel.sel.sel .bgSelIn1FInvL, .elzTheme-device .cSelOut2.sel.sel.sel .bgSelIn2FInvL,
+    .elzTheme-device .bgChkFInvL:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .bgLblLingFInvL,
+    .elzTheme-device .cLbtSib:checked:checked ~ .bgLbtLingFInvL,
+    .elzTheme-device .bgFocFInvL:focus:focus,
+    .elzTheme-device .bgFowFInvL:focus-within:focus-within { --bg-L-factor-inv: -1; }
+
+    .elzTheme-device .cFD,
+    .elzTheme-device .bgFD,
+    .elzTheme-device .bgHovFD:hover,  .elzTheme-device .cHovOut:hover  .bgHovInFD, .elzTheme-device .cHovOut1:hover  .bgHovIn1FD, .elzTheme-device .cHovOut2:hover  .bgHovIn2FD,
+    .elzTheme-device .bgHovFD:active, .elzTheme-device .cHovOut:active .bgHovInFD, .elzTheme-device .cHovOut1:active .bgHovIn1FD, .elzTheme-device .cHovOut2:active .bgHovIn2FD,
+    .elzTheme-device .bgActFD:active:active, .elzTheme-device .cActOut:active:active .bgActInFD,
+    .elzTheme-device .bgSelFD.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .bgSelInFD, .elzTheme-device .cSelOut1.sel.sel.sel .bgSelIn1FD, .elzTheme-device .cSelOut2.sel.sel.sel .bgSelIn2FD,
+    .elzTheme-device .bgChkFD:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .bgLblLingFD,
+    .elzTheme-device .cLbtSib:checked:checked ~ .bgLbtLingFD,
+    .elzTheme-device .bgFocFD:focus:focus,
+    .elzTheme-device .bgFowFD:focus-within:focus-within { --bg-L-factor-inv: 0; }
+
+
+
+    .elzTheme-device .cLInvL,
+    .elzTheme-device .brLInvL,
+    .elzTheme-device .brHovLInvL:hover,  .elzTheme-device .cHovOut:hover  .brHovInLInvL, .elzTheme-device .cHovOut1:hover  .brHovIn1LInvL, .elzTheme-device .cHovOut2:hover  .brHovIn2LInvL,
+    .elzTheme-device .brHovLInvL:active, .elzTheme-device .cHovOut:active .brHovInLInvL, .elzTheme-device .cHovOut1:active .brHovIn1LInvL, .elzTheme-device .cHovOut2:active .brHovIn2LInvL,
+    .elzTheme-device .brActLInvL:active:active, .elzTheme-device .cActOut:active:active .brActInLInvL,
+    .elzTheme-device .brSelLInvL.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .brSelInLInvL, .elzTheme-device .cSelOut1.sel.sel.sel .brSelIn1LInvL, .elzTheme-device .cSelOut2.sel.sel.sel .brSelIn2LInvL,
+    .elzTheme-device .brChkLInvL:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .brLblLingLInvL,
+    .elzTheme-device .cLbtSib:checked:checked ~ .brLbtLingLInvL,
+    .elzTheme-device .brFocLInvL:focus:focus,
+    .elzTheme-device .brFowLInvL:focus-within:focus-within { --br-L-mod-inv: -1; }
+
+    .elzTheme-device .cFInvL,
+    .elzTheme-device .brFInvL,
+    .elzTheme-device .brHovFInvL:hover,  .elzTheme-device .cHovOut:hover  .brHovInFInvL, .elzTheme-device .cHovOut1:hover  .brHovIn1FInvL, .elzTheme-device .cHovOut2:hover  .brHovIn2FInvL,
+    .elzTheme-device .brHovFInvL:active, .elzTheme-device .cHovOut:active .brHovInFInvL, .elzTheme-device .cHovOut1:active .brHovIn1FInvL, .elzTheme-device .cHovOut2:active .brHovIn2FInvL,
+    .elzTheme-device .brActFInvL:active:active, .elzTheme-device .cActOut:active:active .brActInFInvL,
+    .elzTheme-device .brSelFInvL.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .brSelInFInvL, .elzTheme-device .cSelOut1.sel.sel.sel .brSelIn1FInvL, .elzTheme-device .cSelOut2.sel.sel.sel .brSelIn2FInvL,
+    .elzTheme-device .brChkFInvL:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .brLblLingFInvL,
+    .elzTheme-device .cLbtSib:checked:checked ~ .brLbtLingFInvL,
+    .elzTheme-device .brFocFInvL:focus:focus,
+    .elzTheme-device .brFowFInvL:focus-within:focus-within { --br-L-factor-inv: -1; }
+
+    .elzTheme-device .cFD,
+    .elzTheme-device .brFD,
+    .elzTheme-device .brHovFD:hover,  .elzTheme-device .cHovOut:hover  .brHovInFD, .elzTheme-device .cHovOut1:hover  .brHovIn1FD, .elzTheme-device .cHovOut2:hover  .brHovIn2FD,
+    .elzTheme-device .brHovFD:active, .elzTheme-device .cHovOut:active .brHovInFD, .elzTheme-device .cHovOut1:active .brHovIn1FD, .elzTheme-device .cHovOut2:active .brHovIn2FD,
+    .elzTheme-device .brActFD:active:active, .elzTheme-device .cActOut:active:active .brActInFD,
+    .elzTheme-device .brSelFD.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .brSelInFD, .elzTheme-device .cSelOut1.sel.sel.sel .brSelIn1FD, .elzTheme-device .cSelOut2.sel.sel.sel .brSelIn2FD,
+    .elzTheme-device .brChkFD:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .brLblLingFD,
+    .elzTheme-device .cLbtSib:checked:checked ~ .brLbtLingFD,
+    .elzTheme-device .brFocFD:focus:focus,
+    .elzTheme-device .brFowFD:focus-within:focus-within { --br-L-factor-inv: 0; }
+
+
+
+    .elzTheme-device .cLInvL,
+    .elzTheme-device .fnLInvL,
+    .elzTheme-device .fnHovLInvL:hover,  .elzTheme-device .cHovOut:hover  .fnHovInLInvL, .elzTheme-device .cHovOut1:hover  .fnHovIn1LInvL, .elzTheme-device .cHovOut2:hover  .fnHovIn2LInvL,
+    .elzTheme-device .fnHovLInvL:active, .elzTheme-device .cHovOut:active .fnHovInLInvL, .elzTheme-device .cHovOut1:active .fnHovIn1LInvL, .elzTheme-device .cHovOut2:active .fnHovIn2LInvL,
+    .elzTheme-device .fnActLInvL:active:active, .elzTheme-device .cActOut:active:active .fnActInLInvL,
+    .elzTheme-device .fnSelLInvL.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .fnSelInLInvL, .elzTheme-device .cSelOut1.sel.sel.sel .fnSelIn1LInvL, .elzTheme-device .cSelOut2.sel.sel.sel .fnSelIn2LInvL,
+    .elzTheme-device .fnChkLInvL:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .fnLblLingLInvL,
+    .elzTheme-device .cLbtSib:checked:checked ~ .fnLbtLingLInvL,
+    .elzTheme-device .fnFocLInvL:focus:focus,
+    .elzTheme-device .fnFowLInvL:focus-within:focus-within { --fn-L-mod-inv: -1; }
+
+    .elzTheme-device .cFInvL,
+    .elzTheme-device .fnFInvL,
+    .elzTheme-device .fnHovFInvL:hover,  .elzTheme-device .cHovOut:hover  .fnHovInFInvL, .elzTheme-device .cHovOut1:hover  .fnHovIn1FInvL, .elzTheme-device .cHovOut2:hover  .fnHovIn2FInvL,
+    .elzTheme-device .fnHovFInvL:active, .elzTheme-device .cHovOut:active .fnHovInFInvL, .elzTheme-device .cHovOut1:active .fnHovIn1FInvL, .elzTheme-device .cHovOut2:active .fnHovIn2FInvL,
+    .elzTheme-device .fnActFInvL:active:active, .elzTheme-device .cActOut:active:active .fnActInFInvL,
+    .elzTheme-device .fnSelFInvL.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .fnSelInFInvL, .elzTheme-device .cSelOut1.sel.sel.sel .fnSelIn1FInvL, .elzTheme-device .cSelOut2.sel.sel.sel .fnSelIn2FInvL,
+    .elzTheme-device .fnChkFInvL:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .fnLblLingFInvL,
+    .elzTheme-device .cLbtSib:checked:checked ~ .fnLbtLingFInvL,
+    .elzTheme-device .fnFocFInvL:focus:focus,
+    .elzTheme-device .fnFowFInvL:focus-within:focus-within { --fn-L-factor-inv: -1; }
+
+    .elzTheme-device .cFD,
+    .elzTheme-device .fnFD,
+    .elzTheme-device .fnHovFD:hover,  .elzTheme-device .cHovOut:hover  .fnHovInFD, .elzTheme-device .cHovOut1:hover  .fnHovIn1FD, .elzTheme-device .cHovOut2:hover  .fnHovIn2FD,
+    .elzTheme-device .fnHovFD:active, .elzTheme-device .cHovOut:active .fnHovInFD, .elzTheme-device .cHovOut1:active .fnHovIn1FD, .elzTheme-device .cHovOut2:active .fnHovIn2FD,
+    .elzTheme-device .fnActFD:active:active, .elzTheme-device .cActOut:active:active .fnActInFD,
+    .elzTheme-device .fnSelFD.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .fnSelInFD, .elzTheme-device .cSelOut1.sel.sel.sel .fnSelIn1FD, .elzTheme-device .cSelOut2.sel.sel.sel .fnSelIn2FD,
+    .elzTheme-device .fnChkFD:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .fnLblLingFD,
+    .elzTheme-device .cLbtSib:checked:checked ~ .fnLbtLingFD,
+    .elzTheme-device .fnFocFD:focus:focus,
+    .elzTheme-device .fnFowFD:focus-within:focus-within { --fn-L-factor-inv: 0; }
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+    .elzTheme-device  { color-scheme: dark; }
+
+    .elzTheme-device .cLInvD,
+    .elzTheme-device .bgLInvD,
+    .elzTheme-device .bgHovLInvD:hover,  .elzTheme-device .cHovOut:hover  .bgHovInLInvD, .elzTheme-device .cHovOut1:hover  .bgHovIn1LInvD, .elzTheme-device .cHovOut2:hover  .bgHovIn2LInvD,
+    .elzTheme-device .bgHovLInvD:active, .elzTheme-device .cHovOut:active .bgHovInLInvD, .elzTheme-device .cHovOut1:active .bgHovIn1LInvD, .elzTheme-device .cHovOut2:active .bgHovIn2LInvD,
+    .elzTheme-device .bgActLInvD:active:active, .elzTheme-device .cActOut:active:active .bgActInLInvD,
+    .elzTheme-device .bgSelLInvD.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .bgSelInLInvD, .elzTheme-device .cSelOut1.sel.sel.sel .bgSelIn1LInvD, .elzTheme-device .cSelOut2.sel.sel.sel .bgSelIn2LInvD,
+    .elzTheme-device .bgChkLInvD:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .bgLblLingLInvD,
+    .elzTheme-device .cLbtSib:checked:checked ~ .bgLbtLingLInvD,
+    .elzTheme-device .bgFocLInvD:focus:focus,
+    .elzTheme-device .bgFowLInvD:focus-within:focus-within { --bg-L-mod-inv: -1; }
+
+    .elzTheme-device .cFInvD,
+    .elzTheme-device .bgFInvD,
+    .elzTheme-device .bgHovFInvD:hover,  .elzTheme-device .cHovOut:hover  .bgHovInFInvD, .elzTheme-device .cHovOut1:hover  .bgHovIn1FInvD, .elzTheme-device .cHovOut2:hover  .bgHovIn2FInvD,
+    .elzTheme-device .bgHovFInvD:active, .elzTheme-device .cHovOut:active .bgHovInFInvD, .elzTheme-device .cHovOut1:active .bgHovIn1FInvD, .elzTheme-device .cHovOut2:active .bgHovIn2FInvD,
+    .elzTheme-device .bgActFInvD:active:active, .elzTheme-device .cActOut:active:active .bgActInFInvD,
+    .elzTheme-device .bgSelFInvD.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .bgSelInFInvD, .elzTheme-device .cSelOut1.sel.sel.sel .bgSelIn1FInvD, .elzTheme-device .cSelOut2.sel.sel.sel .bgSelIn2FInvD,
+    .elzTheme-device .bgChkFInvD:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .bgLblLingFInvD,
+    .elzTheme-device .cLbtSib:checked:checked ~ .bgLbtLingFInvD,
+    .elzTheme-device .bgFocFInvD:focus:focus,
+    .elzTheme-device .bgFowFInvD:focus-within:focus-within { --bg-L-factor-inv: -1; }
+
+    .elzTheme-device .cFL,
+    .elzTheme-device .bgFL,
+    .elzTheme-device .bgHovFL:hover,  .elzTheme-device .cHovOut:hover  .bgHovInFL, .elzTheme-device .cHovOut1:hover  .bgHovIn1FL, .elzTheme-device .cHovOut2:hover  .bgHovIn2FL,
+    .elzTheme-device .bgHovFL:active, .elzTheme-device .cHovOut:active .bgHovInFL, .elzTheme-device .cHovOut1:active .bgHovIn1FL, .elzTheme-device .cHovOut2:active .bgHovIn2FL,
+    .elzTheme-device .bgActFL:active:active, .elzTheme-device .cActOut:active:active .bgActInFL,
+    .elzTheme-device .bgSelFL.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .bgSelInFL, .elzTheme-device .cSelOut1.sel.sel.sel .bgSelIn1FL, .elzTheme-device .cSelOut2.sel.sel.sel .bgSelIn2FL,
+    .elzTheme-device .bgChkFL:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .bgLblLingFL,
+    .elzTheme-device .cLbtSib:checked:checked ~ .bgLbtLingFL,
+    .elzTheme-device .bgFocFL:focus:focus,
+    .elzTheme-device .bgFowFL:focus-within:focus-within { --bg-L-factor-inv: 0; }
+
+
+
+    .elzTheme-device .cLInvD,
+    .elzTheme-device .brLInvD,
+    .elzTheme-device .brHovLInvD:hover,  .elzTheme-device .cHovOut:hover  .brHovInLInvD, .elzTheme-device .cHovOut1:hover  .brHovIn1LInvD, .elzTheme-device .cHovOut2:hover  .brHovIn2LInvD,
+    .elzTheme-device .brHovLInvD:active, .elzTheme-device .cHovOut:active .brHovInLInvD, .elzTheme-device .cHovOut1:active .brHovIn1LInvD, .elzTheme-device .cHovOut2:active .brHovIn2LInvD,
+    .elzTheme-device .brActLInvD:active:active, .elzTheme-device .cActOut:active:active .brActInLInvD,
+    .elzTheme-device .brSelLInvD.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .brSelInLInvD, .elzTheme-device .cSelOut1.sel.sel.sel .brSelIn1LInvD, .elzTheme-device .cSelOut2.sel.sel.sel .brSelIn2LInvD,
+    .elzTheme-device .brChkLInvD:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .brLblLingLInvD,
+    .elzTheme-device .cLbtSib:checked:checked ~ .brLbtLingLInvD,
+    .elzTheme-device .brFocLInvD:focus:focus,
+    .elzTheme-device .brFowLInvD:focus-within:focus-within { --br-L-mod-inv: -1; }
+
+    .elzTheme-device .cFInvD,
+    .elzTheme-device .brFInvD,
+    .elzTheme-device .brHovFInvD:hover,  .elzTheme-device .cHovOut:hover  .brHovInFInvD, .elzTheme-device .cHovOut1:hover  .brHovIn1FInvD, .elzTheme-device .cHovOut2:hover  .brHovIn2FInvD,
+    .elzTheme-device .brHovFInvD:active, .elzTheme-device .cHovOut:active .brHovInFInvD, .elzTheme-device .cHovOut1:active .brHovIn1FInvD, .elzTheme-device .cHovOut2:active .brHovIn2FInvD,
+    .elzTheme-device .brActFInvD:active:active, .elzTheme-device .cActOut:active:active .brActInFInvD,
+    .elzTheme-device .brSelFInvD.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .brSelInFInvD, .elzTheme-device .cSelOut1.sel.sel.sel .brSelIn1FInvD, .elzTheme-device .cSelOut2.sel.sel.sel .brSelIn2FInvD,
+    .elzTheme-device .brChkFInvD:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .brLblLingFInvD,
+    .elzTheme-device .cLbtSib:checked:checked ~ .brLbtLingFInvD,
+    .elzTheme-device .brFocFInvD:focus:focus,
+    .elzTheme-device .brFowFInvD:focus-within:focus-within { --br-L-factor-inv: -1; }
+
+    .elzTheme-device .cFL,
+    .elzTheme-device .brFL,
+    .elzTheme-device .brHovFL:hover,  .elzTheme-device .cHovOut:hover  .brHovInFL, .elzTheme-device .cHovOut1:hover  .brHovIn1FL, .elzTheme-device .cHovOut2:hover  .brHovIn2FL,
+    .elzTheme-device .brHovFL:active, .elzTheme-device .cHovOut:active .brHovInFL, .elzTheme-device .cHovOut1:active .brHovIn1FL, .elzTheme-device .cHovOut2:active .brHovIn2FL,
+    .elzTheme-device .brActFL:active:active, .elzTheme-device .cActOut:active:active .brActInFL,
+    .elzTheme-device .brSelFL.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .brSelInFL, .elzTheme-device .cSelOut1.sel.sel.sel .brSelIn1FL, .elzTheme-device .cSelOut2.sel.sel.sel .brSelIn2FL,
+    .elzTheme-device .brChkFL:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .brLblLingFL,
+    .elzTheme-device .cLbtSib:checked:checked ~ .brLbtLingFL,
+    .elzTheme-device .brFocFL:focus:focus,
+    .elzTheme-device .brFowFL:focus-within:focus-within { --br-L-factor-inv: 0; }
+
+
+
+    .elzTheme-device .cLInvD,
+    .elzTheme-device .fnLInvD,
+    .elzTheme-device .fnHovLInvD:hover,  .elzTheme-device .cHovOut:hover  .fnHovInLInvD, .elzTheme-device .cHovOut1:hover  .fnHovIn1LInvD, .elzTheme-device .cHovOut2:hover  .fnHovIn2LInvD,
+    .elzTheme-device .fnHovLInvD:active, .elzTheme-device .cHovOut:active .fnHovInLInvD, .elzTheme-device .cHovOut1:active .fnHovIn1LInvD, .elzTheme-device .cHovOut2:active .fnHovIn2LInvD,
+    .elzTheme-device .fnActLInvD:active:active, .elzTheme-device .cActOut:active:active .fnActInLInvD,
+    .elzTheme-device .fnSelLInvD.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .fnSelInLInvD, .elzTheme-device .cSelOut1.sel.sel.sel .fnSelIn1LInvD, .elzTheme-device .cSelOut2.sel.sel.sel .fnSelIn2LInvD,
+    .elzTheme-device .fnChkLInvD:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .fnLblLingLInvD,
+    .elzTheme-device .cLbtSib:checked:checked ~ .fnLbtLingLInvD,
+    .elzTheme-device .fnFocLInvD:focus:focus,
+    .elzTheme-device .fnFowLInvD:focus-within:focus-within { --fn-L-mod-inv: -1; }
+
+    .elzTheme-device .cFInvD,
+    .elzTheme-device .fnFInvD,
+    .elzTheme-device .fnHovFInvD:hover,  .elzTheme-device .cHovOut:hover  .fnHovInFInvD, .elzTheme-device .cHovOut1:hover  .fnHovIn1FInvD, .elzTheme-device .cHovOut2:hover  .fnHovIn2FInvD,
+    .elzTheme-device .fnHovFInvD:active, .elzTheme-device .cHovOut:active .fnHovInFInvD, .elzTheme-device .cHovOut1:active .fnHovIn1FInvD, .elzTheme-device .cHovOut2:active .fnHovIn2FInvD,
+    .elzTheme-device .fnActFInvD:active:active, .elzTheme-device .cActOut:active:active .fnActInFInvD,
+    .elzTheme-device .fnSelFInvD.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .fnSelInFInvD, .elzTheme-device .cSelOut1.sel.sel.sel .fnSelIn1FInvD, .elzTheme-device .cSelOut2.sel.sel.sel .fnSelIn2FInvD,
+    .elzTheme-device .fnChkFInvD:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .fnLblLingFInvD,
+    .elzTheme-device .cLbtSib:checked:checked ~ .fnLbtLingFInvD,
+    .elzTheme-device .fnFocFInvD:focus:focus,
+    .elzTheme-device .fnFowFInvD:focus-within:focus-within { --fn-L-factor-inv: -1; }
+
+    .elzTheme-device .cFL,
+    .elzTheme-device .fnFL,
+    .elzTheme-device .fnHovFL:hover,  .elzTheme-device .cHovOut:hover  .fnHovInFL, .elzTheme-device .cHovOut1:hover  .fnHovIn1FL, .elzTheme-device .cHovOut2:hover  .fnHovIn2FL,
+    .elzTheme-device .fnHovFL:active, .elzTheme-device .cHovOut:active .fnHovInFL, .elzTheme-device .cHovOut1:active .fnHovIn1FL, .elzTheme-device .cHovOut2:active .fnHovIn2FL,
+    .elzTheme-device .fnActFL:active:active, .elzTheme-device .cActOut:active:active .fnActInFL,
+    .elzTheme-device .fnSelFL.sel.sel.sel,
+    .elzTheme-device .cSelOut.sel.sel.sel .fnSelInFL, .elzTheme-device .cSelOut1.sel.sel.sel .fnSelIn1FL, .elzTheme-device .cSelOut2.sel.sel.sel .fnSelIn2FL,
+    .elzTheme-device .fnChkFL:checked:checked,
+    .elzTheme-device .cLblSib:checked:checked + .fnLblLingFL,
+    .elzTheme-device .cLbtSib:checked:checked ~ .fnLbtLingFL,
+    .elzTheme-device .fnFocFL:focus:focus,
+    .elzTheme-device .fnFowFL:focus-within:focus-within { --fn-L-factor-inv: 0; }
+}

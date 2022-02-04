@@ -1,0 +1,68 @@
+.anim0  { transition-duration:    0s; }
+.anim05 { transition-duration: 0.05s; }
+.anim,
+.anim1  { transition-duration:  0.1s; }
+.anim2  { transition-duration:  0.2s; }
+.anim25 { transition-duration: 0.25s; }
+.anim3  { transition-duration:  0.3s; }
+.anim4  { transition-duration:  0.4s; }
+.anim5  { transition-duration:  0.5s; }
+.anim6  { transition-duration:  0.6s; }
+.anim7  { transition-duration:  0.7s; }
+.anim8  { transition-duration:  0.8s; }
+.anim9  { transition-duration:  0.9s; }
+.anim10 { transition-duration:    1s; }
+
+
+
+
+/* Крутится вокруг своей оси */
+
+.an-spinner {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+}
+
+.an-spinner.animit { animation-name: elzAnimSpinner; }
+
+@keyframes elzAnimSpinner {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+
+
+
+
+/* Показ через прозрачность */
+
+.an-opShow {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+}
+
+.an-opShow.animit { animation-name: elzAnimOpShow; }
+
+@keyframes elzAnimOpShow {
+    from { opacity: 0; visibility: hidden; }
+    to   { opacity: 1; }
+}
+
+
+
+
+
+/* Исчезновение через прозрачность */
+
+.an-opHide {
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+}
+
+.an-opShow.animit { animation-name: elzAnimOpHide; }
+
+@keyframes elzAnimOpHide {
+    from { opacity: 1; }
+    to   { opacity: 0; visibility: hidden; }
+}

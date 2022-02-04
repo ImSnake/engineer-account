@@ -1,0 +1,61 @@
+.elz,
+.elz:before,
+.elz:after {
+    margin:  0;
+    padding: 0;
+    border:  0 solid transparent;
+    background-color: transparent;
+    background-attachment: initial;
+    outline:    none;
+    border-radius: 0;
+    box-shadow: none;
+
+    font:            inherit;
+    color:           inherit;
+    vertical-align: baseline;
+
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: none;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+
+    /* Only for Elize reset */
+    box-sizing: border-box;
+    list-style:      none;
+    text-decoration: none;
+}
+
+.elz:before, .elz:after { content: none; }
+
+/* Focus inner */
+.elz::-moz-focus-inner { border: 0; padding: 0; }
+
+/* Clear */
+.elz::-ms-clear,
+.elz::-ms-reveal,
+.elz::-ms-expand { display: none; }
+
+/* Placeholder */
+.elz::placeholder { opacity: 0.6; color: inherit; }
+
+/* Input type number */
+.elz[type="number"] { -moz-appearance: textfield; }
+
+.elz[type="number"]::-webkit-inner-spin-button,
+.elz[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Autocomplete for webkit fix */
+
+.elz:-webkit-autofill { transition: background-image  5000s ease-in-out, background-color  5000s ease-in-out, color 5000s ease-in-out; }

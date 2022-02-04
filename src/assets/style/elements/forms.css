@@ -1,0 +1,126 @@
+/* Inputs and buttons */
+
+.elzButton { z-index: 1; }
+
+.elzInput:hover,  .elzFarent:hover  .elzInput,
+.elzInput:active, .elzFarent:active .elzInput { z-index: 2; }
+
+.elzButton:hover,  .elzFarent:hover  .elzButton,
+.elzButton:active, .elzFarent:active .elzButton { z-index: 3; }
+
+.elzButton.sel,
+.elzButton:checked,
+.elzFarent.sel .elzButton,
+input:checked + .elzButton,
+input:checked ~ .elzButton { z-index: 4; }
+
+.elzInput:focus { z-index: 5; }
+
+
+
+
+
+
+
+
+
+
+/* Checkbox / radio */
+
+.elzCheck {
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s color, 0.2s border-color, 0.2s background-color, 0.2s box-shadow;
+}
+
+.elzCheck:before {
+    content: "";
+    display: block;
+    width:  100%;
+    height: 100%;
+    background-color: currentColor;
+    opacity: 0;
+    transition: 0.2s opacity;
+}
+
+.elzCheck.radio:before { border-radius: inherit; }
+
+.elzCheck:checked:before { opacity: 1; }
+
+.elzCheck.checkbox:before      { clip-path: polygon(15% 40%, 35% 60%, 85% 10%, 100% 25%, 35% 90%, 0 55%); }
+.elzCheck.checkbox.thin:before { clip-path: polygon(10% 45%, 35% 70%, 90% 15%, 100% 25%, 35% 90%, 0 55%); }
+
+
+
+
+
+
+
+
+
+
+/* Switcher */
+
+.elzSwitch,
+.elzSwitch:before,
+.elzSwitch:after {
+    transition-duration: 0.2s;
+}
+
+.elzSwitch:after {
+    content: "";
+    display: block;
+    border-radius: inherit;
+    background-color: currentColor;
+    transition-property: transform;
+    height: 100%;
+    top:  0;
+    left: 0;
+}
+
+.elzSwitch.p1  { --elzSWP:  1px; } .elzSwitch.bor1 { --elzSWBR: 1px; }
+.elzSwitch.p2  { --elzSWP:  2px; } .elzSwitch.bor2 { --elzSWBR: 2px; }
+.elzSwitch.p3  { --elzSWP:  3px; } .elzSwitch.bor3 { --elzSWBR: 3px; }
+.elzSwitch.p4  { --elzSWP:  4px; } .elzSwitch.bor4 { --elzSWBR: 4px; }
+.elzSwitch.p5  { --elzSWP:  5px; } .elzSwitch.bor5 { --elzSWBR: 5px; }
+.elzSwitch.p6  { --elzSWP:  6px; } .elzSwitch.bor6 { --elzSWBR: 6px; }
+.elzSwitch.p7  { --elzSWP:  7px; } .elzSwitch.bor7 { --elzSWBR: 7px; }
+.elzSwitch.p8  { --elzSWP:  8px; } .elzSwitch.bor8 { --elzSWBR: 8px; }
+.elzSwitch.p10 { --elzSWP: 10px; }
+.elzSwitch.p12 { --elzSWP: 12px; }
+.elzSwitch.p15 { --elzSWP: 15px; }
+.elzSwitch.p16 { --elzSWP: 16px; }
+.elzSwitch.p20 { --elzSWP: 20px; }
+.elzSwitch.p24 { --elzSWP: 24px; }
+.elzSwitch.p30 { --elzSWP: 30px; }
+.elzSwitch.p32 { --elzSWP: 32px; }
+.elzSwitch.p36 { --elzSWP: 36px; }
+.elzSwitch.p40 { --elzSWP: 40px; }
+.elzSwitch.p48 { --elzSWP: 48px; }
+.elzSwitch.p64 { --elzSWP: 64px; }
+.elzSwitch.p72 { --elzSWP: 72px; }
+.elzSwitch.p80 { --elzSWP: 80px; }
+.elzSwitch.p96 { --elzSWP: 96px; }
+
+.elzSwitch.swIn:after {
+    position: relative;
+    width: calc(50% - var(--elzSWP, 0px) - var(--elzSWBR, 0px));
+}
+
+.elzSwitch.swIn:checked:after { transform: translateX(calc(100% + (var(--elzSWP, 0px) * 2) + (var(--elzSWBR, 0px) * 2))); }
+
+.elzSwitch.swOut:before {
+    content: "";
+    position: relative;
+    display: block;
+    height: 100%;
+    margin: 0 calc(var(--elzSWP) * -1);
+    border-radius: inherit;
+}
+
+.elzSwitch.swOut:after {
+    position: absolute;
+    width: calc(50% - var(--elzSWBR, 0px));
+}
+
+.elzSwitch.swOut:checked:after { transform: translateX(calc(100% + (var(--elzSWBR, 0px) * 2))); }

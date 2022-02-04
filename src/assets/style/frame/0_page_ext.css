@@ -1,0 +1,60 @@
+html, body, .uApiWrap {
+    display: block;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+html {
+    overflow: auto;
+    background-color: hsl(var(--c-primary-H, 0), var(--c-primary-S, 0%), var(--c-primary-L, 90%));
+    color: hsl(var(--c-primary-t-H, 0), var(--c-primary-t-S, 0%), var(--c-primary-t-L, 30%));
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1;
+}
+
+body { padding-top: var(--elzEPSize, 0px); }
+
+
+
+
+
+
+
+
+
+/* Fonts */
+/*
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url('../../fonts/roboto400lat.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url('../../fonts/roboto400cyr.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-display: swap;
+    src: url('../../fonts/roboto700lat.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-display: swap;
+    src: url('../../fonts/roboto700cyr.woff2') format('woff2');
+}
+*/
+/* end */

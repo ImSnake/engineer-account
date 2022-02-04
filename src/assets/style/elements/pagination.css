@@ -1,0 +1,14 @@
+.elzPagination .pageLvl { transition: 0.2s; }
+
+.elzPagination:not(:hover) .pageLvl {
+    width:     0;
+    min-width: 0;
+    padding:   0;
+}
+
+/* Pagination sizes media */
+
+/* Large */
+@media (max-width: 879px) { .elzPagination.large .lvl3   { display: none; } }
+@media (max-width: 559px) { .elzPagination.large .lvl2   { display: none; } }
+@media (max-width: 479px) { .elzPagination.large .lvlCap { display: none; } }

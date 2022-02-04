@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .cirGroup { display: none; }
+
+        .posA:target    #cirA,
+        .posAB:target   #cirA,
+        .posAC:target   #cirA,
+        .posAD:target   #cirA,
+        .posABC:target  #cirA,
+        .posABD:target  #cirA,
+        .posACD:target  #cirA,
+        .posABCD:target #cirA,
+
+        .posB:target    #cirB,
+        .posAB:target   #cirB,
+        .posBC:target   #cirB,
+        .posBD:target   #cirB,
+        .posABC:target  #cirB,
+        .posABD:target  #cirB,
+        .posBCD:target  #cirB,
+        .posABCD:target #cirB,
+
+        .posC:target    #cirC,
+        .posAC:target   #cirC,
+        .posBC:target   #cirC,
+        .posCD:target   #cirC,
+        .posABC:target  #cirC,
+        .posACD:target  #cirC,
+        .posBCD:target  #cirC,
+        .posABCD:target #cirC,
+
+        .posD:target    #cirD,
+        .posAD:target   #cirD,
+        .posBD:target   #cirD,
+        .posCD:target   #cirD,
+        .posABD:target  #cirD,
+        .posACD:target  #cirD,
+        .posBCD:target  #cirD,
+        .posABCD:target #cirD { display: block; }
+
+        .cutter { transition-duration: 0.5s; }
+    </style>
+
+    <mask id="avCut" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
+        <rect fill="#fff" width="100%" height="100%"/>
+        <g fill="#000">
+
+
+            <g class="posA" id="posA">
+            <g class="posB" id="posB">
+            <g class="posC" id="posC">
+            <g class="posD" id="posD">
+
+                <g class="posAB" id="posAB">
+                <g class="posAC" id="posAC">
+                <g class="posAD" id="posAD">
+                <g class="posBC" id="posBC">
+                <g class="posBD" id="posBD">
+                <g class="posCD" id="posCD">
+
+                    <g class="posABC" id="posABC">
+                    <g class="posABD" id="posABD">
+                    <g class="posACD" id="posACD">
+                    <g class="posBCD" id="posBCD">
+
+                        <g class="posABCD" id="posABCD">
+
+                            <g class="cirGroup" id="cirA">
+                                <circle class="cutter" r="7" cx="15%" cy="15%"/>
+                            </g>
+                            <g class="cirGroup" id="cirB">
+                                <circle class="cutter" r="7" cx="85%" cy="15%"/>
+                            </g>
+                            <g class="cirGroup" id="cirC">
+                                <circle class="cutter" r="7" cx="85%" cy="85%"/>
+                            </g>
+                            <g class="cirGroup" id="cirD">
+                                <circle class="cutter" r="7" cx="15%" cy="85%"/>
+                            </g>
+
+                        </g>
+
+                    </g>
+                    </g>
+                    </g>
+                    </g>
+
+                </g>
+                </g>
+                </g>
+                </g>
+                </g>
+                </g>
+
+            </g>
+            </g>
+            </g>
+            </g>
+
+
+
+
+
+        </g>
+    </mask>
+    <rect width="100%" height="100%" fill="#000" mask="url(#avCut)"/>
+
+</svg>

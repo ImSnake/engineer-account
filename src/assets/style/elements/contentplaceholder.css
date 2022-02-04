@@ -1,0 +1,17 @@
+.elzCPlaceholder:before {
+    content: "";
+    position: absolute;
+    top:    0;
+    bottom: 0;
+    width: 500%;
+    margin-left: -250%;
+    background-image: linear-gradient(90deg, hsla(0, 0%, 100%, 0) 42.5%, hsla(0, 0%, 100%, 0.15) 50%, hsla(0, 0%, 100%, 0) 57.5%);
+    background-position: center center;
+    animation: elzCPlaceholderAnim 0.8s linear infinite;
+    pointer-events: none
+}
+
+@keyframes elzCPlaceholderAnim {
+    0% { transform: translateX(-30%); }
+    to { transform: translateX(30%); }
+}

@@ -1,0 +1,61 @@
+/* Avatar cut mask */
+
+.avCutStatus { margin: 15%; }
+
+.avCutStatus .statusItem {
+    width:  10px;
+    height: 10px;
+    border-radius: 100%;
+}
+
+.avCutMask {
+    -webkit-mask-image: url("avmask.svg");
+    mask-image:         url("avmask.svg");
+}
+
+.avCutMask.cutA { -webkit-mask-image: url("avmask.svg#posA"); mask-image: url("avmask.svg#posA"); }
+.avCutMask.cutB { -webkit-mask-image: url("avmask.svg#posB"); mask-image: url("avmask.svg#posB"); }
+.avCutMask.cutC { -webkit-mask-image: url("avmask.svg#posC"); mask-image: url("avmask.svg#posC"); }
+.avCutMask.cutD { -webkit-mask-image: url("avmask.svg#posD"); mask-image: url("avmask.svg#posD"); }
+
+.avCutMask.cutA.cutB { -webkit-mask-image: url("avmask.svg#posAB"); mask-image: url("avmask.svg#posAB"); }
+.avCutMask.cutA.cutC { -webkit-mask-image: url("avmask.svg#posAC"); mask-image: url("avmask.svg#posAC"); }
+.avCutMask.cutA.cutD { -webkit-mask-image: url("avmask.svg#posAD"); mask-image: url("avmask.svg#posAD"); }
+.avCutMask.cutB.cutC { -webkit-mask-image: url("avmask.svg#posBC"); mask-image: url("avmask.svg#posBC"); }
+.avCutMask.cutB.cutD { -webkit-mask-image: url("avmask.svg#posBD"); mask-image: url("avmask.svg#posBD"); }
+.avCutMask.cutC.cutD { -webkit-mask-image: url("avmask.svg#posCD"); mask-image: url("avmask.svg#posCD"); }
+
+.avCutMask.cutA.cutB.cutC { -webkit-mask-image: url("avmask.svg#posABC"); mask-image: url("avmask.svg#posABC"); }
+.avCutMask.cutA.cutB.cutD { -webkit-mask-image: url("avmask.svg#posABD"); mask-image: url("avmask.svg#posABD"); }
+.avCutMask.cutA.cutC.cutD { -webkit-mask-image: url("avmask.svg#posACD"); mask-image: url("avmask.svg#posACD"); }
+.avCutMask.cutB.cutC.cutD { -webkit-mask-image: url("avmask.svg#posBCD"); mask-image: url("avmask.svg#posBCD"); }
+
+.avCutMask.cutA.cutB.cutC.cutD { -webkit-mask-image: url("avmask.svg#posABCD"); mask-image: url("avmask.svg#posABCD"); }
+
+
+
+
+
+
+/* Avatar header cut mask */
+
+.avHeadCutMask {
+    -webkit-mask-image: url("avheadmask.svg");
+    mask-image:         url("avheadmask.svg");
+}
+
+.avHeadCutMask.l24  { -webkit-mask-image: url("avheadmask.svg#l24");  mask-image: url("avheadmask.svg#l24");  }
+.avHeadCutMask.l32  { -webkit-mask-image: url("avheadmask.svg#l32");  mask-image: url("avheadmask.svg#l32");  }
+.avHeadCutMask.l48  { -webkit-mask-image: url("avheadmask.svg#l48");  mask-image: url("avheadmask.svg#l48");  }
+.avHeadCutMask.l64  { -webkit-mask-image: url("avheadmask.svg#l64");  mask-image: url("avheadmask.svg#l64");  }
+.avHeadCutMask.l80  { -webkit-mask-image: url("avheadmask.svg#l80");  mask-image: url("avheadmask.svg#l80");  }
+.avHeadCutMask.l120 { -webkit-mask-image: url("avheadmask.svg#l120"); mask-image: url("avheadmask.svg#l120"); }
+.avHeadCutMask.l160 { -webkit-mask-image: url("avheadmask.svg#l160"); mask-image: url("avheadmask.svg#l160"); }
+
+.avHeadCutMask.c24  { -webkit-mask-image: url("avheadmask.svg#c24");  mask-image: url("avheadmask.svg#c24");  }
+.avHeadCutMask.c32  { -webkit-mask-image: url("avheadmask.svg#c32");  mask-image: url("avheadmask.svg#c32");  }
+.avHeadCutMask.c48  { -webkit-mask-image: url("avheadmask.svg#c48");  mask-image: url("avheadmask.svg#c48");  }
+.avHeadCutMask.c64  { -webkit-mask-image: url("avheadmask.svg#c64");  mask-image: url("avheadmask.svg#c64");  }
+.avHeadCutMask.c80  { -webkit-mask-image: url("avheadmask.svg#c80");  mask-image: url("avheadmask.svg#c80");  }
+.avHeadCutMask.c120 { -webkit-mask-image: url("avheadmask.svg#c120"); mask-image: url("avheadmask.svg#c120"); }
+.avHeadCutMask.c160 { -webkit-mask-image: url("avheadmask.svg#c160"); mask-image: url("avheadmask.svg#c160"); }

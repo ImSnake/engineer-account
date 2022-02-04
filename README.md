@@ -7,6 +7,7 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
+json-server db.json --port 3003
 npm run serve
 ```
 

@@ -1,0 +1,65 @@
+@media (min-width: 1440px) {
+    .cnnSelects {
+        width: 50%;
+        flex-grow: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .cnnFilters {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* Client page */
+
+/* Color scheme settings */
+
+.cnnClientLogo {
+    --c-brand-H: 351; --c-brand-S: 84%; --c-brand-L: 55%;
+}
+
+.elzTheme-light .cnnClientLogo {
+    --c-brand-H: 351; --c-brand-S: 84%; --c-brand-L: 55%;
+    --c-primary-t-H: 211; --c-primary-t-S: 38%; --c-primary-t-L: 20%;
+}
+
+/* end */
+
+.cnnClientPage { --elzEPSize: 0px; }
+
+@media (min-width: 640px) {
+    .cnnClientWrap .cnnInfoGrid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: flex-end;
+        row-gap: 16px;
+    }
+
+    .cnnClientWrap .cnnInfoGrid > .infoLine {
+        display: contents;
+    }
+}
+
+@media (max-width: 639px) {
+    .cnnClientWrap .cnnInfoGrid .infoTitle { display: none; }
+    .cnnClientWrap .cnnInfoGrid .infoLabel.infoLabel { visibility: unset; }
+    .cnnClientWrap .cnnInfoCaption { margin-bottom: 32px; }
+}
+
+@media (max-width: 339px) {
+    .cnnClientWrap {
+        padding-left:  16px;
+        padding-right: 16px;
+    }
+}
+

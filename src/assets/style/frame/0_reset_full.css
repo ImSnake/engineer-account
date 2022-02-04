@@ -1,0 +1,82 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+input, button, textarea, select,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video,
+.elz,
+.elz:before,
+.elz:after {
+    margin:  0;
+    padding: 0;
+    border:  0 solid transparent;
+    background-color: transparent;
+    background-attachment: initial;
+    outline:    none;
+    border-radius: 0;
+    box-shadow: none;
+
+    font:            inherit;
+    color:           inherit;
+    vertical-align: baseline;
+
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: none;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+}
+
+.elz,
+.elz:before,
+.elz:after {
+    /* Only for Elize reset */
+    box-sizing: border-box;
+    list-style:      none;
+    text-decoration: none;
+}
+
+q:before, .elz:before,
+q:after,  .elz:after { content: none; }
+
+/* Focus inner */
+input::-moz-focus-inner, button::-moz-focus-inner, .elz::-moz-focus-inner { border: 0; padding: 0; }
+
+/* Clear */
+input::-ms-clear,  textarea::-ms-clear,  select::-ms-clear,  .elz::-ms-clear,
+input::-ms-reveal, textarea::-ms-reveal, select::-ms-reveal, .elz::-ms-reveal,
+input::-ms-expand, textarea::-ms-expand, select::-ms-expand, .elz::-ms-expand { display: none; }
+
+/* Placeholder */
+input::placeholder, textarea::placeholder, select::placeholder, .elz::placeholder { opacity: 0.6; color: inherit; }
+
+/* Input type number */
+input[type="number"], .elz[type="number"] { -moz-appearance: textfield; }
+
+input[type="number"]::-webkit-inner-spin-button, .elz[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button, .elz[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Autocomplete for webkit fix */
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill { transition: background-image  5000s ease-in-out, background-color  5000s ease-in-out, color 5000s ease-in-out; }

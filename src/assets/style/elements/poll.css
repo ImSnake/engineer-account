@@ -1,0 +1,16 @@
+.uPollRadio { display: none; }
+
+.uPollIcons:not(:hover) .uPollIcon.hover,
+.uPollIcons:hover       .uPollIcon.inselected,
+
+.uPollRadio:checked + .uPollIcons .uPollIcon.inselected,
+.uPollRadio:checked + .uPollIcons .uPollIcon.hover.hover,
+
+.uPollRadio:checked ~ .uPollRadio + .uPollIcons .uPollIcon.inselected,
+.uPollRadio:checked ~ .uPollRadio + .uPollIcons .uPollIcon.hover.hover,
+
+.uPollIcons:hover ~ .uPollIcons .uPollIcon.inselected,
+.uPollRadio:not(:checked) + .uPollIcons .uPollIcon.selected  { visibility: hidden; }
+
+.uPollIcons:hover ~ .uPollIcons .uPollIcon.hover,
+.uPollRadio:checked ~ .uPollRadio + .uPollIcons .uPollIcon.selected { visibility: unset; }

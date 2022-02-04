@@ -1,0 +1,173 @@
+.uniScroll,
+.uniScrollWrap {
+    grid-template-columns: 1fr auto;
+    grid-template-rows:    1fr auto;
+}
+
+.uniScrollWrap {
+    display: grid;
+    pointer-events: none;
+    user-select: none;
+    z-index: 10;
+}
+
+/* Body scroll settings */
+
+.uniScrollBody {
+    display: block;
+    width:  0;
+    height: 0;
+}
+
+.uniScrollBody > .uniScrollWrap {
+    position: fixed;
+    top:  0;
+    left: 0;
+    width:  100%;
+    height: 100%;
+    z-index: 99;
+    padding-top: var(--elzEPSize, 0);
+}
+
+@media (pointer: coarse) {
+    .uniScrollIn.scrollHideFine ~ .uniScrollWrap,
+    :root.scrollHideFine > body > .uniScrollBody { display: none; }
+}
+
+@media (pointer: fine) {
+    .uniScrollIn.scrollHideTouch ~ .uniScrollWrap,
+    :root.scrollHideTouch > body > .uniScrollBody { display: none; }
+}
+
+/* end */
+
+.uniScrollIn,
+.uniScrollWrap { grid-area: 1 / 1 / 3 / 3; }
+
+.uniScrollWrap > .scrollX { grid-area: 2 / 1 / 3 / 2; }
+.uniScrollWrap > .scrollY { grid-area: 1 / 2 / 2 / 3; }
+.uniScrollWrap > .scrollC { grid-area: 2 / 2 / 3 / 3; }
+
+.uniScrollbar {
+    position: relative;
+    display: flex;
+    pointer-events: auto;
+}
+
+.uniScrollbar.scrollX, .uniScrollbar.scrollX .uniScrollThumb { flex-direction: row; }
+.uniScrollbar.scrollY, .uniScrollbar.scrollY .uniScrollThumb { flex-direction: column; }
+
+.uniScrollArrow,
+.uniScrollCorner {
+    position: relative;
+    display: block;
+    flex-shrink: 0;
+}
+
+.uniScrollTrack {
+    position: relative;
+    display: block;
+    flex-grow: 1;
+}
+
+.uniScrollSize {
+    display: block;
+    height: 100%;
+}
+
+.uniScrollThumb {
+    position: absolute;
+    display: flex;
+    top:  0;
+    left: 0;
+}
+
+.uniScrollThumb:before {
+    content: "";
+    flex-grow: 1;
+}
+
+.uniScrollbar.scrollX .uniScrollThumb { bottom: 0; }
+.uniScrollbar.scrollY .uniScrollThumb { right:  0; }
+
+.uniScrollWrap:not(.visY)      .uniScrollbar.scrollY,
+.uniScrollWrap:not(.visX)      .uniScrollbar.scrollX,
+.uniScrollWrap:not(.visX.visY) .uniScrollCorner.scrollC { display: none; }
+
+
+
+
+
+
+
+
+
+/* Simple style */
+
+.scrollSimple > .uniScrollWrap {
+    visibility: hidden;
+    --uniScrollSize: 12px;
+    --uniScrollThumb: 4px;
+}
+
+.scrollSimple:hover  > .uniScrollWrap,
+.scrollSimple:active > .uniScrollWrap,
+:root:hover > body > .uniScrollBody.scrollSimple > .uniScrollWrap,
+:root:hover > body > .uniScrollBody.scrollSimple > .uniScrollWrap { visibility: visible; }
+
+
+.scrollSimple > .uniScrollWrap .uniScrollCorner { visibility: hidden; }
+.scrollSimple > .uniScrollWrap .uniScrollArrow { display: none; }
+
+.scrollSimple > .uniScrollWrap .uniScrollThumb { padding: 2px; }
+
+.scrollSimple > .uniScrollWrap .uniScrollThumb:before {
+    border-radius: 1024px;
+    transition-duration: 0.1s;
+    align-self: flex-end;
+}
+
+.elzTheme-dark  .scrollSimple > .uniScrollWrap .uniScrollThumb:before { background: hsla(0, 0%, 100%, 0.25); }
+.elzTheme-light .scrollSimple > .uniScrollWrap .uniScrollThumb:before { background: hsla(0, 0%, 0%, 0.25); }
+
+.elzTheme-dark  .scrollSimple > .uniScrollWrap .uniScrollThumb:hover:before,
+.elzTheme-dark  .scrollSimple > .uniScrollWrap .uniScrollThumb:active:before { background: hsla(0, 0%, 100%, 0.5); }
+.elzTheme-light .scrollSimple > .uniScrollWrap .uniScrollThumb:hover:before,
+.elzTheme-light .scrollSimple > .uniScrollWrap .uniScrollThumb:active:before { background: hsla(0, 0%, 0%, 0.5); }
+
+@media (prefers-color-scheme: dark) {
+    .elzTheme-device  .scrollSimple > .uniScrollWrap .uniScrollThumb:before { background: hsla(0, 0%, 100%, 0.25); }
+    .elzTheme-device  .scrollSimple > .uniScrollWrap .uniScrollThumb:hover:before,
+    .elzTheme-device  .scrollSimple > .uniScrollWrap .uniScrollThumb:active:before { background: hsla(0, 0%, 100%, 0.5); }
+}
+
+@media (prefers-color-scheme: light) {
+    .elzTheme-device .scrollSimple > .uniScrollWrap .uniScrollThumb:before { background: hsla(0, 0%, 0%, 0.25); }
+    .elzTheme-device .scrollSimple > .uniScrollWrap .uniScrollThumb:hover:before,
+    .elzTheme-device .scrollSimple > .uniScrollWrap .uniScrollThumb:active:before { background: hsla(0, 0%, 0%, 0.5); }
+}
+
+.scrollSimple > .uniScrollWrap .scrollX { height: var(--uniScrollSize); }
+.scrollSimple > .uniScrollWrap .scrollY { width:  var(--uniScrollSize); }
+
+.scrollSimple > .uniScrollWrap .scrollX .uniScrollThumb:before { height: var(--uniScrollThumb); }
+.scrollSimple > .uniScrollWrap .scrollY .uniScrollThumb:before { width:  var(--uniScrollThumb); }
+
+
+
+
+
+
+
+
+
+
+/* Dev mode colors */
+/*
+.uniScrollbar    { background: #f0f; }
+.uniScrollArrow  { background: #f00; }
+.uniScrollThumb  { background: #0ff; }
+.uniScrollSize   { background: #00f; }
+.uniScrollTrack   { background: #0f0; }
+.uniScrollCorner { background: yellow; }
+*/
