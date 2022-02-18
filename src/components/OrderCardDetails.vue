@@ -5,13 +5,13 @@
   </div>
   <div class="elz d-block p20">
     <div class="elz d-block  mT-16">
-      <div v-if="orderContacts" class="elz a-H mT20 lh15">
+      <div v-if="contacts" class="elz a-H mT20 lh15">
         <div class="elz d-block bold">Контакты:</div>
-        <div class="elz d-block wbreak" v-html="orderContacts"></div>
+        <div class="elz d-block wbreak prewrap" >{{contacts}}</div>
       </div>
-      <div v-if="orderComment" class="elz a-H mT20 lh15">
+      <div v-if="comments" class="elz a-H mT20 lh15">
         <div class="elz d-block bold">Комментарий:</div>
-        <div class="elz d-block wbreak" v-html="orderComment"></div>
+        <div class="elz d-block wbreak prewrap" >{{comments}}</div>
       </div>
     </div>
   </div>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {valueFormatToHtml} from "@/helpers/formating";
+//import {valueFormatToHtml} from "@/helpers/formating";
 
 export default {
   name: "OrderCardDetails",
@@ -30,13 +30,15 @@ export default {
     comments: {type: String, required: false},
   },
 
-  computed: {
+  /*computed: {
     orderComment() {
-      return valueFormatToHtml(this.comments);
+      return this.comments;
+      //return valueFormatToHtml(this.comments);
     },
     orderContacts() {
-      return valueFormatToHtml(this.contacts);
+      return this.contacts;
+      //return valueFormatToHtml(this.contacts);
     }
-  }
+  }*/
 }
 </script>

@@ -87,6 +87,12 @@ export const dateFormatDdMmYyyy = (date) => {
 	return date.substr(0, 10).replace(format, '$3.$2.$1');
 }
 
+// Формат даты по шаблону : из 2021-01-01(T00:00:00) в 01.01.2021
+export const dateTimeFormatHHMM = (date) => {
+	const dateSplit = date.split(" ");
+	return dateSplit[1].substr(0, 5);
+}
+
 // валидация Даты
 export const dateIsValid = (date)=> {
 	return date && Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date);

@@ -7,14 +7,14 @@
         <div class="elz p-rel d-flex a-X opAct07 cur-pointer fnHov fnHovL15">
           <div class="elz d-flex a-X s40 rCircle oH">
             <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC" title="Заявки в работе" style="--elzMsk: url('/style/icons/briefcase.svg');">
-              <div class="elz p-abs p-EC d-flex a-X rRound smn12 pH4 mEC-6 bold fn8 tsh-itext1 bg bg-ok fn fn-ok-t">{{ iconCase }}</div>
+              <div class="elz p-abs p-EC d-flex a-X rRound smn12 pH4 mEC-6 bold fn8 tsh-itext1 bg bg-error fn fn-error-t">{{ iconCase }}</div>
             </div>
           </div>
         </div>
         <div class="elz p-rel d-flex a-X opAct07 cur-pointer fnHov fnHovL15">
           <div class="elz d-flex a-X s40 rCircle oH">
             <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC" title="Просроченные заявки" style="--elzMsk: url('/style/icons/clock.svg');">
-              <div class="elz p-abs p-EC d-flex a-X rRound smn12 pH4 mEC-6 bold fn8 tsh-itext1 bg bg-error fn fn-error-t">{{ iconClock }}</div>
+              <div class="elz p-abs p-EC d-flex a-X rRound smn12 pH4 mEC-6 bold fn8 tsh-itext1 bg bg-danger fn fn-danger-t">{{ iconClock }}</div>
             </div>
           </div>
         </div>

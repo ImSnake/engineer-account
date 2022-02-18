@@ -1,0 +1,15 @@
+.dp__menu.dp__menu {
+    position: relative;
+    border: none;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+}
+.dp__menu.dp__menu,
+.dp__calendar_wrap.dp__calendar_wrap {
+    font-family: inherit;
+}
+
+.dp__arrow_top {
+    display: none;
+}
