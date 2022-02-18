@@ -60,8 +60,12 @@
 
     <template v-if="datepicker">
       <OrderCardPopUp @closePopUp="datepicker = false">
-        <div class="elz d-flex a-H mT20" title="Дата и время визита к клиенту">
+        <div class="elz d-block grow">
           <Datepicker v-model="date" inline autoApply/>
+        </div>
+        <div class="elz d-flex a-X mT10 gap8">
+          <div class="elz d-block r3 pV8 pH16 cur-pointer opAct07 bg bg-primary bgHovL-10">Отмена</div>
+          <div class="elz d-block r3 pV8 pH16 cur-pointer opAct07 bg bg-ok bgHovL10 fn fn-ok-t">Подтвердить</div>
         </div>
       </OrderCardPopUp>
     </template>
