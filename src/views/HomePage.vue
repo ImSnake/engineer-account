@@ -29,8 +29,8 @@ export default {
   },
 
   async created() {
-    await this.$store.dispatch('fetchAppFilters');
-    await this.setOrders(this.$store.state.user.userId, 0, 0);
+    this.setFilters();
+    this.setOrders(this.$store.state.user.userId, 0, 0);
     console.log(this.$store.state);
   },
 
@@ -44,11 +44,26 @@ export default {
   },
 
   methods: {
-    setOrders(userId, departmentId, roleId) {
-      this.$store.dispatch('fetchOrders', {
+    async setFilters() {
+      await this.$store.dispatch('fetchAppFilters')
+        .catch(error => {
+          this.$router.push({
+            name: 'ErrorDisplay',
+            params: { error: error }
+          });
+        });
+    },
+
+    async setOrders(userId, departmentId, roleId) {
+      await this.$store.dispatch('fetchOrders', {
         userID: userId,
         departmentId: departmentId,
         roleId: roleId
+      }).catch(error => {
+          this.$router.push({
+            name: 'ErrorDisplay',
+            params: { error: error }
+          });
       });
     },
 

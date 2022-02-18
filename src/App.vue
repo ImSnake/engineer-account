@@ -1,26 +1,33 @@
 <template>
 
-  <AuthPage v-if="!isAuthorized && isReady" />
+<!--  <AuthPage v-if="!isAuthorized && isReady" />
 
-  <HomePage v-if="isAuthorized && isReady" />
+  <HomePage v-if="isAuthorized && isReady" />-->
+
+  <router-view />
 
 </template>
 
 <script>
-import AuthPage from "@/views/AuthPage";
-import HomePage from "@/views/HomePage";
+//import AuthPage from "@/views/AuthPage";
+//import HomePage from "@/views/HomePage";
 
 export default {
   name: 'App',
 
   components: {
-    AuthPage,
-    HomePage
+    //AuthPage,
+    //HomePage
   },
 
   setup() {
     const loader = document.getElementById('engineer-account');
-    return {loader}
+    return { loader }
+  },
+
+  created() {
+    console.log(this.$router);
+    console.log(this.$router.currentRoute);
   },
 
   data() {

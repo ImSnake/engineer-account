@@ -1,7 +1,7 @@
 <template>
 
   <div class="elz  p-rel d-flex dir-y rT4 rB3 bg bg-primary bgL5 bsh-default2">
-    <div class="elz d-flex fn16 al-center cur-pointer opAct07 cHovOut" href="#">
+    <div :to="{ name: 'Order' }" class="elz d-flex fn16 al-center cur-pointer opAct07 cHovOut" title="Открыть карточку заявки">
       <div class="elz d-flex a-X w50p p16 rEA3 bg bg-primary bgL-5 bgHovInL-10">
         <div v-if="orderIsImportant" title="Срочно" style="--elzMsk: url('/style/icons/fire.svg');" class="elz p-rel d-block p-rel mskBef s16 mT-2 mR8 cFillBef bgBef-CC fn fn-danger fnLF-10 fnFL"></div>
         <div class="elz d-block"># {{ order.OrderID }}</div>
@@ -15,6 +15,9 @@
         </div>
         <div class="elz d-block p20">
           <div class="elz d-block  mT-16">
+
+            <router-link :to="{ name: 'Order' }">Orders</router-link>
+
             <div @click="datepicker = true" class="elz d-flex a-H mT20 cur-pointer fn fn-link-inline fnHovL10 opAct07 underlineHov" title="Дата и время визита к клиенту">
               <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/truck.svg');"></div>
               <div class="elz d-block mL8"><b class="elz bold">{{ meetingDateTime }}</b></div>
@@ -163,7 +166,13 @@ export default {
     async showResponsibleDetails() {
       // проверить есть ли данные в кэше, если нет - полуить данные по ID и сохранить
       if (!this.responsibleDetails) {
-        await this.$store.dispatch('fetchResponsible', this.order.responsibleId);
+        await this.$store.dispatch('fetchResponsible', this.order.responsibleId)
+          .catch(error => {
+            this.$router.push({
+              name: 'ErrorDisplay',
+              params: { error: error }
+            });
+          });
       }
       this.responsible = true;
     },
