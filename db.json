@@ -145,7 +145,7 @@
       "responsibleName": "Давыдов Валерий Евгеньевич",
       "DepartmentID": "160",
       "DepartmentName": "ТД ИМУ Отдел инженеров объектов",
-      "MeetingDateTime": "2022-03-15 15:00:00.000"
+      "MeetingDateTime": "2022-03-15T15:00:00.000Z"
     },
     {
       "OrderID": "557422",

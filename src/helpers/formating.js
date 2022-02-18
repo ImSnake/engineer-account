@@ -89,7 +89,7 @@ export const dateFormatDdMmYyyy = (date) => {
 
 // Формат даты по шаблону : из 2021-01-01(T00:00:00) в 01.01.2021
 export const dateTimeFormatHHMM = (date) => {
-	const dateSplit = date.split(" ");
+	const dateSplit = date.split(/T| /);
 	return dateSplit[1].substr(0, 5);
 }
 

@@ -1,13 +1,15 @@
 <template>
 
   <div class="elz  p-rel d-flex dir-y rT4 rB3 bg bg-primary bgL5 bsh-default2">
-    <div :to="{ name: 'Order' }" class="elz d-flex fn16 al-center cur-pointer opAct07 cHovOut" title="Открыть карточку заявки">
+
+    <div @click="toOrderDetails" class="elz d-flex fn16 al-center cur-pointer opAct07 cHovOut" title="Открыть карточку заявки">
       <div class="elz d-flex a-X w50p p16 rEA3 bg bg-primary bgL-5 bgHovInL-10">
         <div v-if="orderIsImportant" title="Срочно" style="--elzMsk: url('/style/icons/fire.svg');" class="elz p-rel d-block p-rel mskBef s16 mT-2 mR8 cFillBef bgBef-CC fn fn-danger fnLF-10 fnFL"></div>
         <div class="elz d-block"># {{ order.OrderID }}</div>
       </div>
       <div :class="statusColor" class="elz d-block w50p p16 rEB3 bg fn bgHovInL-10">{{ statusName }}</div>
     </div>
+
     <div class="elz d-block p-rel showSelOut invSelOut grow ">
       <div class="elz d-block invSelIn">
         <div class="elz d-flex a-H pV8 pH16 mH8 fn14 lh14 al-center borB1 hmn80 br br-primary brL-5 brLF20 brFD bold">
@@ -15,9 +17,6 @@
         </div>
         <div class="elz d-block p20">
           <div class="elz d-block  mT-16">
-
-            <router-link :to="{ name: 'Order' }">Orders</router-link>
-
             <div @click="datepicker = true" class="elz d-flex a-H mT20 cur-pointer fn fn-link-inline fnHovL10 opAct07 underlineHov" title="Дата и время визита к клиенту">
               <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/truck.svg');"></div>
               <div class="elz d-block mL8"><b class="elz bold">{{ meetingDateTime }}</b></div>
@@ -60,13 +59,7 @@
 
     <template v-if="datepicker">
       <OrderCardPopUp @closePopUp="datepicker = false">
-        <div class="elz d-block grow">
-          <Datepicker v-model="date" inline autoApply/>
-        </div>
-        <div class="elz d-flex a-X mT10 gap8">
-          <div class="elz d-block r3 pV8 pH16 cur-pointer opAct07 bg bg-primary bgHovL-10">Отмена</div>
-          <div class="elz d-block r3 pV8 pH16 cur-pointer opAct07 bg bg-ok bgHovL10 fn fn-ok-t">Подтвердить</div>
-        </div>
+        <OrderDatepicker @datepickerDate="test" :currentDate="order.MeetingDateTime"/>
       </OrderCardPopUp>
     </template>
 
@@ -105,29 +98,21 @@
 
 <script>
 import {dateFormatDdMmYyyy, dateTimeFormatHHMM} from "@/helpers/formating";
-import OrderCardDetails from "@/components/OrderCardDetails";
 import OrderCardPopUp from "@/components/OrderCardPopUp";
-
-import { ref } from "vue";
-import Datepicker from "vue3-date-time-picker";
-import "vue3-date-time-picker/dist/main.css";
+import OrderCardDetails from "@/components/OrderCardDetails";
+import OrderDatepicker from "@/components/OrderDatepicker";
 
 export default {
   name: "OrderCard",
 
   components: {
-    Datepicker,
     OrderCardDetails,
-    OrderCardPopUp
+    OrderCardPopUp,
+    OrderDatepicker
   },
 
   props: {
     order: {type: Object, required: true}
-  },
-
-  setup(props) {
-    const date = props.order.MeetingDateTime ? props.order.MeetingDateTime : ref(new Date());
-    return { date };
   },
 
   data() {
@@ -167,16 +152,24 @@ export default {
   },
 
   methods: {
+    async test(date) {
+      console.log('emit');
+      console.log(date);
+      await this.$store.dispatch('updateMeetingDateTime', {date, orderId: this.order.OrderID});
+      this.datepicker = false;
+    },
+
+    toOrderDetails() {
+      this.$router.push({
+        name: 'Order',
+        params: { orderId: this.order.OrderID }
+      });
+    },
+
     async showResponsibleDetails() {
       // проверить есть ли данные в кэше, если нет - полуить данные по ID и сохранить
       if (!this.responsibleDetails) {
-        await this.$store.dispatch('fetchResponsible', this.order.responsibleId)
-          .catch(error => {
-            this.$router.push({
-              name: 'ErrorDisplay',
-              params: { error: error }
-            });
-          });
+        await this.$store.dispatch('fetchResponsible', this.order.responsibleId);
       }
       this.responsible = true;
     },

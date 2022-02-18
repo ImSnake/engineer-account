@@ -32,11 +32,11 @@ export default createStore({
       state.user = {};
     },
 
-    FILTERS_SET(state, data){
+    SET_FILTERS(state, data){
       state.filters = data;
     },
 
-    ORDERS_SET(state, data) {
+    SET_ORDERS(state, data) {
       state.orders = data;
       state.orders.forEach(order => {
         const diff = order.Deadline ? dateCalculateDifference(new Date(), new Date(order.Deadline)) : dateCalculateDifference();
@@ -52,9 +52,18 @@ export default createStore({
       });
       state.headerIcons.case  = state.orders.filter(el => +el.TroubleStatusID === 2).length;
       state.headerIcons.clock = state.orders.filter(el => el.overdueSummary < 0,24).length;
+
+      //TODO Если нет заявок - передавать что-то, чтобы массив не был нулевым
+
     },
 
-    RESPONSIBLE_PUSH(state, data) {
+    UPDATE_MEETING_DATE_TIME(state, data) {
+      //state.orders.find(el => el.OrderID = data.OrderID)
+      console.log(state.orders.find(el => el.OrderID === data.OrderID));
+      console.log(data.date);
+    },
+
+    UPDATE_RESPONSIBLE(state, data) {
       state.responsibleList.push(data[0]);
     }
   },
@@ -83,17 +92,17 @@ export default createStore({
     fetchAppFilters({ commit }) {
       return AppDataService.getFilterData()
         .then(response => {
-          commit('FILTERS_SET', response.data);
+          commit('SET_FILTERS', response.data);
         })
         .catch(error => {
           throw(error);
         });
     },
 
-    fetchOrders({ commit }, params) {
-      return AppDataService.getOrdersByParams(params)
+    fetchOrders({ commit }, userId) {
+      return AppDataService.getOrdersByParams(userId)
         .then(response => {
-          commit('ORDERS_SET', response.data);
+          commit('SET_ORDERS', response.data);
         })
         .catch(error => {
           throw(error);
@@ -103,11 +112,17 @@ export default createStore({
     fetchResponsible({ commit }, responsibleId) {
       return AppDataService.getResponsibleDetails(responsibleId)
         .then(response => {
-          commit('RESPONSIBLE_PUSH', response.data);
+          commit('UPDATE_RESPONSIBLE', response.data);
         })
         .catch(error => {
           throw(error);
         });
+    },
+
+    updateMeetingDateTime({commit}, params) {
+      //TODO передача данных по API в tts
+      console.log(params);
+      commit('UPDATE_MEETING_DATE_TIME', params);
     }
   },
 

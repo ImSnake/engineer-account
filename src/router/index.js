@@ -16,8 +16,9 @@ const routes = [
 		component: AuthPage
 	},
 	{
-		path: '/order',
+		path: '/order/:orderId',
 		name: 'Order',
+		props: true,
 		component: OrderPage
 	},
 	{

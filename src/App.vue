@@ -1,24 +1,12 @@
 <template>
 
-<!--  <AuthPage v-if="!isAuthorized && isReady" />
-
-  <HomePage v-if="isAuthorized && isReady" />-->
-
   <router-view />
 
 </template>
 
 <script>
-//import AuthPage from "@/views/AuthPage";
-//import HomePage from "@/views/HomePage";
-
 export default {
   name: 'App',
-
-  components: {
-    //AuthPage,
-    //HomePage
-  },
 
   setup() {
     const loader = document.getElementById('engineer-account');
@@ -26,8 +14,7 @@ export default {
   },
 
   created() {
-    console.log(this.$router);
-    console.log(this.$router.currentRoute);
+    this.definePageView();
   },
 
   data() {
@@ -38,17 +25,29 @@ export default {
 
   computed: {
     isAuthorized() {
-      if (!this.$store.state.user.isAuthorized) {
-        this.showAuth();
-        return false;
-      } else {
-        this.showHomePage();
-        return true;
-      }
+      return this.$store.state.user.isAuthorized;
+    }
+  },
+
+  watch: {
+    isAuthorized() {
+      this.definePageView();
     }
   },
 
   methods: {
+    definePageView() {
+      console.log('define Page View');
+
+      if (!this.isAuthorized) {
+        this.$router.push({name: 'Auth'});
+        this.showAuth();
+      } else {
+        this.$router.push({name: 'Home'});
+        this.showHomePage();
+      }
+    },
+
     showAuth() {
       this.isReady = false;
       this.loader.classList.add('hydraLoader');

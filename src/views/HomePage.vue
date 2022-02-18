@@ -1,4 +1,4 @@
-<template v-if="dataIsReady">
+<template v-if="isReady">
 
   <Header  />
 
@@ -28,43 +28,32 @@ export default {
     OrderCard
   },
 
-  async created() {
+  data() {
+    return {
+      isReady: false
+    }
+  },
+
+  created() {
     this.setFilters();
-    this.setOrders(this.$store.state.user.userId, 0, 0);
+    this.setOrders(this.$store.state.user.userId);
     console.log(this.$store.state);
   },
 
   computed: {
-    dataIsReady() {
-      return this.orders.length > 0 && this.$store.state.filters.statuses.length;
-    },
     orders() {
       return this.$store.state.orders;
     }
   },
 
   methods: {
-    async setFilters() {
-      await this.$store.dispatch('fetchAppFilters')
-        .catch(error => {
-          this.$router.push({
-            name: 'ErrorDisplay',
-            params: { error: error }
-          });
-        });
+    setFilters() {
+      this.$store.dispatch('fetchAppFilters');
     },
 
-    async setOrders(userId, departmentId, roleId) {
-      await this.$store.dispatch('fetchOrders', {
-        userID: userId,
-        departmentId: departmentId,
-        roleId: roleId
-      }).catch(error => {
-          this.$router.push({
-            name: 'ErrorDisplay',
-            params: { error: error }
-          });
-      });
+    async setOrders(userId) {
+      await this.$store.dispatch('fetchOrders', { userID: userId });
+      this.isReady = true;
     },
 
     filtered(order) {
