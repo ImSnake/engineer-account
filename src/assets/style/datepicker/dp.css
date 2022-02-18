@@ -20,8 +20,12 @@
 
 .dp__cell_offset { opacity: 0.5; }
 
+.dp__input.dp__input,
+.dp__main.dp__main,
 .dp__menu.dp__menu,
-.dp__calendar_wrap.dp__calendar_wrap { font-family: inherit; }
+.dp__overlay.dp__overlay,
+.dp__time_input.dp__time_input,
+.dp__calendar_wrap.dp__calendar_wrap { font: inherit; font-size: 16px; }
 
 .dp__arrow_top { display: none; }
 
