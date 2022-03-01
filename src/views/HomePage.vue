@@ -1,10 +1,10 @@
-<template v-if="dataIsReady">
+<template>
 
-  <Header  />
+  <Header />
 
-  <Filters />
+  <Filters v-if="dataIsLoaded" />
 
-  <div class="elz d-grid fn12 lh12 grH320 gap16 p16">
+  <div v-if="dataIsLoaded" class="elz d-grid fn12 lh12 grH320 gap16 p16">
 
     <template v-for="(order,index) in orders" >
       <OrderCard v-if="filtered(order)" :key="index" :order="order" />
@@ -28,15 +28,17 @@ export default {
     OrderCard
   },
 
-  async created() {
-    await this.$store.dispatch('fetchAppFilters');
-    await this.setOrders(this.$store.state.user.userId, 0, 0);
+  created() {
+    this.setOrders(this.$store.state.user.userId);
+    this.setFilters();
     console.log(this.$store.state);
   },
 
   computed: {
-    dataIsReady() {
-      return this.orders.length > 0 && this.$store.state.filters.statuses.length;
+    dataIsLoaded() {
+      console.log('data Is Loaded');
+      console.log(this.$store.state.readyState.filters && this.$store.state.readyState.orders);
+      return this.$store.state.readyState.filters && this.$store.state.readyState.orders;
     },
     orders() {
       return this.$store.state.orders;
@@ -44,12 +46,12 @@ export default {
   },
 
   methods: {
-    setOrders(userId, departmentId, roleId) {
-      this.$store.dispatch('fetchOrders', {
-        userID: userId,
-        departmentId: departmentId,
-        roleId: roleId
-      });
+    setFilters() {
+      this.$store.dispatch('fetchFilters');
+    },
+
+    setOrders(userId) {
+      this.$store.dispatch('fetchOrders', { userID: userId });
     },
 
     filtered(order) {
@@ -62,9 +64,6 @@ export default {
       this.$forceUpdate();
     }*/
 
-    /*
-    priorityArray = Array("Низкий","Обычный","Высокий", "Срочно")
-    */
   }
 }
 </script>

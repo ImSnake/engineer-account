@@ -1,57 +1,58 @@
 <template>
 
-  <AuthPage v-if="!isAuthorized && isReady" />
-
-  <HomePage v-if="isAuthorized && isReady" />
+  <router-view />
 
 </template>
 
 <script>
-import AuthPage from "@/views/AuthPage";
-import HomePage from "@/views/HomePage";
-
 export default {
   name: 'App',
 
-  components: {
-    AuthPage,
-    HomePage
-  },
-
   setup() {
     const loader = document.getElementById('engineer-account');
-    return {loader}
+    return { loader }
   },
 
-  data() {
+  created() {
+    this.definePageView();
+  },
+
+/*  data() {
     return {
       isReady: false
     }
-  },
+  },*/
 
   computed: {
     isAuthorized() {
-      if (!this.$store.state.user.isAuthorized) {
-        this.showAuth();
-        return false;
-      } else {
-        this.showHomePage();
-        return true;
-      }
+      return this.$store.state.user.isAuthorized;
+    }
+  },
+
+  watch: {
+    isAuthorized() {
+     this.definePageView();
     }
   },
 
   methods: {
+    definePageView() {
+      console.log('define Page View');
+      (!this.isAuthorized) ?  this.showAuth() : this.showHomePage();
+    },
+
     showAuth() {
-      this.isReady = false;
+      //this.isReady = false;
       this.loader.classList.add('hydraLoader');
       setTimeout(()=> this.isReady = true, 1000);
       setTimeout(()=> this.loader.classList.add('authReady'), 1100);
+      this.$router.push({name: 'Auth'});
     },
 
     async showHomePage() {
-      this.isReady = true;
       this.loader.classList.remove('hydraLoader', 'authReady');
+      this.$router.push({name: 'Home'});
+      //this.isReady = true;
     }
   }
 }
