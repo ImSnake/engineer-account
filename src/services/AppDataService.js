@@ -16,18 +16,24 @@ export default {
 	},
 
 	/**
-	 *
-	 * @param params { userID, departmentId, roleId }
+	 * @param params { userID }
 	 * @returns {Promise<AxiosResponse<any>>}
 	 */
-	getOrdersByParams(params) {
+	getOrdersByParams(userId) {
 		console.log('GET ORDERS BY PARAMS');
-		console.log(params);
+		console.log(userId);
 		return appDataClient.get('/ordersData');
 	},
 
 	getResponsibleDetails(responsibleId) {
 		return appDataClient.get(`/responsibleData?responsibleId=${responsibleId}`);
+	},
+
+	getCustomerData(customerId) {
+		console.log('get Customer Data');
+		console.log(customerId);
+		//return appDataClient.get(`/customerData?customerId=${customerId}`);
+		return appDataClient.get(`/customerData?customerId=1234567`);
 	}
 
 }
