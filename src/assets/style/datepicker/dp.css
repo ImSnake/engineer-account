@@ -1,13 +1,18 @@
 .dp__main,
 .dp__menu.dp__menu { flex-grow: 1; }
 
+.dp__main { overflow: hidden; }
+
 .dp__menu {
     border: none !important;
     top: auto !important;
     left: auto !important;
     transform: none !important;
     border-radius: 0 !important;
+    min-width: auto !important;
 }
+
+
 
 .dp__menu { background: none !important; }
 
@@ -15,6 +20,11 @@
 
 .dp__cell_inner.dp__cell_inner {
     height: 32px;
+    width: auto;
+}
+
+.dp__calendar_item.dp__calendar_item {
+    width: 20px;
 }
 
 .dp__overlay {
@@ -39,6 +49,7 @@
 .dp__calendar_wrap {
     min-height: 265px;
     justify-content: flex-start !important;
+    align-items: stretch !important;
 }
 
 .dp__inner_nav.dp__inner_nav {
