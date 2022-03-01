@@ -1,4 +1,5 @@
 {
+
   "userData": {
     "userId": "356",
     "surname": "Давыдов",
@@ -9,6 +10,7 @@
     "departmentName": "ТД ИМУ Отдел инженеров объектов",
     "avatar": "будет какой-то код"
   },
+
   "filterData": {
     "departments": [
       {
@@ -125,6 +127,7 @@
       }
     ]
   },
+
   "ordersData": [
     {
       "OrderID": "557446",
@@ -145,7 +148,7 @@
       "responsibleName": "Давыдов Валерий Евгеньевич",
       "DepartmentID": "160",
       "DepartmentName": "ТД ИМУ Отдел инженеров объектов",
-      "MeetingDateTime": "2022-03-15T15:00:00.000Z"
+      "MeetingDateTime": "2022-03-15 15:00:00.000"
     },
     {
       "OrderID": "557422",
@@ -1464,6 +1467,7 @@
       "MeetingDateTime": "2022-03-01 09:00:00.000"
     }
   ],
+
   "responsibleData": [
     {
       "responsibleId": "63",
@@ -1575,5 +1579,27 @@
       "Phone": "370, удалённо 7591",
       "MobilePhone": "89161574013"
     }
-  ]
+  ],
+
+  "customerData": [{
+    "customerId": "1234567",
+    "name": "Дмитрий",
+    "patronymic": "Вячеславович",
+    "surname": "Пустовит",
+    "birthdayDate": "01.01.1985",
+    "birthdayPlace": "гор. Волгоград",
+    "email": "pulikova.j@gmail.com",
+    "emailApproved": 2,
+    "mobile": "+7(963)99-96-440",
+    "mobileApproved": 1,
+    "passport": {
+      "series": "6509",
+      "number": "818214",
+      "issueDate": "08.09.2001",
+      "issueDepartment": "ОВД Свердловской области в городе Заречном",
+      "ufmsCode": "668-009",
+      "registrationAddress": "г. Заречный, ул. Курчатова, дом. 27, корпус 3, кв. 42"
+    }
+  }]
+
 }

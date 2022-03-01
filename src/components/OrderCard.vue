@@ -155,7 +155,7 @@ export default {
     async test(date) {
       console.log('emit');
       console.log(date);
-      await this.$store.dispatch('updateMeetingDateTime', {date, orderId: this.order.OrderID});
+      await this.$store.dispatch('updateMeetingDateTime', {date, OrderID: this.order.OrderID});
       this.datepicker = false;
     },
 

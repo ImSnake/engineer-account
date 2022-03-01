@@ -16,7 +16,6 @@ export default {
 	},
 
 	/**
-	 *
 	 * @param params { userID }
 	 * @returns {Promise<AxiosResponse<any>>}
 	 */
@@ -28,6 +27,13 @@ export default {
 
 	getResponsibleDetails(responsibleId) {
 		return appDataClient.get(`/responsibleData?responsibleId=${responsibleId}`);
+	},
+
+	getCustomerData(customerId) {
+		console.log('get Customer Data');
+		console.log(customerId);
+		//return appDataClient.get(`/customerData?customerId=${customerId}`);
+		return appDataClient.get(`/customerData?customerId=1234567`);
 	}
 
 }

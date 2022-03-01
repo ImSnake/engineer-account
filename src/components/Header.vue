@@ -284,7 +284,7 @@
                       <div class="d-flex a-X s56 mH8">
                         <div class="d-flex a-X s40 rCircle bg bg-primary bgL-10 bgLInvD fn fn-white fnL-5 fnHovInL0" title="Галочка на иконке типа">
                           <div class="elz d-flex a-X dsh-text3">
-                            <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/checkmark.svg');"></div>
+                            <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/brightnesshalf.svg');"></div>
                           </div>
                         </div>
                       </div>
@@ -303,7 +303,7 @@
                       <div class="d-flex a-X s56 mH8">
                         <div class="d-flex a-X s40 rCircle bg bg-primary bgL-10 bgLInvD fn fn-white fnL-5 fnHovInL0" title="Галочка на иконке типа">
                           <div class="elz d-flex a-X dsh-text3">
-                            <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/checkmark.svg');"></div>
+                            <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/exit.svg');"></div>
                           </div>
                         </div>
                       </div>

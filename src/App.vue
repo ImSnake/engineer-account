@@ -17,11 +17,11 @@ export default {
     this.definePageView();
   },
 
-  data() {
+/*  data() {
     return {
       isReady: false
     }
-  },
+  },*/
 
   computed: {
     isAuthorized() {
@@ -31,33 +31,28 @@ export default {
 
   watch: {
     isAuthorized() {
-      this.definePageView();
+     this.definePageView();
     }
   },
 
   methods: {
     definePageView() {
       console.log('define Page View');
-
-      if (!this.isAuthorized) {
-        this.$router.push({name: 'Auth'});
-        this.showAuth();
-      } else {
-        this.$router.push({name: 'Home'});
-        this.showHomePage();
-      }
+      (!this.isAuthorized) ?  this.showAuth() : this.showHomePage();
     },
 
     showAuth() {
-      this.isReady = false;
+      //this.isReady = false;
       this.loader.classList.add('hydraLoader');
       setTimeout(()=> this.isReady = true, 1000);
       setTimeout(()=> this.loader.classList.add('authReady'), 1100);
+      this.$router.push({name: 'Auth'});
     },
 
     async showHomePage() {
-      this.isReady = true;
       this.loader.classList.remove('hydraLoader', 'authReady');
+      this.$router.push({name: 'Home'});
+      //this.isReady = true;
     }
   }
 }

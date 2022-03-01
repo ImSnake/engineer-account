@@ -5,6 +5,11 @@ import {dateCalculateDifference} from "@/helpers/formating";
 
 export default createStore({
   state: {
+    readyState:{
+      orders: false,
+      filters: false,
+    },
+    customerData: {},
     filters: {
       departments: [],
       priorities: [],
@@ -32,11 +37,17 @@ export default createStore({
       state.user = {};
     },
 
+    SET_CUSTOMER_DATA(state, data) {
+      state.customerData = data[0];
+    },
+
     SET_FILTERS(state, data){
       state.filters = data;
+      state.readyState.filters = true;
     },
 
     SET_ORDERS(state, data) {
+      console.log('SET ORDERS');
       state.orders = data;
       state.orders.forEach(order => {
         const diff = order.Deadline ? dateCalculateDifference(new Date(), new Date(order.Deadline)) : dateCalculateDifference();
@@ -52,15 +63,15 @@ export default createStore({
       });
       state.headerIcons.case  = state.orders.filter(el => +el.TroubleStatusID === 2).length;
       state.headerIcons.clock = state.orders.filter(el => el.overdueSummary < 0,24).length;
+      state.readyState.orders = true;
 
       //TODO Если нет заявок - передавать что-то, чтобы массив не был нулевым
-
     },
 
     UPDATE_MEETING_DATE_TIME(state, data) {
-      //state.orders.find(el => el.OrderID = data.OrderID)
-      console.log(state.orders.find(el => el.OrderID === data.OrderID));
-      console.log(data.date);
+      console.log('update');
+      state.orders.find(order => +order.OrderID === +data.OrderID).MeetingDateTime = data.date;
+      console.log(state.orders.find(order => +order.OrderID === +data.OrderID));
     },
 
     UPDATE_RESPONSIBLE(state, data) {
@@ -71,9 +82,7 @@ export default createStore({
   actions: {
     fetchAuthUser({ commit }, params) {
       if (params.login && params.password) {
-
         //TODO добавить проверку авторизации
-
         return AuthService.authUser()
           .then(response => {
             commit('AUTH_USER_TRUE', response.data);
@@ -89,7 +98,19 @@ export default createStore({
       }
     },
 
-    fetchAppFilters({ commit }) {
+    fetchCustomerData({ commit }, customerId) {
+      console.log('fetch Customer Data');
+
+      return AppDataService.getCustomerData(customerId)
+        .then(response => {
+          commit('SET_CUSTOMER_DATA', response.data);
+        })
+        .catch(error => {
+          throw(error);
+        });
+    },
+
+    fetchFilters({ commit }) {
       return AppDataService.getFilterData()
         .then(response => {
           commit('SET_FILTERS', response.data);
@@ -121,11 +142,11 @@ export default createStore({
 
     updateMeetingDateTime({commit}, params) {
       //TODO передача данных по API в tts
-      console.log(params);
+      console.log('fetching');
       commit('UPDATE_MEETING_DATE_TIME', params);
     }
   },
 
-  modules: {
-  }
+  modules: {}
+
 });

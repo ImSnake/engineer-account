@@ -1,16 +1,22 @@
 <template>
   <Header  />
-<div>TEST!!!</div>
+
+  <ClientForm :orderId="orderId"/>
+
+  <div>TEST!!!</div>
+
 </template>
 
 <script>
 import Header from "@/components/Header";
+import ClientForm from "@/components/ClientForm";
 
 export default {
   name: "OrderPage",
 
   components: {
-    Header
+    Header,
+    ClientForm
   },
 
   props: {
