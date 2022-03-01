@@ -19,9 +19,10 @@ export default {
 	 * @param params { userID }
 	 * @returns {Promise<AxiosResponse<any>>}
 	 */
-	getOrdersByParams(userId) {
+	getOrders(userId) {
 		console.log('GET ORDERS BY PARAMS');
 		console.log(userId);
+		//TODO (при настройке API добавить в выборку параметр userId)
 		return appDataClient.get('/ordersData');
 	},
 
@@ -32,8 +33,14 @@ export default {
 	getCustomerData(customerId) {
 		console.log('get Customer Data');
 		console.log(customerId);
-		//return appDataClient.get(`/customerData?customerId=${customerId}`);
+		//TODO (снять комментарий)
+		// return appDataClient.get(`/customerData?customerId=${customerId}`);
 		return appDataClient.get(`/customerData?customerId=1234567`);
+	},
+
+	updateMeetingDateTime(orderId, dateTime) {
+		console.log('update Meeting Date Time');
+		return appDataClient.put(`/ordersData?OrderID=${orderId}/`, dateTime);
 	}
 
 }

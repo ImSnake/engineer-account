@@ -4,17 +4,17 @@
     <form class="authFormWrap">
       <div class="elz authFormShow d-block h80">
         <label class="elz d-grid grPos fn fnLInvD fn-primary-t fnL20 fnHovL10 fnFow-focus fnFowL0">
-          <input @keyup="validationLogin" v-model="login" :class="loginApproved" ref="login" type="text" placeholder="i.ivanov"
+          <input ref="login" @keyup="validationLogin" v-model="login" :class="login ? loginProps.classApproval : ''" type="text" placeholder="i.ivanov"
                  class="elz d-block grPin grY2 w100p borB2 h48 pH32 ellipsis trns2 invPssSib br brLInvD br-primary brL-10 brHovL-20 brFoc-focus brFocL0 fn fn-primary-t" />
           <span class="elz d-flex grPin grY2 a-X borB2 evNone">
             <span class="elz p-rel d-flex a-X s24 trns2">
               <span class="elz p-rel d-block mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/user.svg');"></span>
             </span>
             <span class="elz p-rel growZ d-flex a-PR">
-              <span :class="loginTooltip" class="elz p-rel d-flex a-X r2 cur-help opHovOut">
-                <span class="elz fn-8 bold al-right pH8 op0 opHovIn10 trns2 trnsVis oH ellipsis">{{ loginTitle }}</span>
+              <span :class="login ? loginProps.tooltip : ''" class="elz p-rel d-flex a-X r2 cur-help opHovOut">
+                <span class="elz fn-8 bold al-right pH8 op0 opHovIn10 trns2 trnsVis oH ellipsis">{{ login ? loginProps.text : '' }}</span>
                 <span class="elz p-rel d-flex a-X s24 r2 evAuto">
-                  <span :class="login ? ' bgBef-CC' : ''" :style="loginIcon" class="elz p-rel d-block mskBef s16 cFillBef"></span>
+                  <span :class="login ? ' bgBef-CC' : ''" :style="login ? loginProps.icon : ''" class="elz p-rel d-block mskBef s16 cFillBef"></span>
                 </span>
               </span>
             </span>
@@ -25,17 +25,17 @@
 
       <div class="elz authFormShow d-block h80">
         <label class="elz d-grid grPos fn fnLInvD fn-primary-t fnL20 fnHovL10 fnFow-focus fnFowL0">
-          <input @keyup="validationPassword" v-model="password" :class="passwordApproved" ref="password" type="password" placeholder="Пароль"
+          <input @keyup="validationPassword" v-model="password" :class="password ? passwordProps.classApproval : ''" ref="password" type="password" placeholder="Пароль"
                  class="elz d-block grPin grY2 w100p borB2 h48 pH32 ellipsis trns2 invPssSib br brLInvD br-primary brL-10 brHovL-20 brFoc-focus brFocL0 fn fn-primary-t" />
           <span class="elz d-flex grPin grY2 a-X borB2 evNone">
             <span class="elz p-rel d-flex a-X s24 trns2">
               <span class="elz p-rel d-block mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/key.svg');"></span>
             </span>
             <span class="elz p-rel growZ d-flex a-PR">
-              <span :class="passwordTooltip" class="elz p-rel d-flex a-X r2 cur-help opHovOut">
-                <span class="elz fn-8 bold al-right pH8 op0 opHovIn10 trns2 trnsVis oH ellipsis">{{ passwordTitle }}</span>
+              <span :class="password ? passwordProps.tooltip : ''" class="elz p-rel d-flex a-X r2 cur-help opHovOut">
+                <span class="elz fn-8 bold al-right pH8 op0 opHovIn10 trns2 trnsVis oH ellipsis">{{ password ? passwordProps.text : '' }}</span>
                 <span class="elz p-rel d-flex a-X s24 r2 evAuto">
-                  <span :class="password ? ' bgBef-CC' : ''" :style="passwordIcon" class="elz p-rel d-block mskBef s16 cFillBef"></span>
+                  <span :class="password ? ' bgBef-CC' : ''" :style="password ? passwordProps.icon : ''" class="elz p-rel d-block mskBef s16 cFillBef"></span>
                 </span>
               </span>
             </span>
@@ -62,16 +62,20 @@
 export default {
   name: "AuthPage",
 
-  _props: {
-    error: {
-      classApproval: '',
-      icon: "--elzMsk: url('/style/icons/info.svg');",
-      tooltip: 'fn fn-error bgHov bgHov-error fnHov-error-t',
-    },
-    success: {
-      classApproval: 'isValidValue',
-      icon: "--elzMsk: url('/style/icons/checkcircle.svg')",
-      tooltip: 'fn fn-success bgHov bgHov-success fnHov-success-t',
+  setup() {
+    return {
+      props: {
+        error: {
+          classApproval: '',
+          icon: "--elzMsk: url('/style/icons/info.svg');",
+          tooltip: 'fn fn-error bgHov bgHov-error fnHov-error-t',
+        },
+        success: {
+          classApproval: 'isValidValue',
+          icon: "--elzMsk: url('/style/icons/checkcircle.svg')",
+          tooltip: 'fn fn-success bgHov bgHov-success fnHov-success-t',
+        }
+      }
     }
   },
 
@@ -91,32 +95,6 @@ export default {
     }
   },
 
-  computed: {
-    loginApproved() {
-      return this.login ? this.loginProps.classApproval : '';
-    },
-    loginIcon() {
-      return this.login ? this.loginProps.icon : '';
-    },
-    loginTitle(){
-      return this.login ? this.loginProps.text : '';
-    },
-    loginTooltip() {
-      return this.login ? this.loginProps.tooltip : '';
-    },
-    passwordApproved() {
-      return this.password ? this.passwordProps.classApproval : '';
-    },
-    passwordIcon() {
-      return this.password ? this.passwordProps.icon : '';
-    },
-    passwordTitle() {
-      return this.password ? this.passwordProps.text : '' ;
-    },
-    passwordTooltip() {
-      return this.password ? this.passwordProps.tooltip : '';
-    }
-  },
 
   methods: {
     defineSendButtonState() {
@@ -124,19 +102,19 @@ export default {
     },
 
     userAuth() {
-      this.$store.dispatch('fetchAuthUser', {login: this.login, password: this.password});
+      this.$store.dispatch('fetchAuthUser', { login: this.login, password: this.password });
     },
 
     validationDefineOptions(validation, successTxt, errorTxt) {
       return (validation) ? {
         classApproval: 'isValidValue',
-        icon: this.$options._props.success.icon,
-        tooltip: this.$options._props.success.tooltip,
+        icon: this.props.success.icon,
+        tooltip: this.props.success.tooltip,
         text: successTxt
       } : {
         classApproval: '',
-        icon: this.$options._props.error.icon,
-        tooltip: this.$options._props.error.tooltip,
+        icon: this.props.error.icon,
+        tooltip: this.props.error.tooltip,
         text: errorTxt
       }
     },

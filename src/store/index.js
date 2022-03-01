@@ -5,26 +5,32 @@ import {dateCalculateDifference} from "@/helpers/formating";
 
 export default createStore({
   state: {
-    readyState:{
+    user: {
+      isAuthorized: false
+    },
+
+    readyState: {
       orders: false,
       filters: false,
     },
-    customerData: {},
+
     filters: {
       departments: [],
       priorities: [],
       roles: [],
       statuses: []
     },
+
+    orders: [],
+
     headerIcons: {
       case: 0,
       clock: 0
     },
-    orders: [],
+
     responsibleList: [],
-    user: {
-      isAuthorized: false
-    }
+
+    customerData: {},
   },
 
   mutations: {
@@ -69,12 +75,13 @@ export default createStore({
     },
 
     UPDATE_MEETING_DATE_TIME(state, data) {
-      console.log('update');
+      console.log('UPDATE MEETING DATE TIME');
       state.orders.find(order => +order.OrderID === +data.OrderID).MeetingDateTime = data.date;
       console.log(state.orders.find(order => +order.OrderID === +data.OrderID));
     },
 
     UPDATE_RESPONSIBLE(state, data) {
+      console.log('UPDATE RESPONSIBLE');
       state.responsibleList.push(data[0]);
     }
   },
@@ -100,7 +107,6 @@ export default createStore({
 
     fetchCustomerData({ commit }, customerId) {
       console.log('fetch Customer Data');
-
       return AppDataService.getCustomerData(customerId)
         .then(response => {
           commit('SET_CUSTOMER_DATA', response.data);
@@ -111,6 +117,7 @@ export default createStore({
     },
 
     fetchFilters({ commit }) {
+      console.log('fetch Filters');
       return AppDataService.getFilterData()
         .then(response => {
           commit('SET_FILTERS', response.data);
@@ -121,7 +128,7 @@ export default createStore({
     },
 
     fetchOrders({ commit }, userId) {
-      return AppDataService.getOrdersByParams(userId)
+      return AppDataService.getOrders(userId)
         .then(response => {
           commit('SET_ORDERS', response.data);
         })
@@ -141,8 +148,8 @@ export default createStore({
     },
 
     updateMeetingDateTime({commit}, params) {
-      //TODO передача данных по API в tts
-      console.log('fetching');
+      //TODO сначала передача данных по API в tts, после апрува - обновление данных в state
+      console.log('update Meeting Date Time');
       commit('UPDATE_MEETING_DATE_TIME', params);
     }
   },

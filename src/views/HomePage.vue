@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { useStore } from 'vuex';
+import {onUnmounted} from "vue";
 import Header from "@/components/Header";
 import Filters from "@/components/Filters";
 import OrderCard from "@/components/OrderCard";
@@ -28,16 +30,25 @@ export default {
     OrderCard
   },
 
-  created() {
-    this.setOrders(this.$store.state.user.userId);
-    this.setFilters();
-    console.log(this.$store.state);
+  setup() {
+    console.log('setup hook');
+    const store = useStore();
+    store.dispatch('fetchOrders', { userID: store.state.user.userId });
+    store.dispatch('fetchFilters');
+
+    //TODO раскомментировать, когда будет подключение к API для апдейта информации о заявках
+    const timer = setInterval(function () {
+      console.log('update orders interval');
+      store.dispatch('fetchOrders', { userID: store.state.user.userId });
+    }, 30000);
+
+    onUnmounted(() => { clearInterval(timer); });
+
+    return { timer }
   },
 
   computed: {
     dataIsLoaded() {
-      console.log('data Is Loaded');
-      console.log(this.$store.state.readyState.filters && this.$store.state.readyState.orders);
       return this.$store.state.readyState.filters && this.$store.state.readyState.orders;
     },
     orders() {
@@ -46,24 +57,9 @@ export default {
   },
 
   methods: {
-    setFilters() {
-      this.$store.dispatch('fetchFilters');
-    },
-
-    setOrders(userId) {
-      this.$store.dispatch('fetchOrders', { userID: userId });
-    },
-
     filtered(order) {
       return !Object.values(order.showInList).includes(false);
-    },
-
-    /*testTest() {
-      console.log('FORCE UPDATE');
-      console.log(this.$store.state.orders);
-      this.$forceUpdate();
-    }*/
-
+    }
   }
 }
 </script>

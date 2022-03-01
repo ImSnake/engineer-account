@@ -17,12 +17,6 @@ export default {
     this.definePageView();
   },
 
-/*  data() {
-    return {
-      isReady: false
-    }
-  },*/
-
   computed: {
     isAuthorized() {
       return this.$store.state.user.isAuthorized;
@@ -37,22 +31,18 @@ export default {
 
   methods: {
     definePageView() {
-      console.log('define Page View');
       (!this.isAuthorized) ?  this.showAuth() : this.showHomePage();
     },
 
     showAuth() {
-      //this.isReady = false;
       this.loader.classList.add('hydraLoader');
-      setTimeout(()=> this.isReady = true, 1000);
       setTimeout(()=> this.loader.classList.add('authReady'), 1100);
       this.$router.push({name: 'Auth'});
     },
 
-    async showHomePage() {
+    showHomePage() {
       this.loader.classList.remove('hydraLoader', 'authReady');
       this.$router.push({name: 'Home'});
-      //this.isReady = true;
     }
   }
 }
