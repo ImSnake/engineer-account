@@ -1,7 +1,7 @@
 <template>
 
   <div  class="authWrap bg bg-primary">
-    <form class="authFormWrap">
+    <form @keyup.enter="userAuth"  class="authFormWrap">
       <div class="elz authFormShow d-block h80">
         <label class="elz d-grid grPos fn fnLInvD fn-primary-t fnL20 fnHovL10 fnFow-focus fnFowL0">
           <input ref="login" @keyup="validationLogin" v-model="login" :class="login ? loginProps.classApproval : ''" type="text" placeholder="i.ivanov"
@@ -95,14 +95,14 @@ export default {
     }
   },
 
-
   methods: {
     defineSendButtonState() {
-      this.dataIsValid = (this.$refs.login.classList.contains('isValidValue') && this.$refs.password.classList.contains('isValidValue'));
+      setTimeout(()=> this.dataIsValid = (this.$refs.login.classList.contains('isValidValue') && this.$refs.password.classList.contains('isValidValue')), 500);
     },
 
-    userAuth() {
-      this.$store.dispatch('fetchAuthUser', { login: this.login, password: this.password });
+    async userAuth() {
+      //await this.$store.dispatch('TESTFetchAuthUser', { login: this.login, password: this.password });
+      await this.$store.dispatch('fetchAuthUser', { login: this.login, password: this.password });
     },
 
     validationDefineOptions(validation, successTxt, errorTxt) {
@@ -124,14 +124,14 @@ export default {
       //const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
       let data = this.login.trim();
       this.loginProps = this.validationDefineOptions(data.match(pattern), 'Валидный логин', 'Логин введен не корректно');
-      setTimeout(()=> this.defineSendButtonState(), 500);
+      this.defineSendButtonState();
     },
 
     validationPassword() {
       const pattern = /^.{4,}$/;
       let data = this.password.trim();
       this.passwordProps = this.validationDefineOptions(data.match(pattern), 'Валидная длина пароля', 'Длина пароля должна быть 4 или более символов');
-      setTimeout(()=> this.defineSendButtonState(), 500);
+      this.defineSendButtonState();
     }
   }
 }

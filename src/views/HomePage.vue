@@ -2,54 +2,68 @@
 
   <Header />
 
-  <Filters v-if="dataIsLoaded" />
+  <template v-if="dataIsLoaded">
 
-  <div v-if="dataIsLoaded" class="elz d-grid fn12 lh12 grH320 gap16 p16">
+    <OrdersFilters  />
 
-    <template v-for="(order,index) in orders" >
-      <OrderCard v-if="filtered(order)" :key="index" :order="order" />
-    </template>
+    <div class="elz d-grid fn12 lh12 grH320 gap16 p16">
 
-  </div>
+      <template v-for="(order,index) in orders" >
+        <OrdersCard v-if="filtered(order)" :key="index" :order="order" />
+      </template>
+
+    </div>
+
+  </template>
+
+  <template v-else>
+
+    <Uploader />
+
+  </template>
 
 </template>
 
 <script>
+import Header from "@/components/elements/Header";
+import OrdersFilters from "@/components/orders/OrdersFilters";
+import OrdersCard from "@/components/orders/OrdersCard";
+
 import { useStore } from 'vuex';
-import {onUnmounted} from "vue";
-import Header from "@/components/Header";
-import Filters from "@/components/Filters";
-import OrderCard from "@/components/OrderCard";
+//import { onUnmounted } from "vue";
 
 export default {
   name: "HomePage",
 
   components: {
     Header,
-    Filters,
-    OrderCard
+    OrdersFilters,
+    OrdersCard
   },
 
   setup() {
-    console.log('setup hook');
+    console.log('HOME PAGE setup hook');
+
     const store = useStore();
-    store.dispatch('fetchOrders', { userID: store.state.user.userId });
+    store.dispatch('fetchOrders');
+    //store.dispatch('TESTFetchOrders', { userID: store.state.user.userId });
+
     store.dispatch('fetchFilters');
 
-    //TODO раскомментировать, когда будет подключение к API для апдейта информации о заявках
-    const timer = setInterval(function () {
-      console.log('update orders interval');
+    /*const timer = setInterval(function () {
+      console.log('interval update all orders');
       store.dispatch('fetchOrders', { userID: store.state.user.userId });
-    }, 30000);
+    }, 40000);
 
     onUnmounted(() => { clearInterval(timer); });
 
-    return { timer }
+    return { timer }*/
   },
+
 
   computed: {
     dataIsLoaded() {
-      return this.$store.state.readyState.filters && this.$store.state.readyState.orders;
+      return this.$store.state.filters.readyState && this.$store.state.orders.readyState;
     },
     orders() {
       return this.$store.state.orders;

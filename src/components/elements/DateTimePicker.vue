@@ -15,15 +15,15 @@ import "vue3-date-time-picker/dist/main.css";
 
 
 export default {
-  name: "OrderDatepicker",
+  name: "DateTimePicker",
 
   components: {
     Datepicker
   },
 
-  emits: ['datepickerDate'],
+  emits: [ 'datepickerDate' ],
 
-  props: ['currentDate'],
+  props: [ 'currentDate' ],
 
   setup(props) {
     const date = props.currentDate ? props.currentDate : ref(new Date());
@@ -32,13 +32,11 @@ export default {
 
   methods: {
     clearDatepicker() {
-      console.log('clear');
       this.date = '';
       this.$emit('datepickerDate', this.date);
     },
 
     setDatepicker() {
-      console.log('set');
       const date = `${this.date.getFullYear()}-${this.defineLeadZero(this.date.getMonth() + 1)}-${this.defineLeadZero(this.date.getDate())} ${this.defineLeadZero(this.date.getHours())}:${this.defineLeadZero(this.date.getMinutes())}:00.000`;
       this.$emit('datepickerDate', date);
     },

@@ -19,7 +19,7 @@
           <div class="elz d-block  mT-16">
             <div @click="datepicker = true" class="elz d-flex a-H mT20 cur-pointer fn fn-link-inline fnHovL10 opAct07 underlineHov" title="Дата и время визита к клиенту">
               <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/truck.svg');"></div>
-              <div class="elz d-block mL8"><b class="elz bold">{{ meetingDateTime }}</b></div>
+              <div class="elz d-block mL8"><b class="elz bold">{{ formattedMeetingDateTime }}</b></div>
             </div>
             <div class="elz d-flex a-H mT20" title="Срок выполнения">
               <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/clock.svg');"></div>
@@ -35,7 +35,7 @@
             </div>
             <div class="elz d-flex a-H mT20" title="Адрес">
               <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/home.svg');"></div>
-              <div class="elz d-block mL8">{{ this.order.Place || 'адрес не указан' }}</div>
+              <div class="elz d-block mL8">{{ this.order.Place || 'Адрес не указан' }}</div>
             </div>
             <div class="elz d-flex a-H mT20" title="Подразделение">
               <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/briefcase.svg');"></div>
@@ -43,13 +43,13 @@
             </div>
             <div @click="showResponsibleDetails" class="elz d-flex a-H mT20 bold cur-pointer fn fn-link-inline fnHovL10 opAct07 underlineHov" title="Ответственный">
               <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/user.svg');"></div>
-              <div class="elz d-block mL8">{{ order.responsibleName }}</div>
+              <div class="elz d-block mL8">{{ order.ResponsibleName }}</div>
             </div>
           </div>
         </div>
       </div>
       <div class="elz p-abs p-F d-block p-abs oAuto showSelIn">
-        <OrderCardDetails v-if="hasComments" :title="order.Descr" :contacts="order.Contacts" :comments="order.Comments" />
+        <OrdersCardDetails v-if="hasComments" :title="order.Descr" :contacts="order.Contacts" :comments="order.Comments" />
       </div>
     </div>
     <div @click="toggleOrderView" class="elz d-block pAB16 pAT6">
@@ -58,18 +58,18 @@
     </div>
 
     <template v-if="datepicker">
-      <OrderCardPopUp @closePopUp="datepicker = false">
-        <OrderDatepicker @datepickerDate="test" :currentDate="order.MeetingDateTime"/>
-      </OrderCardPopUp>
+      <PopUpWindow @closePopUp="datepicker = false" :className="'p-F m4'">
+        <DateTimePicker @datepickerDate="updateMeetingDateTime" :currentDate="order.MeetingDateTime" />
+      </PopUpWindow>
     </template>
 
     <template v-if="responsible">
-      <OrderCardPopUp @closePopUp="responsible = false">
+      <PopUpWindow @closePopUp="responsible = false" :className="'p-F m4'">
         <div class="elz d-block s-M">
           <div class="elz d-block mAuto mT36 s64 oH rCircle">
             <img alt="" class="elz d-block s100p obj-cover" src="/style/icons/avatar.svg">
           </div>
-          <div class="elz d-block fn14 al-center mT16">{{ responsibleDetails.responsibleName }}</div>
+          <div class="elz d-block fn14 al-center mT16">{{ responsibleDetails.ResponsibleName }}</div>
         </div>
         <div class="elz d-block s-M">
           <div class="elz d-flex a-H mT20" title="Должность">
@@ -89,7 +89,7 @@
             <div class="elz d-block mL8">{{ responsibleDetails.Phone }}</div>
           </div>
         </div>
-      </OrderCardPopUp>
+      </PopUpWindow>
     </template>
 
   </div>
@@ -97,22 +97,24 @@
 </template>
 
 <script>
-import {dateFormatDdMmYyyy, dateTimeFormatHHMM} from "@/helpers/formating";
-import OrderCardPopUp from "@/components/OrderCardPopUp";
-import OrderCardDetails from "@/components/OrderCardDetails";
-import OrderDatepicker from "@/components/OrderDatepicker";
+import PopUpWindow       from "@/components/elements/PopUpWindow";
+import OrdersCardDetails from "@/components/orders/OrdersCardDetails";
+import DateTimePicker    from "@/components/elements/DateTimePicker";
+
+import { dateFormatDdMmYyyy, dateTimeFormatHHMM } from "@/helpers/formating";
+
 
 export default {
-  name: "OrderCard",
+  name: "OrdersCard",
 
   components: {
-    OrderCardDetails,
-    OrderCardPopUp,
-    OrderDatepicker
+    OrdersCardDetails,
+    PopUpWindow,
+    DateTimePicker
   },
 
   props: {
-    order: {type: Object, required: true}
+    order: { type: Object, required: true }
   },
 
   data() {
@@ -126,25 +128,31 @@ export default {
     hasComments() {
       return this.order.Comments.length || this.order.Contacts.length;
     },
-    meetingDateTime() {
+
+    formattedMeetingDateTime() {
       if (this.order.MeetingDateTime) {
          return `${dateFormatDdMmYyyy(this.order.MeetingDateTime)} в ${dateTimeFormatHHMM(this.order.MeetingDateTime)}`;
       } else {
-        return 'дата и время выезда не назначены';
+        return 'Дата и время выезда не заданы';
       }
     },
+
     orderDate() {
       return dateFormatDdMmYyyy(this.order.OrderDate);
     },
+
     orderIsImportant() {
       return +this.order.Priority === 2 || +this.order.Priority === 3;
     },
+
     responsibleDetails(){
-      return this.$store.state.responsibleList.find(el => +el.responsibleId === +this.order.responsibleId);
+      return this.$store.state.responsibleList.find(el => +el.ResponsibleID === +this.order.ResponsibleID);
     },
+
     statusName() {
       return this.$store.state.filters.statuses.find(el => +el.value === +this.order.TroubleStatusID).name;
     },
+
     statusColor() {
       const color = this.$store.state.filters.statuses.find(el => +el.value === +this.order.TroubleStatusID).color;
       return `bg-${color} fn-${color}-t`;
@@ -152,11 +160,12 @@ export default {
   },
 
   methods: {
-    async test(date) {
-      console.log('emit');
-      console.log(date);
-      await this.$store.dispatch('updateMeetingDateTime', {date, OrderID: this.order.OrderID});
-      this.datepicker = false;
+    async showResponsibleDetails() {
+      // проверить есть ли данные в кэше, если нет - получить данные по ID и сохранить
+      if (!this.responsibleDetails) {
+        await this.$store.dispatch('fetchResponsible', this.order.ResponsibleID);
+      }
+      this.responsible = true;
     },
 
     toOrderDetails() {
@@ -166,20 +175,18 @@ export default {
       });
     },
 
-    async showResponsibleDetails() {
-      // проверить есть ли данные в кэше, если нет - полуить данные по ID и сохранить
-      if (!this.responsibleDetails) {
-        await this.$store.dispatch('fetchResponsible', this.order.responsibleId);
-      }
-      this.responsible = true;
-    },
-
     toggleOrderView(e) {
       const $elem = e.currentTarget;
       if (!$elem.children[0].classList.contains('uDisabled')) {
         $elem.previousElementSibling.classList.toggle('sel');
       }
+    },
+
+    async updateMeetingDateTime(date) {
+      await this.$store.dispatch('updateOrdersMeetingDateTime', {date, OrderID: this.order.OrderID});
+      this.datepicker = false;
     }
+
   }
 }
 </script>

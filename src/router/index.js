@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from "@/views/HomePage";
 import AuthPage from "@/views/AuthPage";
 import OrderPage from "@/views/OrderPage";
-import ErrorDisplay from '@/views/ErrorDisplay';
+import ErrorPage from '@/views/ErrorPage';
 
 const routes = [
 	{
@@ -23,9 +23,9 @@ const routes = [
 	},
 	{
 		path: '/error/:error',
-		name: 'ErrorDisplay',
+		name: 'ErrorPage',
 		props: true,
-		component: ErrorDisplay
+		component: ErrorPage
 	}
 ]
 

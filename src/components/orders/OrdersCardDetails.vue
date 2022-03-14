@@ -22,7 +22,7 @@
 //import {valueFormatToHtml} from "@/helpers/formating";
 
 export default {
-  name: "OrderCardDetails",
+  name: "OrdersCardDetails",
 
   props: {
     title: {type: String, required: true},

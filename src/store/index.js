@@ -1,17 +1,17 @@
-import { createStore } from 'vuex';
-import AuthService from "@/services/AuthService";
+import AppDataServ    from "@/services/AppDataServ";
+
+import AuthService    from "@/services/AuthService";
 import AppDataService from "@/services/AppDataService";
-import {dateCalculateDifference} from "@/helpers/formating";
+
+import { createStore } from 'vuex';
+import { dateCalculateDifference } from "@/helpers/formating";
+
 
 export default createStore({
   state: {
+
     user: {
       isAuthorized: false
-    },
-
-    readyState: {
-      orders: false,
-      filters: false,
     },
 
     filters: {
@@ -30,12 +30,12 @@ export default createStore({
 
     responsibleList: [],
 
-    customerData: {},
+    orderData: {}
   },
 
   mutations: {
     AUTH_USER_TRUE(state, data) {
-      state.user = data;
+      state.user = data.userData;
 			state.user.isAuthorized = true;
     },
 
@@ -43,17 +43,19 @@ export default createStore({
       state.user = {};
     },
 
-    SET_CUSTOMER_DATA(state, data) {
-      state.customerData = data[0];
-    },
-
     SET_FILTERS(state, data){
       state.filters = data;
-      state.readyState.filters = true;
+      state.filters.readyState = true;
+    },
+
+    SET_ORDER_DATA(state, data) {
+      state.orderData = data[0];
+      state.orderData.readyState = true;
     },
 
     SET_ORDERS(state, data) {
-      console.log('SET ORDERS');
+      console.log('SAVE ORDERS LIST');
+      console.log(data);
       state.orders = data;
       state.orders.forEach(order => {
         const diff = order.Deadline ? dateCalculateDifference(new Date(), new Date(order.Deadline)) : dateCalculateDifference();
@@ -69,19 +71,20 @@ export default createStore({
       });
       state.headerIcons.case  = state.orders.filter(el => +el.TroubleStatusID === 2).length;
       state.headerIcons.clock = state.orders.filter(el => el.overdueSummary < 0,24).length;
-      state.readyState.orders = true;
+      state.orders.readyState = true;
 
       //TODO Если нет заявок - передавать что-то, чтобы массив не был нулевым
     },
 
-    UPDATE_MEETING_DATE_TIME(state, data) {
-      console.log('UPDATE MEETING DATE TIME');
+    UPDATE_ORDER_MEETING(state, data) {
+      state.orderData.orderDetails.MeetingDateTime = data;
+    },
+
+    UPDATE_ORDERS_MEETING(state, data) {
       state.orders.find(order => +order.OrderID === +data.OrderID).MeetingDateTime = data.date;
-      console.log(state.orders.find(order => +order.OrderID === +data.OrderID));
     },
 
     UPDATE_RESPONSIBLE(state, data) {
-      console.log('UPDATE RESPONSIBLE');
       state.responsibleList.push(data[0]);
     }
   },
@@ -89,12 +92,11 @@ export default createStore({
   actions: {
     fetchAuthUser({ commit }, params) {
       if (params.login && params.password) {
-        //TODO добавить проверку авторизации
-        return AuthService.authUser()
+        return AppDataServ.authUser(params)
           .then(response => {
             commit('AUTH_USER_TRUE', response.data);
             console.log('AUTH SUCCESSFUL');
-						console.log(this.state.user);
+						console.log(this.state);
           })
           .catch(error => {
             throw(error);
@@ -105,19 +107,7 @@ export default createStore({
       }
     },
 
-    fetchCustomerData({ commit }, customerId) {
-      console.log('fetch Customer Data');
-      return AppDataService.getCustomerData(customerId)
-        .then(response => {
-          commit('SET_CUSTOMER_DATA', response.data);
-        })
-        .catch(error => {
-          throw(error);
-        });
-    },
-
     fetchFilters({ commit }) {
-      console.log('fetch Filters');
       return AppDataService.getFilterData()
         .then(response => {
           commit('SET_FILTERS', response.data);
@@ -127,8 +117,8 @@ export default createStore({
         });
     },
 
-    fetchOrders({ commit }, userId) {
-      return AppDataService.getOrders(userId)
+    fetchOrders({ commit }, token) {
+      return AppDataServ.getOrders(token)
         .then(response => {
           commit('SET_ORDERS', response.data);
         })
@@ -137,21 +127,80 @@ export default createStore({
         });
     },
 
-    fetchResponsible({ commit }, responsibleId) {
-      return AppDataService.getResponsibleDetails(responsibleId)
+    fetchOrderData({ commit }, orderId) {
+      return AppDataService.getOrderData(orderId)
         .then(response => {
-          commit('UPDATE_RESPONSIBLE', response.data);
+          commit('SET_ORDER_DATA', response.data);
         })
         .catch(error => {
           throw(error);
         });
     },
 
-    updateMeetingDateTime({commit}, params) {
+    fetchResponsible({ commit }, responsibleId) {
+      return AppDataServ.getResponsibleDetails(responsibleId)
+        .then(response => {
+          commit('UPDATE_RESPONSIBLE', response.data);
+        })
+        .catch(error => {
+          throw(error);
+        });
+      /*return AppDataService.getResponsibleDetails(responsibleId)
+        .then(response => {
+          commit('UPDATE_RESPONSIBLE', response.data);
+        })
+        .catch(error => {
+          throw(error);
+        });*/
+    },
+
+    updateOrderMeetingDateTime({commit}, date) {
+      commit('UPDATE_ORDER_MEETING', date);
       //TODO сначала передача данных по API в tts, после апрува - обновление данных в state
-      console.log('update Meeting Date Time');
-      commit('UPDATE_MEETING_DATE_TIME', params);
-    }
+      /*return AppDataService.updateMeetingDateTime(date)
+        .then(response => {
+          console.log(response);
+          commit('UPDATE_ORDER_MEETING', date);
+        })
+        .catch(error => {
+          throw(error);
+        });*/
+    },
+
+    updateOrdersMeetingDateTime({commit}, params) {
+      commit('UPDATE_ORDERS_MEETING', params);
+      //TODO сначала передача данных по API в tts, после апрува - обновление данных в state
+      /*return AppDataService.updateMeetingDateTime(params)
+        .then(response => {
+          console.log(response);
+          commit('UPDATE_ORDERS_MEETING', params);
+        })
+        .catch(error => {
+          throw(error);
+        });*/
+    },
+
+
+//=========================================================
+
+    TESTFetchAuthUser({ commit }, params) {
+      if (params.login && params.password) {
+        return AuthService.authUser()
+          .then(response => {
+            commit('AUTH_USER_TRUE', response.data);
+          });
+      }
+    },
+
+    TESTFetchOrders({ commit }, userId) {
+      return AppDataService.getOrders(userId)
+        .then(response => {
+          commit('SET_ORDERS', response.data);
+        })
+        .catch(error => {
+          throw(error);
+        });
+    },
   },
 
   modules: {}

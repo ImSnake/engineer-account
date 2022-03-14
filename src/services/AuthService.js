@@ -12,5 +12,5 @@ const authClient = axios.create({
 export default {
 	authUser() {
 		return authClient.get('/userData');
-	},
+	}
 }

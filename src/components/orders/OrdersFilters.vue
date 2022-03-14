@@ -53,13 +53,23 @@
 </template>
 
 <script>
-import FilterSelect from "@/components/FilterSelect";
+import FilterSelect from "@/components/elements/FilterSelect";
 
 export default {
-  name: "Filters",
+  name: "OrdersFilters",
 
   components: {
     FilterSelect
+  },
+
+  setup() {
+    return {
+      sortIcons: {
+        default:  "",
+        decrease: "--elzMsk: url('/style/icons/sort-decrease.svg')",
+        increase: "--elzMsk: url('/style/icons/sort-increase.svg')"
+      }
+    }
   },
 
   data() {
@@ -68,12 +78,7 @@ export default {
       orderId: '',
       prioritySelected: '',
       roleSelected: '',
-      statusSelected: '',
-      sortIcons: {
-        default:  "",
-        decrease: "--elzMsk: url('/style/icons/sort-decrease.svg')",
-        increase: "--elzMsk: url('/style/icons/sort-increase.svg')"
-      }
+      statusSelected: ''
     }
   },
 
