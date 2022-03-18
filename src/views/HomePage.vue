@@ -42,13 +42,12 @@ export default {
   },
 
   setup() {
-    console.log('HOME PAGE setup hook');
-
     const store = useStore();
     store.dispatch('fetchOrders');
-    //store.dispatch('TESTFetchOrders', { userID: store.state.user.userId });
+    //store.dispatch('TESTFetchOrders');
 
-    store.dispatch('fetchFilters');
+    store.dispatch('static/fetchFilters');
+    //store.dispatch('static/TESTFetchFilters');
 
     /*const timer = setInterval(function () {
       console.log('interval update all orders');
@@ -63,7 +62,7 @@ export default {
 
   computed: {
     dataIsLoaded() {
-      return this.$store.state.filters.readyState && this.$store.state.orders.readyState;
+      return this.$store.state.static.filters.readyState && this.$store.state.orders.readyState;
     },
     orders() {
       return this.$store.state.orders;

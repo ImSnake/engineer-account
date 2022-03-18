@@ -4,13 +4,15 @@
 
   <BreadCrumbs :title="'К списку заявок'" :path="'Home'" />
 
-  <template v-if="$store.state.orderData.readyState">
+  <template v-if="dataIsReady">
 
-    <OrderHeader />
+    <OrderHeader   />
 
-    <OrderNav />
+    <OrderNav @switchOrderContent="switchComponentView"   />
 
-    <OrderContent />
+    <OrderWorks ref="works"   />
+
+    <OrderCustomer ref="customer"   />
 
   </template>
 
@@ -21,11 +23,12 @@
 </template>
 
 <script>
-import Header       from "@/components/elements/Header";
-import BreadCrumbs  from "@/components/elements/BreadCrumbs";
-import OrderHeader  from "@/components/order/OrderHeader";
-import OrderNav     from "@/components/order/OrderNav";
-import OrderContent from "@/components/order/OrderContent";
+import Header        from "@/components/elements/Header";
+import BreadCrumbs   from "@/components/elements/BreadCrumbs";
+import OrderHeader   from "@/components/order/OrderHeader";
+import OrderNav      from "@/components/order/OrderNav";
+import OrderWorks    from "@/components/order/OrderWorks";
+import OrderCustomer from "@/components/order/OrderCustomer";
 
 import { useStore } from "vuex";
 import { onUnmounted } from "vue";
@@ -38,7 +41,8 @@ export default {
     BreadCrumbs,
     OrderHeader,
     OrderNav,
-    OrderContent
+    OrderWorks,
+    OrderCustomer
   },
 
   props: {
@@ -49,16 +53,33 @@ export default {
     console.log('ORDER PAGE setup hook');
     const store = useStore();
     store.dispatch('fetchOrderData', { orderId: props.orderId });
-    console.log(store.state.orderData);
 
-    onUnmounted(() => {store.state.orderData = []; });
+    onUnmounted(() => {store.state.order = []; });
 
-    //TODO Определить тип заявки для отображения интерфейса:
-    //- если это подключение - показывать правую панель "OrderHeaderConnection"
+    //TODO Определить тип заявки для отображения интерфейса: если это подключение - показывать правую панель "OrderHeaderConnection"
   },
 
+  watch: {
+    dataIsReady() {
+      setTimeout(()=> {
+        this.switchComponentView(Object.keys(this.$refs)[0]);
+      }, 100);
+    }
+  },
+
+  computed: {
+    dataIsReady() {
+      return this.$store.state.order.readyState;
+    }
+  },
 
   methods: {
+    switchComponentView(bookmarkName){
+      Object.keys(this.$refs).forEach(el => {
+        (el === bookmarkName) ? this.$refs[el].isActive = true : this.$refs[el].isActive = false;
+      });
+      this.$refs[bookmarkName].isActive = true;
+    }
   }
 
 }

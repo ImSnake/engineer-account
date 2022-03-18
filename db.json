@@ -12,7 +12,7 @@
   },
 
   "filterData": {
-    "departments": [
+    "department": [
       {
         "value": 0,
         "name": "Все подразделения"
@@ -1583,9 +1583,9 @@
 
   "orderData": [{
 
-    "orderDetails": {
+    "details": {
       "OrderID": "557446",
-      "OrderTypeID": "2",
+      "OrderTypeID": "11",
       "OrderTypeName": "Подключение",
       "DealID": "222222",
       "CustomerName": "Пустовит Дмитрий Вячеславович",
@@ -1596,7 +1596,36 @@
       "MeetingStatus": "0"
     },
 
-    "customerData": {
+    "works": [
+      {
+        "workId": "123",
+        "startDate": "2022-03-15 12:00:00.000",
+        "finishDate": "2022-03-16 19:00:00.000",
+        "points": "420",
+        "participants": [
+          {
+            "participantId": "123456",
+            "participantFIO": "Иванов Петр Федорович",
+            "participationStart": ""
+          },
+          {
+            "participantId": "123456",
+            "participantFIO": "Джигарханян Ильман Ахметович",
+            "participationStart": "2022-03-15 12:20:00.000"
+          }
+        ],
+        "workList": [
+          {
+            "test": "test"
+          },
+          {
+            "test": "test"
+          }
+        ]
+      }
+    ],
+
+    "customerInfo": {
       "customerId": "1234567",
       "name": "Дмитрий",
       "patronymic": "Вячеславович",

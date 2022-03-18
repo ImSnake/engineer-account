@@ -19,7 +19,7 @@ export default {
 
   computed: {
     isAuthorized() {
-      return this.$store.state.user.isAuthorized;
+      return this.$store.state.static.user.isAuthorized;
     }
   },
 

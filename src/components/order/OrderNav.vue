@@ -2,38 +2,82 @@
   <div class="elz d-block mV24 mAuto borV1 br br-primary brL-10 brLInvD">
     <div class="elz d-flex pV2 mV-2 oAuto scrollHide uDragToScroll cur-grabAct">
       <div class="elz d-flex gap32 h56 wmn1200 pH16 mAuto">
-        <div class="elz p-rel d-flex grow gap8 a-X al-center nowrap noShrink cur-pointer opAct07 scHovOut scSelOut opHovOut opSelOut sel fn fn-success">
-          <!--                <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC" style="&#45;&#45;elzMsk: url('https://lelouch.ru/uploads/icons/user.svg');"></div>-->
-          <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/checkmark.svg');"></div>
-          <div class="elz d-block">Валидация ФИО</div>
-          <div class="elz p-abs p-AB d-block h3 mB-2 rRound scZeroX scHovInFull scSelInFullX op0 opHovIn05 opSelIn10 trnsOccur trns2 bg-CC"></div>
-        </div>
-        <div class="elz p-rel d-flex grow gap8 a-X al-center nowrap noShrink cur-pointer opAct07 scHovOut scSelOut opHovOut opSelOut sel">
-          <div class="elz p-rel d-block p-rel mskBef h16 w20 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/hammer-wrench.svg');"></div>
-          <div class="elz d-block">Конфигурация услуг</div>
-          <div class="elz p-abs p-AB d-block h3 mB-2 rRound scZeroX scHovInFull scSelInFullX op0 opHovIn05 opSelIn10 trnsOccur trns2 bg-CC"></div>
-        </div>
-        <div class="elz p-rel d-flex grow gap8 a-X al-center nowrap noShrink cur-pointer opAct07 scHovOut scSelOut opHovOut opSelOut">
-          <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/network.svg');"></div>
-          <div class="elz d-block">Постановка на тарификацию</div>
-          <div class="elz p-abs p-AB d-block h3 mB-2 rRound scZeroX scHovInFull scSelInFullX op0 opHovIn05 opSelIn10 trnsOccur trns2 bg-CC"></div>
-        </div>
-        <div class="elz p-rel d-flex grow gap8 a-X al-center nowrap noShrink cur-pointer opAct07 scHovOut scSelOut opHovOut opSelOut">
-          <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/file-text.svg');"></div>
-          <div class="elz d-block">Завершение</div>
-          <div class="elz p-abs p-AB d-block h3 mB-2 rRound scZeroX scHovInFull scSelInFullX op0 opHovIn05 opSelIn10 trnsOccur trns2 bg-CC"></div>
-        </div>
+
+        <OrderNavItem ref="works"
+            @onItemClick="testNavClick('works')"
+            :iconName="'hammer1'"
+            :title="'Работы по заявке'"
+            :label="worksLength"   />
+
+        <template v-if="isConnection">
+
+          <OrderNavItem ref="customer"
+              @onItemClick="testNavClick('customer')"
+              :iconName="'user'"
+              :title="'Данные клиента'"   />
+
+          <OrderNavItem ref="services"
+              @onItemClick="testNavClick('services')"
+              :iconName="'hammer-wrench'"
+              :title="'Конфигурация услуг'"   />
+
+          <OrderNavItem ref="tariffing"
+              @onItemClick="testNavClick('tariffing')"
+              :iconName="'network'"
+              :title="'Постановка на тарификацию'"   />
+
+          <OrderNavItem ref="finishing"
+              @onItemClick="testNavClick('finishing')"
+              :iconName="'file-text'"
+              :title="'Завершение'"   />
+
+        </template>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import OrderNavItem from "@/components/order/OrderNavItem";
+
 export default {
-  name: "OrderNav"
+  name: "OrderNav",
+
+  emit: [ 'switchOrderContent' ],
+
+  components: {
+    OrderNavItem
+  },
+
+  mounted() {
+    this.$refs[Object.keys(this.$refs)[0]].isActive = true;
+  },
+
+  computed: {
+    isConnection() {
+      return (+this.$store.state.order.details.OrderTypeID === 2 || +this.$store.state.order.details.OrderTypeID === 11);
+    },
+
+    worksLength() {
+      return this.$store.state.order.works.length;
+    }
+  },
+
+  methods: {
+    testNavClick(bookmarkName) {
+      Object.keys(this.$refs).forEach(el => {
+        (el === bookmarkName) ? this.$refs[el].isActive = true : this.$refs[el].isActive = false;
+      });
+      this.$emit('switchOrderContent', bookmarkName);
+    },
+  }
+
 }
 </script>
 
 <style scoped>
-
+.montMenuItem:only-child {
+  flex-grow: 0;
+}
 </style>

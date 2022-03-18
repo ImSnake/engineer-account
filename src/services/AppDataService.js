@@ -12,7 +12,7 @@ const appDataClient = axios.create({
 export default {
 
 	getOrderData(customerId) {
-		console.log('get Order Data');
+		console.log('ЗАГЛУШКА get Single Order');
 		console.log(customerId);
 		//TODO (снять комментарий)
 		// return appDataClient.get(`/orderData?CustomerID=${customerId}`);
@@ -20,6 +20,7 @@ export default {
 	},
 
 	getFilterData() {
+		console.log('ЗАГЛУШКА get Filters');
 		return appDataClient.get('/filterData');
 	},
 
@@ -27,19 +28,18 @@ export default {
 	 * @param params { userID }
 	 * @returns {Promise<AxiosResponse<any>>}
 	 */
-	getOrders(userId) {
-		console.log('GET ORDERS');
-		console.log(userId);
-		//TODO (при настройке API добавить в выборку параметр userId)
+	getOrders() {
+		console.log('ЗАГЛУШКА get Orders List');
 		return appDataClient.get('/ordersData');
 	},
 
 	getResponsibleDetails(responsibleId) {
+		console.log('ЗАГЛУШКА get Responsible');
 		return appDataClient.get(`/responsibleData?responsibleId=${responsibleId}`);
 	},
 
 	updateMeetingDateTime({OrderID, date}) {
-		console.log('update Meeting Date Time');
+		console.log('ЗАГЛУШКА update Meeting Date Time');
 		console.log(OrderID);
 		console.log(date);
 		//return appDataClient.put(`/ordersData?OrderID=${OrderID}`, { MeetingDateTime: date });

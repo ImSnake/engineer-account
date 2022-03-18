@@ -8,54 +8,27 @@ import { dateCalculateDifference } from "@/helpers/formating";
 
 
 export default createStore({
+
   state: {
 
-    user: {
-      isAuthorized: false
-    },
-
-    filters: {
-      departments: [],
-      priorities: [],
-      roles: [],
-      statuses: []
-    },
+    order: {},
 
     orders: [],
 
     headerIcons: {
       case: 0,
       clock: 0
-    },
-
-    responsibleList: [],
-
-    orderData: {}
+    }
   },
 
   mutations: {
-    AUTH_USER_TRUE(state, data) {
-      state.user = data.userData;
-			state.user.isAuthorized = true;
-    },
-
-    AUTH_USER_FALSE(state) {
-      state.user = {};
-    },
-
-    SET_FILTERS(state, data){
-      state.filters = data;
-      state.filters.readyState = true;
-    },
-
     SET_ORDER_DATA(state, data) {
-      state.orderData = data[0];
-      state.orderData.readyState = true;
+      state.order = data[0];
+      state.order.readyState = true;
+      console.log(state.order);
     },
 
     SET_ORDERS(state, data) {
-      console.log('SAVE ORDERS LIST');
-      console.log(data);
       state.orders = data;
       state.orders.forEach(order => {
         const diff = order.Deadline ? dateCalculateDifference(new Date(), new Date(order.Deadline)) : dateCalculateDifference();
@@ -77,46 +50,15 @@ export default createStore({
     },
 
     UPDATE_ORDER_MEETING(state, data) {
-      state.orderData.orderDetails.MeetingDateTime = data;
+      state.order.details.MeetingDateTime = data;
     },
 
     UPDATE_ORDERS_MEETING(state, data) {
       state.orders.find(order => +order.OrderID === +data.OrderID).MeetingDateTime = data.date;
-    },
-
-    UPDATE_RESPONSIBLE(state, data) {
-      state.responsibleList.push(data[0]);
     }
   },
 
   actions: {
-    fetchAuthUser({ commit }, params) {
-      if (params.login && params.password) {
-        return AppDataServ.authUser(params)
-          .then(response => {
-            commit('AUTH_USER_TRUE', response.data);
-            console.log('AUTH SUCCESSFUL');
-						console.log(this.state);
-          })
-          .catch(error => {
-            throw(error);
-          });
-      } else {
-        commit('AUTH_USER_FALSE');
-				console.log('AUTH ERROR');
-      }
-    },
-
-    fetchFilters({ commit }) {
-      return AppDataService.getFilterData()
-        .then(response => {
-          commit('SET_FILTERS', response.data);
-        })
-        .catch(error => {
-          throw(error);
-        });
-    },
-
     fetchOrders({ commit }, token) {
       return AppDataServ.getOrders(token)
         .then(response => {
@@ -135,23 +77,6 @@ export default createStore({
         .catch(error => {
           throw(error);
         });
-    },
-
-    fetchResponsible({ commit }, responsibleId) {
-      return AppDataServ.getResponsibleDetails(responsibleId)
-        .then(response => {
-          commit('UPDATE_RESPONSIBLE', response.data);
-        })
-        .catch(error => {
-          throw(error);
-        });
-      /*return AppDataService.getResponsibleDetails(responsibleId)
-        .then(response => {
-          commit('UPDATE_RESPONSIBLE', response.data);
-        })
-        .catch(error => {
-          throw(error);
-        });*/
     },
 
     updateOrderMeetingDateTime({commit}, date) {
@@ -183,17 +108,8 @@ export default createStore({
 
 //=========================================================
 
-    TESTFetchAuthUser({ commit }, params) {
-      if (params.login && params.password) {
-        return AuthService.authUser()
-          .then(response => {
-            commit('AUTH_USER_TRUE', response.data);
-          });
-      }
-    },
-
-    TESTFetchOrders({ commit }, userId) {
-      return AppDataService.getOrders(userId)
+    TESTFetchOrders({ commit }) {
+      return AppDataService.getOrders()
         .then(response => {
           commit('SET_ORDERS', response.data);
         })
@@ -201,8 +117,134 @@ export default createStore({
           throw(error);
         });
     },
+
   },
 
-  modules: {}
+  modules: {
 
+   static: {
+     namespaced: true,
+
+     state: () => ({
+
+       user: {
+         isAuthorized: false
+       },
+
+       filters: {
+         department: [],
+         priorities: [],
+         roles: [],
+         statuses: []
+       },
+
+       responsibleList: [],
+     }),
+
+     mutations: {
+       AUTH_USER_TRUE(state, data) {
+         state.user = data;
+         state.user.isAuthorized = true;
+       },
+
+       AUTH_USER_FALSE(state) {
+         state.user = {};
+       },
+
+       SET_FILTERS(state, data){
+         //console.log(data.department);
+         //data.department = [];
+         console.log(data);
+
+         state.filters = data;
+         state.filters.readyState = true;
+       },
+
+       UPDATE_RESPONSIBLE(state, data) {
+         state.responsibleList.push(data[0]);
+       }
+     },
+
+     actions: {
+       fetchAuthUser({ commit }, params) {
+         if (params.login && params.password) {
+           return AppDataServ.authUser(params)
+             .then(response => {
+               commit('AUTH_USER_TRUE', response.data.userData);
+               console.log('AUTH SUCCESSFUL');
+             })
+             .catch(error => {
+               throw(error);
+             });
+         } else {
+           commit('AUTH_USER_FALSE');
+           console.log('AUTH ERROR');
+         }
+       },
+
+       fetchFilters({ commit }) {
+         return AppDataServ.getFilterData()
+           .then(response => {
+             let levels = [];
+             let spaces = '';
+             for (let a = 0; a <= +response.data.department.levelCount; a++) {
+               levels.push({level: a, spaces: spaces});
+               spaces += '&nbsp;&nbsp;&nbsp;&nbsp;';
+             }
+             response.data.department.list.forEach(el => {
+               el.name = levels[+el.level].spaces + el.name;
+               el.value = el.departmentId;
+             });
+             response.data.department =  response.data.department.list;
+             console.log(response.data.department);
+             commit('SET_FILTERS', response.data);
+           })
+           .catch(error => {
+             throw(error);
+           });
+       },
+
+       fetchResponsible({ commit }, responsibleId) {
+         return AppDataServ.getResponsibleDetails(responsibleId)
+           .then(response => {
+             commit('UPDATE_RESPONSIBLE', response.data);
+           })
+           .catch(error => {
+             throw(error);
+           });
+       },
+
+//=========================================================
+
+       TESTFetchAuthUser({ commit }, params) {
+         if (params.login && params.password) {
+           return AuthService.authUser()
+             .then(response => {
+               commit('AUTH_USER_TRUE', response.data);
+             });
+         }
+       },
+
+       TESTFetchFilters({ commit }) {
+         return AppDataService.getFilterData()
+           .then(response => {
+             commit('SET_FILTERS', response.data);
+           })
+           .catch(error => {
+             throw(error);
+           });
+       },
+
+       TESTFetchResponsible({ commit }, responsibleId) {
+         return AppDataService.getResponsibleDetails(responsibleId)
+           .then(response => {
+             commit('UPDATE_RESPONSIBLE', response.data);
+           })
+           .catch(error => {
+             throw(error);
+           });
+         },
+    }
+   },
+  }
 });

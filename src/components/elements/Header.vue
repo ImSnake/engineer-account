@@ -351,22 +351,22 @@ export default {
       return this.$store.state.headerIcons.clock;
     },
     userDepartment() {
-      return this.$store.state.user.departmentName;
+      return this.$store.state.static.user.departmentName;
     },
     userNameFull() {
-      return `${this.$store.state.user.surname} ${this.$store.state.user.name} ${this.$store.state.user.patronymic}`;
+      return `${this.$store.state.static.user.surname} ${this.$store.state.static.user.name} ${this.$store.state.static.user.patronymic}`;
     },
     userNameMin() {
-      return `${this.$store.state.user.surname} ${this.$store.state.user.name[0].toUpperCase()}. ${this.$store.state.user.patronymic[0].toUpperCase()}.`;
+      return `${this.$store.state.static.user.surname} ${this.$store.state.static.user.name[0].toUpperCase()}. ${this.$store.state.static.user.patronymic[0].toUpperCase()}.`;
     },
     userPosition() {
-      return this.$store.state.user.position;
+      return this.$store.state.static.user.position;
     }
   },
 
   methods: {
     logOut() {
-      this.$store.state.user.isAuthorized = false;
+      this.$store.state.static.user.isAuthorized = false;
     },
 
     toNextLevel(e) {

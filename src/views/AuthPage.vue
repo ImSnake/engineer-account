@@ -97,12 +97,12 @@ export default {
 
   methods: {
     defineSendButtonState() {
-      setTimeout(()=> this.dataIsValid = (this.$refs.login.classList.contains('isValidValue') && this.$refs.password.classList.contains('isValidValue')), 500);
+      setTimeout(()=> this.dataIsValid = (this.$refs.login.classList.contains('isValidValue') && this.$refs.password.classList.contains('isValidValue')), 300);
     },
 
     async userAuth() {
-      //await this.$store.dispatch('TESTFetchAuthUser', { login: this.login, password: this.password });
-      await this.$store.dispatch('fetchAuthUser', { login: this.login, password: this.password });
+      //await this.$store.dispatch('static/TESTFetchAuthUser', { login: this.login, password: this.password });
+      await this.$store.dispatch('static/fetchAuthUser', { login: this.login, password: this.password });
     },
 
     validationDefineOptions(validation, successTxt, errorTxt) {

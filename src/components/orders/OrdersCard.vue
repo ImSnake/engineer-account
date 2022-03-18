@@ -52,6 +52,7 @@
         <OrdersCardDetails v-if="hasComments" :title="order.Descr" :contacts="order.Contacts" :comments="order.Comments" />
       </div>
     </div>
+
     <div @click="toggleOrderView" class="elz d-block pAB16 pAT6">
       <input :data-text-bef="hasComments ? 'Показать комментарий' : 'Комментарий отсутствует'" data-text-bef-check="Скрыть комментарий" type="checkbox"
              :class="hasComments ? '' : 'uDisabled'" class="elz d-flex a-X w100p h36 hAuto r3 cur-pointer bold opAct07 cTextBef cTextChkBef bg bg-primary bgL-5 bgHovL-10"  />
@@ -130,11 +131,7 @@ export default {
     },
 
     formattedMeetingDateTime() {
-      if (this.order.MeetingDateTime) {
-         return `${dateFormatDdMmYyyy(this.order.MeetingDateTime)} в ${dateTimeFormatHHMM(this.order.MeetingDateTime)}`;
-      } else {
-        return 'Дата и время выезда не заданы';
-      }
+      return this.order.MeetingDateTime ? `${dateFormatDdMmYyyy(this.order.MeetingDateTime)} в ${dateTimeFormatHHMM(this.order.MeetingDateTime)}` : 'Дата и время выезда не заданы';
     },
 
     orderDate() {
@@ -146,15 +143,15 @@ export default {
     },
 
     responsibleDetails(){
-      return this.$store.state.responsibleList.find(el => +el.ResponsibleID === +this.order.ResponsibleID);
+      return this.$store.state.static.responsibleList.find(el => +el.ResponsibleID === +this.order.ResponsibleID);
     },
 
     statusName() {
-      return this.$store.state.filters.statuses.find(el => +el.value === +this.order.TroubleStatusID).name;
+      return this.$store.state.static.filters.statuses.find(el => +el.value === +this.order.TroubleStatusID).name;
     },
 
     statusColor() {
-      const color = this.$store.state.filters.statuses.find(el => +el.value === +this.order.TroubleStatusID).color;
+      const color = this.$store.state.static.filters.statuses.find(el => +el.value === +this.order.TroubleStatusID).color;
       return `bg-${color} fn-${color}-t`;
     }
   },
@@ -163,7 +160,8 @@ export default {
     async showResponsibleDetails() {
       // проверить есть ли данные в кэше, если нет - получить данные по ID и сохранить
       if (!this.responsibleDetails) {
-        await this.$store.dispatch('fetchResponsible', this.order.ResponsibleID);
+        await this.$store.dispatch('static/fetchResponsible', this.order.ResponsibleID);
+        //await this.$store.dispatch('static/TESTFetchResponsible', this.order.ResponsibleID);
       }
       this.responsible = true;
     },

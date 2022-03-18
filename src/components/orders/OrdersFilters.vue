@@ -33,7 +33,7 @@
       <FilterSelect
           v-model="departmentSelected"
           @update:modelValue="changeDepartment"
-          :options="departments"
+          :options="department"
           :title="'Подразделение'"  />
 
     </div>
@@ -83,20 +83,20 @@ export default {
   },
 
   computed: {
-    departments() {
-      return this.$store.state.filters.departments;
+    department() {
+      return this.$store.state.static.filters.department;
     },
     orders() {
       return this.$store.state.orders;
     },
     priorities() {
-      return this.$store.state.filters.priorities;
+      return this.$store.state.static.filters.priorities;
     },
     roles() {
-      return this.$store.state.filters.roles;
+      return this.$store.state.static.filters.roles;
     },
     statuses() {
-      return this.$store.state.filters.statuses;
+      return this.$store.state.static.filters.statuses;
     }
   },
 
@@ -115,9 +115,9 @@ export default {
 
     changeRole() {
       if (+this.roleSelected === 1) {
-        this.orders.forEach(order => order.showInList.byRole = (+order.executorId === +this.$store.state.user.userId));
+        this.orders.forEach(order => order.showInList.byRole = (+order.executorId === +this.$store.state.static.user.userId));
       } else if (+this.roleSelected === 2) {
-        this.orders.forEach(order => order.showInList.byRole = (+order.responsibleId === +this.$store.state.user.userId));
+        this.orders.forEach(order => order.showInList.byRole = (+order.responsibleId === +this.$store.state.static.user.userId));
       } else {
         this.orders.forEach(order => order.showInList.byRole = true);
       }

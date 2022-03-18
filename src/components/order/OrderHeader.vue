@@ -21,21 +21,22 @@
           <div class="elz d-block fb150 growMax bold">{{ order.CustomerName }}</div>
         </div>
         <div class="elz d-flex f-wrap gap8">
-          <div class="elz d-block fb120 grow noShrink fn14 pV1">Тарифная зона:</div>
-          <div class="elz d-block fb150 growMax bold">{{ order.TariffZone }}</div>
+          <div class="elz d-block fb120 grow noShrink fn14 pV1">Телефон:</div>
+          <div class="elz d-block fb150 growMax bold">{{ order.CustomerPhone }}</div>
         </div>
         <div class="elz d-flex f-wrap gap8">
           <div class="elz d-block fb120 grow noShrink fn14 pV1">Адрес:</div>
           <div class="elz d-block fb150 growMax bold">{{ order.CustomerAddress }}</div>
         </div>
         <div class="elz d-flex f-wrap gap8">
-          <div class="elz d-block fb120 grow noShrink fn14 pV1">Телефон:</div>
-          <div class="elz d-block fb150 growMax bold">{{ order.CustomerPhone }}</div>
+          <div class="elz d-block fb120 grow noShrink fn14 pV1">Тарифная зона:</div>
+          <div class="elz d-block fb150 growMax bold">{{ order.TariffZone }}</div>
         </div>
       </div>
 
-      <!--  -->
-      <OrderHeaderConnection />
+      <template v-if="isConnection">
+        <OrderHeaderConnection />
+      </template>
 
     </div>
 
@@ -54,8 +55,12 @@ export default {
   },
 
   computed: {
+    isConnection() {
+      return (+this.$store.state.order.details.OrderTypeID === 2 || +this.$store.state.order.details.OrderTypeID === 11);
+    },
+
     order() {
-      return this.$store.state.orderData.orderDetails;
+      return this.$store.state.order.details;
     }
   }
 

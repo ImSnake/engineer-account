@@ -1,8 +1,8 @@
 <template>
 
-  <OrderCustomer />
-
   <OrderWorks />
+
+  <OrderCustomer />
 
 </template>
 
@@ -17,6 +17,14 @@ export default {
     OrderWorks,
     OrderCustomer
   },
+
+  props: {
+    activeComponent: { required: true, type: String }
+  },
+
+  mounted() {
+    //TODO написать метод, определяющий по переданному критерию какой компонент показать
+  }
 
 }
 </script>

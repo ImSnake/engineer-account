@@ -1,24 +1,21 @@
 <template>
 
       <div class="elz p-rel d-flex grow fb280 dir-y gap16 lh12">
-        <div class="elz d-flex gap8 grow">
-          <div @click="datepicker = true" class="elz d-flex gap8 a-X grow r3 hmn48 pH32 cur-pointer opAct07 bg bg-primary bgL-5 bgLInvD bgHovL-10">
-            <div class="elz p-rel d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/clock.svg');"></div>
-            <div class="elz d-block grow al-center">{{ meetingDateTime }}</div>
-          </div>
-        </div>
-        <div class="elz d-flex gap8 grow">
-          <div class="elz d-flex gap8 a-X grow r3 hmn48 pH32 cur-pointer opAct07 bg bg-ok bgHovL10 fn fn-ok-t">
-            <div class="elz p-rel d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/location1.svg');"></div>
-            <div class="elz d-block grow al-center">Выехал на место</div>
-          </div>
-        </div>
-        <div class="elz d-flex gap8 grow">
-          <div class="elz d-flex gap8 a-X grow r3 hmn48 pH32 cur-pointer opAct07 bg bg-success bgHovL10 fn fn-ok-t">
-            <div class="elz p-rel d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/flag.svg');"></div>
-            <div class="elz d-block grow al-center">Прибыл на место</div>
-          </div>
-        </div>
+
+        <BaseButton @click="datepicker = true"
+            :iconName="'clock'"
+            :classList="'hmn48 grow bg-primary bgL-5 bgLInvD bgHovL-10'"
+            :title="meetingDateTime"   />
+
+        <BaseButton @onButtonClick="onButtonClick"
+            :iconName="'location1'"
+            :classList="'hmn48 grow bg-ok bgHovL10 fn-ok-t'"
+            :title="'Выехал на место'"   />
+
+        <BaseButton @onButtonClick="onButtonClick"
+            :iconName="'flag'"
+            :classList="'hmn48 grow bg-success bgHovL10 fn-ok-t'"
+            :title="'Прибыл на место'"   />
 
         <template v-if="datepicker">
           <PopUpWindow @closePopUp="datepicker = false" :className="'p-AT mT-8 mH-16'">
@@ -33,6 +30,7 @@
 <script>
 import DateTimePicker from "@/components/elements/DateTimePicker";
 import PopUpWindow    from "@/components/elements/PopUpWindow";
+import BaseButton     from "@/components/elements/BaseButton";
 
 import { dateFormatDdMmYyyy, dateTimeFormatHHMM } from "@/helpers/formating";
 
@@ -40,6 +38,7 @@ export default {
   name: "OrderHeaderConnection",
 
   components: {
+    BaseButton,
     DateTimePicker,
     PopUpWindow
   },
@@ -60,11 +59,15 @@ export default {
     },
 
     order() {
-      return this.$store.state.orderData.orderDetails;
+      return this.$store.state.order.details;
     }
   },
 
   methods: {
+    onButtonClick() {
+      console.log('button is clicked');
+    },
+
     async updateMeetingDateTime(date) {
       await this.$store.dispatch('updateOrderMeetingDateTime', date);
       this.datepicker = false;
