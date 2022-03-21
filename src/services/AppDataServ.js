@@ -29,9 +29,20 @@ export default {
 		return apiConnection.get(`/order/getList/`);
 	},
 
+	getOrderSingleSearch(orderId) {
+		console.log('API get Order Single Search');
+		console.log(orderId);
+		return apiConnection.get(`order/getPreview/${orderId}`);
+	},
+
 	getResponsibleDetails(responsibleId) {
 		console.log('API get Responsible');
 		return apiConnection.get(`/responsibleDetails/${responsibleId}`);
+	},
+
+	getOrderDetails(orderId) {
+		console.log('API get Order Details');
+		return apiConnection.get(`order/getInfo/${orderId}`);
 	}
 
 	///order/getInfo/:orderId

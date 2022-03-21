@@ -2,7 +2,7 @@
 
   <template v-if="isActive">
 
-    <div class="elz d-block r3 bor1 fn12 mB32 oAuto br br-ok bg bg-ok bgA10 showSelOut hideSelOut">
+    <div class="elz d-block r3 bor1 fn12 mB32 oAuto br br-ok bg bg-ok bgA10 showSelOut hideSelOut sel">
       <div class="elz d-flex gap8 a-H p16 opAct07 cur-pointer fn16">
         <div class="elz d-block grow bold">Услуги по сделке: #66666666</div>
         <div class="elz p-rel d-block noShrink p-rel mskBef s8 deg180 cFillBef bgBef-CC hideSelIn" style="--elzMsk: url('https://lelouch.ru/uploads/icons/arrow1.svg');"></div>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="elz d-flex a-X mB32">
-      <input class="elz d-block al-center r3 h48 pH32 w240 cur-pointer opAct07 bg bg-ok fn fn-ok-t" type="submit" value="Создать работу"/>
+      <input class="elz d-block al-center r3 h48 pH32 w240 cur-pointer opAct07 bg bg-ok fn fn-ok-t" type="submit" value="Создать клиента в Гидре"/>
     </div>
 
     <div class="elz d-flex dir-y gap16">

@@ -10,11 +10,11 @@
         </div>
         <div class="elz d-flex f-wrap gap8">
           <div class="elz d-block fb120 grow noShrink fn14 pV1">Номер заявки:</div>
-          <a class="elz d-block fb150 growMax bold cur-pointer fn fn-link-inline underlineHov">#{{ order.OrderID }}</a>
+          <a :href="`http://tts.naukanet.ru/customers/orderinfo.asp?OrderID=${order.OrderID}`" target="_blank" class="elz d-block fb150 growMax bold cur-pointer fn fn-link-inline underlineHov">#{{ order.OrderID }}</a>
         </div>
         <div class="elz d-flex f-wrap gap8">
           <div class="elz d-block fb120 grow noShrink fn14 pV1">Сделка:</div>
-          <a class="elz d-block fb150 growMax bold cur-pointer fn fn-link-inline underlineHov">#{{ order.DealID }}</a>
+          <a :href="`http://tts.naukanet.ru:8086/Orders/OrderInfoNew.asp?OrderID=${order.DealID}`" target="_blank" class="elz d-block fb150 growMax bold cur-pointer fn fn-link-inline underlineHov">#{{ order.DealID }}</a>
         </div>
         <div class="elz d-flex f-wrap gap8">
           <div class="elz d-block fb120 grow noShrink fn14 pV1">Клиент:</div>

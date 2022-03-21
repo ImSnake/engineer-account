@@ -135,6 +135,10 @@ export default {
         const value = order.OrderID.toString();
         order.showInList.byNumber = (value.search(pattern) > -1);
       });
+      if (!this.orders.find(el => el.showInList.byNumber === true)) {
+        console.log ('show search icon -> get order by ID');  //TODO добавить иконку и передавать запрос на API по подтверждению?
+        this.$store.dispatch('fetchOrderSingleSearch', pattern);
+      }
     },
 
     toggleSortFilter(e) {

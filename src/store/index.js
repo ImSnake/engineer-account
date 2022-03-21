@@ -49,6 +49,24 @@ export default createStore({
       //TODO Если нет заявок - передавать что-то, чтобы массив не был нулевым
     },
 
+    UPDATE_ORDERS_LIST(state, data) {
+      const order = data[0];
+      order.MeetingDateTime = ""; //TODO Удалить строку на финальном этапе
+      const diff = order.Deadline ? dateCalculateDifference(new Date(), new Date(order.Deadline)) : dateCalculateDifference();
+      order.overdueTitle = diff.title;
+      order.overdueSummary = diff.summary;
+      order.showInList = {
+        byNumber: true,
+        byPriority: true,
+        byRole: true,
+        byStatus: true,
+        byDepartment: true,
+      }
+      state.orders.push(data[0]);
+      //console.log(data[0]);
+      //console.log(state.orders);
+    },
+
     UPDATE_ORDER_MEETING(state, data) {
       state.order.details.MeetingDateTime = data;
     },
@@ -63,6 +81,17 @@ export default createStore({
       return AppDataServ.getOrders(token)
         .then(response => {
           commit('SET_ORDERS', response.data);
+        })
+        .catch(error => {
+          throw(error);
+        });
+    },
+
+    fetchOrderSingleSearch({ commit }, orderId) {
+      return AppDataServ.getOrderSingleSearch(orderId)
+        .then(response => {
+          console.log (orderId);
+          commit('UPDATE_ORDERS_LIST', response.data);
         })
         .catch(error => {
           throw(error);
@@ -152,10 +181,17 @@ export default createStore({
        },
 
        SET_FILTERS(state, data){
-         //console.log(data.department);
-         //data.department = [];
-         console.log(data);
-
+         let levels = [];
+         let spaces = '';
+         for (let a = 0; a <= +data.department.levelCount; a++) {
+           levels.push({level: a, spaces: spaces});
+           spaces += '&nbsp;&nbsp;&nbsp;&nbsp;';
+         }
+         data.department.list.forEach(el => {
+           el.name = levels[+el.level].spaces + el.name;
+           el.value = (+el.level === 0) ? 0 : el.departmentId;
+         });
+         data.department = data.department.list;
          state.filters = data;
          state.filters.readyState = true;
        },
@@ -185,17 +221,6 @@ export default createStore({
        fetchFilters({ commit }) {
          return AppDataServ.getFilterData()
            .then(response => {
-             let levels = [];
-             let spaces = '';
-             for (let a = 0; a <= +response.data.department.levelCount; a++) {
-               levels.push({level: a, spaces: spaces});
-               spaces += '&nbsp;&nbsp;&nbsp;&nbsp;';
-             }
-             response.data.department.list.forEach(el => {
-               el.name = levels[+el.level].spaces + el.name;
-               el.value = (+el.level === 0) ? 0 : el.departmentId;
-             });
-             response.data.department =  response.data.department.list;
              commit('SET_FILTERS', response.data);
            })
            .catch(error => {
