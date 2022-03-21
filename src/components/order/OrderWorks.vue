@@ -1,6 +1,6 @@
 <template>
 
-  <div v-if="isActive" class="elz d-block p16 wmx1200 mAuto">
+  <template v-if="isActive">
 
     <div class="elz d-flex a-X mB32">
       <BaseButton @onButtonClick="workCreate"
@@ -14,7 +14,7 @@
       </template>
     </div>
 
-  </div>
+  </template>
 
 </template>
 

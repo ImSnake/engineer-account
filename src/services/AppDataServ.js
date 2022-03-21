@@ -26,11 +26,17 @@ export default {
 
 	getOrders() {
 		console.log('API get Orders List');
-		return apiConnection.get(`/orders/getOrderList`);
+		return apiConnection.get(`/order/getList/`);
 	},
 
 	getResponsibleDetails(responsibleId) {
 		console.log('API get Responsible');
 		return apiConnection.get(`/responsibleDetails/${responsibleId}`);
 	}
+
+	///order/getInfo/:orderId
+
+	//customerInfo/:customerId
+
+	//order/getPreview/:orderId
 }

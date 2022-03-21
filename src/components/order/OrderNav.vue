@@ -4,7 +4,7 @@
       <div class="elz d-flex gap32 h56 wmn1200 pH16 mAuto">
 
         <OrderNavItem ref="works"
-            @onItemClick="testNavClick('works')"
+            @onItemClick="navClick('works')"
             :iconName="'hammer1'"
             :title="'Работы по заявке'"
             :label="worksLength"   />
@@ -12,22 +12,22 @@
         <template v-if="isConnection">
 
           <OrderNavItem ref="customer"
-              @onItemClick="testNavClick('customer')"
+              @onItemClick="navClick('customer')"
               :iconName="'user'"
               :title="'Данные клиента'"   />
 
           <OrderNavItem ref="services"
-              @onItemClick="testNavClick('services')"
+              @onItemClick="navClick('services')"
               :iconName="'hammer-wrench'"
               :title="'Конфигурация услуг'"   />
 
           <OrderNavItem ref="tariffing"
-              @onItemClick="testNavClick('tariffing')"
+              @onItemClick="navClick('tariffing')"
               :iconName="'network'"
               :title="'Постановка на тарификацию'"   />
 
           <OrderNavItem ref="finishing"
-              @onItemClick="testNavClick('finishing')"
+              @onItemClick="navClick('finishing')"
               :iconName="'file-text'"
               :title="'Завершение'"   />
 
@@ -65,7 +65,7 @@ export default {
   },
 
   methods: {
-    testNavClick(bookmarkName) {
+    navClick(bookmarkName) {
       Object.keys(this.$refs).forEach(el => {
         (el === bookmarkName) ? this.$refs[el].isActive = true : this.$refs[el].isActive = false;
       });

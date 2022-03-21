@@ -193,10 +193,9 @@ export default createStore({
              }
              response.data.department.list.forEach(el => {
                el.name = levels[+el.level].spaces + el.name;
-               el.value = el.departmentId;
+               el.value = (+el.level === 0) ? 0 : el.departmentId;
              });
              response.data.department =  response.data.department.list;
-             console.log(response.data.department);
              commit('SET_FILTERS', response.data);
            })
            .catch(error => {

@@ -10,9 +10,15 @@
 
     <OrderNav @switchOrderContent="switchComponentView"   />
 
-    <OrderWorks ref="works"   />
+    <div class="elz d-block p16 wmx1200 mAuto">
 
-    <OrderCustomer ref="customer"   />
+      <OrderWorks ref="works"   />
+
+      <OrderCustomer ref="customer"   />
+
+      <OrderServices ref="services"   />
+
+    </div>
 
   </template>
 
@@ -29,6 +35,7 @@ import OrderHeader   from "@/components/order/OrderHeader";
 import OrderNav      from "@/components/order/OrderNav";
 import OrderWorks    from "@/components/order/OrderWorks";
 import OrderCustomer from "@/components/order/OrderCustomer";
+import OrderServices from "@/components/order/OrderServices";
 
 import { useStore } from "vuex";
 import { onUnmounted } from "vue";
@@ -42,7 +49,8 @@ export default {
     OrderHeader,
     OrderNav,
     OrderWorks,
-    OrderCustomer
+    OrderCustomer,
+    OrderServices
   },
 
   props: {
