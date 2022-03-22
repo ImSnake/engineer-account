@@ -56,7 +56,11 @@ export default {
 
   computed: {
     isConnection() {
-      return (+this.$store.state.order.details.OrderTypeID === 2 || +this.$store.state.order.details.OrderTypeID === 11);
+      return (+this.order.OrderTypeID === 2 || +this.order.OrderTypeID === 11) && (+this.order.CustomerTypeID === 2);
+    },
+
+    order() {
+      return this.$store.state.order.details;
     },
 
     worksLength() {

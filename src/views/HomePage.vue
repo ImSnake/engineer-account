@@ -1,6 +1,6 @@
 <template>
 
-  <Header />
+  <Header @logOutApp="$emit('logEvent')"/>
 
   <template v-if="dataIsLoaded">
 
@@ -41,12 +41,17 @@ export default {
     OrdersCard
   },
 
+  emits: [ 'logEvent' ],
+
   setup() {
     const store = useStore();
     store.dispatch('fetchOrders');
     //store.dispatch('TESTFetchOrders');
 
-    store.dispatch('static/fetchFilters');
+    if (!store.state.static.filters.readyState) {
+      store.dispatch('static/fetchFilters');
+    }
+
     //store.dispatch('static/TESTFetchFilters');
 
     /*const timer = setInterval(function () {
@@ -64,6 +69,7 @@ export default {
     dataIsLoaded() {
       return this.$store.state.static.filters.readyState && this.$store.state.orders.readyState;
     },
+
     orders() {
       return this.$store.state.orders;
     }

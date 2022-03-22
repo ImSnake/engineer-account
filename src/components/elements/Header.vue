@@ -299,7 +299,7 @@
               <div class="elz d-block elizeMenuItem">
                 <div class="elz p-rel d-block elizeItemInner">
                   <div class="elz p-rel d-flex hmn56 bgHov bgHov-primary bgHovL-5 bgHovLInvD cHovOut opHovOut">
-                    <div  @click="logOut" class="elz d-flex a-H growX cur-pointer opAct07">
+                    <div @click="$emit('logOutApp')" class="elz d-flex a-H growX cur-pointer opAct07">
                       <div class="d-flex a-X s56 mH8">
                         <div class="d-flex a-X s40 rCircle bg bg-primary bgL-10 bgLInvD fn fn-white fnL-5 fnHovInL0" title="Галочка на иконке типа">
                           <div class="elz d-flex a-X dsh-text3">
@@ -337,6 +337,8 @@ export default {
       class: 'elzTheme-light'
   }],
 
+  emits: [ 'logOutApp' ],
+
   data() {
     return {
       activeTheme: this.$options._theme[0]
@@ -365,10 +367,6 @@ export default {
   },
 
   methods: {
-    logOut() {
-      this.$store.state.static.user.isAuthorized = false;
-    },
-
     toNextLevel(e) {
       this.toggleLevel(e, '.elizeMenuItem');
       this.toggleLevel(e, '.elizeMenuList');

@@ -22,10 +22,63 @@ export default createStore({
   },
 
   mutations: {
-    SET_ORDER_DATA(state, data) {
-      state.order = data[0];
+
+    SET_ORDER_DETAILS(state, data) {
+      state.order.details = data[0];
       state.order.readyState = true;
       console.log(state.order);
+
+      //=============================================
+
+      state.order.customerInfo = {
+        customerId: "1234567",
+          name: "Дмитрий",
+          patronymic: "Вячеславович",
+          surname: "Пустовит",
+          birthdayDate: "01.01.1985",
+          birthdayPlace: "гор. Волгоград",
+          email: "pulikova.j@gmail.com",
+          emailApproved: 2,
+          mobile: "+7(963)99-96-440",
+          mobileApproved: 1,
+          passport: {
+          series: "6509",
+            number: "818214",
+            issueDate: "08.09.2001",
+            issueDepartment: "ОВД Свердловской области в городе Заречном",
+            ufmsCode: "668-009",
+            registrationAddress: "г. Заречный, ул. Курчатова, дом. 27, корпус 3, кв. 42"
+        }
+      };
+
+      state.order.works =  [
+        {
+          workId: "123",
+          startDate: "2022-03-15 12:00:00.000",
+          finishDate: "2022-03-16 19:00:00.000",
+          points: "420",
+          participants: [
+            {
+              participantId: "123456",
+              participantFIO: "Иванов Петр Федорович",
+              participationStart: ""
+            },
+            {
+              participantId: "123456",
+              participantFIO: "Джигарханян Ильман Ахметович",
+              participationStart: "2022-03-15 12:20:00.000"
+            }
+          ],
+          workList: [
+            {
+              test: "test"
+            },
+            {
+              test: "test"
+            }
+          ]
+        }
+      ];
     },
 
     SET_ORDERS(state, data) {
@@ -73,10 +126,34 @@ export default createStore({
 
     UPDATE_ORDERS_MEETING(state, data) {
       state.orders.find(order => +order.OrderID === +data.OrderID).MeetingDateTime = data.date;
-    }
+    },
+
+//=============================================
+
+    /*TEST_ORDER_DATA(state, data) {
+      state.order.customerInfo = data[0].customerInfo;
+      state.order.works = data[0].works;
+      state.order.readyState = true;
+      console.log(state.order);
+    },*/
+
   },
 
   actions: {
+    fetchCustomerInfo(customerId) {
+      console.log(customerId);
+    },
+
+    fetchOrderDetails({ commit }, orderId) {
+      return AppDataServ.getOrderDetails(orderId)
+        .then(response => {
+          commit('SET_ORDER_DETAILS', response.data);
+        })
+        .catch(error => {
+          throw(error);
+        });
+    },
+
     fetchOrders({ commit }, token) {
       return AppDataServ.getOrders(token)
         .then(response => {
@@ -92,16 +169,6 @@ export default createStore({
         .then(response => {
           console.log (orderId);
           commit('UPDATE_ORDERS_LIST', response.data);
-        })
-        .catch(error => {
-          throw(error);
-        });
-    },
-
-    fetchOrderData({ commit }, orderId) {
-      return AppDataService.getOrderData(orderId)
-        .then(response => {
-          commit('SET_ORDER_DATA', response.data);
         })
         .catch(error => {
           throw(error);
@@ -134,7 +201,6 @@ export default createStore({
         });*/
     },
 
-
 //=========================================================
 
     TESTFetchOrders({ commit }) {
@@ -147,6 +213,16 @@ export default createStore({
         });
     },
 
+    /*TESTFetchOrderDetails({ commit }, orderId) {
+      return AppDataService.getOrderData(orderId)
+        .then(response => {
+          commit('TEST_ORDER_DATA', response.data);
+        })
+        .catch(error => {
+          throw(error);
+        });
+    },*/
+
   },
 
   modules: {
@@ -156,9 +232,7 @@ export default createStore({
 
      state: () => ({
 
-       user: {
-         isAuthorized: false
-       },
+       user: {},
 
        filters: {
          department: [],
@@ -172,8 +246,16 @@ export default createStore({
 
      mutations: {
        AUTH_USER_TRUE(state, data) {
-         state.user = data;
-         state.user.isAuthorized = true;
+         state.user = data.userData;
+         localStorage.setItem('engineerAccountAppToken', data.token);
+         localStorage.setItem('engineerAccountAppUserData',  JSON.stringify(data.userData));
+       },
+
+       APP_STATIC_UPDATE(state) {
+         const userData = localStorage.getItem('engineerAccountAppUserData');
+         state.user = JSON.parse(userData);
+         const filters = localStorage.getItem('engineerAccountAppFilters');
+         state.filters = JSON.parse(filters);
        },
 
        AUTH_USER_FALSE(state) {
@@ -194,6 +276,8 @@ export default createStore({
          data.department = data.department.list;
          state.filters = data;
          state.filters.readyState = true;
+
+         localStorage.setItem('engineerAccountAppFilters',  JSON.stringify(state.filters));
        },
 
        UPDATE_RESPONSIBLE(state, data) {
@@ -206,7 +290,7 @@ export default createStore({
          if (params.login && params.password) {
            return AppDataServ.authUser(params)
              .then(response => {
-               commit('AUTH_USER_TRUE', response.data.userData);
+               commit('AUTH_USER_TRUE', response.data);
                console.log('AUTH SUCCESSFUL');
              })
              .catch(error => {
@@ -216,6 +300,12 @@ export default createStore({
            commit('AUTH_USER_FALSE');
            console.log('AUTH ERROR');
          }
+       },
+
+       async fetchAuthUserToken({ commit }) {
+         await AppDataServ.updateToken();
+         await commit('APP_STATIC_UPDATE');
+         console.log('USER TOKEN WAS UPDATED');
        },
 
        fetchFilters({ commit }) {

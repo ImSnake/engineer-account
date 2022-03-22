@@ -160,7 +160,7 @@ import InputItem  from "@/components/elements/InputItem";
 import BaseButton from "@/components/elements/BaseButton";
 
 import DaDataService from "@/services/DaDataService";
-//import { useStore } from 'vuex';
+import { useStore } from "vuex";
 
 
 export default {
@@ -172,6 +172,11 @@ export default {
   },
 
   setup(){
+    const store = useStore();
+    if (!store.state.order.customerInfo) {
+      store.dispatch('fetchCustomerInfo', store.state.order.details.CustomerIDTTS);
+    }
+
     return {
       elemProps: {
         error: {

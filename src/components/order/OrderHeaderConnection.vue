@@ -51,7 +51,7 @@ export default {
 
   computed: {
     meetingDateTime() {
-      if (this.order.MeetingDateTime) {
+      if (this.order.MeetingDateTime.length > 1) {
         return `${dateFormatDdMmYyyy(this.order.MeetingDateTime)} в ${dateTimeFormatHHMM(this.order.MeetingDateTime)}`;
       } else {
         return 'Дата и время не заданы';

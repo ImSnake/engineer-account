@@ -3,11 +3,18 @@
   <div class="elz d-flex ac-between f-wrap pAT16 mEA-16 fn12">
     <div class="elz cnnSelects d-flex f-wrap grow">
       <label class="elz d-grid grow mEA16 w100 grPos fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0">
-        <input @keyup="findByOrderId" v-model="orderId" type="number" placeholder="ID Заявки" class="elz elzInput d-block grPin grY2 w100p
-               bor1 r3 h40 pL40 ellipsis trns2 bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovL-20 brFoc-focus brFocL0 fn fn-primary-t" />
+        <input @keyup="findByOrderId" @keyup.enter="getByOrderId" v-model="orderId" type="number" placeholder="ID Заявки" class="elz elzInput d-block grPin grY2 w100p
+               bor1 r3 h40 pL40 pR32 ellipsis trns2 bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovL-20 brFoc-focus brFocL0 fn fn-primary-t" />
         <span class="elz d-flex grPin grY2 a-H bor1 pH7 z6 evNone">
           <span class="elz p-rel d-flex a-X s24 trns2">
             <span class="elz p-rel d-flex a-X mskBef s1 bold fn16">#</span>
+          </span>
+          <span v-if="orderSearchIcon" @click="getByOrderId" class="elz p-rel growX d-flex a-PR">
+            <span class="elz p-rel d-flex a-H cur-pointer opAct07 fn fn-ok fnHovL10" title="Искать заявку">
+              <span class="elz p-rel d-flex a-X s24 r2 evAuto">
+                <span class="elz p-rel d-block mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/search.svg');"></span>
+              </span>
+            </span>
           </span>
         </span>
       </label>
@@ -76,6 +83,7 @@ export default {
     return {
       departmentSelected: '',
       orderId: '',
+      orderSearchIcon: false,
       prioritySelected: '',
       roleSelected: '',
       statusSelected: ''
@@ -86,15 +94,19 @@ export default {
     department() {
       return this.$store.state.static.filters.department;
     },
+
     orders() {
       return this.$store.state.orders;
     },
+
     priorities() {
       return this.$store.state.static.filters.priorities;
     },
+
     roles() {
       return this.$store.state.static.filters.roles;
     },
+
     statuses() {
       return this.$store.state.static.filters.statuses;
     }
@@ -135,10 +147,11 @@ export default {
         const value = order.OrderID.toString();
         order.showInList.byNumber = (value.search(pattern) > -1);
       });
-      if (!this.orders.find(el => el.showInList.byNumber === true)) {
-        console.log ('show search icon -> get order by ID');  //TODO добавить иконку и передавать запрос на API по подтверждению?
-        this.$store.dispatch('fetchOrderSingleSearch', pattern);
-      }
+      this.orderSearchIcon = !this.orders.find(el => el.showInList.byNumber === true);
+    },
+
+    getByOrderId() {
+      this.$store.dispatch('fetchOrderSingleSearch', this.orderId.toString());
     },
 
     toggleSortFilter(e) {

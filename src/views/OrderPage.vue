@@ -1,6 +1,6 @@
 <template>
 
-  <Header  />
+  <Header @logOutApp="$emit('logEvent')"/>
 
   <BreadCrumbs :title="'К списку заявок'" :path="'Home'" />
 
@@ -53,6 +53,8 @@ export default {
     OrderServices
   },
 
+  emits: [ 'logEvent' ],
+
   props: {
     orderId: { required: true, type: [ Number, String ] }
   },
@@ -60,9 +62,10 @@ export default {
   setup(props) {
     console.log('ORDER PAGE setup hook');
     const store = useStore();
-    store.dispatch('fetchOrderData', { orderId: props.orderId });
+    //store.dispatch('TESTFetchOrderDetails', { orderId: props.orderId });
+    store.dispatch('fetchOrderDetails', props.orderId);
 
-    onUnmounted(() => {store.state.order = []; });
+    onUnmounted(() => {store.state.order = {}; });
 
     //TODO Определить тип заявки для отображения интерфейса: если это подключение - показывать правую панель "OrderHeaderConnection"
   },

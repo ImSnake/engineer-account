@@ -1,7 +1,7 @@
 <template>
 
   <div  class="authWrap bg bg-primary">
-    <form @keyup.enter="userAuth"  class="authFormWrap">
+    <form @keyup.enter="$emit('logEvent', { login: login, password: password })"  class="authFormWrap">
       <div class="elz authFormShow d-block h80">
         <label class="elz d-grid grPos fn fnLInvD fn-primary-t fnL20 fnHovL10 fnFow-focus fnFowL0">
           <input ref="login" @keyup="validationLogin" v-model="login" :class="login ? loginProps.classApproval : ''" type="text" placeholder="i.ivanov"
@@ -45,7 +45,7 @@
       </div>
 
       <div class="elz authFormShow d-block h48">
-        <div @click="userAuth" :class="dataIsValid ? '' : 'uDisabled'" class="mV16 elz buttonTest d-flex a-X al-center selNone r3 h48 w100p fn-11 cur-pointer
+        <div @click="$emit('logEvent', { login: login, password: password })" :class="dataIsValid ? '' : 'uDisabled'" class="mV16 elz buttonTest d-flex a-X al-center selNone r3 h48 w100p fn-11 cur-pointer
              bg bg-ok bgHovL3 bgActL-10 bgSelL-10 br brFD brLF-10 br-ok fn fn-ok-t fnHovL10 fnSelL10 trnsStyle trns">Авторизация
         </div>
       </div>
@@ -61,6 +61,8 @@
 <script>
 export default {
   name: "AuthPage",
+
+  emits: [ 'logEvent' ],
 
   setup() {
     return {
@@ -100,10 +102,13 @@ export default {
       setTimeout(()=> this.dataIsValid = (this.$refs.login.classList.contains('isValidValue') && this.$refs.password.classList.contains('isValidValue')), 300);
     },
 
-    async userAuth() {
+
+/*    async userAuth() {
       //await this.$store.dispatch('static/TESTFetchAuthUser', { login: this.login, password: this.password });
       await this.$store.dispatch('static/fetchAuthUser', { login: this.login, password: this.password });
-    },
+      console.log('action after user auth');
+      /!*(this.$store.state.static.user.isAuthorized) ? this.$router.push({name: 'Home'}) : this.$router.push({name: 'Auth'});*!/
+    },*/
 
     validationDefineOptions(validation, successTxt, errorTxt) {
       return (validation) ? {

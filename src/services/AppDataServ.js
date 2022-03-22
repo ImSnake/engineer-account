@@ -15,7 +15,6 @@ export default {
 		console.log('API authorization');
 		const request = await apiConnection.post('/authorization', params);
 		apiConnection.defaults.headers.common['token'] = request.data.token;
-		//console.log(apiConnection.defaults.headers);
 		return request;
 	},
 
@@ -43,11 +42,14 @@ export default {
 	getOrderDetails(orderId) {
 		console.log('API get Order Details');
 		return apiConnection.get(`order/getInfo/${orderId}`);
+	},
+
+	updateToken() {
+		console.log('API Update token');
+		apiConnection.defaults.headers.common['token'] = localStorage.engineerAccountAppToken;
 	}
 
-	///order/getInfo/:orderId
 
 	//customerInfo/:customerId
 
-	//order/getPreview/:orderId
 }
