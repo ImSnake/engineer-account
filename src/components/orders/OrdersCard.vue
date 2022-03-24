@@ -165,7 +165,6 @@ export default {
       // проверить есть ли данные в кэше, если нет - получить данные по ID и сохранить
       if (!this.responsibleDetails) {
         await this.$store.dispatch('static/fetchResponsible', this.order.ResponsibleID);
-        //await this.$store.dispatch('static/TESTFetchResponsible', this.order.ResponsibleID);
       }
       this.responsible = true;
     },

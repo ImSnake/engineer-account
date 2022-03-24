@@ -1,19 +1,9 @@
-import AuthService    from "@/services/AuthService"; //заглушка - удалить
-import AppDataService from "@/services/AppDataService"; //заглушка удалить
-
 import AppDataServ    from "@/services/AppDataServ";
 import { createStore } from 'vuex';
 import { dateCalculateDifference } from "@/helpers/formating";
 
 
 export default createStore({
-/*
-  state: {},
-
-  mutations: {},
-
-  actions: {},*/
-
   modules: {
 
     static: {
@@ -110,37 +100,6 @@ export default createStore({
               throw(error);
             });
         },
-
-      //=========================================================
-
-        TESTFetchAuthUser({ commit }, params) {
-          if (params.login && params.password) {
-            return AuthService.authUser()
-              .then(response => {
-                commit('AUTH_USER_TRUE', response.data);
-              });
-          }
-        },
-
-        TESTFetchFilters({ commit }) {
-          return AppDataService.getFilterData()
-            .then(response => {
-              commit('SET_FILTERS', response.data);
-            })
-            .catch(error => {
-              throw(error);
-            });
-        },
-
-        TESTFetchResponsible({ commit }, responsibleId) {
-          return AppDataService.getResponsibleDetails(responsibleId)
-            .then(response => {
-              commit('UPDATE_RESPONSIBLE', response.data);
-            })
-            .catch(error => {
-              throw(error);
-            });
-          },
      }
     },
 
@@ -226,26 +185,6 @@ export default createStore({
         updateOrdersMeetingDateTime({commit}, params) {
           commit('UPDATE_ORDERS_MEETING', params);
           //TODO сначала передача данных по API в tts, после апрува - обновление данных в state
-          /*return AppDataService.updateMeetingDateTime(params)
-						.then(response => {
-							console.log(response);
-							commit('UPDATE_ORDERS_MEETING', params);
-						})
-						.catch(error => {
-							throw(error);
-						});*/
-        },
-
-    //=========================================================
-
-        TESTFetchOrders({ commit }) {
-          return AppDataService.getOrders()
-            .then(response => {
-              commit('SET_ORDERS', response.data);
-            })
-            .catch(error => {
-              throw(error);
-            });
         },
       }
     },
@@ -297,12 +236,17 @@ export default createStore({
           console.log(state.order);
         },
 
-        SET_ORDER_CUSTOMER_INFO(state, data) {
+        SET_CUSTOMER_INFO(state, data) {
           state.order.customerInfo = data;
         },
 
         SET_SERVICES(state, data) {
           state.order.services = data;
+        },
+
+        UPDATE_CUSTOMER_INFO(state, data) {
+          console.log(data);
+          console.log(state);
         },
 
         UPDATE_ORDER_MEETING(state, data) {
@@ -311,10 +255,10 @@ export default createStore({
       },
 
       actions: {
-        fetchCustomerInfo({ commit },customerId) {
+        fetchCustomerInfo({ commit }, customerId) {
           return AppDataServ.getCustomerInfo(customerId)
             .then(response => {
-              commit('SET_ORDER_CUSTOMER_INFO', response.data);
+              commit('SET_CUSTOMER_INFO', response.data);
             })
             .catch(error => {
               throw(error);
@@ -341,17 +285,19 @@ export default createStore({
             });
         },
 
+        updateCustomerInfo({ commit }, customerData) {
+          return AppDataServ.updateCustomerInfo(customerData)
+            .then(response => {
+              commit('UPDATE_CUSTOMER_INFO', response.data);
+            })
+            .catch(error => {
+              throw(error);
+            });
+        },
+
         updateOrderMeetingDateTime({commit}, date) {
           commit('UPDATE_ORDER_MEETING', date);
           //TODO сначала передача данных по API в tts, после апрува - обновление данных в state
-          /*return AppDataService.updateMeetingDateTime(date)
-						.then(response => {
-							console.log(response);
-							commit('UPDATE_ORDER_MEETING', date);
-						})
-						.catch(error => {
-							throw(error);
-						});*/
         },
       }
     }

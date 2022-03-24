@@ -35,7 +35,6 @@ export default {
 
     async logInn(authData) {
       console.log('LOG INN APP');
-      //await this.$store.dispatch('static/TESTFetchAuthUser', { login: this.login, password: this.password });
       await this.$store.dispatch('static/fetchAuthUser', authData);
       this.definePageView();
     },

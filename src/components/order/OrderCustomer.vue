@@ -246,6 +246,7 @@ export default {
   methods: {
     submitCustomerData(){
       console.log('submit Customer Data');
+      this.$store.dispatch('orderPage/updateCustomerInfo', this.user);
     },
 
     updateIssueDepartment(val) {

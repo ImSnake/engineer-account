@@ -45,7 +45,6 @@ export default {
   setup() {
     const store = useStore();
     store.dispatch('homePage/fetchOrders');
-    //store.dispatch('homePage/TESTFetchOrders');
 
     if (!store.state.static.filters.readyState) {
       store.dispatch('static/fetchFilters');
