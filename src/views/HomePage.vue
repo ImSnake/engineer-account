@@ -25,12 +25,11 @@
 </template>
 
 <script>
-import Header from "@/components/elements/Header";
+import Header        from "@/components/elements/Header";
 import OrdersFilters from "@/components/orders/OrdersFilters";
-import OrdersCard from "@/components/orders/OrdersCard";
+import OrdersCard    from "@/components/orders/OrdersCard";
+import { useStore }  from 'vuex';
 
-import { useStore } from 'vuex';
-//import { onUnmounted } from "vue";
 
 export default {
   name: "HomePage",
@@ -45,33 +44,21 @@ export default {
 
   setup() {
     const store = useStore();
-    store.dispatch('fetchOrders');
-    //store.dispatch('TESTFetchOrders');
+    store.dispatch('homePage/fetchOrders');
+    //store.dispatch('homePage/TESTFetchOrders');
 
     if (!store.state.static.filters.readyState) {
       store.dispatch('static/fetchFilters');
     }
-
-    //store.dispatch('static/TESTFetchFilters');
-
-    /*const timer = setInterval(function () {
-      console.log('interval update all orders');
-      store.dispatch('fetchOrders', { userID: store.state.user.userId });
-    }, 40000);
-
-    onUnmounted(() => { clearInterval(timer); });
-
-    return { timer }*/
   },
-
 
   computed: {
     dataIsLoaded() {
-      return this.$store.state.static.filters.readyState && this.$store.state.orders.readyState;
+      return this.$store.state.static.filters.readyState && this.$store.state.homePage.readyState;
     },
 
     orders() {
-      return this.$store.state.orders;
+      return this.$store.state.homePage.orders;
     }
   },
 

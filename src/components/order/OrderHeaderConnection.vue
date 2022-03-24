@@ -3,7 +3,7 @@
       <div class="elz p-rel d-flex grow fb280 dir-y gap16 lh12">
 
         <BaseButton @click="datepicker = true"
-            :iconName="'clock'"
+            :iconName="'truck'"
             :classList="'hmn48 grow bg-primary bgL-5 bgLInvD bgHovL-10'"
             :title="meetingDateTime"   />
 
@@ -59,7 +59,7 @@ export default {
     },
 
     order() {
-      return this.$store.state.order.details;
+      return this.$store.state.orderPage.order.details;
     }
   },
 
@@ -69,7 +69,7 @@ export default {
     },
 
     async updateMeetingDateTime(date) {
-      await this.$store.dispatch('updateOrderMeetingDateTime', date);
+      await this.$store.dispatch('orderPage/updateOrderMeetingDateTime', date);
       this.datepicker = false;
     }
   }

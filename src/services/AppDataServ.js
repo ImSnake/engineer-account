@@ -18,9 +18,24 @@ export default {
 		return request;
 	},
 
+	getCustomerInfo(customerId) {
+		console.log('API get Customer Info');
+		return apiConnection.get(`/customerInfo/${customerId}`);
+	},
+
+	getDealServices(dealId) {
+		console.log('API get Deal Services');
+		return apiConnection.get(`deal/getServiceList/${dealId}`);
+	},
+
 	async getFilterData() {
 		console.log('API get Filters');
 		return apiConnection.get('/filter');
+	},
+
+	getOrderDetails(orderId) {
+		console.log('API get Order Details');
+		return apiConnection.get(`order/getInfo/${orderId}`);
 	},
 
 	getOrders() {
@@ -30,7 +45,6 @@ export default {
 
 	getOrderSingleSearch(orderId) {
 		console.log('API get Order Single Search');
-		console.log(orderId);
 		return apiConnection.get(`order/getPreview/${orderId}`);
 	},
 
@@ -39,16 +53,11 @@ export default {
 		return apiConnection.get(`/responsibleDetails/${responsibleId}`);
 	},
 
-	getOrderDetails(orderId) {
-		console.log('API get Order Details');
-		return apiConnection.get(`order/getInfo/${orderId}`);
-	},
 
 	updateToken() {
 		console.log('API Update token');
 		apiConnection.defaults.headers.common['token'] = localStorage.engineerAccountAppToken;
 	}
-
 
 	//customerInfo/:customerId
 

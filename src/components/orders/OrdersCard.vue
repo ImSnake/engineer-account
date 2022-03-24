@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="elz p-abs p-F d-block p-abs oAuto showSelIn">
-        <OrdersCardDetails v-if="hasComments" :title="order.Descr" :contacts="order.Contacts" :comments="order.Comments" />
+        <OrdersCardDetails v-if="hasComments" :title="order.Descr" :contacts="order.Contacts.trim()" :comments="order.Comments.trim()" />
       </div>
     </div>
 
@@ -60,7 +60,7 @@
 
     <template v-if="datepicker">
       <PopUpWindow @closePopUp="datepicker = false" :className="'p-F m4'">
-        <DateTimePicker @datepickerDate="updateMeetingDateTime" :currentDate="order.MeetingDateTime" />
+        <DateTimePicker @datepickerDate="updateMeetingDateTime" :currentDate="order.MeetingDateTime.trim()" />
       </PopUpWindow>
     </template>
 
@@ -73,19 +73,23 @@
           <div class="elz d-block fn14 al-center mT16">{{ responsibleDetails.ResponsibleName }}</div>
         </div>
         <div class="elz d-block s-M">
-          <div class="elz d-flex a-H mT20" title="Должность">
+          <div v-if="responsibleDetails.Position" class="elz d-flex a-H mT20" title="Должность">
             <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/user.svg');"></div>
             <div class="elz d-block mL8">{{ responsibleDetails.Position }}</div>
           </div>
-          <div class="elz d-flex a-H mT20" title="Подразделение">
+          <div v-if="responsibleDetails.DepartmentName" class="elz d-flex a-H mT20" title="Подразделение">
             <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/briefcase.svg');"></div>
             <div class="elz d-block mL8">{{ responsibleDetails.DepartmentName }}</div>
           </div>
-          <div class="elz d-flex a-H mT20" title="Мобильный">
+          <div v-if="responsibleDetails.Email" class="elz d-flex a-H mT20" title="Мобильный">
+            <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/mail.svg');"></div>
+            <div class="elz d-block mL8">{{ responsibleDetails.Email }}</div>
+          </div>
+          <div v-if="responsibleDetails.MobilePhone" class="elz d-flex a-H mT20" title="Мобильный">
             <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/mobile.svg');"></div>
             <div class="elz d-block mL8">{{ responsibleDetails.MobilePhone }}</div>
           </div>
-          <div class="elz d-flex a-H mT20" title="Добавочный">
+          <div v-if="responsibleDetails.Phone" class="elz d-flex a-H mT20" title="Добавочный">
             <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/phone1.svg');"></div>
             <div class="elz d-block mL8">{{ responsibleDetails.Phone }}</div>
           </div>
@@ -127,7 +131,7 @@ export default {
 
   computed: {
     hasComments() {
-      return this.order.Comments.length || this.order.Contacts.length;
+      return this.order.Comments.trim().length || this.order.Contacts.trim().length;
     },
 
     formattedMeetingDateTime() {
@@ -181,7 +185,7 @@ export default {
     },
 
     async updateMeetingDateTime(date) {
-      await this.$store.dispatch('updateOrdersMeetingDateTime', {date, OrderID: this.order.OrderID});
+      await this.$store.dispatch('homePage/updateOrdersMeetingDateTime', {date, OrderID: this.order.OrderID});
       this.datepicker = false;
     }
 

@@ -18,6 +18,8 @@
 
       <OrderServices ref="services"   />
 
+      <OrderFinish ref="finishing"   />
+
     </div>
 
   </template>
@@ -36,6 +38,7 @@ import OrderNav      from "@/components/order/OrderNav";
 import OrderWorks    from "@/components/order/OrderWorks";
 import OrderCustomer from "@/components/order/OrderCustomer";
 import OrderServices from "@/components/order/OrderServices";
+import OrderFinish   from "@/components/order/OrderFinish";
 
 import { useStore } from "vuex";
 import { onUnmounted } from "vue";
@@ -50,7 +53,8 @@ export default {
     OrderNav,
     OrderWorks,
     OrderCustomer,
-    OrderServices
+    OrderServices,
+    OrderFinish
   },
 
   emits: [ 'logEvent' ],
@@ -62,10 +66,9 @@ export default {
   setup(props) {
     console.log('ORDER PAGE setup hook');
     const store = useStore();
-    //store.dispatch('TESTFetchOrderDetails', { orderId: props.orderId });
-    store.dispatch('fetchOrderDetails', props.orderId);
+    store.dispatch('orderPage/fetchOrderDetails', props.orderId);
 
-    onUnmounted(() => {store.state.order = {}; });
+    onUnmounted(() => {store.state.orderPage.order = {}; });
 
     //TODO Определить тип заявки для отображения интерфейса: если это подключение - показывать правую панель "OrderHeaderConnection"
   },
@@ -80,7 +83,7 @@ export default {
 
   computed: {
     dataIsReady() {
-      return this.$store.state.order.readyState;
+      return this.$store.state.orderPage.order.readyState;
     }
   },
 

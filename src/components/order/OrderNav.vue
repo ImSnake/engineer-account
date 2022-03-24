@@ -21,10 +21,10 @@
               :iconName="'hammer-wrench'"
               :title="'Конфигурация услуг'"   />
 
-          <OrderNavItem ref="tariffing"
+<!--          <OrderNavItem ref="tariffing"
               @onItemClick="navClick('tariffing')"
               :iconName="'network'"
-              :title="'Постановка на тарификацию'"   />
+              :title="'Постановка на тарификацию'"   />-->
 
           <OrderNavItem ref="finishing"
               @onItemClick="navClick('finishing')"
@@ -60,11 +60,11 @@ export default {
     },
 
     order() {
-      return this.$store.state.order.details;
+      return this.$store.state.orderPage.order.details;
     },
 
     worksLength() {
-      return this.$store.state.order.works.length;
+      return this.$store.state.orderPage.works.length;
     }
   },
 

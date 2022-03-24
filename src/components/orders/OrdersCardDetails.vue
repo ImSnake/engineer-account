@@ -7,11 +7,11 @@
     <div class="elz d-block  mT-16">
       <div v-if="contacts" class="elz a-H mT20 lh15">
         <div class="elz d-block bold">Контакты:</div>
-        <div class="elz d-block wbreak prewrap" >{{contacts}}</div>
+        <div class="elz d-block wbreak prewrap" >{{ contacts }}</div>
       </div>
       <div v-if="comments" class="elz a-H mT20 lh15">
         <div class="elz d-block bold">Комментарий:</div>
-        <div class="elz d-block wbreak prewrap" >{{comments}}</div>
+        <div class="elz d-block wbreak prewrap" >{{ comments }}</div>
       </div>
     </div>
   </div>
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-//import {valueFormatToHtml} from "@/helpers/formating";
-
 export default {
   name: "OrdersCardDetails",
 
@@ -28,17 +26,6 @@ export default {
     title: {type: String, required: true},
     contacts: {type: String, required: false},
     comments: {type: String, required: false},
-  },
-
-  /*computed: {
-    orderComment() {
-      return this.comments;
-      //return valueFormatToHtml(this.comments);
-    },
-    orderContacts() {
-      return this.contacts;
-      //return valueFormatToHtml(this.contacts);
-    }
-  }*/
+  }
 }
 </script>

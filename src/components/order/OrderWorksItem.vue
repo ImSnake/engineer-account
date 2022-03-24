@@ -36,15 +36,13 @@
           <div class="elz p-rel d-flex pH36 f-wrap a-X gap8">
 
           <template v-if="workStatus === 0">
-            <BaseButton
-                @onButtonClick="workStart"
+            <BaseButton @onButtonClick="workStart"
                 :classList="'hmn36 bg-ok bgHovL10 fn-ok-t'"
                 :title="'Начать работу'"   />
           </template>
 
           <template v-else-if="workStatus === 1" >
-            <BaseButton
-                @onButtonClick="workFinish"
+            <BaseButton @onButtonClick="workFinish"
                 :classList="'hmn36 bg-success bgHovL10 fn-success-t'"
                 :title="'Завершить работу'"   />
           </template>
@@ -946,7 +944,7 @@ export default {
   },
 
   mounted() {
-    console.log(this.work);
+    /*console.log(this.work);*/
   },
 
 

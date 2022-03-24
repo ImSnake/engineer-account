@@ -21,6 +21,8 @@
 <script>
 import BaseButton     from "@/components/elements/BaseButton";
 import OrderWorksItem from "@/components/order/OrderWorksItem";
+import {useStore} from "vuex";
+
 
 export default {
   name: "OrderWorks",
@@ -28,6 +30,16 @@ export default {
   components: {
     BaseButton,
     OrderWorksItem
+  },
+
+  setup() {
+    const store = useStore();
+
+    if (!store.state.orderPage.works) {
+      console.log('get works');
+      //store.dispatch('fetchOrderWorks', store.state.order.details.OrderID);
+    }
+
   },
 
   data() {
@@ -38,7 +50,7 @@ export default {
 
   computed: {
     workList() {
-      return this.$store.state.order.works;
+      return this.$store.state.orderPage.works;
     }
   },
 

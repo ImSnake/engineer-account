@@ -43,6 +43,12 @@
           :options="department"
           :title="'Подразделение'"  />
 
+      <FilterSelect
+          v-model="typeSelected"
+          @update:modelValue="changeType"
+          :options="types"
+          :title="'Тип заявки'"  />
+
     </div>
 
     <div class="elz cnnFilters d-flex f-wrap">
@@ -81,12 +87,13 @@ export default {
 
   data() {
     return {
-      departmentSelected: '',
       orderId: '',
       orderSearchIcon: false,
+      departmentSelected: '',
       prioritySelected: '',
       roleSelected: '',
-      statusSelected: ''
+      statusSelected: '',
+      typeSelected: ''
     }
   },
 
@@ -96,7 +103,7 @@ export default {
     },
 
     orders() {
-      return this.$store.state.orders;
+      return this.$store.state.homePage.orders;
     },
 
     priorities() {
@@ -109,6 +116,10 @@ export default {
 
     statuses() {
       return this.$store.state.static.filters.statuses;
+    },
+
+    types() {
+      return this.$store.state.static.filters.types;
     }
   },
 
@@ -127,17 +138,23 @@ export default {
 
     changeRole() {
       if (+this.roleSelected === 1) {
-        this.orders.forEach(order => order.showInList.byRole = (+order.executorId === +this.$store.state.static.user.userId));
+        this.orders.forEach(order => order.showInList.byRole = (+order.is_executer === 1));
       } else if (+this.roleSelected === 2) {
-        this.orders.forEach(order => order.showInList.byRole = (+order.responsibleId === +this.$store.state.static.user.userId));
+        this.orders.forEach(order => order.showInList.byRole = (+order.ResponsibleID === +this.$store.state.static.user.userId));
       } else {
         this.orders.forEach(order => order.showInList.byRole = true);
       }
     },
 
     changeStatus() {
-      this.$store.state.orders.forEach(order => {
+      this.orders.forEach(order => {
         order.showInList.byStatus = (+order.TroubleStatusID === +this.statusSelected || +this.statusSelected === 0);
+      });
+    },
+
+    changeType() {
+      this.orders.forEach(order => {
+        order.showInList.byType = (+order.OrderTypeID === +this.typeSelected || +this.typeSelected === 0);
       });
     },
 
@@ -151,7 +168,7 @@ export default {
     },
 
     getByOrderId() {
-      this.$store.dispatch('fetchOrderSingleSearch', this.orderId.toString());
+      this.$store.dispatch('homePage/fetchOrderSingleSearch', this.orderId.toString());
     },
 
     toggleSortFilter(e) {

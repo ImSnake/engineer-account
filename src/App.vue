@@ -5,6 +5,8 @@
 </template>
 
 <script>
+
+
 export default {
   name: 'App',
 
@@ -13,10 +15,11 @@ export default {
     return { loader }
   },
 
-  async created() {
-    if (localStorage.engineerAccountAppToken) {
+  created() {
+    if (localStorage.engineerAccountAppToken && localStorage.engineerAccountAppUserData && localStorage.engineerAccountAppFilters) {
       console.log('USER HAS TOKEN!');
-      await this.$store.dispatch('static/fetchAuthUserToken');
+      this.$store.dispatch('static/fetchAuthUserToken');
+      console.log(this.$store.state);
     }
     this.definePageView();
   },
@@ -32,7 +35,6 @@ export default {
 
     async logInn(authData) {
       console.log('LOG INN APP');
-
       //await this.$store.dispatch('static/TESTFetchAuthUser', { login: this.login, password: this.password });
       await this.$store.dispatch('static/fetchAuthUser', authData);
       this.definePageView();
@@ -41,7 +43,10 @@ export default {
     logOut() {
       console.log('LOG OUT APP');
       this.toAuth();
-      setTimeout(()=> this.$store.state.static.user = {}, 1100);
+      setTimeout(()=> {
+        this.$store.state.static.user = {};
+      }, 500);
+      this.$store.state.static.filters = {};
       localStorage.removeItem('engineerAccountAppUserData');
       localStorage.removeItem('engineerAccountAppFilters');
       localStorage.removeItem('engineerAccountAppToken');

@@ -133,7 +133,7 @@
                    :validIcon="validationText(user.mobile, 'icon', 18)"  />
 
         <InputItem @updateModelValue="(val) => user.email = val"
-                   :modelValue="user.email"
+                   :modelValue="user.email.trim()"
                    :inputType="'text'"
                    :inputMask="validation.email"
                    :placeholder="'example@yandex.ru'"
@@ -158,7 +158,6 @@
 <script>
 import InputItem  from "@/components/elements/InputItem";
 import BaseButton from "@/components/elements/BaseButton";
-
 import DaDataService from "@/services/DaDataService";
 import { useStore } from "vuex";
 
@@ -173,8 +172,9 @@ export default {
 
   setup(){
     const store = useStore();
-    if (!store.state.order.customerInfo) {
-      store.dispatch('fetchCustomerInfo', store.state.order.details.CustomerIDTTS);
+
+    if (!store.state.orderPage.order.customerInfo) {
+      store.dispatch('orderPage/fetchCustomerInfo', store.state.orderPage.order.details.CustomerIDTTS);
     }
 
     return {
@@ -239,7 +239,7 @@ export default {
       return this.user.passport;
     },
     user() {
-      return this.$store.state.order.customerInfo;
+      return this.$store.state.orderPage.order.customerInfo;
     },
   },
 
@@ -278,11 +278,8 @@ export default {
         //this.formIsValid = false;
       }
     },
-
   }
-
 }
-
 </script>
 
 

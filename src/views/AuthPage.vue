@@ -102,14 +102,6 @@ export default {
       setTimeout(()=> this.dataIsValid = (this.$refs.login.classList.contains('isValidValue') && this.$refs.password.classList.contains('isValidValue')), 300);
     },
 
-
-/*    async userAuth() {
-      //await this.$store.dispatch('static/TESTFetchAuthUser', { login: this.login, password: this.password });
-      await this.$store.dispatch('static/fetchAuthUser', { login: this.login, password: this.password });
-      console.log('action after user auth');
-      /!*(this.$store.state.static.user.isAuthorized) ? this.$router.push({name: 'Home'}) : this.$router.push({name: 'Auth'});*!/
-    },*/
-
     validationDefineOptions(validation, successTxt, errorTxt) {
       return (validation) ? {
         classApproval: 'isValidValue',

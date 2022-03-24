@@ -347,10 +347,10 @@ export default {
 
   computed: {
     iconCase() {
-      return this.$store.state.headerIcons.case;
+      return this.$store.state.homePage.headerIcons.case;
     },
     iconClock() {
-      return this.$store.state.headerIcons.clock;
+      return this.$store.state.homePage.headerIcons.clock;
     },
     userDepartment() {
       return this.$store.state.static.user.departmentName;
