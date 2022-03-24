@@ -1,5 +1,5 @@
 <template>
-  <div class="elz infoLine d-block mB32">
+  <div :class="inputProps.classApproval" class="elz infoLine d-block mB32">
     <div class="elz infoTitle d-flex a-H hmn40 borB2 mL24 noShrink">
       <div class="elz d-block">{{ titleMain }}</div>
     </div>
@@ -11,12 +11,11 @@
             v-maska="inputMask"
             :placeholder="placeholder"
             :type="inputType"
-            :value="modelValue"
-        />
+            :value="modelValue"   />
         <span class="elz d-flex grPin grY2 a-X borB2 evNone">
           <span class="elz p-rel growZ d-flex a-PR">
-            <span :ref="refName" :class="modelValue ? validClass : ''" class="elz p-rel d-flex a-X s24 r2">
-              <span :class="modelValue ? ' bgBef-CC' : ''" :style="modelValue ? validIcon : ''" class="elz p-rel d-block mskBef s16 cFillBef"></span>
+            <span :class="modelValue ? inputProps.classList : ''" class="elz p-rel d-flex a-X s24 r2">
+              <span :class="modelValue ? ' bgBef-CC' : ''" :style="modelValue ? inputProps.icon : ''" class="elz p-rel d-block mskBef s16 cFillBef"></span>
             </span>
           </span>
         </span>
@@ -48,15 +47,16 @@ export default {
     inputType:   { required: true,  type: String },
 
     autocomplete:{ required: false, type: [Array, Boolean] },
-    labelClass:  { required: false, type: [Function, String] },
     inputMask:   { required: false, type: [Object, String] },
+    inputProps:  { required: false, type: Object },
+    labelClass:  { required: false, type: [Function, String] },
     placeholder: { required: false, type: String },
-    refName:     { required: false, type: String },
     titleFocus:  { required: false, type: String },
     titleMain:   { required: false, type: String },
-    tooltip:     { required: false, type: String },
-    validClass:  { required: false, type: [Function, String] },
-    validIcon:   { required: false, type: [Function, String] }
+  },
+
+  mounted() {
+    console.log(this.inputProps);
   },
 
   computed: {

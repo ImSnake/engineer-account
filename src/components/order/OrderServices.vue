@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody class="tbody pad pV10 pH16 fn16 uStrip stripEven strip005 stripHover stripLD">
-        <tr v-for="(service,index) in $store.state.orderPage.services" :key="index" class="tr">
+        <tr v-for="(service,index) in $store.state.orderPage.order.services" :key="index" class="tr">
           <td class="td">{{service.businessName}}</td>
           <td class="td">{{ service.billName }}</td>
           <td class="td">{{ service.incomingType }}</td>
