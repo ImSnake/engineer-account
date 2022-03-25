@@ -2,8 +2,8 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import index from './router';
 import store from './store';
-import Uploader from './components/elements/Uploader';
 import Maska from 'maska';
+import Uploader from './components/elements/Uploader';
 
 /*createApp(App)
 	.use(index)

@@ -21,8 +21,6 @@
         </span>
         <span v-if="titleFocus" class="elz infoLabel d-block fn-8 trns2 invPssLing">{{ titleFocus }}</span>
       </label>
-
-
       <div v-if="autocomplete" class="elz p-abs pi-T p-H d-block oAuto r3 mT2 hmx320 bgp bor1 z10 bsh-default4 br br-black brA10 bg bg-primary bgL10">
         <div class="elz d-block pV8 lh12">
           <div v-for="(item, index) in autocomplete" :key="index" @click="$emit('autocompleteSelected', index)" class="elz p-rel d-flex pV8 pH16 a-H cur-pointer opAct07 bgHov bgHov-ok fnHov fnHov-ok-t">
@@ -30,8 +28,6 @@
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
 </template>
@@ -53,14 +49,6 @@ export default {
     placeholder: { required: false, type: String },
     titleFocus:  { required: false, type: String },
     titleMain:   { required: false, type: String },
-  },
-
-  mounted() {
-    console.log(this.inputProps);
-  },
-
-  computed: {
-
   }
 }
 </script>

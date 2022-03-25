@@ -195,7 +195,13 @@ export default createStore({
       state: () => ({
         order: {},
 
-        works: []
+        works: [],
+
+        files: {
+          act: [],
+          blanc: [],
+          doc: []
+        }
       }),
 
       mutations: {
@@ -247,6 +253,23 @@ export default createStore({
         UPDATE_CUSTOMER_INFO(state, data) {
           console.log(data);
           console.log(state);
+        },
+
+        UPDATE_FILES(state, data) {
+          console.log(data);
+
+          const item = {
+            name: data.file.name,
+            size: data.file.size,
+            date: new Date(),
+            loading: true,
+            loaded: false
+          }
+
+          setInterval(() => item.loaded = true, 1000);
+
+          state.files[data.type].push(item);
+          console.log(state.files);
         },
 
         UPDATE_ORDER_MEETING(state, data) {

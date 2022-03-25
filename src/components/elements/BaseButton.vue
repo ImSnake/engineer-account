@@ -14,7 +14,7 @@ export default {
   emit: [ 'onButtonClick' ],
 
   props: {
-    classList: { required: true,  type: String },
+    classList: { required: true,  type: [Array, String] },
     iconName:  { required: false, type: String },
     title:     { required: false, type: String }
   },
