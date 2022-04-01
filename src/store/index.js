@@ -293,84 +293,13 @@ export default createStore({
         },
 
         fetchDealHydraServices({ commit }, dealId) {
-          const hydraData = [
-            {
-              name: "Интернет",
-              tariff: "ТП.ИНТ.Безлимитный 40",
-              agreement: false,
-              tariffList: [
-                {
-                  name: 'ТП.ИНТ.Безлимитный 40',
-                  price: '700'
-                },
-                {
-                  name: 'ТП.ИНТ.Безлимитный 60',
-                  price: '1000'
-                },
-                {
-                  name: 'ТП.ИНТ.Безлимитный 100',
-                  price: '1500'
-                },
-                {
-                  name: 'ТП.Радиолинк 20',
-                  price: '2200'
-                }
-              ],
-              monthly: [
-                {
-                  name: 'IP-адрес',
-                  price: '200'
-                },
-                {
-                  name: 'Keenetic Lite',
-                  price: '150'
-                },
-                {
-                  name: 'Keenetic Start',
-                  price: '150'
-                },
-                {
-                  name: 'Keenetic Air',
-                  price: '200'
-                }
-              ],
-              oneTime: [
-                {
-                  name: 'Keenetic Lite',
-                  price: '2500'
-                },
-                {
-                  name: 'Keenetic Start',
-                  price: '2000'
-                },
-                {
-                  name: 'Keenetic Air',
-                  price: '4000'
-                }
-              ]
-            },
-            {
-              name: "Телевидение",
-              tariff: "ТП.ТВ.Комбо Люкс + AMEDIATEKA",
-              agreement: false,
-              tariffList: [{
-                name: 'ТП.ТВ.Комбо Люкс + AMEDIATEKA',
-                price: '700'
-              }],
-              monthly: [],
-              oneTime: []
-            }
-          ]
-          console.log(`API get Deal HYDRA Services: deal #${dealId}`);
-          commit('SET_HYDRA_SERVICES', hydraData);
-
-          /*return AppDataServ.getDealHydraServices(dealId)
+          return AppDataServ.getDealHydraServices(dealId)
             .then(response => {
               commit('SET_HYDRA_SERVICES', response.data);
             })
             .catch(error => {
               throw(error);
-            });*/
+            });
         },
 
         fetchDealSDServices({ commit }, dealId) {

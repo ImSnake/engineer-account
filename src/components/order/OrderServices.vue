@@ -65,12 +65,10 @@ export default {
 
   setup() {
     const store = useStore();
-
     if (!store.state.orderPage.services) {
       store.dispatch('orderPage/fetchDealSDServices', store.state.orderPage.order.details.DealID);
       store.dispatch('orderPage/fetchDealHydraServices', store.state.orderPage.order.details.DealID);
     }
-
   },
 
   data() {

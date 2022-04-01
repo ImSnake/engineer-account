@@ -124,6 +124,7 @@
       </div>
 
     </div>
+
   </div>
 </template>
 
@@ -158,10 +159,7 @@ export default {
     },
 
     total() {
-      //return numberFormat(+this.summary + +(this.service.tariffList.find(el => el.name === this.service.tariff)?.price), 2, ',', ' ');
-      return numberFormat(
-          +this.subscription.summary + +this.purchase.summary + +(this.service.tariffList.find(el => el.name === this.service.tariff)?.price)
-          , 2, ',', ' ');
+      return numberFormat(+this.subscription.summary + +this.purchase.summary + +(this.service.tariffList.find(el => el.name === this.service.tariff)?.price), 2, ',', ' ');
     }
   },
 
