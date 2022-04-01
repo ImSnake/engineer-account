@@ -23,8 +23,13 @@ export default {
 		return apiConnection.get(`/customer/getInfo/${customerId}`);
 	},
 
-	getDealServices(dealId) {
-		console.log('API get Deal Services');
+	getDealHydraServices(dealId) {
+		console.log(`API get Deal HYDRA Services: deal #${dealId}`);
+		return {}
+	},
+
+	getDealSDServices(dealId) {
+		console.log('API get Deal SD Services');
 		return apiConnection.get(`/deal/getServiceList/${dealId}`);
 	},
 
