@@ -21,11 +21,6 @@
               :iconName="'hammer-wrench'"
               :title="'Конфигурация услуг'"   />
 
-<!--          <OrderNavItem ref="tariffing"
-              @onItemClick="navClick('tariffing')"
-              :iconName="'network'"
-              :title="'Постановка на тарификацию'"   />-->
-
           <OrderNavItem ref="finishing"
               @onItemClick="navClick('finishing')"
               :iconName="'file-text'"
@@ -46,6 +41,10 @@ export default {
 
   emit: [ 'switchOrderContent' ],
 
+  props: {
+    isConnection: { required: true, type: Boolean }
+  },
+
   components: {
     OrderNavItem
   },
@@ -55,13 +54,13 @@ export default {
   },
 
   computed: {
-    isConnection() {
+/*    isConnection() {
       return (+this.order.OrderTypeID === 2 || +this.order.OrderTypeID === 11) && (+this.order.CustomerTypeID === 2);
     },
 
     order() {
       return this.$store.state.orderPage.order.details;
-    },
+    },*/
 
     worksLength() {
       return this.$store.state.orderPage.works.length;

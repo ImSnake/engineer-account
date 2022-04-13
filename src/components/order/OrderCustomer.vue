@@ -2,121 +2,162 @@
 
   <template v-if="isActive">
 
-    <div @input="defineSendButtonState" class="elz d-block">
+    <div @input="defineSendButtonState" class="elz d-block cnnClientWrap">
       <div class="elz cnnInfoCaption d-block bold pV8 mB16 fn18 borB1 br br-primary brL-10 brLInvD">Паспортные данные</div>
       <div class="elz cnnInfoGrid d-block mL-24">
 
-        <InputItem ref="surname" @updateModelValue="(val) => user.surname = val"
-                   :modelValue="user.surname"
+        <InputItem ref="surname" @updateModelValue="(val) => customer.surname = val"
+                   :modelValue="customer.surname"
                    :inputType="'text'"
                    :inputMask="validation.word"
                    :placeholder="'Иванов'"
                    :titleMain="'Фамилия:'"
-                   :inputProps="validationText(user.surname)"   />
+                   :titleFocus="'Фамилия:'"
+                   :inputProps="validationText(customer.surname)"   />
 
-        <InputItem ref="name" @updateModelValue="(val) => user.name = val"
-                   :modelValue="user.name"
+        <InputItem ref="name" @updateModelValue="(val) => customer.name = val"
+                   :modelValue="customer.name"
                    :inputType="'text'"
                    :inputMask="validation.word"
                    :placeholder="'Иван'"
                    :titleMain="'Имя:'"
-                   :inputProps="validationText(user.name)"   />
+                   :titleFocus="'Имя:'"
+                   :inputProps="validationText(customer.name)"   />
 
-        <InputItem @updateModelValue="(val) => user.patronymic = val"
-                   :modelValue="user.patronymic"
+        <InputItem @updateModelValue="(val) => customer.patronymic = val"
+                   :modelValue="customer.patronymic"
                    :inputType="'text'"
                    :placeholder="'Иванович'"
                    :titleMain="'Отчество:'"
-                   :inputProps="user.patronymic ? elemProps.success : ''"   />
+                   :titleFocus="'Отчество:'"
+                   :inputProps="customer.patronymic ? elemProps.success : ''"   />
 
-        <InputItem ref="birthdayDate" @updateModelValue="(val) => user.birthdayDate = val"
-                   :modelValue="user.birthdayDate"
+        <InputItem ref="birthdayDate" @updateModelValue="(val) => customer.birthdayDate = val"
+                   :modelValue="customer.birthdayDate"
                    :inputType="'text'"
                    :inputMask="'##.##.####'"
                    :placeholder="'ДД.ММ.ГГГГ'"
                    :titleMain="'Дата рождения:'"
-                   :inputProps="validationDate(user.birthdayDate)"   />
+                   :titleFocus="'Дата рождения:'"
+                   :inputProps="validationDate(customer.birthdayDate)"   />
 
-        <InputItem ref="birthdayPlace" @updateModelValue="(val) => user.birthdayPlace = val"
-                   :modelValue="user.birthdayPlace"
+        <InputItem ref="birthdayPlace" @updateModelValue="(val) => customer.birthdayPlace = val"
+                   :modelValue="customer.birthdayPlace"
                    :inputType="'text'"
                    :inputMask="validation.text"
                    :placeholder="'г. Москва'"
                    :titleMain="'Место рождения:'"
-                   :inputProps="validationText(user.birthdayPlace, 4)"   />
+                   :titleFocus="'Место рождения:'"
+                   :inputProps="validationText(customer.birthdayPlace, 4)"   />
 
-        <InputItem ref="series" @updateModelValue="(val) => passport.series = val"
-                   :modelValue="passport.series"
-                   :inputType="'text'"
-                   :inputMask="'## ##'"
-                   :placeholder="'1234'"
-                   :titleMain="'Серия:'"
-                   :inputProps="validationText(passport.series, 5)"   />
+        <div class="elz infoLine d-block mB32">
+          <div class="elz infoTitle d-flex a-H hmn40 borB2 mL24 noShrink"><div class="elz d-block">Паспорт серия:</div></div>
+          <div class="elz d-flex cnnFlexibleInputs">
+            <InputItem ref="series" @updateModelValue="(val) => customer.passportSeries = val"
+                       :modelValue="customer.passportSeries"
+                       :inputType="'text'"
+                       :inputMask="'## ##'"
+                       :placeholder="'1234'"
+                       :titleFocus="'Серия:'"
+                       :inputProps="validationText(customer.passportSeries, 5)"   />
 
-        <InputItem ref="number" @updateModelValue="(val) => passport.number = val"
-                   :modelValue="passport.number"
-                   :inputType="'text'"
-                   :inputMask="'### ###'"
-                   :placeholder="'567890'"
-                   :titleMain="'Номер:'"
-                   :inputProps="validationText(passport.number, 7)"   />
+            <div class="elz infoTitle d-flex a-H hmn40 borB2 mL24 noShrink"><div class="elz d-block">Номер:</div></div>
+            <InputItem ref="number" @updateModelValue="(val) => customer.passportNumber = val"
+                       :modelValue="customer.passportNumber"
+                       :inputType="'text'"
+                       :inputMask="'### ###'"
+                       :placeholder="'567890'"
+                       :titleFocus="'Номер:'"
+                       :inputProps="validationText(customer.passportNumber, 7)"   />
+          </div>
+        </div>
 
-        <InputItem ref="issueDate" @updateModelValue="(val) => passport.issueDate = val"
-                   :modelValue="passport.issueDate"
+        <InputItem ref="issueDate" @updateModelValue="(val) => customer.issueDate = val"
+                   :modelValue="customer.issueDate"
                    :inputType="'text'"
                    :inputMask="'##.##.####'"
                    :placeholder="'ДД.ММ.ГГГГ'"
                    :titleMain="'Дата выдачи:'"
-                   :inputProps="validationDate(passport.issueDate)"   />
+                   :titleFocus="'Дата выдачи:'"
+                   :inputProps="validationDate(customer.issueDate)"   />
 
-        <InputItem ref="ufmsCode" @updateModelValue="(val) => {passport.ufmsCode = val; validationUfmsCode();}"
-                   :modelValue="passport.ufmsCode"
+        <InputItem ref="ufmsCode" @updateModelValue="(val) => {customer.ufmsCode = val; validationDaDataUfmsCode();}"
+                   :modelValue="customer.ufmsCode"
                    :inputType="'text'"
                    :inputMask="'###-###'"
                    :placeholder="'123-456'"
                    :titleMain="'Код подразделения:'"
-                   :inputProps="validationText(passport.ufmsCode, 7)"   />
+                   :titleFocus="'Код подразделения:'"
+                   :inputProps="validationText(customer.ufmsCode, 7)"   />
 
-        <InputItem ref="issueDepartment" @updateModelValue="(val) => passport.issueDepartment = val" @autocompleteSelected="updateIssueDepartment"
+        <InputItem ref="issueDepartment" @updateModelValue="(val) => customer.issueDepartment = val"
+                   @autocompleteSelected="updateIssueDepartment"
                    :autocomplete="ufmsList.length ? ufmsList : false"
-                   :modelValue="passport.issueDepartment"
+                   :modelValue="customer.issueDepartment"
                    :inputType="'text'"
                    :inputMask="validation.text"
                    :placeholder="'Московским РОВД Южного округа'"
                    :titleMain="'Кем выдан:'"
-                   :inputProps="validationText(passport.issueDepartment, 4)"   />
+                   :titleFocus="'Кем выдан:'"
+                   :inputProps="validationText(customer.issueDepartment, 4)"   />
 
-        <InputItem ref="registrationAddress" @updateModelValue="(val) => passport.registrationAddress = val"
-                   :modelValue="passport.registrationAddress"
+        <InputItem ref="registrationAddress" @updateModelValue="(val) => {customer.registrationAddress = val; validationDaDataAddress();}"
+                   @autocompleteSelected="updateAddress"
+                   :autocomplete="addressList.length ? addressList : false"
+                   :modelValue="customer.registrationAddress"
                    :inputType="'text'"
                    :inputMask="validation.text"
                    :placeholder="'Москва, ул. 2я Хуторская д. 38А стр. 9'"
                    :titleMain="'Адрес прописки:'"
-                   :inputProps="validationText(passport.registrationAddress, 5)"   />
+                   :titleFocus="'Город, улица, дом'"
+                   :inputProps="validationText(customer.registrationAddress, 5)"   />
 
+        <div class="elz infoLine d-block mB32">
+          <div class="elz infoTitle d-flex a-H hmn40 borB2 mL24 noShrink"></div>
+          <div class="elz d-flex cnnFlexibleInputs">
+            <InputItem @updateModelValue="(val) => customer.registrationAddressEntrance = val"
+                       :modelValue="customer.registrationAddressEntrance"
+                       :inputType="'text'"
+                       :titleFocus="'Подъезд:'"
+                       :inputProps="customer.registrationAddressEntrance ? elemProps.success : ''"   />
+
+            <InputItem @updateModelValue="(val) => customer.registrationAddressLevel = val"
+                       :modelValue="customer.registrationAddressLevel"
+                       :inputType="'text'"
+                       :titleFocus="'Этаж:'"
+                       :inputProps="customer.registrationAddressLevel ? elemProps.success : ''"   />
+
+            <InputItem @updateModelValue="(val) => customer.registrationAddressFlat = val"
+                       :modelValue="customer.registrationAddressFlat"
+                       :inputType="'text'"
+                       :titleFocus="'Квартира'"
+                       :inputProps="customer.registrationAddressFlat ? elemProps.success : ''"   />
+          </div>
+        </div>
       </div>
     </div>
 
-    <div @input="defineSendButtonState" class="elz d-block mT48">
+    <div @input="defineSendButtonState" class="elz d-block mT48 cnnClientWrap">
       <div class="elz cnnInfoCaption d-block bold pV8 mB16 fn18 borB1 br br-primary brL-10 brLInvD">Контактные данные</div>
       <div class="elz cnnInfoGrid d-block mL-24">
 
-        <InputItem ref="mobile" @updateModelValue="(val) => user.mobile = val"
-                   :modelValue="user.mobile"
+        <InputItem ref="mobile" @updateModelValue="(val) => customer.mobile = val"
+                   :modelValue="customer.mobile"
                    :inputType="'text'"
                    :inputMask="'+7 (###) ###-##-##'"
                    :placeholder="'+7 (901) 12-34-567'"
                    :titleMain="'Мобильный телефон:'"
-                   :inputProps="validationText(user.mobile, 18)"   />
+                   :titleFocus="'Мобильный телефон:'"
+                   :inputProps="validationText(customer.mobile, 18)"   />
 
-        <InputItem ref="email" @updateModelValue="(val) => user.email = val"
-                   :modelValue="user.email.trim()"
+        <InputItem ref="email" @updateModelValue="(val) => customer.email = val"
+                   :modelValue="customer.email ? customer.email.trim() : customer.email"
                    :inputType="'text'"
                    :inputMask="validation.email"
                    :placeholder="'example@yandex.ru'"
                    :titleMain="'E-Mail:'"
+                   :titleFocus="'E-Mail:'"
                    :inputProps="validationEmail()"   />
-
       </div>
     </div>
 
@@ -206,16 +247,13 @@ export default {
     return {
       formIsValid: false,
       isActive: false,
+      addressList: [],
       ufmsList: []
     }
   },
 
   computed: {
-    passport() {
-      return this.user.passport;
-    },
-
-    user() {
+    customer() {
       return this.$store.state.orderPage.order.customerInfo;
     },
 
@@ -241,40 +279,71 @@ export default {
     },
 
     updateCustomerData(){
-      console.log('submit Customer Data');
-      this.$store.dispatch('orderPage/updateCustomerInfo', this.user);
+      console.log(this.customer.registrationAddressFiass);
+      if (this.customer.registrationAddressFiass === undefined) {
+        this.customer.registrationAddressFiass = 'old value';
+      }
+      this.$store.dispatch('orderPage/updateCustomerInfo', this.customer);
+    },
+
+    updateAddress(index) {
+      const {house_type, house, block_type, block} = this.addressList[index].data;
+      let houseName = house_type + ' ' + house;
+      if (block) {
+        houseName += ' ' + block_type + ' ' + block;
+      }
+      this.customer.registrationAddressFiass = this.addressList[index].data;
+      this.customer.registrationAddressFiass.houseName = houseName;
+      this.customer.registrationAddress = this.addressList[index].value;
+      this.addressList = [];
+      setTimeout(()=> this.defineSendButtonState(), 500);
     },
 
     updateIssueDepartment(val) {
-      this.passport.issueDepartment = this.ufmsList[val].value;
+      this.customer.issueDepartment = this.ufmsList[val].value;
       this.ufmsList = [];
+      setTimeout(()=> this.defineSendButtonState(), 500);
+    },
+
+    async validationDaDataAddress() {
+      if (this.customer.registrationAddress.length >= 4) {
+        this.addressList = (await DaDataService.getSuggestionAddress(this.customer.registrationAddress)).suggestions;
+      }
+      if (!this.addressList.length) {
+        this.customer.registrationAddressFiass = 'is not exist';
+      }
+    },
+
+    async validationDaDataUfmsCode() {
+      if (this.customer.ufmsCode.length === 7) {
+        this.ufmsList = (await DaDataService.getFmsUnits(this.customer.ufmsCode)).suggestions;  //  '660-042' , '772-050'
+        this.customer.issueDepartment = "";
+      }
     },
 
     validationDate(data) {
-      const dateArr = data.split('.');
-      const [mm, dd, yyyy] = dateArr;
-      const date = new Date(`${dd}-${mm}-${yyyy}`);
-      return (data.length === 10 && date instanceof Date && !isNaN(date)) ? this.elemProps.success : this.elemProps.error;
+      if (data) {
+        const dateArr = data.split('.');
+        const [dd, mm, yyyy] = dateArr;
+        const date = new Date(`${yyyy}-${mm}-${dd}T00:00:00`);
+        return (!isNaN(date.getTime())) ? this.elemProps.success : this.elemProps.error;
+      }
     },
 
     validationEmail() {
-      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-      let data = this.user.email.replace(/ +/g, '').trim();
-      return (data.match(pattern)) ? this.elemProps.success : this.elemProps.error;
+      if (this.customer.email) {
+        const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+        let data = this.customer.email.replace(/ +/g, '').trim();
+        return (data.match(pattern)) ? this.elemProps.success : this.elemProps.error;
+      }
     },
 
     validationText(data, size = 2) {
-      return data.length >= size ? this.elemProps.success : this.elemProps.error;
-    },
-
-    async validationUfmsCode() {
-      if (this.passport.ufmsCode.length === 7) {
-        this.ufmsList = (await DaDataService.getFmsUnits(this.passport.ufmsCode)).suggestions;  //  '660-042' , '772-050'
-        this.passport.issueDepartment = "";
-        console.log(this.ufmsList);
-        //this.formIsValid = false;
+      if (data) {
+        return data.length >= size ? this.elemProps.success : this.elemProps.error;
       }
     },
+
   }
 }
 </script>

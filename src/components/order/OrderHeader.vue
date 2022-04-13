@@ -5,18 +5,6 @@
     <div class="elz d-flex f-wrap mAuto  gapH32 gapV16 lh15">
       <div class="elz d-flex growMax fb320 dir-y gap16 r3 p16 bg bg-primary bgL-5 bgLInvD">
         <div class="elz d-flex f-wrap gapH8">
-          <div class="elz d-block fb120 grow noShrink fn14 pV1">Тип заявки:</div>
-          <div class="elz d-block fb150 growMax bold">{{ order.OrderTypeName }}</div>
-        </div>
-        <div class="elz d-flex f-wrap gapH8">
-          <div class="elz d-block fb120 grow noShrink fn14 pV1">Номер заявки:</div>
-          <a :href="`http://tts.naukanet.ru/customers/orderinfo.asp?OrderID=${order.OrderID}`" target="_blank" class="elz d-block fb150 growMax bold cur-pointer fn fn-link-inline underlineHov">#{{ order.OrderID }}</a>
-        </div>
-        <div v-if="order.DealID" class="elz d-flex f-wrap gap8">
-          <div class="elz d-block fb120 grow noShrink fn14 pV1">Сделка:</div>
-          <a :href="`http://tts.naukanet.ru:8086/Orders/OrderInfoNew.asp?OrderID=${order.DealID}`" target="_blank" class="elz d-block fb150 growMax bold cur-pointer fn fn-link-inline underlineHov">#{{ order.DealID }}</a>
-        </div>
-        <div class="elz d-flex f-wrap gapH8">
           <div class="elz d-block fb120 grow noShrink fn14 pV1">Клиент:</div>
           <div class="elz d-block fb150 growMax bold">
             <div class="elz d-flex f-wrap a-H gapH16 gapV4">
@@ -31,16 +19,32 @@
           </div>
         </div>
         <div class="elz d-flex f-wrap gapH8">
-          <div class="elz d-block fb120 grow noShrink fn14 pV1">Телефон:</div>
-          <div class="elz d-block fb150 growMax bold">{{ order.CustomerPhone }}</div>
+          <div class="elz d-block fb120 grow noShrink fn14 pV1">Номер заявки:</div>
+          <a :href="`http://tts.naukanet.ru/customers/orderinfo.asp?OrderID=${order.OrderID}`" target="_blank" class="elz d-block fb150 growMax bold cur-pointer fn fn-link-inline underlineHov">#{{ order.OrderID }}</a>
+        </div>
+        <div v-if="order.DealID" class="elz d-flex f-wrap gap8">
+          <div class="elz d-block fb120 grow noShrink fn14 pV1">Сделка:</div>
+          <a :href="`http://tts.naukanet.ru:8086/Orders/OrderInfoNew.asp?OrderID=${order.DealID}`" target="_blank" class="elz d-block fb150 growMax bold cur-pointer fn fn-link-inline underlineHov">#{{ order.DealID }}</a>
         </div>
         <div class="elz d-flex f-wrap gapH8">
-          <div class="elz d-block fb120 grow noShrink fn14 pV1">Адрес:</div>
-          <div class="elz d-block fb150 growMax bold">{{ order.CustomerAddress }}</div>
+          <div class="elz d-block fb120 grow noShrink fn14 pV1">Тип заявки:</div>
+          <div class="elz d-block fb150 growMax bold">{{ order.OrderTypeName }}</div>
+        </div>
+        <div class="elz d-flex f-wrap gapH8">
+          <div class="elz d-block fb120 grow noShrink fn14 pV1">Статус:</div>
+          <div class="elz d-block fb150 growMax bold">В работе</div>
         </div>
         <div v-if="order.TariffZone" class="elz d-flex f-wrap gapH8">
           <div class="elz d-block fb120 grow noShrink fn14 pV1">Тарифная зона:</div>
           <div class="elz d-block fb150 growMax bold">{{ order.TariffZone }}</div>
+        </div>
+        <div class="elz d-flex f-wrap gapH8">
+          <div class="elz d-block fb120 grow noShrink fn14 pV1">Телефон:</div>
+          <div class="elz d-block fb150 growMax bold">{{ order.CustomerPhone }}</div>
+        </div>
+        <div v-if="isConnection" class="elz d-flex f-wrap gapH8">
+          <div class="elz d-block fb120 grow noShrink fn14 pV1">Адрес:</div>
+          <div class="elz d-block fb150 growMax bold">{{ orderAddress }}</div>
         </div>
       </div>
 
@@ -71,6 +75,11 @@ export default {
 
     order() {
       return this.$store.state.orderPage.order.details;
+    },
+
+    orderAddress() {
+      return `${this.order.locationAddress}`
+      //return `${this.order.locationAddress}, ${this.order.locationAddressEntrance}, ${this.order.locationAddressLevel}, ${this.order.locationAddressFlat}`
     }
   }
 

@@ -23,81 +23,16 @@ export default {
 		return apiConnection.get(`/customer/getInfo/${customerId}`);
 	},
 
-	getDealHydraServices(dealId) {
+	getHydraServices(dealId) {
 		console.log(`API get Deal HYDRA Services: deal #${dealId}`);
-		return {
-			data: [
-				{
-					name: "Интернет",
-					tariff: "ТП.ИНТ.Безлимитный 40",
-					agreement: false,
-					tariffList: [
-						{
-							name: 'ТП.ИНТ.Безлимитный 40',
-							price: '700'
-						},
-						{
-							name: 'ТП.ИНТ.Безлимитный 60',
-							price: '1000'
-						},
-						{
-							name: 'ТП.ИНТ.Безлимитный 100',
-							price: '1500'
-						},
-						{
-							name: 'ТП.Радиолинк 20',
-							price: '2200'
-						}
-					],
-					monthly: [
-						{
-							name: 'IP-адрес',
-							price: '200'
-						},
-						{
-							name: 'Keenetic Lite',
-							price: '150'
-						},
-						{
-							name: 'Keenetic Start',
-							price: '150'
-						},
-						{
-							name: 'Keenetic Air',
-							price: '200'
-						}
-					],
-					oneTime: [
-						{
-							name: 'Keenetic Lite',
-							price: '2500'
-						},
-						{
-							name: 'Keenetic Start',
-							price: '2000'
-						},
-						{
-							name: 'Keenetic Air',
-							price: '4000'
-						}
-					]
-				},
-				{
-					name: "Телевидение",
-					tariff: "ТП.ТВ.Комбо Люкс + AMEDIATEKA",
-					agreement: false,
-					tariffList: [{
-						name: 'ТП.ТВ.Комбо Люкс + AMEDIATEKA',
-						price: '700'
-					}],
-					monthly: [],
-					oneTime: []
-				}
-			]
-		}
 	},
 
-	getDealSDServices(dealId) {
+	getHydraInternetTypes() {
+		console.log('API get Hydra Internet Types');
+		return apiConnection.get(`/hydraWorker/serviceConfig/serviceType/getList`);
+	},
+
+	getSDServices(dealId) {
 		console.log('API get Deal SD Services');
 		return apiConnection.get(`/deal/getServiceList/${dealId}`);
 	},
@@ -128,10 +63,12 @@ export default {
 	},
 
 	getWorksList() {
-		return [
-			{
-				group: "Типовые работы по заявкам",
-				list: [
+		console.log('API get Works List');
+		return {
+			data: [
+				{
+					group: "Типовые работы по заявкам",
+					list: [
 						{
 							name: "Выполнение проработки",
 							value: "1",
@@ -169,172 +106,182 @@ export default {
 							rating: "1"
 						}
 					]
-			},
-			{
-				group: "Монтажные работы с кабелем",
-				list: [
-					{
-						name: "Монтаж кабеля внутри помещения, по лоткам либо подвязка к существующей трассе (UTP, ВОК, ЭП)",
-						value: "7",
-						unit: "за 100 метров",
-						rating: "1"
-					},
-					{
-						name: "Укладка кабеля в гофру или кабель-канал",
-						value: "8",
-						unit: "за 100 метров",
-						rating: "1.2"
-					},
-					{
-						name: "Монтаж кабеля в кабельной канализации, подвес кабеля к тросу (UTP, ВОК, ЭП), подвес кабеля на опоры с монтажем крюков на опоры",
-						value: "9",
-						unit: "за 100 метров",
-						rating: "1.5"
-					},
-					{
-						name: "Монтаж кабель каналов до 100 мм",
-						value: "10",
-						unit: "за 20 метров",
-						rating: "1"
-					},
-					{
-						name: "Монтаж лотков со шпильками",
-						value: "11",
-						unit: "за 20 метров",
-						rating: "2"
-					}
-				]
-			},
-			{
-				group: "Работы по разделке кабелей",
-				list: [
-					{
-						name: "Разделка муфты или кросса",
-						value: "12",
-						unit: "за 1 заведенный кабель",
-						rating: "0.5"
-					},
-					{
-						name: "Разварка волокон",
-						value: "13",
-						unit: "за 1 волокно",
-						rating: "0.1"
-					},
-					{
-						name: "Расшивка патчпанели, каждый 1 порта",
-						value: "14",
-						unit: "за 1 порт",
-						rating: "0.05"
-					}
-				]
-			},
-			{
-				group: "Монтажные работы с оборудованием",
-				list: [
-					{
-						name: "Монтаж LTE комплекта под ключ",
-						value: "15",
-						unit: "за 1 комплект",
-						rating: "1.5"
-					},
-					{
-						name: "Демонтаж LTE комплекта под ключ",
-						value: "16",
-						unit: "за 1 комплект",
-						rating: "1"
-					},
-					{
-						name: "Монтаж радиомоста",
-						value: "17",
-						unit: "за 1 точку",
-						rating: "1.5"
-					},
-					{
-						name: "Демонтаж радиомоста",
-						value: "18",
-						unit: "за 1 точку",
-						rating: "1"
-					},
-					{
-						name: "Монтаж/демонтаж камеры СВН",
-						value: "19",
-						unit: "за 1 камеру",
-						rating: "0.5"
-					},
-					{
-						name: "Юстировка камеры",
-						value: "20",
-						unit: "за 1 камеру",
-						rating: "0.3"
-					},
-					{
-						name: "Настройка камеры",
-						value: "21",
-						unit: "за 1 камеру",
-						rating: "0.2"
-					},
-					{
-						name: "Устранение проблем в картинке камеры (кронировать деревья, убрать провода)",
-						value: "22",
-						unit: "за 1 камеру",
-						rating: "0.3"
-					},
-					{
-						name: "Обслуживание камеры СВН",
-						value: "23",
-						unit: "за 1 камеру",
-						rating: "0.2"
-					},
-					{
-						name: "Фотографирование обьекта (кабель на доме, камера место размещения, эталонное фото)",
-						value: "24",
-						unit: "за 1 обьект",
-						rating: "0.05"
-					},
-					{
-						name: "Установка ТКШ",
-						value: "25",
-						unit: "за 1 ТКШ",
-						rating: "0.5"
-					},
-					{
-						name: "Монтаж и подключение ЭП в ТКШ",
-						value: "26",
-						unit: "за 1 ТКШ",
-						rating: "0.5"
-					}
-				]
-			},
-			{
-				group: "Дополнительные виды работ",
-				list: [
-					{
-						name: "Доставка оборудования (как отдельный элемент работ, не входит при работе по основным задачам)",
-						value: "27",
-						unit: "за 1 заявку",
-						rating: "0.5"
-					},
-					{
-						name: "Дежурство в выходной день без выезда на инцидент",
-						value: "28",
-						unit: "за 1 день",
-						rating: "0.75"
-					},
-					{
-						name: "Решение инцидента (базовая оценка без кабельных работ)",
-						value: "29",
-						unit: "за 1 инцидент",
-						rating: "1"
-					}
-				]
-			}
-			];
+				},
+				{
+					group: "Монтажные работы с кабелем",
+					list: [
+						{
+							name: "Монтаж кабеля внутри помещения, по лоткам либо подвязка к существующей трассе (UTP, ВОК, ЭП)",
+							value: "7",
+							unit: "за 100 метров",
+							rating: "1"
+						},
+						{
+							name: "Укладка кабеля в гофру или кабель-канал",
+							value: "8",
+							unit: "за 100 метров",
+							rating: "1.2"
+						},
+						{
+							name: "Монтаж кабеля в кабельной канализации, подвес кабеля к тросу (UTP, ВОК, ЭП), подвес кабеля на опоры с монтажем крюков на опоры",
+							value: "9",
+							unit: "за 100 метров",
+							rating: "1.5"
+						},
+						{
+							name: "Монтаж кабель каналов до 100 мм",
+							value: "10",
+							unit: "за 20 метров",
+							rating: "1"
+						},
+						{
+							name: "Монтаж лотков со шпильками",
+							value: "11",
+							unit: "за 20 метров",
+							rating: "2"
+						}
+					]
+				},
+				{
+					group: "Работы по разделке кабелей",
+					list: [
+						{
+							name: "Разделка муфты или кросса",
+							value: "12",
+							unit: "за 1 заведенный кабель",
+							rating: "0.5"
+						},
+						{
+							name: "Разварка волокон",
+							value: "13",
+							unit: "за 1 волокно",
+							rating: "0.1"
+						},
+						{
+							name: "Расшивка патчпанели, каждый 1 порта",
+							value: "14",
+							unit: "за 1 порт",
+							rating: "0.05"
+						}
+					]
+				},
+				{
+					group: "Монтажные работы с оборудованием",
+					list: [
+						{
+							name: "Монтаж LTE комплекта под ключ",
+							value: "15",
+							unit: "за 1 комплект",
+							rating: "1.5"
+						},
+						{
+							name: "Демонтаж LTE комплекта под ключ",
+							value: "16",
+							unit: "за 1 комплект",
+							rating: "1"
+						},
+						{
+							name: "Монтаж радиомоста",
+							value: "17",
+							unit: "за 1 точку",
+							rating: "1.5"
+						},
+						{
+							name: "Демонтаж радиомоста",
+							value: "18",
+							unit: "за 1 точку",
+							rating: "1"
+						},
+						{
+							name: "Монтаж/демонтаж камеры СВН",
+							value: "19",
+							unit: "за 1 камеру",
+							rating: "0.5"
+						},
+						{
+							name: "Юстировка камеры",
+							value: "20",
+							unit: "за 1 камеру",
+							rating: "0.3"
+						},
+						{
+							name: "Настройка камеры",
+							value: "21",
+							unit: "за 1 камеру",
+							rating: "0.2"
+						},
+						{
+							name: "Устранение проблем в картинке камеры (кронировать деревья, убрать провода)",
+							value: "22",
+							unit: "за 1 камеру",
+							rating: "0.3"
+						},
+						{
+							name: "Обслуживание камеры СВН",
+							value: "23",
+							unit: "за 1 камеру",
+							rating: "0.2"
+						},
+						{
+							name: "Фотографирование обьекта (кабель на доме, камера место размещения, эталонное фото)",
+							value: "24",
+							unit: "за 1 обьект",
+							rating: "0.05"
+						},
+						{
+							name: "Установка ТКШ",
+							value: "25",
+							unit: "за 1 ТКШ",
+							rating: "0.5"
+						},
+						{
+							name: "Монтаж и подключение ЭП в ТКШ",
+							value: "26",
+							unit: "за 1 ТКШ",
+							rating: "0.5"
+						}
+					]
+				},
+				{
+					group: "Дополнительные виды работ",
+					list: [
+						{
+							name: "Доставка оборудования (как отдельный элемент работ, не входит при работе по основным задачам)",
+							value: "27",
+							unit: "за 1 заявку",
+							rating: "0.5"
+						},
+						{
+							name: "Дежурство в выходной день без выезда на инцидент",
+							value: "28",
+							unit: "за 1 день",
+							rating: "0.75"
+						},
+						{
+							name: "Решение инцидента (базовая оценка без кабельных работ)",
+							value: "29",
+							unit: "за 1 инцидент",
+							rating: "1"
+						}
+					]
+				}
+			]
+		};
+	},
+
+	getVisitStatuses() {
+		console.log('API get Visit Statuses');
+		return apiConnection.get(`/deal/getStatusList`);
 	},
 
 	updateCustomerInfo(customerData) {
 		console.log('API UPDATE Customer Info');
-		console.log(customerData);
 		return apiConnection.post(`/customer/updateInfo`, customerData);
+	},
+
+	updateMeetingDateTime(params) {
+		console.log('API UPDATE Meeting Date Time');
+		return apiConnection.post(`/deal/updateDealInfo`, params);
 	},
 
 	updateToken() {
@@ -342,7 +289,9 @@ export default {
 		apiConnection.defaults.headers.common['token'] = localStorage.engineerAccountAppToken;
 	},
 
-
-	//customerInfo/:customerId
+	updateTypeServices(params) {
+		console.log('API UPDATE Type Services');
+		return apiConnection.post(`/hydraWorker/serviceConfig/postConnectionType`, params);
+	},
 
 }

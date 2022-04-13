@@ -8,17 +8,21 @@
 
     <OrderHeader   />
 
-    <OrderNav @switchOrderContent="switchComponentView"   />
+    <OrderNav @switchOrderContent="switchComponentView" :isConnection="isConnection"  />
 
     <div class="elz d-block p16 wmx1200 mAuto">
 
       <OrderWorks ref="works"   />
 
-      <OrderCustomer ref="customer"   />
+      <template v-if="isConnection">
 
-      <OrderServices ref="services"   />
+        <OrderCustomer ref="customer"   />
 
-      <OrderFinish ref="finishing"   />
+        <OrderServices ref="services"   />
+
+        <OrderFinish ref="finishing"   />
+
+      </template>
 
     </div>
 
@@ -64,13 +68,15 @@ export default {
   },
 
   setup(props) {
-    console.log('ORDER PAGE setup hook');
     const store = useStore();
+
+    if (!store.state.static.visitStatuses.length) {
+      store.dispatch('static/fetchVisitStatuses');
+    }
+
     store.dispatch('orderPage/fetchOrderDetails', props.orderId);
 
     onUnmounted(() => {store.state.orderPage.order = {}; });
-
-    //TODO Определить тип заявки для отображения интерфейса: если это подключение - показывать правую панель "OrderHeaderConnection"
   },
 
   watch: {
@@ -84,7 +90,15 @@ export default {
   computed: {
     dataIsReady() {
       return this.$store.state.orderPage.order.readyState;
-    }
+    },
+
+    order() {
+      return this.$store.state.orderPage.order.details;
+    },
+
+    isConnection() {
+      return (+this.order.OrderTypeID === 2 || +this.order.OrderTypeID === 11) && (+this.order.CustomerTypeID === 2);
+    },
   },
 
   methods: {

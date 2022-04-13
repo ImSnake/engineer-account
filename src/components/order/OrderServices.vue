@@ -28,12 +28,6 @@
       </table>
     </div>
 
-    <div class="elz d-flex a-X mB32 hide">
-      <BaseButton
-          :classList="'hmn48 bg-ok bgHovL10 fn-ok-t'"
-          :title="'Создать клиента в Гидре'"    />
-    </div>
-
     <div class="elz d-flex dir-y gap16">
 
       <template v-for="(service, index) in $store.state.orderPage.order.servicesHydra" :key="index">
@@ -50,7 +44,6 @@
 </template>
 
 <script>
-import BaseButton from "@/components/elements/BaseButton";
 import OrderServicesHydra from "@/components/order/OrderServicesHydra";
 import { useStore } from "vuex";
 
@@ -59,16 +52,16 @@ export default {
   name: "OrderServices",
 
   components: {
-    BaseButton,
     OrderServicesHydra
   },
 
   setup() {
     const store = useStore();
-    if (!store.state.orderPage.services) {
-      store.dispatch('orderPage/fetchDealSDServices', store.state.orderPage.order.details.DealID);
-      store.dispatch('orderPage/fetchDealHydraServices', store.state.orderPage.order.details.DealID);
+    if (!store.state.static.hydraInternetTypes.length) {
+      store.dispatch('static/fetchHydraInternetTypes');
     }
+    store.dispatch('orderPage/fetchSDServices', store.state.orderPage.order.details.DealID);
+    store.dispatch('orderPage/fetchHydraServices', store.state.orderPage.order.details.DealID);
   },
 
   data() {

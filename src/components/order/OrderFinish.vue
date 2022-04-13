@@ -1,10 +1,13 @@
 <template>
   <template v-if="isActive">
     <div class="elz d-flex a-X mB32">
-      <BaseButton
+      <a :href="`http://tts.naukanet.ru/customers/orderinfo.asp?OrderID=${$store.state.orderPage.order.details.OrderID}`" target="_blank" :class="[{ uDisabled: !isDisabled },'h48 bg-ok fn-ok-t']" :title="buttonTitle" class="elz d-flex gap8 a-X r3 pH32 cur-pointer opAct07 bg fn">
+        <div class="elz d-block grow al-center">{{ buttonTitle }}</div>
+      </a>
+<!--      <BaseButton
           @onButtonClick="finishOrder"
           :classList="[{ uDisabled: !isDisabled },'h48 bg-ok fn-ok-t']"
-          :title="buttonTitle"   />
+          :title="buttonTitle"   />-->
     </div>
 
     <div class="elz d-flex gapH16 gapV32 f-wrap">
@@ -36,14 +39,14 @@
 </template>
 
 <script>
-import BaseButton     from "@/components/elements/BaseButton";
+//import BaseButton     from "@/components/elements/BaseButton";
 import FileUploadWrap from "@/components/elements/FileUploadWrap";
 
 export default {
   name: "OrderFinish",
 
   components: {
-    BaseButton,
+    //BaseButton,
     FileUploadWrap
   },
 
@@ -60,7 +63,7 @@ export default {
     },
 
     buttonTitle(){
-      return this.isDisabled ? 'Завершить заявку' : 'Требуется загрузить сканы документов';
+      return this.isDisabled ? 'Перейти в TTS для завершения заявки' : 'Требуется загрузить сканы документов';
     }
   },
 

@@ -17,10 +17,10 @@
         </div>
         <div class="elz d-block p20">
           <div class="elz d-block  mT-16">
-            <div @click="datepicker = true" class="elz d-flex a-H mT20 cur-pointer fn fn-link-inline fnHovL10 opAct07 underlineHov" title="Дата и время визита к клиенту">
-              <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/truck.svg');"></div>
+<!--            <div @click="datepicker = true" class="elz d-flex a-H mT20 cur-pointer fn fn-link-inline fnHovL10 opAct07 underlineHov" title="Дата и время визита к клиенту">
+              <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="&#45;&#45;elzMsk: url('/style/icons/truck.svg');"></div>
               <div class="elz d-block mL8"><b class="elz bold">{{ formattedMeetingDateTime }}</b></div>
-            </div>
+            </div>-->
             <div class="elz d-flex a-H mT20" title="Срок выполнения">
               <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/clock.svg');"></div>
               <div class="elz d-block mL8"><b class="elz bold">{{ orderDate }}</b>&nbsp;({{ order.overdueTitle }})</div>
@@ -58,11 +58,11 @@
              :class="hasComments ? '' : 'uDisabled'" class="elz d-flex a-X w100p h36 hAuto r3 cur-pointer bold opAct07 cTextBef cTextChkBef bg bg-primary bgL-5 bgHovL-10"  />
     </div>
 
-    <template v-if="datepicker">
+<!--    <template v-if="datepicker">
       <PopUpWindow @closePopUp="datepicker = false" :className="'p-F m4'">
         <DateTimePicker @datepickerDate="updateMeetingDateTime" :currentDate="order.MeetingDateTime.trim()" />
       </PopUpWindow>
-    </template>
+    </template>-->
 
     <template v-if="responsible">
       <PopUpWindow @closePopUp="responsible = false" :className="'p-F m4'">
@@ -104,9 +104,9 @@
 <script>
 import PopUpWindow       from "@/components/elements/PopUpWindow";
 import OrdersCardDetails from "@/components/orders/OrdersCardDetails";
-import DateTimePicker    from "@/components/elements/DateTimePicker";
+//import DateTimePicker    from "@/components/elements/DateTimePicker";
 
-import { dateFormatDdMmYyyy, dateTimeFormatHHMM } from "@/helpers/formating";
+import { dateFormatDdMmYyyy/*, dateTimeFormatHHMM*/ } from "@/helpers/formating";
 
 
 export default {
@@ -115,7 +115,7 @@ export default {
   components: {
     OrdersCardDetails,
     PopUpWindow,
-    DateTimePicker
+    //DateTimePicker
   },
 
   props: {
@@ -125,7 +125,7 @@ export default {
   data() {
     return {
       responsible: false,
-      datepicker: false,
+      //datepicker: false,
     }
   },
 
@@ -134,9 +134,9 @@ export default {
       return this.order.Comments.trim().length || this.order.Contacts.trim().length;
     },
 
-    formattedMeetingDateTime() {
+/*    formattedMeetingDateTime() {
       return this.order.MeetingDateTime ? `${dateFormatDdMmYyyy(this.order.MeetingDateTime)} в ${dateTimeFormatHHMM(this.order.MeetingDateTime)}` : 'Дата и время выезда не заданы';
-    },
+    },*/
 
     orderDate() {
       return dateFormatDdMmYyyy(this.order.OrderDate);
@@ -183,10 +183,10 @@ export default {
       }
     },
 
-    async updateMeetingDateTime(date) {
+/*    async updateMeetingDateTime(date) {
       await this.$store.dispatch('homePage/updateOrdersMeetingDateTime', {date, OrderID: this.order.OrderID});
       this.datepicker = false;
-    }
+    }*/
 
   }
 }

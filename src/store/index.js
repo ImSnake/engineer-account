@@ -1,7 +1,6 @@
 import AppDataServ    from "@/services/AppDataServ";
 import { createStore } from 'vuex';
-import { dateCalculateDifference } from "@/helpers/formating";
-
+import {dateCalculateDifference, dateFormatDdMmYyyy} from "@/helpers/formating";
 
 export default createStore({
   modules: {
@@ -13,6 +12,8 @@ export default createStore({
         user: {},
         filters: {},
         responsibleList: [],
+        visitStatuses: [],
+        hydraInternetTypes: []
       }),
 
       mutations: {
@@ -53,6 +54,18 @@ export default createStore({
           localStorage.setItem('engineerAccountAppFilters',  JSON.stringify(state.filters));
         },
 
+        SET_HYDRA_INTERNET_TYPES(state, data) {
+          state.hydraInternetTypes = data.map(({VALUE, NAME}) => ({value: VALUE, name: NAME}));
+          state.hydraInternetTypes.unshift({
+            value: '',
+            name: 'Выбрать тип услуги'
+          })
+        },
+
+        SET_VISIT_STATUSES(state, data) {
+          state.visitStatuses = data;
+        },
+
         UPDATE_RESPONSIBLE(state, data) {
           state.responsibleList.push(data[0]);
         }
@@ -91,6 +104,16 @@ export default createStore({
             });
         },
 
+        fetchHydraInternetTypes({ commit }) {
+          return AppDataServ.getHydraInternetTypes()
+            .then(response => {
+              commit('SET_HYDRA_INTERNET_TYPES', response.data);
+            })
+            .catch(error => {
+              throw(error);
+            });
+        },
+
         fetchResponsible({ commit }, responsibleId) {
           return AppDataServ.getResponsibleDetails(responsibleId)
             .then(response => {
@@ -100,6 +123,39 @@ export default createStore({
               throw(error);
             });
         },
+
+        fetchVisitStatuses({commit}) {
+          return AppDataServ.getVisitStatuses()
+            .then(response => {
+              commit('SET_VISIT_STATUSES', response.data);
+            })
+            .catch(error => {
+              throw(error);
+            });
+/*          const visitStatuses = [
+            {
+              OrderVisitStatusID: '1',
+              StatusOrder: '1',
+              StatusTitle: 'Согласование времени',
+            },
+            {
+              OrderVisitStatusID: '2',
+              StatusOrder: '2',
+              StatusTitle: 'Ожидание выезда',
+            },
+            {
+              OrderVisitStatusID: '3',
+              StatusOrder: '3',
+              StatusTitle: 'Сотрудник в пути',
+            },
+            {
+              OrderVisitStatusID: '4',
+              StatusOrder: '4',
+              StatusTitle: 'Сотрудник прибыл',
+            }
+          ];
+          commit('SET_VISIT_STATUSES', visitStatuses);*/
+        }
      }
     },
 
@@ -151,13 +207,7 @@ export default createStore({
             byDepartment: true,
           }
           state.orders.push(data[0]);
-          //console.log(data[0]);
-          //console.log(state.orders);
         },
-
-        UPDATE_ORDERS_MEETING(state, data) {
-          state.orders.find(order => +order.OrderID === +data.OrderID).MeetingDateTime = data.date;
-        }
       },
 
       actions: {
@@ -181,11 +231,6 @@ export default createStore({
               throw(error);
             });
         },
-
-        updateOrdersMeetingDateTime({commit}, params) {
-          commit('UPDATE_ORDERS_MEETING', params);
-          //TODO сначала передача данных по API в tts, после апрува - обновление данных в state
-        },
       }
     },
 
@@ -193,7 +238,10 @@ export default createStore({
       namespaced: true,
 
       state: () => ({
-        order: {},
+        order: {
+          onPlaceDateTime: '',
+          onWayDateTime: ''
+        },
 
         works: [],
 
@@ -239,11 +287,32 @@ export default createStore({
           ];
 
           state.order.readyState = true;
-          console.log(state.order);
         },
 
         SET_CUSTOMER_INFO(state, data) {
+          if (data.birthdayDate) {
+            data.birthdayDate = dateFormatDdMmYyyy(data.birthdayDate);
+          }
+          if (data.issueDate) {
+            data.issueDate = dateFormatDdMmYyyy(data.issueDate);
+          }
+          if (data.passportDetails) {
+            const pass = data.passportDetails.split(' ');
+            data.passportSeries = pass[0];
+            data.passportNumber = pass[1];
+          } else {
+            data.passportSeries = '';
+            data.passportNumber = '';
+          }
           state.order.customerInfo = data;
+          state.order.customerInfo.readyState = true;
+        },
+
+        SET_HYDRA_INTERNET_SERVICES(state, data) {
+          console.log(state.order.servicesHydra.find(el => el.name === "Интернет"));
+          console.log(data);
+          //state.order.servicesHydra.find(el => el.name === "Интернет")
+          state.order.servicesHydra.find(el => el.name === "Интернет").tariffList = data;
         },
 
         SET_HYDRA_SERVICES(state, data) {
@@ -276,8 +345,8 @@ export default createStore({
           console.log(state.files);
         },
 
-        UPDATE_ORDER_MEETING(state, data) {
-          state.order.details.MeetingDateTime = data;
+        UPDATE_ORDER_MEETING(state, status) {
+          state.order.details.meetingStatusId = status;
         },
       },
 
@@ -292,18 +361,94 @@ export default createStore({
             });
         },
 
-        fetchDealHydraServices({ commit }, dealId) {
-          return AppDataServ.getDealHydraServices(dealId)
+        fetchHydraServices({ commit }, /*dealId*/) {
+          const data = [
+            {
+              name: "Интернет",
+              type: "Выбрать тип услуги",
+              tariff: "Выбрать тарифный план",
+              agreement: false,
+              tariffList: [
+/*                {
+                  name: 'Выбрать тарифный план',
+                  value: ''
+                },
+                {
+                  name: 'ТП.ИНТ.Безлимитный 40',
+                  price: '700'
+                },
+                {
+                  name: 'ТП.ИНТ.Безлимитный 60',
+                  price: '1000'
+                },
+                {
+                  name: 'ТП.ИНТ.Безлимитный 100',
+                  price: '1500'
+                },
+                {
+                  name: 'ТП.Радиолинк 20',
+                  price: '2200'
+                }*/
+              ],
+              monthly: [
+                {
+                  name: 'IP-адрес',
+                  price: '200'
+                },
+                {
+                  name: 'Keenetic Lite',
+                  price: '150'
+                },
+                {
+                  name: 'Keenetic Start',
+                  price: '150'
+                },
+                {
+                  name: 'Keenetic Air',
+                  price: '200'
+                }
+              ],
+/*              oneTime: [
+                {
+                  name: 'Keenetic Lite',
+                  price: '2500'
+                },
+                {
+                  name: 'Keenetic Start',
+                  price: '2000'
+                },
+                {
+                  name: 'Keenetic Air',
+                  price: '4000'
+                }
+              ]*/
+            },
+            {
+              name: "Телевидение",
+              tariff: "ТП.ТВ.Комбо Люкс + AMEDIATEKA",
+              agreement: false,
+              tariffList: [{
+                name: 'ТП.ТВ.Комбо Люкс + AMEDIATEKA',
+                price: '700'
+              }],
+              monthly: [],
+              oneTime: []
+            }
+          ];
+          commit('SET_HYDRA_SERVICES', data);
+          /* return AppDataServ.getHydraServices(dealId)
             .then(response => {
+              console.log(response);
               commit('SET_HYDRA_SERVICES', response.data);
+
             })
             .catch(error => {
               throw(error);
-            });
+            });*/
         },
 
-        fetchDealSDServices({ commit }, dealId) {
-          return AppDataServ.getDealSDServices(dealId)
+        fetchSDServices({ commit }, dealId) {
+          return AppDataServ.getSDServices(dealId)
             .then(response => {
               commit('SET_SD_SERVICES', response.data);
             })
@@ -332,10 +477,27 @@ export default createStore({
             });
         },
 
-        updateOrderMeetingDateTime({commit}, date) {
-          commit('UPDATE_ORDER_MEETING', date);
-          //TODO сначала передача данных по API в tts, после апрува - обновление данных в state
+        updateMeetingDateTime({commit}, params) {
+          return AppDataServ.updateMeetingDateTime(params)
+            .then(response => {
+              if (!response.data === 1) {
+                commit('UPDATE_ORDER_MEETING', params.status - 1);
+              }
+            })
+            .catch(error => {
+              throw(error);
+            });
         },
+
+        updateTypeServices({commit}, params) {
+          return AppDataServ.updateTypeServices(params)
+            .then(response => {
+              commit('SET_HYDRA_INTERNET_SERVICES', response.data);
+            })
+            .catch(error => {
+              throw(error);
+            });
+        }
       }
     }
   }

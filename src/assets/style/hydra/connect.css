@@ -37,11 +37,16 @@
 
 .cnnClientPage { --elzEPSize: 0px; }
 
+.cnnClientWrap .cnnInfoGrid .infoLabel { min-height: 12px; }
+.cnnClientWrap .cnnInfoGrid .infoTitle { margin-top: 12px; }
+
+.cnnFlexibleInputs .infoLine { margin-bottom: 0; }
+
 @media (min-width: 640px) {
     .cnnClientWrap .cnnInfoGrid {
         display: grid;
         grid-template-columns: auto 1fr;
-        align-items: flex-end;
+        align-items: flex-start;
         row-gap: 16px;
     }
 
