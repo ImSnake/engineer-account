@@ -9,15 +9,15 @@
             :title="formattedDateTime"   />
 
         <BaseButton
-            @onButtonClick="onWayClick"
+            @onButtonClick="confirmAction('onWayConfirm', 'onWayDateTime', 3, )"
             :iconName="onWayConfirm ? 'question' : 'location1'"
-            :classList="[{uDisabled: order.meetingStatusId > 2 || !order.meetingDateTime}, 'hmn48 grow bg-ok bgHovL10 fn-ok-t']"
+            :classList="[{uDisabled: order.meetingStatusId > 2 || !order.meetingDateTime}, 'onWayConfirm hmn48 grow bg-ok bgHovL10 fn-ok-t']"
             :title="onWayConfirm ? 'Подтвердить выезд' : titleOnWay"   />
 
         <BaseButton
-            @onButtonClick="onPlaceClick"
+            @onButtonClick="confirmAction('onPlaceConfirm', 'onPlaceDateTime', 4)"
             :iconName="onPlaceConfirm ? 'question' : 'flag'"
-            :classList="[{uDisabled: order.meetingStatusId < 3 || order.meetingStatusId === 4}, 'hmn48 grow bg-success bgHovL10 fn-ok-t']"
+            :classList="[{uDisabled: order.meetingStatusId < 3 || order.meetingStatusId === 4}, 'onPlaceConfirm hmn48 grow bg-success bgHovL10 fn-ok-t']"
             :title="onPlaceConfirm ? 'Подтвердить прибытие' : titleOnPlace"   />
 
         <template v-if="datepicker">
@@ -78,7 +78,6 @@ export default {
   },
 
   methods: {
-
     getMeetingParams(date, status) {
       return {
         time: date,
@@ -87,25 +86,21 @@ export default {
       }
     },
 
-    async onWayClick() {
-      if (!this.onWayConfirm) {
-        this.onWayConfirm = true;
-      } else {
-        this.order.onWayDateTime = this.timeStampNow;
-        this.order.meetingStatusId = 3;
-        await this.$store.dispatch('orderPage/updateMeetingDateTime', this.getMeetingParams(this.order.onWayDateTime, this.order.meetingStatusId));
-        this.onWayConfirm = false;
+    clickOut(actionName, e) {
+      if (this[actionName] === false || !e.target.closest(`.${actionName}`)) {
+        this[actionName] = false;
       }
     },
 
-    async onPlaceClick() {
-      if (!this.onPlaceConfirm) {
-        this.onPlaceConfirm = true;
+    async confirmAction(actionName, dateName, statusId) {
+      if (!this[actionName]) {
+        this[actionName] = true;
+        document.addEventListener("click", this.clickOut.bind(null, actionName), { capture: true, once:true });
       } else {
-      this.order.onPlaceDateTime = this.timeStampNow;
-      this.order.meetingStatusId = 4;
-      await this.$store.dispatch('orderPage/updateMeetingDateTime', this.getMeetingParams(this.order.onPlaceDateTime, this.order.meetingStatusId));
-        this.onPlaceConfirm = false;
+        this.order[dateName] = this.timeStampNow;
+        this.order.meetingStatusId = statusId;
+        await this.$store.dispatch('orderPage/updateMeetingDateTime', this.getMeetingParams(this.order[dateName], this.order.meetingStatusId));
+        this[actionName] = false;
       }
     },
 
@@ -115,7 +110,6 @@ export default {
       this.order.meetingDateTime = date;
       this.datepicker = false;
     }
-
   }
 
 }

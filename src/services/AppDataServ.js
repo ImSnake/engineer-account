@@ -42,6 +42,11 @@ export default {
 		return apiConnection.get('/filter');
 	},
 
+/*	getHeaderIcons() {
+		console.log('API get Header Icons');
+		return apiConnection.get('/order/getInfoForHeader');
+	},*/
+
 	getOrderDetails(orderId) {
 		console.log('API get Order Details');
 		return apiConnection.get(`/order/getInfo/${orderId}`);

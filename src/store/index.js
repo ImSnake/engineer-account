@@ -54,6 +54,11 @@ export default createStore({
           localStorage.setItem('engineerAccountAppFilters',  JSON.stringify(state.filters));
         },
 
+/*        SET_HEADER_ICONS(state, data) {
+          console.log(state);
+          console.log(data);
+        },*/
+
         SET_HYDRA_INTERNET_TYPES(state, data) {
           state.hydraInternetTypes = data.map(({VALUE, NAME}) => ({value: VALUE, name: NAME}));
           state.hydraInternetTypes.unshift({
@@ -113,6 +118,16 @@ export default createStore({
               throw(error);
             });
         },
+
+/*        fetchHeaderIcons({ commit }) {
+          return AppDataServ.getHeaderIcons()
+            .then(response => {
+              commit('SET_HEADER_ICONS', response.data);
+            })
+            .catch(error => {
+              throw(error);
+            });
+        },*/
 
         fetchResponsible({ commit }, responsibleId) {
           return AppDataServ.getResponsibleDetails(responsibleId)
@@ -309,8 +324,6 @@ export default createStore({
         },
 
         SET_HYDRA_INTERNET_SERVICES(state, data) {
-          console.log(state.order.servicesHydra.find(el => el.name === "Интернет"));
-          console.log(data);
           //state.order.servicesHydra.find(el => el.name === "Интернет")
           state.order.servicesHydra.find(el => el.name === "Интернет").tariffList = data;
         },

@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="elz d-flex f-wrap gapH8">
-          <div class="elz d-block fb120 grow noShrink fn14 pV1">Номер заявки:</div>
+          <div class="elz d-block fb120 grow noShrink fn14 pV1">Заявка:</div>
           <a :href="`http://tts.naukanet.ru/customers/orderinfo.asp?OrderID=${order.OrderID}`" target="_blank" class="elz d-block fb150 growMax bold cur-pointer fn fn-link-inline underlineHov">#{{ order.OrderID }}</a>
         </div>
         <div v-if="order.DealID" class="elz d-flex f-wrap gap8">
@@ -78,8 +78,7 @@ export default {
     },
 
     orderAddress() {
-      return `${this.order.locationAddress}`
-      //return `${this.order.locationAddress}, ${this.order.locationAddressEntrance}, ${this.order.locationAddressLevel}, ${this.order.locationAddressFlat}`
+      return `${this.order.locationAddress}, ${this.order.locationAddressEntrance}, ${this.order.locationAddressLevel}, ${this.order.locationAddressFlat}`
     }
   }
 

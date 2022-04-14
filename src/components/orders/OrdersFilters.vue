@@ -125,6 +125,15 @@ export default {
 
   methods: {
     changeDepartment() {
+      /*let depArr = [+this.departmentSelected];
+      let depId = this.department.find(el => +el.departmentId === +this.departmentSelected)?.headDepId;
+      console.log(depId);
+      while (depId !== 2 && depId !== undefined) {
+        depArr.push(depId);
+        depId = this.department.find(el => +el.departmentId === +depId).headDepId;
+      }
+      console.log(depArr);*/
+
       this.orders.forEach(order => {
         order.showInList.byDepartment = (+order.DepartmentID === +this.departmentSelected || +this.departmentSelected === 0);
       });

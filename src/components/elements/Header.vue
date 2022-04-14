@@ -70,14 +70,14 @@
           </div>
           <div class="elz elizeMenuWrap p-rel d-block grow">
             <div class="elz elizeMenuList z1 p-abs p-AT d-block hmn100p bg bg-primary">
-              <div class="elz d-block elizeMenuItem">
+<!--              <div class="elz d-block elizeMenuItem">
                 <div class="elz p-rel d-block elizeItemInner">
                   <div class="elz p-rel d-flex hmn56 bgHov bgHov-primary bgHovL-5 bgHovLInvD cHovOut opHovOut">
                     <div class="elz d-flex a-H growX cur-pointer opAct07">
                       <div class="d-flex a-X s56 mH8">
                         <div class="d-flex a-X s40 rCircle bg bg-blue fn fn-white fnL-10 fnHovInL0" title="Галочка на иконке типа">
                           <div class="elz d-flex a-X dsh-text3">
-                            <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/checkmark.svg');"></div>
+                            <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="&#45;&#45;elzMsk: url('/style/icons/checkmark.svg');"></div>
                           </div>
                         </div>
                       </div>
@@ -88,7 +88,7 @@
                     </div>
                     <div @click="toNextLevel" class="elz elzItemNext p-rel d-flex a-X s56 borL1 mL8 cur-pointer op025 opHov10 opAct07 trns">
                       <div class="elz p-abs p-H d-flex h24 borL1 br br-CC trns op0 opHovIn10"></div>
-                      <div class="elz d-block p-rel mskBef s12 cFillBef bgBef-CC deg90" style="--elzMsk: url('/style/icons/arrow2.svg');"></div>
+                      <div class="elz d-block p-rel mskBef s12 cFillBef bgBef-CC deg90" style="&#45;&#45;elzMsk: url('/style/icons/arrow2.svg');"></div>
                     </div>
                   </div>
                 </div>
@@ -100,8 +100,8 @@
                           <div class="d-flex a-X s56 mH8">
                             <div class="d-flex a-X s40 rCircle bg bg-blue fn fn-white fnL-10 fnHovInL0" title="Галочка на иконке типа">
                               <div class="elz d-flex a-X dsh-text3">
-                                <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC hideHovIn" style="--elzMsk: url('/style/icons/checkmark.svg');"></div>
-                                <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC deg270 showHovIn" style="--elzMsk: url('/style/icons/arrow2.svg');"></div>
+                                <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC hideHovIn" style="&#45;&#45;elzMsk: url('/style/icons/checkmark.svg');"></div>
+                                <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC deg270 showHovIn" style="&#45;&#45;elzMsk: url('/style/icons/arrow2.svg');"></div>
                               </div>
                             </div>
                           </div>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="elz p-rel d-flex a-X s56 borL1 mL8 cur-pointer op025 opHov10 opAct07 trns">
                           <div class="elz p-abs p-H d-flex h24 borL1 br br-CC trns op0 opHovIn10"></div>
-                          <div class="elz d-block p-rel mskBef s12 cFillBef bgBef-CC deg90" style="--elzMsk: url('/style/icons/cross1.svg');"></div>
+                          <div class="elz d-block p-rel mskBef s12 cFillBef bgBef-CC deg90" style="&#45;&#45;elzMsk: url('/style/icons/cross1.svg');"></div>
                         </div>
                         <div class="elz p-abs p-F borV1 br br-primary brL-12 brLInvD evNone"></div>
                       </div>
@@ -126,7 +126,7 @@
                           <div class="d-flex a-X s56 mH8">
                             <div class="d-flex a-X s40 rCircle bg bg-primary bgL-10 bgLInvD fn fn-white fnL-5 fnHovInL0" title="Галочка на иконке типа">
                               <div class="elz d-flex a-X dsh-text3">
-                                <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/checkmark.svg');"></div>
+                                <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="&#45;&#45;elzMsk: url('/style/icons/checkmark.svg');"></div>
                               </div>
                             </div>
                           </div>
@@ -145,7 +145,7 @@
                           <div class="d-flex a-X s56 mH8">
                             <div class="d-flex a-X s40 rCircle bg bg-primary bgL-10 bgLInvD fn fn-white fnL-5 fnHovInL0" title="Галочка на иконке типа">
                               <div class="elz d-flex a-X dsh-text3">
-                                <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/checkmark.svg');"></div>
+                                <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="&#45;&#45;elzMsk: url('/style/icons/checkmark.svg');"></div>
                               </div>
                             </div>
                           </div>
@@ -164,7 +164,7 @@
                           <div class="d-flex a-X s56 mH8">
                             <div class="d-flex a-X s40 rCircle bg bg-green fn fn-white fnL-10 fnHovInL0" title="Галочка на иконке типа">
                               <div class="elz d-flex a-X dsh-text3">
-                                <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/checkmark.svg');"></div>
+                                <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="&#45;&#45;elzMsk: url('/style/icons/checkmark.svg');"></div>
                               </div>
                             </div>
                           </div>
@@ -175,7 +175,7 @@
                         </div>
                         <div @click="toNextLevel" class="elz elzItemNext p-rel d-flex a-X s56 borL1 mL8 cur-pointer op025 opHov10 opAct07 trns">
                           <div class="elz p-abs p-H d-flex h24 borL1 br br-CC trns op0 opHovIn10"></div>
-                          <div class="elz d-block p-rel mskBef s12 cFillBef bgBef-CC deg90" style="--elzMsk: url('/style/icons/arrow2.svg');"></div>
+                          <div class="elz d-block p-rel mskBef s12 cFillBef bgBef-CC deg90" style="&#45;&#45;elzMsk: url('/style/icons/arrow2.svg');"></div>
                         </div>
                       </div>
                     </div>
@@ -187,8 +187,8 @@
                               <div class="d-flex a-X s56 mH8">
                                 <div class="d-flex a-X s40 rCircle bg bg-green fn fn-white fnL-10 fnHovInL0" title="Галочка на иконке типа">
                                   <div class="elz d-flex a-X dsh-text3">
-                                    <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC hideHovIn" style="--elzMsk: url('/style/icons/checkmark.svg');"></div>
-                                    <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC deg270 showHovIn" style="--elzMsk: url('/style/icons/arrow2.svg');"></div>
+                                    <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC hideHovIn" style="&#45;&#45;elzMsk: url('/style/icons/checkmark.svg');"></div>
+                                    <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC deg270 showHovIn" style="&#45;&#45;elzMsk: url('/style/icons/arrow2.svg');"></div>
                                   </div>
                                 </div>
                               </div>
@@ -200,7 +200,7 @@
                             </div>
                             <div class="elz p-rel d-flex a-X s56 borL1 mL8 cur-pointer op025 opHov10 opAct07 trns">
                               <div class="elz p-abs p-H d-flex h24 borL1 br br-CC trns op0 opHovIn10"></div>
-                              <div class="elz d-block p-rel mskBef s12 cFillBef bgBef-CC deg90" style="--elzMsk: url('/style/icons/cross1.svg');"></div>
+                              <div class="elz d-block p-rel mskBef s12 cFillBef bgBef-CC deg90" style="&#45;&#45;elzMsk: url('/style/icons/cross1.svg');"></div>
                             </div>
                             <div class="elz p-abs p-F borV1 br br-primary brL-12 brLInvD evNone"></div>
                           </div>
@@ -213,7 +213,7 @@
                               <div class="d-flex a-X s56 mH8">
                                 <div class="d-flex a-X s40 rCircle bg bg-primary bgL-10 bgLInvD fn fn-white fnL-5 fnHovInL0" title="Галочка на иконке типа">
                                   <div class="elz d-flex a-X dsh-text3">
-                                    <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/checkmark.svg');"></div>
+                                    <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="&#45;&#45;elzMsk: url('/style/icons/checkmark.svg');"></div>
                                   </div>
                                 </div>
                               </div>
@@ -232,7 +232,7 @@
                               <div class="d-flex a-X s56 mH8">
                                 <div class="d-flex a-X s40 rCircle bg bg-primary bgL-10 bgLInvD fn fn-white fnL-5 fnHovInL0" title="Галочка на иконке типа">
                                   <div class="elz d-flex a-X dsh-text3">
-                                    <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/checkmark.svg');"></div>
+                                    <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="&#45;&#45;elzMsk: url('/style/icons/checkmark.svg');"></div>
                                   </div>
                                 </div>
                               </div>
@@ -258,7 +258,7 @@
                           <div class="d-flex a-X s56 mH8">
                             <div class="d-flex a-X s40 rCircle bg bg-primary bgL-10 bgLInvD fn fn-white fnL-5 fnHovInL0" title="Галочка на иконке типа">
                               <div class="elz d-flex a-X dsh-text3">
-                                <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/checkmark.svg');"></div>
+                                <div class="elz d-block p-rel mskBef s16 cFillBef bgBef-CC" style="&#45;&#45;elzMsk: url('/style/icons/checkmark.svg');"></div>
                               </div>
                             </div>
                           </div>
@@ -271,7 +271,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>-->
               <div class="elz d-block elizeMenuItem">
                 <div class="elz p-rel d-block elizeItemInner">
                   <div class="elz d-block pH16 pV12 fn10 uppercase bold bg bg-primary bgL-10 bgLInvD">Настройки</div>
@@ -344,6 +344,10 @@ export default {
       activeTheme: this.$options._theme[0]
     }
   },
+
+/*  async created() {
+    await this.$store.dispatch('static/fetchHeaderIcons');
+  },*/
 
   computed: {
     iconCase() {
