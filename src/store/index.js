@@ -11,12 +11,17 @@ export default createStore({
       state: () => ({
         user: {},
         filters: {},
+        hydraInternetTypes: [],
         responsibleList: [],
         visitStatuses: [],
-        hydraInternetTypes: []
+        workServices: []
       }),
 
       mutations: {
+        AUTH_USER_FALSE(state) {
+          state.user = {};
+        },
+
         AUTH_USER_TRUE(state, data) {
           state.user = data.userData;
           localStorage.setItem('engineerAccountAppToken', data.token);
@@ -29,10 +34,6 @@ export default createStore({
 
           const filters = localStorage.getItem('engineerAccountAppFilters');
           state.filters = JSON.parse(filters);
-        },
-
-        AUTH_USER_FALSE(state) {
-          state.user = {};
         },
 
         SET_FILTERS(state, data){
@@ -69,6 +70,10 @@ export default createStore({
 
         SET_VISIT_STATUSES(state, data) {
           state.visitStatuses = data;
+        },
+
+        SET_WORK_SERVICES(state, data) {
+          state.workServices = data;
         },
 
         UPDATE_RESPONSIBLE(state, data) {
@@ -147,29 +152,125 @@ export default createStore({
             .catch(error => {
               throw(error);
             });
-/*          const visitStatuses = [
+        },
+
+        fetchWorkServices({commit}) {
+          const workServices = [
             {
-              OrderVisitStatusID: '1',
-              StatusOrder: '1',
-              StatusTitle: 'Согласование времени',
+              categoryId: '2',
+              name: 'Категория Подключения',
+              list: [
+                {
+                  id: "6",
+                  name: "Выполнение проработки",
+                  sum: 0.5
+                },
+                {
+                  id: "7",
+                  name: "Выполнение подключения (Физические лица или юридические лица на объектах с развитой инфраструктурой)",
+                  sum: 1
+                },
+                {
+                  id: "8",
+                  name: "Выполнение подключения без проработки  (Физические лица или юридические лица на объектах с развитой инфраструктурой)",
+                  sum: 1.5
+                },
+                {
+                  id: "9",
+                  name: "Монтаж\\демонтаж оборудования по отдельной заявке",
+                  sum: 1
+                },
+                {
+                  id: "10",
+                  name: "Мелокие работы по отдельным заявкам (установка розетки, удлинение кабеля, настройка роутера или ПК у клиента, настройка регистратора СВН и т.п.)",
+                  sum: 0.5
+                },
+                {
+                  id: "11",
+                  name: "Монтаж кабеля внутри помещения, по лоткам либо подвязка к существующей трассе (UTP, ВОК, ЭП) (100 метров)",
+                  sum: 1
+                },
+                {
+                  id: "12",
+                  name: "Укладка кабеля в гофру или кабель-канал (за 100 метров)",
+                  sum: 1.2
+                },
+                {
+                  id: "13",
+                  name: "Монтаж кабеля в кабельной канализации, подвес кабеля к тросу (UTP, ВОК, ЭП), подвес кабеля на опоры с монтажем крюков на опоры (за 100 метров)",
+                  sum: 1.5,
+                },
+                {
+                  id: "14",
+                  name: "Монтаж кабель каналов до 100 мм (за 20 метров)",
+                  sum: 1
+                }
+              ]
             },
             {
-              OrderVisitStatusID: '2',
-              StatusOrder: '2',
-              StatusTitle: 'Ожидание выезда',
+              categoryId: '3',
+              name: 'Категория Эксплуатация\n',
+              list: [
+                {
+                  id: "34",
+                  name: "Монтаж кабеля внутри помещения, по лоткам либо подвязка к существующей трассе (UTP, ВОК, ЭП) (за 100 метров)",
+                  sum: 1
+                },
+                {
+                  id: "35",
+                  name: "Укладка кабеля в гофру или кабель-канал (за 100 метров)",
+                  sum: 1.2
+                },
+                {
+                  id: "36",
+                  name: "Монтаж кабеля в кабельной канализации, подвес кабеля к тросу (UTP, ВОК, ЭП), подвес кабеля на опоры с монтажем крюков на опоры (за 100 метров)",
+                  sum: 1.5
+                },
+                {
+                  id: "37",
+                  name: "Монтаж кабель каналов до 100 мм (за 20 метров)",
+                  sum: 1
+                },
+                {
+                  id: "38",
+                  name: "Монтаж лотков ( со шпильками) (за 20 метров)",
+                  sum: 2
+                },
+                {
+                  id: "39",
+                  name: "Разделка муфты или кросса (за один кабельный ввод)",
+                  sum: 0.5
+                },
+                {
+                  id: "40",
+                  name: "Разварка волокон (за 1 волокно)",
+                  sum: 0.1
+                },
+                {
+                  id: "41",
+                  name: "Расшивка патч-панели, каждый 1 порта",
+                  sum: 0.05
+                },
+                {
+                  id: "42",
+                  name: "Монтаж LTE комплекта под ключ (1 комплект)",
+                  sum: 1.5
+                }
+              ]
             },
             {
-              OrderVisitStatusID: '3',
-              StatusOrder: '3',
-              StatusTitle: 'Сотрудник в пути',
-            },
-            {
-              OrderVisitStatusID: '4',
-              StatusOrder: '4',
-              StatusTitle: 'Сотрудник прибыл',
+              id: '4',
+              name: 'Категория Проекты',
+              list: [
+                {
+                  serviceId: "2",
+                  name: "Тестовая услуга для проверки вывода данных",
+                  sum: 10.29
+                }
+              ]
             }
           ];
-          commit('SET_VISIT_STATUSES', visitStatuses);*/
+          commit('SET_WORK_SERVICES', workServices);
         }
      }
     },
@@ -253,10 +354,7 @@ export default createStore({
       namespaced: true,
 
       state: () => ({
-        order: {
-          onPlaceDateTime: '',
-          onWayDateTime: ''
-        },
+        order: {},
 
         works: [],
 
@@ -270,38 +368,11 @@ export default createStore({
       mutations: {
         SET_ORDER_DETAILS(state, data) {
           state.order.details = data[0];
-          //=============================================
-
-          state.works =  [
-            {
-              workId: "123",
-              startDate: "2022-03-15 12:00:00.000",
-              finishDate: "2022-03-16 19:00:00.000",
-              points: "420",
-              participants: [
-                {
-                  participantId: "123456",
-                  participantFIO: "Иванов Петр Федорович",
-                  participationStart: ""
-                },
-                {
-                  participantId: "123456",
-                  participantFIO: "Джигарханян Ильман Ахметович",
-                  participationStart: "2022-03-15 12:20:00.000"
-                }
-              ],
-              workList: [
-                {
-                  test: "test"
-                },
-                {
-                  test: "test"
-                }
-              ]
-            }
-          ];
-
           state.order.readyState = true;
+        },
+
+        SET_ORDER_WORKS(state, data) {
+          state.works = data;
         },
 
         SET_CUSTOMER_INFO(state, data) {
@@ -320,12 +391,13 @@ export default createStore({
             data.passportNumber = '';
           }
           state.order.customerInfo = data;
+          state.order.customerInfo.UBN = state.order.details.CustomerUBN;
           state.order.customerInfo.readyState = true;
         },
 
         SET_HYDRA_INTERNET_SERVICES(state, data) {
-          //state.order.servicesHydra.find(el => el.name === "Интернет")
-          state.order.servicesHydra.find(el => el.name === "Интернет").tariffList = data;
+          state.order.servicesHydra.find(el => el.name === "Интернет").tariffList = data.avaliableServices;
+          state.order.servicesHydra.find(el => el.name === "Интернет").baseContractHydraId = data.baseContractHydraId;
         },
 
         SET_HYDRA_SERVICES(state, data) {
@@ -336,14 +408,16 @@ export default createStore({
           state.order.servicesSD = data;
         },
 
+        SET_INTERNET_CONNECTION(state, data) {
+          console.log(state, data);
+        },
+
         UPDATE_CUSTOMER_INFO(state, data) {
           console.log(data);
           console.log(state);
         },
 
         UPDATE_FILES(state, data) {
-          console.log(data);
-
           const item = {
             name: data.file.name,
             size: data.file.size,
@@ -351,11 +425,8 @@ export default createStore({
             loading: true,
             loaded: false
           }
-
           setInterval(() => item.loaded = true, 1000);
-
           state.files[data.type].push(item);
-          console.log(state.files);
         },
 
         UPDATE_ORDER_MEETING(state, status) {
@@ -474,6 +545,46 @@ export default createStore({
           return AppDataServ.getOrderDetails(orderId)
             .then(response => {
               commit('SET_ORDER_DETAILS', response.data);
+            })
+            .catch(error => {
+              throw(error);
+            });
+        },
+
+        fetchOrderWorks({ commit }/*, orderId*/) {
+          const works = [
+              {
+                workId: "123",
+                startDate: "2022-03-15 12:00:00.000",
+                finishDate: "",
+                points: 20.5,
+                workStatus: 1,
+                participants: [
+                  {
+                    participantId: "3337",
+                    participationStart: "2022-03-15 12:20:00.000"
+                  }
+                ],
+                workList: [
+                  {
+                    workId: "12",
+                    count: 1
+                  },
+                  {
+                    workId: "40",
+                    count: 10
+                  }
+                ]
+              }
+            ];
+          commit('SET_ORDER_WORKS', works);
+        },
+
+        setInternetConnection({ commit }, params) {
+          console.log(params);
+          return AppDataServ.setInternetConnection(params)
+            .then(response => {
+              commit('SET_INTERNET_CONNECTION', response.data);
             })
             .catch(error => {
               throw(error);

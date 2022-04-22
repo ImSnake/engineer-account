@@ -279,6 +279,11 @@ export default {
 		return apiConnection.get(`/deal/getStatusList`);
 	},
 
+	setInternetConnection(params){
+		console.log('API SET INTERNET CONNECTION');
+		return apiConnection.post(`hydraWorker/createSubscription`, params);
+	},
+
 	updateCustomerInfo(customerData) {
 		console.log('API UPDATE Customer Info');
 		return apiConnection.post(`/customer/updateInfo`, customerData);

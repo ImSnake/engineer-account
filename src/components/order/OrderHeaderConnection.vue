@@ -1,5 +1,4 @@
 <template>
-
       <div class="elz p-rel d-flex grow fb280 dir-y gap16 lh12">
 
         <BaseButton
@@ -27,7 +26,6 @@
         </template>
 
       </div>
-
 </template>
 
 <script>

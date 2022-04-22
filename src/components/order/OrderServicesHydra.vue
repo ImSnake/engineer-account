@@ -26,7 +26,7 @@
         <div class="elz p-rel d-block noShrink p-rel mskBef s8 cFillBef bgBef-CC showSelIn" style="--elzMsk: url('/style/icons/arrow1.svg');"></div>
       </template>
       <template v-else>
-        <div @click="$emit('createAgreement')" class="elz d-block p8 r3 fn11 bold bg cur-pointer opAct07 bg-success fn fn-success-t">Создать договор</div>
+        <div @click="$emit('createAgreement')" class="elz d-block p8 r3 fn11 bold bg cur-pointer opAct07 bg-success fn fn-success-t">Выбрать тарифы</div>
       </template>
     </div>
 
@@ -64,7 +64,7 @@
             <div class="elz d-block fb320 growMax">
               <div class="elz d-grid w100p grPos fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0 cHovOut">
                 <div class="elz elzInput d-flex grPin a-H grY2 w100p bor1 r3 h40 pL16 pR24 ellipsis trns2 invPssSib bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovInL-20 brFoc-focus brFocL0 fn fn-primary-t">
-                  <div class="elz growX pV8 oH nowrap ellipsis">{{ service.tariff }}</div>
+                  <div class="elz growX pV8 oH nowrap ellipsis">{{ service.tariffList.find(el => el.value == this.selectedTariff).name }}</div>
                 </div>
                 <span class="elz d-flex grPin grY2 a-H bor1 pH7 z6 evNone">
                 <span class="elz p-rel growX d-flex a-PR">
@@ -73,9 +73,9 @@
                   </span>
                 </span>
               </span>
-                <select @change="(e) => $emit('changeTariff', e.target.value)" class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
+                <select @change="setInternetTariff" class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
                   <template v-for="(tariff, index) in service.tariffList" :key="index">
-                    <option :value="tariff.name">{{ tariff.name }}</option>
+                    <option :value="tariff.value">{{ tariff.name }}</option>
                   </template>
                 </select>
               </div>
@@ -146,7 +146,7 @@
         </div>
 
         <div v-if="service.monthly.length && service.tariffList.length" class="elz p-rel d-flex f-wrap a-X gap8 pV8 borT1 br br-primary brL-10 brLInvD">
-          <div class="elz d-flex gap8 a-X al-center r3 hmn36 pH24 cur-pointer opAct07 bg bg-ok bgHovL10 fn fn-ok-t">
+          <div @click="setInternetConnection" class="elz d-flex gap8 a-X al-center r3 hmn36 pH24 cur-pointer opAct07 bg bg-ok bgHovL10 fn fn-ok-t">
             <div class="elz d-block">Подключить</div>
           </div>
         </div>
@@ -173,6 +173,8 @@ export default {
   data() {
     return {
       serviceType: '',
+      selectedTariff: '',
+      selectedTariffName: '',
       subscription: {
         count: 0,
         summary: 0
@@ -186,7 +188,8 @@ export default {
 
   computed: {
     tariffPrice() {
-      return numberFormat(this.service.tariffList.find(el => el.name === this.service.tariff)?.price, 2, ',', ' ');
+      console.log()
+      return numberFormat(this.service.tariffList.find(el => +el.value === +this.selectedTariff)?.price, 2, ',', ' ');
     },
 
     types() {
@@ -198,7 +201,7 @@ export default {
     },
 
     total() {
-      return numberFormat(+this.subscription.summary + +this.purchase.summary + +(this.service.tariffList.find(el => el.name === this.service.tariff)?.price), 2, ',', ' ');
+      return numberFormat(+this.subscription.summary + +this.purchase.summary + +(this.service.tariffList.find(el => +el.value === +this.selectedTariff)?.price), 2, ',', ' ');
     },
 
     order() {
@@ -214,7 +217,24 @@ export default {
         typeOfService: 2
       });
       console.log(this.service);
+      this.selectedTariff = '';
+      //this.service.baseContractHydraId = '';
       //this.service.tariff = '';
+    },
+
+    async setInternetConnection() {
+      await this.$store.dispatch('orderPage/setInternetConnection', {
+        serviceId: this.selectedTariff,
+        customerId: this.order.CustomerUBN,
+        accountId: 0, //если есть, если нет то 0
+        objectId: 0,  //если есть, если нет то 0
+        baseContractHydraId: this.service.baseContractHydraId //передаю теперь в hydraworker/serviceConfig **
+      });
+    },
+
+    setInternetTariff(e) {
+      this.selectedTariff = e.target.value;
+      this.$emit('changeTariff', e.target.value);
     },
 
 /*    setPurchaseValue(e) {

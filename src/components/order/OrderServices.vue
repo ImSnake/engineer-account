@@ -45,8 +45,7 @@
 
 <script>
 import OrderServicesHydra from "@/components/order/OrderServicesHydra";
-import { useStore } from "vuex";
-
+//import { useStore } from "vuex";
 
 export default {
   name: "OrderServices",
@@ -55,14 +54,6 @@ export default {
     OrderServicesHydra
   },
 
-  setup() {
-    const store = useStore();
-    if (!store.state.static.hydraInternetTypes.length) {
-      store.dispatch('static/fetchHydraInternetTypes');
-    }
-    store.dispatch('orderPage/fetchSDServices', store.state.orderPage.order.details.DealID);
-    store.dispatch('orderPage/fetchHydraServices', store.state.orderPage.order.details.DealID);
-  },
 
   data() {
     return {
@@ -70,7 +61,18 @@ export default {
     }
   },
 
+  created() {
+    if (!this.$store.state.static.hydraInternetTypes.length) {
+      this.$store.dispatch('static/fetchHydraInternetTypes');
+    }
+    this.$store.dispatch('orderPage/fetchSDServices', this.dealId);
+    this.$store.dispatch('orderPage/fetchHydraServices', this.dealId);
+  },
+
   computed: {
+    dealId() {
+      return this.$store.state.orderPage.order.details.DealID;
+    }
   },
 
   methods: {

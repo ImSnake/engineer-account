@@ -1,27 +1,30 @@
 <template>
-
   <template v-if="isActive">
 
-    <div class="elz d-flex a-X mB32">
-      <BaseButton @onButtonClick="workCreate"
+    <div class="elz d-flex dir-y gap16">
+      <template v-for="(work,index) in works" :key="index">
+        <OrderWorksItem
+            :work="work"
+            @deleteWorkItem="deleteWorkItem(index)"
+            @changeWorkStatus="(status, timeStamp) => changeWorkStatus(index, status, timeStamp)"
+            @toggleParticipant="(checked, participantId, timeStamp) => toggleParticipant(index, checked, participantId, timeStamp)"/>
+      </template>
+    </div>
+
+    <div class="elz d-flex a-X mT32 mB32">
+      <BaseButton
+          @onButtonClick="createWorkItem"
           :classList="'hmn48 bg-ok bgHovL10 fn-ok-t'"
           :title="'Создать работу'"      />
     </div>
 
-    <div class="elz d-flex dir-y gap16">
-      <template v-for="(work,index) in workList" :key="index">
-        <OrderWorksItem :work="work"  />
-      </template>
-    </div>
-
   </template>
-
 </template>
 
 <script>
 import BaseButton     from "@/components/elements/BaseButton";
 import OrderWorksItem from "@/components/order/OrderWorksItem";
-import {useStore} from "vuex";
+import { useStore } from "vuex";
 
 
 export default {
@@ -34,12 +37,7 @@ export default {
 
   setup() {
     const store = useStore();
-
-    if (!store.state.orderPage.works) {
-      console.log('get works');
-      //store.dispatch('fetchOrderWorks', store.state.order.details.OrderID);
-    }
-
+    store.dispatch('orderPage/fetchOrderWorks'/*, store.state.order.details.OrderID*/);
   },
 
   data() {
@@ -49,34 +47,46 @@ export default {
   },
 
   computed: {
-    workList() {
+    works() {
       return this.$store.state.orderPage.works;
     }
   },
 
   methods: {
-    workCreate() {
-      console.log('create work');
-      this.workList.push({
+    changeWorkStatus(index, newStatus, timeStamp) {
+      this.works[index].workStatus = newStatus;
+      if (newStatus === 1) {
+        this.works[index].startDate = timeStamp;
+      }
+      else if (newStatus === 2) {
+        this.works[index].finishDate = timeStamp;
+      }
+      //await this.$store.dispatch('orderPage/updateWorkItemStatus', {workItemId, newStatus, timeStamp});
+    },
+
+    deleteWorkItem(index) {
+      this.works.splice(index, 1);
+      //await this.$store.dispatch('orderPage/deleteWorkItem', workItemId);
+    },
+
+    createWorkItem() {
+      this.works.push({
         workId: "987",
         startDate: "",
         finishDate: "",
-        points: "0",
-        participants: [
-          {
-            participantId: "123456",
-            participantFIO: "Иванов Петр Федорович",
-            participationStart: ""
-          },
-          {
-            participantId: "123456",
-            participantFIO: "Джигарханян Ильман Ахметович",
-            participationStart: ""
-          }
-        ],
+        points: 0,
+        workStatus: 0,
+        participants: [],
         workList: []
       });
     },
+
+    toggleParticipant(index, checked, participantId, timeStamp) {
+     checked
+         ? this.works[index].participants.push({ participantId: participantId, participationStart: timeStamp })
+         : this.works[index].participants = this.works[index].participants.filter(el => +el.participantId !== +participantId);
+      //await this.$store.dispatch('orderPage/setWorkItemParticipant', participantId, timeStamp);
+    }
   }
 }
 </script>

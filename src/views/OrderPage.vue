@@ -74,6 +74,10 @@ export default {
       store.dispatch('static/fetchVisitStatuses');
     }
 
+    if (!store.state.static.workServices.length) {
+      store.dispatch('static/fetchWorkServices');
+    }
+
     store.dispatch('orderPage/fetchOrderDetails', props.orderId);
 
     onUnmounted(() => {store.state.orderPage.order = {}; });

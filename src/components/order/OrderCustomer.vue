@@ -283,6 +283,8 @@ export default {
       if (this.customer.registrationAddressFiass === undefined) {
         this.customer.registrationAddressFiass = 'old value';
       }
+
+      this.customer.passportDetails = `${this.customer.passportSeries.replace(/ +/g, '')} ${this.customer.passportNumber.replace(/ +/g, '')}`
       this.$store.dispatch('orderPage/updateCustomerInfo', this.customer);
     },
 
