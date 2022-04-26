@@ -14,9 +14,9 @@
               <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC msk-contain" style="--elzMsk: url('/style/icons/user.svg');"></div>
               <div class="elz d-block bold">{{ work.participants.length }}</div>
             </div>
-            <div class="elz d-flex a-H gap8 wmn64 cur-help" :title="`Баллов начислено: ${work.points}`">
+            <div class="elz d-flex a-H gap8 wmn64 cur-help" :title="`Баллов начислено: ${pointsSummary}`">
               <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC msk-contain" style="--elzMsk: url('/style/icons/star3.svg');"></div>
-              <div class="elz d-block bold">{{ work.points }}</div>
+              <div class="elz d-block bold">{{ pointsSummary }}</div>
             </div>
             <div class="elz d-flex a-H gap8 wmn64 cur-help" :title="`Работ выполняется: ${work.workList.length}`">
               <div class="elz p-rel d-block p-rel mskBef w20 h16 cFillBef bgBef-CC msk-contain" style="--elzMsk: url('/style/icons/hammer-wrench.svg');"></div>
@@ -30,17 +30,19 @@
       <div class="elz d-block borT1 br br-primary brL-10 brLInvD fn12 showSelIn">
         <div class="elz p-sticky p-TEP pH16 pV8 mV16 z10 bg bg-primary bgL5">
           <div class="elz p-rel d-flex pH36 f-wrap a-X gap8">
+
             <BaseButton
                 @onButtonClick="confirmChangeWorkStatus"
                 :classList="['changeWorkStatus hmn36 ', buttonClass]"
                 :title="buttonTitle"   />
-            <div v-if="+work.workStatus === 0" @click="confirmDeleteAction" class="deleteWorkItem elz p-abs p-R d-flex gap8 a-X al-center r3 s36 cur-pointer opAct07 bg bg-error bgHovL10 fn fn-error-t">
+
+            <div v-if="+work.workStatus === 1" @click="confirmDeleteAction" class="deleteWorkItem elz p-abs p-R d-flex gap8 a-X al-center r3 s36 cur-pointer opAct07 bg bg-error bgHovL10 fn fn-error-t">
               <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC" :style="`--elzMsk: url('/style/icons/${deleteWorkItem ? 'trash' : 'cross1'}.svg');`"></div>
             </div>
           </div>
         </div>
         <div class="elz d-grid gap8 grH200 pH16">
-          <label v-for="(participant, index) in participants" :key="index" :class="(+work.workStatus === 2) ? 'uDisabled' : ''" class="elz d-flex a-H r3 bor1 pH16 pV10 opAct07 cur-pointer bg bg-primary br br-primary brL-10 brHovL-15 brLInvD">
+          <label v-for="(participant, index) in participants" :key="index" :class="(+work.workStatus === 3) ? 'uDisabled' : ''" class="elz d-flex a-H r3 bor1 pH16 pV10 opAct07 cur-pointer bg bg-primary br br-primary brL-10 brHovL-15 brLInvD">
             <input type="checkbox" :checked="participantTitle(participant.responsibleId)" @input="(e) => $emit('toggleParticipant', e.currentTarget.checked, participant.responsibleId, timeStampNow())" class="elz elzCheck checkbox p-rel d-flex noShrink cur-pointer bor1 s24 p4 r2 cLInvD bg bg-primary bgL10 br br-primary brL-10 brHovL-20 fn fn-primary-t fnHovL-5 bshAct-inset1">
             <span class="elz d-block growX mL16">
               <span class="elz d-block bold lh12 oH ellipsis nowrap">{{ participant.responsibleName }}</span>
@@ -50,7 +52,12 @@
         </div>
         <div class="elz d-block mT16 r3 oH">
           <template v-for="(list, index) in $store.state.static.workServices" :key="index">
-            <CheckboxInputFieldWrapper :wrapper="list"  />
+            <CheckboxInputFieldWrapper
+                @updateWorkCount="(id, count) => $emit('updateWorkCount', id, count)"
+                @updateWorkList="(id, state) => $emit('updateWorkList', id, state)"
+                :isDisabled="+work.workStatus === 3"
+                :itemsList="list"
+                :itemsSelected="work.workList"   />
           </template>
         </div>
       </div>
@@ -71,7 +78,7 @@ export default {
     CheckboxInputFieldWrapper,
   },
 
-  emits: [ 'changeWorkStatus', 'deleteWorkItem', 'toggleParticipant' ],
+  emits: [ 'changeWorkStatus', 'deleteWorkItem', 'toggleParticipant', 'updateWorkCount', 'updateWorkList' ],
 
   props: {
     work: { required: true,  type: Object }
@@ -80,8 +87,8 @@ export default {
   data() {
     return {
       isClosed: true,
+      deleteWorkItem: false,
       changeWorkStatus: false,
-      deleteWorkItem: false
     }
   },
 
@@ -89,13 +96,13 @@ export default {
     buttonClass() {
       let classList = '';
       switch(+this.work.workStatus) {
-        case 0:
+        case 1:
           classList = 'bg-ok bgHovL10 fn-ok-t';
           break;
-        case 1:
+        case 2:
           classList = 'bg-success bgHovL10 fn-success-t';
           break;
-        case 2:
+        case 3:
           classList = 'bg-primary bgL-5 bgLInvD bgHovL-10 uDisabled';
       }
       return classList;
@@ -104,13 +111,13 @@ export default {
     buttonTitle() {
       let title = '';
       switch(+this.work.workStatus) {
-        case 0:
+        case 1:
           title = 'Начать работу';
           break;
-        case 1:
+        case 2:
           title = 'Завершить работу';
           break;
-        case 2:
+        case 3:
           title = 'Работы завершены';
       }
       title += (this.changeWorkStatus) ? "?" : "";
@@ -120,6 +127,19 @@ export default {
     participants() {
       return this.$store.state.orderPage.order.details.responsibleList;
     },
+
+    pointsSummary() {
+      let summary = 0;
+      this.work.workList.forEach(selectedWork => {
+        this.$store.state.static.workServices.forEach(workCategory => {
+          const workSum = workCategory.list.find(el => +el.id === +selectedWork.id)?.sum;
+          if(workSum) {
+            summary += +selectedWork.count * +workSum;
+          }
+        })
+      });
+      return summary.toFixed(2);
+    }
   },
 
   methods: {
@@ -161,6 +181,7 @@ export default {
       const date = new Date();
       return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
     },
+
   }
 }
 </script>

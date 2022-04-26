@@ -209,7 +209,7 @@ export default createStore({
             },
             {
               categoryId: '3',
-              name: 'Категория Эксплуатация\n',
+              name: 'Категория Эксплуатация',
               list: [
                 {
                   id: "34",
@@ -263,7 +263,7 @@ export default createStore({
               name: 'Категория Проекты',
               list: [
                 {
-                  serviceId: "2",
+                  id: "2",
                   name: "Тестовая услуга для проверки вывода данных",
                   sum: 10.29
                 }
@@ -354,6 +354,8 @@ export default createStore({
       namespaced: true,
 
       state: () => ({
+        SECTION_ID: 1,
+
         order: {},
 
         works: [],
@@ -552,13 +554,13 @@ export default createStore({
         },
 
         fetchOrderWorks({ commit }/*, orderId*/) {
+          // получить все, кроме удаленных / отмененных!
           const works = [
               {
                 workId: "123",
                 startDate: "2022-03-15 12:00:00.000",
                 finishDate: "",
-                points: 20.5,
-                workStatus: 1,
+                workStatus: 2,
                 participants: [
                   {
                     participantId: "3337",
@@ -567,12 +569,46 @@ export default createStore({
                 ],
                 workList: [
                   {
-                    workId: "12",
+                    id: "12",
                     count: 1
                   },
                   {
-                    workId: "40",
+                    id: "40",
                     count: 10
+                  }
+                ]
+              },
+              {
+                workId: "124",
+                startDate: "",
+                finishDate: "",
+                workStatus: 1,
+                participants: [
+                  {
+                    participantId: "3337",
+                    participationStart: "2022-03-15 12:20:00.000"
+                  },
+                  {
+                    participantId: "3358",
+                    participationStart: "2022-04-21 12:20:00.000"
+                  }
+                ],
+                workList: [
+                  {
+                    id: "13",
+                    count: 2
+                  },
+                  {
+                    id: "37",
+                    count: 10
+                  },
+                  {
+                    id: "41",
+                    count: 2
+                  },
+                  {
+                    id: "45",
+                    count: 1
                   }
                 ]
               }

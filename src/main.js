@@ -5,12 +5,6 @@ import store from './store';
 import Maska from 'maska';
 import Uploader from './components/elements/Uploader';
 
-/*createApp(App)
-	.use(index)
-	.use(store)
-	.component("Uploader", Uploader)
-	.mount('#app-engineer-account');*/
-
 const app = createApp(App);
 			app.use(index);
 			app.use(store);

@@ -61,11 +61,6 @@ export default {
       return this.$store.state.orderPage.order.details;
     },
 
-    timeStampNow() {
-      const date = new Date();
-      return date.toISOString();
-    },
-
     titleOnPlace() {
       return this.order.meetingStatusId >= 4 && this.order.onPlaceDateTime? `Прибыл в ${dateTimeFormatHHMM(this.order.onPlaceDateTime)}` : 'Прибыл на место';
     },
@@ -95,11 +90,16 @@ export default {
         this[actionName] = true;
         document.addEventListener("click", this.clickOut.bind(null, actionName), { capture: true, once:true });
       } else {
-        this.order[dateName] = this.timeStampNow;
+        this.order[dateName] = this.timeStampNow();
         this.order.meetingStatusId = statusId;
         await this.$store.dispatch('orderPage/updateMeetingDateTime', this.getMeetingParams(this.order[dateName], this.order.meetingStatusId));
         this[actionName] = false;
       }
+    },
+
+    timeStampNow() {
+      const date = new Date();
+      return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
     },
 
     async updateMeetingDateTime(date) {

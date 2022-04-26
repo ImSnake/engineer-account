@@ -5,9 +5,11 @@
       <template v-for="(work,index) in works" :key="index">
         <OrderWorksItem
             :work="work"
-            @deleteWorkItem="deleteWorkItem(index)"
             @changeWorkStatus="(status, timeStamp) => changeWorkStatus(index, status, timeStamp)"
-            @toggleParticipant="(checked, participantId, timeStamp) => toggleParticipant(index, checked, participantId, timeStamp)"/>
+            @deleteWorkItem="deleteWorkItem(index)"
+            @toggleParticipant="(checked, participantId, timeStamp) => toggleParticipant(index, checked, participantId, timeStamp)"
+            @updateWorkCount="(id, count) => updateWorkCount(index, id, count)"
+            @updateWorkList="(id, state) => updateWorkList(index, id, state)"   />
       </template>
     </div>
 
@@ -37,7 +39,9 @@ export default {
 
   setup() {
     const store = useStore();
-    store.dispatch('orderPage/fetchOrderWorks'/*, store.state.order.details.OrderID*/);
+    store.dispatch('orderPage/fetchOrderWorks', {
+      sectionId: store.state.orderPage.SECTION_ID,
+      subsectionId: store.state.order.details.OrderID});
   },
 
   data() {
@@ -75,7 +79,7 @@ export default {
         startDate: "",
         finishDate: "",
         points: 0,
-        workStatus: 0,
+        workStatus: 1,
         participants: [],
         workList: []
       });
@@ -85,7 +89,23 @@ export default {
      checked
          ? this.works[index].participants.push({ participantId: participantId, participationStart: timeStamp })
          : this.works[index].participants = this.works[index].participants.filter(el => +el.participantId !== +participantId);
-      //await this.$store.dispatch('orderPage/setWorkItemParticipant', participantId, timeStamp);
+     //await this.$store.dispatch('orderPage/setWorkItemParticipant', participantId, timeStamp);
+    },
+
+    updateWorkCount(index, id, count) {
+      if (typeof +count === 'number' && +count !== 0) {
+        this.works[index].workList.find(el => +el.id === +id).count = count;
+      } else {
+        this.works[index].workList = this.works[index].workList.filter(el => +el.id !== +id);
+      }
+      //await this.$store.dispatch('orderPage/updateWorkItemList', id, count);
+    },
+
+    updateWorkList(index, id, state) {
+      state
+          ? this.works[index].workList.push({id: id, count: 1})
+          : this.works[index].workList = this.works[index].workList.filter(el => +el.id !== +id);
+      //await this.$store.dispatch('orderPage/updateWorkItemList', id, count);
     }
   }
 }
