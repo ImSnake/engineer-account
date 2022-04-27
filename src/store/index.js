@@ -18,8 +18,9 @@ export default createStore({
       }),
 
       mutations: {
-        AUTH_USER_FALSE(state) {
+        AUTH_USER_FALSE(state, comment) {
           state.user = {};
+          state.user.error = comment
         },
 
         AUTH_USER_TRUE(state, data) {
@@ -86,15 +87,16 @@ export default createStore({
           if (params.login && params.password) {
             return AppDataServ.authUser(params)
               .then(response => {
-                commit('AUTH_USER_TRUE', response.data);
-                console.log('AUTH SUCCESSFUL');
-              })
-              .catch(error => {
-                throw(error);
+                if (response.userData) {
+                  commit('AUTH_USER_TRUE', response);
+                } else if (+response.status === 401) {
+                  commit('AUTH_USER_FALSE', 'Неверный логин или пароль');
+                } else {
+                  commit('AUTH_USER_FALSE', 'Ошибка подключения к удаленному серверу');
+                }
               });
           } else {
-            commit('AUTH_USER_FALSE');
-            console.log('AUTH ERROR');
+            commit('AUTH_USER_FALSE', 'Данные для авторизации не заполнены');
           }
         },
 
@@ -589,7 +591,7 @@ export default createStore({
                     participationStart: "2022-03-15 12:20:00.000"
                   },
                   {
-                    participantId: "3358",
+                    participantId: "3310",
                     participationStart: "2022-04-21 12:20:00.000"
                   }
                 ],

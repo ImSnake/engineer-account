@@ -78,7 +78,8 @@ export default {
     },
 
     orderAddress() {
-      return `${this.order.locationAddress}, ${this.order.locationAddressEntrance}, ${this.order.locationAddressLevel}, ${this.order.locationAddressFlat}`
+      //return `${this.order.locationAddress}, ${this.order.locationAddressEntrance}, ${this.order.locationAddressLevel}, ${this.order.locationAddressFlat}`;
+      return `${this.order.locationAddress}`;
     }
   }
 

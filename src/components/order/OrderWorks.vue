@@ -39,9 +39,10 @@ export default {
 
   setup() {
     const store = useStore();
-    store.dispatch('orderPage/fetchOrderWorks', {
+    store.dispatch('orderPage/fetchOrderWorks', /*{
       sectionId: store.state.orderPage.SECTION_ID,
-      subsectionId: store.state.order.details.OrderID});
+      subsectionId: store.state.order.details.OrderID
+    }*/);
   },
 
   data() {
@@ -59,10 +60,10 @@ export default {
   methods: {
     changeWorkStatus(index, newStatus, timeStamp) {
       this.works[index].workStatus = newStatus;
-      if (newStatus === 1) {
+      if (newStatus === 2) {
         this.works[index].startDate = timeStamp;
       }
-      else if (newStatus === 2) {
+      else if (newStatus === 3) {
         this.works[index].finishDate = timeStamp;
       }
       //await this.$store.dispatch('orderPage/updateWorkItemStatus', {workItemId, newStatus, timeStamp});

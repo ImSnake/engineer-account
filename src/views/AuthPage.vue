@@ -1,6 +1,6 @@
 <template>
 
-  <div  class="authWrap bg bg-primary">
+  <div  class="authWrap bg bg-primary pT8">
     <form @keyup.enter="$emit('logEvent', { login: login, password: password })"  class="authFormWrap">
       <div class="elz authFormShow d-block h80">
         <label class="elz d-grid grPos fn fnLInvD fn-primary-t fnL20 fnHovL10 fnFow-focus fnFowL0">
@@ -50,8 +50,12 @@
         </div>
       </div>
 
-      <div class="elz authFormShow d-block al-center mT24">
+<!--      <div class="elz authFormShow d-block al-center mT24">
         <a class="elz underlineHov cur-pointer fn fn-link-inline fnHovL-10 opAct07" href="#">Поддержка</a>
+      </div>-->
+
+      <div v-if="authError" class="elz authFormShow d-block al-center mT24">
+        {{authError}}
       </div>
     </form>
   </div>
@@ -94,6 +98,12 @@ export default {
         icon: "--elzMsk: url('/style/icons/info.svg');",
         tooltip: 'fn fn-error bgHov bgHov-error fnHov-error-t'
       }
+    }
+  },
+
+  computed: {
+    authError() {
+      return this.$store.state.static.user.error;
     }
   },
 
