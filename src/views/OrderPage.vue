@@ -68,17 +68,22 @@ export default {
   },
 
   setup(props) {
+    // eslint-disable-next-line vue/no-setup-props-destructure
+    const orderId = props.orderId;
     const store = useStore();
+
+    store.state.orderPage.SECTION_ID = 6;
+    store.state.orderPage.ORDER_ID = orderId;
 
     if (!store.state.static.visitStatuses.length) {
       store.dispatch('static/fetchVisitStatuses');
     }
 
-    if (!store.state.static.workServices.length) {
-      store.dispatch('static/fetchWorkServices');
+    if (!store.state.static.scoreServices.length) {
+      store.dispatch('static/fetchScoreServices');
     }
 
-    store.dispatch('orderPage/fetchOrderDetails', props.orderId);
+    store.dispatch('orderPage/fetchOrderDetails', orderId);
 
     onUnmounted(() => {store.state.orderPage.order = {}; });
   },

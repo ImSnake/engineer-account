@@ -12,7 +12,7 @@
             :placeholder="placeholder"
             :type="inputType"
             :value="modelValue"   />
-        <span v-if="titleFocus" class="elz infoLabel d-block fn-8 trns2 invPssLing">{{ titleFocus }}</span>
+        <span v-if="titleFocus" class="elz infoLabel d-block fn11 trns2 invPssLing">{{ titleFocus }}</span>
         <span class="elz d-flex grPin grY2 a-X borB2 evNone">
           <span class="elz p-rel growZ d-flex a-PR">
             <span :class="modelValue ? inputProps.classList : ''" class="elz p-rel d-flex a-X s24 r2">

@@ -3,8 +3,12 @@
       <div @click="isClosed = !isClosed" class="elz d-flex gap8 a-H p16 opAct07 cur-pointer">
         <div class="elz d-flex f-wrap a-H grow gap8">
           <div class="elz d-block grow fb320 lh12">
-            <div class="elz d-block">Работа #{{ work.workId }}</div>
-            <div class="elz d-flex f-wrap gapH16 gapV4 fn11 mT4 nowrap">
+            <div class="elz d-flex">
+              <div class="bg-success fn-success-t elz d-block mR8 pH8 lh10 fn10 bold rRound pV4 pH6 bg fn">Будет статус</div>
+              <div class="elz d-block">Работа #{{ work.workId }}</div>
+            </div>
+
+            <div class="elz d-flex f-wrap gapH16 gapV4 fn11 mT6 nowrap">
               <div class="elz d-block">Начато: <b class="elz bold">{{ setDateTime(work.startDate, 'Время не задано') }}</b></div>
               <div class="elz d-block">Завершено: <b class="elz bold">{{ setDateTime(work.finishDate, 'Время не задано') }}</b></div>
             </div>
@@ -51,7 +55,7 @@
           </label>
         </div>
         <div class="elz d-block mT16 r3 oH">
-          <template v-for="(list, index) in $store.state.static.workServices" :key="index">
+          <template v-for="(list, index) in $store.state.static.scoreServices" :key="index">
             <CheckboxInputFieldWrapper
                 @updateWorkCount="(id, count) => $emit('updateWorkCount', id, count)"
                 @updateWorkList="(id, state) => $emit('updateWorkList', id, state)"
@@ -131,7 +135,7 @@ export default {
     pointsSummary() {
       let summary = 0;
       this.work.workList.forEach(selectedWork => {
-        this.$store.state.static.workServices.forEach(workCategory => {
+        this.$store.state.static.scoreServices.forEach(workCategory => {
           const workSum = workCategory.list.find(el => +el.id === +selectedWork.id)?.sum;
           if(workSum) {
             summary += +selectedWork.count * +workSum;

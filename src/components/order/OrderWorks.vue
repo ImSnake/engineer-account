@@ -39,10 +39,10 @@ export default {
 
   setup() {
     const store = useStore();
-    store.dispatch('orderPage/fetchOrderWorks', /*{
+    store.dispatch('orderPage/fetchOrderWorks', {
       sectionId: store.state.orderPage.SECTION_ID,
-      subsectionId: store.state.order.details.OrderID
-    }*/);
+      subSectionId: store.state.orderPage.ORDER_ID
+    });
   },
 
   data() {

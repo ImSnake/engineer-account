@@ -1,6 +1,7 @@
-import AppDataServ    from "@/services/AppDataServ";
+import AppDataServ from "@/services/AppDataServ";
 import { createStore } from 'vuex';
-import {dateCalculateDifference, dateFormatDdMmYyyy} from "@/helpers/formating";
+import { prepareOrder } from "@/helpers/data_conversion";
+import { dateFormatDdMmYyyy } from "@/helpers/formating";
 
 export default createStore({
   modules: {
@@ -14,7 +15,7 @@ export default createStore({
         hydraInternetTypes: [],
         responsibleList: [],
         visitStatuses: [],
-        workServices: []
+        scoreServices: []
       }),
 
       mutations: {
@@ -38,6 +39,7 @@ export default createStore({
         },
 
         SET_FILTERS(state, data){
+          const departments = data.department.list;
           let levels = [];
           let spaces = '';
 
@@ -45,11 +47,13 @@ export default createStore({
             levels.push({level: a, spaces: spaces});
             spaces += '&nbsp;&nbsp;&nbsp;&nbsp;';
           }
-          data.department.list.forEach(el => {
-            el.name = levels[+el.level].spaces + el.name;
-            el.value = (+el.level === 0) ? 0 : el.departmentId;
+
+          departments.forEach(i => {
+            i.name = levels[+i.level].spaces + i.name;
+            i.value = (+i.level === 0) ? 0 : i.departmentId;
           });
-          data.department = data.department.list;
+
+          data.department = departments;
           state.filters = data;
           state.filters.readyState = true;
 
@@ -73,8 +77,31 @@ export default createStore({
           state.visitStatuses = data;
         },
 
-        SET_WORK_SERVICES(state, data) {
-          state.workServices = data;
+        SET_SCORE_SERVICES(state, data) {
+          const servicesDict = data.services;
+          const serviceCategories = data.serviceCategories;
+          const servicesMap = {};
+          let services = [];
+
+          servicesDict.forEach(({ScoreServiceCategoryID, ScoreServiceID, ServiceTitle, ServiceScore}) => {
+            (servicesMap[ScoreServiceCategoryID] = (servicesMap[ScoreServiceCategoryID] || [])).push({
+              id: ScoreServiceID,
+              name: ServiceTitle,
+              value: ServiceScore
+            });
+          });
+
+          serviceCategories.forEach(({ScoreServiceCategoryID, CategoryTitle}) => {
+            services.push({
+              categoryId: ScoreServiceCategoryID,
+              name: CategoryTitle,
+              list: servicesMap[ScoreServiceCategoryID] || []
+            });
+          });
+
+          state.scoreServices = services;
+
+          state.workStatuses = data.map(({ScoreWorkStatusID, StatusTitle}) => ({id: ScoreWorkStatusID, name: StatusTitle}));
         },
 
         UPDATE_RESPONSIBLE(state, data) {
@@ -156,123 +183,14 @@ export default createStore({
             });
         },
 
-        fetchWorkServices({commit}) {
-          const workServices = [
-            {
-              categoryId: '2',
-              name: 'Категория Подключения',
-              list: [
-                {
-                  id: "6",
-                  name: "Выполнение проработки",
-                  sum: 0.5
-                },
-                {
-                  id: "7",
-                  name: "Выполнение подключения (Физические лица или юридические лица на объектах с развитой инфраструктурой)",
-                  sum: 1
-                },
-                {
-                  id: "8",
-                  name: "Выполнение подключения без проработки  (Физические лица или юридические лица на объектах с развитой инфраструктурой)",
-                  sum: 1.5
-                },
-                {
-                  id: "9",
-                  name: "Монтаж\\демонтаж оборудования по отдельной заявке",
-                  sum: 1
-                },
-                {
-                  id: "10",
-                  name: "Мелокие работы по отдельным заявкам (установка розетки, удлинение кабеля, настройка роутера или ПК у клиента, настройка регистратора СВН и т.п.)",
-                  sum: 0.5
-                },
-                {
-                  id: "11",
-                  name: "Монтаж кабеля внутри помещения, по лоткам либо подвязка к существующей трассе (UTP, ВОК, ЭП) (100 метров)",
-                  sum: 1
-                },
-                {
-                  id: "12",
-                  name: "Укладка кабеля в гофру или кабель-канал (за 100 метров)",
-                  sum: 1.2
-                },
-                {
-                  id: "13",
-                  name: "Монтаж кабеля в кабельной канализации, подвес кабеля к тросу (UTP, ВОК, ЭП), подвес кабеля на опоры с монтажем крюков на опоры (за 100 метров)",
-                  sum: 1.5,
-                },
-                {
-                  id: "14",
-                  name: "Монтаж кабель каналов до 100 мм (за 20 метров)",
-                  sum: 1
-                }
-              ]
-            },
-            {
-              categoryId: '3',
-              name: 'Категория Эксплуатация',
-              list: [
-                {
-                  id: "34",
-                  name: "Монтаж кабеля внутри помещения, по лоткам либо подвязка к существующей трассе (UTP, ВОК, ЭП) (за 100 метров)",
-                  sum: 1
-                },
-                {
-                  id: "35",
-                  name: "Укладка кабеля в гофру или кабель-канал (за 100 метров)",
-                  sum: 1.2
-                },
-                {
-                  id: "36",
-                  name: "Монтаж кабеля в кабельной канализации, подвес кабеля к тросу (UTP, ВОК, ЭП), подвес кабеля на опоры с монтажем крюков на опоры (за 100 метров)",
-                  sum: 1.5
-                },
-                {
-                  id: "37",
-                  name: "Монтаж кабель каналов до 100 мм (за 20 метров)",
-                  sum: 1
-                },
-                {
-                  id: "38",
-                  name: "Монтаж лотков ( со шпильками) (за 20 метров)",
-                  sum: 2
-                },
-                {
-                  id: "39",
-                  name: "Разделка муфты или кросса (за один кабельный ввод)",
-                  sum: 0.5
-                },
-                {
-                  id: "40",
-                  name: "Разварка волокон (за 1 волокно)",
-                  sum: 0.1
-                },
-                {
-                  id: "41",
-                  name: "Расшивка патч-панели, каждый 1 порта",
-                  sum: 0.05
-                },
-                {
-                  id: "42",
-                  name: "Монтаж LTE комплекта под ключ (1 комплект)",
-                  sum: 1.5
-                }
-              ]
-            },
-            {
-              id: '4',
-              name: 'Категория Проекты',
-              list: [
-                {
-                  id: "2",
-                  name: "Тестовая услуга для проверки вывода данных",
-                  sum: 10.29
-                }
-              ]
-            }
-          ];
-          commit('SET_WORK_SERVICES', workServices);
+        fetchScoreServices({commit}) {
+          return AppDataServ.getScoreServices()
+            .then(response => {
+              commit('SET_SCORE_SERVICES', response.data);
+            })
+            .catch(error => {
+              throw(error);
+            });
         }
      }
     },
@@ -290,41 +208,19 @@ export default createStore({
 
       mutations: {
         SET_ORDERS(state, data) {
-          state.orders = data;
-          state.orders.forEach(order => {
-            const diff = order.Deadline ? dateCalculateDifference(new Date(), new Date(order.Deadline)) : dateCalculateDifference();
-            order.overdueTitle = diff.title;
-            order.overdueSummary = diff.summary;
-            order.showInList = {
-              byNumber: true,
-              byPriority: true,
-              byRole: true,
-              byStatus: true,
-              byDepartment: true,
-              byType: true
-            };
-          });
-          state.headerIcons.case  = state.orders.filter(el => +el.TroubleStatusID === 2).length;
-          state.headerIcons.clock = state.orders.filter(el => el.overdueSummary < 0,24).length;
+          const orders = [];
+          data.forEach(order => orders.push(prepareOrder(order)));
+          state.headerIcons.case = orders.filter(el => +el.TroubleStatusID === 2).length;
+          state.headerIcons.clock = orders.filter(el => el.overdueSummary < 0,24).length;
+          state.orders = orders;
           state.readyState = true;
-
-          //TODO Если нет заявок - передавать что-то, чтобы массив не был нулевым
         },
 
         UPDATE_ORDERS_LIST(state, data) {
           const order = data[0];
-          order.MeetingDateTime = ""; //TODO Удалить строку на финальном этапе
-          const diff = order.Deadline ? dateCalculateDifference(new Date(), new Date(order.Deadline)) : dateCalculateDifference();
-          order.overdueTitle = diff.title;
-          order.overdueSummary = diff.summary;
-          order.showInList = {
-            byNumber: true,
-            byPriority: true,
-            byRole: true,
-            byStatus: true,
-            byDepartment: true,
+          if (!state.orders.find(({OrderID}) => +OrderID === +order.OrderID)) {
+            state.orders.push(prepareOrder(order));
           }
-          state.orders.push(data[0]);
         },
       },
 
@@ -342,7 +238,6 @@ export default createStore({
         fetchOrderSingleSearch({ commit }, orderId) {
           return AppDataServ.getOrderSingleSearch(orderId)
             .then(response => {
-              console.log (orderId);
               commit('UPDATE_ORDERS_LIST', response.data);
             })
             .catch(error => {
@@ -356,8 +251,6 @@ export default createStore({
       namespaced: true,
 
       state: () => ({
-        SECTION_ID: 1,
-
         order: {},
 
         works: [],
@@ -555,8 +448,8 @@ export default createStore({
             });
         },
 
-        fetchOrderWorks({ commit }/*, orderId*/) {
-          // получить все, кроме удаленных / отмененных!
+        fetchOrderWorks({ commit }, params) {
+
           const works = [
               {
                 workId: "123",
@@ -615,7 +508,17 @@ export default createStore({
                 ]
               }
             ];
-          commit('SET_ORDER_WORKS', works);
+
+
+          return AppDataServ.getOrderWorks(params)
+            .then(response => {
+              console.log(response.data);
+              commit('SET_ORDER_WORKS', works);
+              //commit('SET_ORDER_DETAILS', response.data);
+            })
+            .catch(error => {
+              throw(error);
+            });
         },
 
         setInternetConnection({ commit }, params) {
