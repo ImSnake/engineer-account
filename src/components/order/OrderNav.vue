@@ -10,7 +10,6 @@
             :label="worksLength"   />
 
 <!--        <template v-if="isConnection">
-
           <OrderNavItem ref="customer"
               @onItemClick="navClick('customer')"
               :iconName="'user'"
