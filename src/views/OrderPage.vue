@@ -6,7 +6,7 @@
 
   <template v-if="dataIsReady">
 
-    <OrderHeader   />
+    <OrderHeader :isConnection="isConnection"  />
 
     <OrderNav @switchOrderContent="switchComponentView" :isConnection="isConnection"  />
 
@@ -14,7 +14,7 @@
 
       <OrderWorks ref="works"   />
 
-      <template v-if="isConnection">
+<!--      <template v-if="isConnection">
 
         <OrderCustomer ref="customer"   />
 
@@ -22,7 +22,7 @@
 
         <OrderFinish ref="finishing"   />
 
-      </template>
+      </template>-->
 
     </div>
 
@@ -40,9 +40,9 @@ import BreadCrumbs   from "@/components/elements/BreadCrumbs";
 import OrderHeader   from "@/components/order/OrderHeader";
 import OrderNav      from "@/components/order/OrderNav";
 import OrderWorks    from "@/components/order/OrderWorks";
-import OrderCustomer from "@/components/order/OrderCustomer";
-import OrderServices from "@/components/order/OrderServices";
-import OrderFinish   from "@/components/order/OrderFinish";
+//import OrderCustomer from "@/components/order/OrderCustomer";
+//import OrderServices from "@/components/order/OrderServices";
+//import OrderFinish   from "@/components/order/OrderFinish";
 
 import { useStore } from "vuex";
 import { onUnmounted } from "vue";
@@ -56,9 +56,9 @@ export default {
     OrderHeader,
     OrderNav,
     OrderWorks,
-    OrderCustomer,
-    OrderServices,
-    OrderFinish
+    //OrderCustomer,
+    //OrderServices,
+    //OrderFinish
   },
 
   emits: [ 'logEvent' ],

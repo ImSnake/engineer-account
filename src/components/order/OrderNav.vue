@@ -9,7 +9,7 @@
             :title="'Работы по заявке'"
             :label="worksLength"   />
 
-        <template v-if="isConnection">
+<!--        <template v-if="isConnection">
 
           <OrderNavItem ref="customer"
               @onItemClick="navClick('customer')"
@@ -26,7 +26,7 @@
               :iconName="'file-text'"
               :title="'Завершение'"   />
 
-        </template>
+        </template>-->
 
       </div>
     </div>
@@ -54,14 +54,6 @@ export default {
   },
 
   computed: {
-/*    isConnection() {
-      return (+this.order.OrderTypeID === 2 || +this.order.OrderTypeID === 11) && (+this.order.CustomerTypeID === 2);
-    },
-
-    order() {
-      return this.$store.state.orderPage.order.details;
-    },*/
-
     worksLength() {
       return this.$store.state.orderPage.works.length;
     }

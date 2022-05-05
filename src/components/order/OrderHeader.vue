@@ -47,9 +47,9 @@
         </div>
       </div>
 
-      <template v-if="isConnection">
+<!--      <template v-if="isConnection">
         <OrderHeaderConnection />
-      </template>
+      </template>-->
 
     </div>
   </div>
@@ -57,27 +57,31 @@
 </template>
 
 <script>
-import OrderHeaderConnection from "@/components/order/OrderHeaderConnection";
+//import OrderHeaderConnection from "@/components/order/OrderHeaderConnection";
 
 export default {
   name: "OrderHeader",
 
   components: {
-    OrderHeaderConnection
+    //OrderHeaderConnection
+  },
+
+  props: {
+    isConnection: { required: true, type: Boolean }
   },
 
   computed: {
-    isConnection() {
+/*    isConnection() {
       return (+this.$store.state.orderPage.order.details.OrderTypeID === 2 || +this.$store.state.orderPage.order.details.OrderTypeID === 11);
-    },
+    },*/
 
     order() {
       return this.$store.state.orderPage.order.details;
     },
 
     orderAddress() {
-      //return `${this.order.locationAddress}, ${this.order.locationAddressEntrance}, ${this.order.locationAddressLevel}, ${this.order.locationAddressFlat}`;
-      return `${this.order.locationAddress}`;
+      return `${this.order.locationAddress}, ${this.order.locationAddressEntrance}, ${this.order.locationAddressLevel}, ${this.order.locationAddressFlat}`;
+      //return `${this.order.locationAddress}`;
     }
   }
 

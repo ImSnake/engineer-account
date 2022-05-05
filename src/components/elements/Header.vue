@@ -3,20 +3,20 @@
     <div class="elz elizeEP p-rel d-flex h56 bg bg-EP fn fn-EP-t visHovOut5">
       <div class="elz d-grid dir-y gap8 pH8 or2 grow"></div>
       <div class="elz d-grid dir-y gap8 pH8 or2">
-        <div class="elz p-rel d-flex a-X opAct07 cur-pointer fnHov fnHovL15">
+<!--        <div class="elz p-rel d-flex a-X opAct07 cur-pointer fnHov fnHovL15">
           <div class="elz d-flex a-X s40 rCircle oH">
-            <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC" title="Заявки в работе" style="--elzMsk: url('/style/icons/briefcase.svg');">
+            <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC" title="Заявки в работе" style="&#45;&#45;elzMsk: url('/style/icons/briefcase.svg');">
               <div class="elz p-abs p-EC d-flex a-X rRound smn12 pH4 mEC-6 bold fn8 tsh-itext1 bg bg-error fn fn-error-t">{{ iconCase }}</div>
             </div>
           </div>
         </div>
         <div class="elz p-rel d-flex a-X opAct07 cur-pointer fnHov fnHovL15">
           <div class="elz d-flex a-X s40 rCircle oH">
-            <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC" title="Просроченные заявки" style="--elzMsk: url('/style/icons/clock.svg');">
+            <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC" title="Просроченные заявки" style="&#45;&#45;elzMsk: url('/style/icons/clock.svg');">
               <div class="elz p-abs p-EC d-flex a-X rRound smn12 pH4 mEC-6 bold fn8 tsh-itext1 bg bg-danger fn fn-danger-t">{{ iconClock }}</div>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
       <div class="elz elizeTaskbar d-grid dir-y gap8 pH8 or1">
         <div @click="toggleMenu" class="elz elizeAction p-rel d-flex a-X elizeOverMenuToggler cur-pointer opAct07">
