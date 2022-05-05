@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
 	devServer: {
 		host: '172.16.220.252',
-		port: 24238,
+		port: 24138,
 		proxy: {
 			'/sockjs-node': {
 				target: 'https://localhost:3000/sockjs-node',
@@ -17,5 +17,6 @@ module.exports = {
 		},
 		hotOnly: false,
 		disableHostCheck: true
+
 	},
 };
