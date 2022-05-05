@@ -5,13 +5,22 @@
 </template>
 
 <script>
-
+import { useStore }  from 'vuex';
 
 export default {
   name: 'App',
 
   setup() {
+    const store = useStore();
     const loader = document.getElementById('engineer-account');
+    store.state.static.theme = localStorage.getItem('engineerAccountAppThemeSettings');
+
+    if (!store.state.static.theme) {
+      localStorage.setItem('engineerAccountAppThemeSettings', 'elzTheme-dark');
+      store.state.static.theme = 'elzTheme-dark';
+    }
+    loader.classList.add(store.state.static.theme);
+
     return { loader }
   },
 
@@ -19,7 +28,6 @@ export default {
     if (localStorage.engineerAccountAppToken && localStorage.engineerAccountAppUserData && localStorage.engineerAccountAppFilters) {
       console.log('USER HAS TOKEN!');
       this.$store.dispatch('static/fetchAuthUserToken');
-      console.log(this.$store.state);
     }
     this.definePageView();
   },
@@ -42,10 +50,9 @@ export default {
     logOut() {
       console.log('LOG OUT APP');
       this.toAuth();
-      setTimeout(()=> {
-        this.$store.state.static.user = {};
-      }, 500);
+      setTimeout(()=> this.$store.state.static.user = {}, 500);
       this.$store.state.static.filters = {};
+
       localStorage.removeItem('engineerAccountAppUserData');
       localStorage.removeItem('engineerAccountAppFilters');
       localStorage.removeItem('engineerAccountAppToken');

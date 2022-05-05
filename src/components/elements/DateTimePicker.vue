@@ -49,6 +49,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style src="../../assets/style/datepicker/dp.css"></style>

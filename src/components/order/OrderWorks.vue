@@ -16,11 +16,9 @@
           <span class="elz d-block">Отмененные</span>
         </label>
       </div>
-
     </div>
 
     <div class="elz d-flex dir-y gap16">
-
       <template v-for="(work,index) in works" :key="work.ScoreWorkID">
         <OrderWorksItem
             :work="work"
@@ -43,7 +41,6 @@
 import BaseButton     from "@/components/elements/BaseButton";
 import OrderWorksItem from "@/components/order/OrderWorksItem";
 import { useStore } from "vuex";
-
 
 export default {
   name: "OrderWorks",
@@ -202,7 +199,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

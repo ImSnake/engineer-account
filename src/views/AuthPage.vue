@@ -1,5 +1,4 @@
 <template>
-
   <div  class="authWrap bg bg-primary">
     <form @keyup.enter="$emit('logEvent', { login: login, password: password })"  class="authFormWrap">
       <div class="elz authFormShow d-block h80">
@@ -56,7 +55,6 @@
       </div>-->
     </form>
   </div>
-
 </template>
 
 <script>
@@ -139,7 +137,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

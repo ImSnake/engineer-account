@@ -188,7 +188,6 @@ export default {
 
   computed: {
     tariffPrice() {
-      console.log()
       return numberFormat(this.service.tariffList.find(el => +el.value === +this.selectedTariff)?.price, 2, ',', ' ');
     },
 
@@ -216,7 +215,6 @@ export default {
         internetType: e.target.value,
         typeOfService: 2
       });
-      console.log(this.service);
       this.selectedTariff = '';
       //this.service.baseContractHydraId = '';
       //this.service.tariff = '';
@@ -295,7 +293,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

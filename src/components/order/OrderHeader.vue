@@ -1,7 +1,6 @@
 <template>
 
   <div class="elz d-block p16 wmx1200 mAuto">
-
     <div class="elz d-flex f-wrap mAuto  gapH32 gapV16 lh15">
       <div class="elz d-flex growMax fb320 dir-y gap16 r3 p16 bg bg-primary bgL-5 bgLInvD">
         <div class="elz d-flex f-wrap gapH8">
@@ -53,7 +52,6 @@
       </template>
 
     </div>
-
   </div>
 
 </template>

@@ -68,8 +68,7 @@
 <script>
 import BaseButton from "@/components/elements/BaseButton";
 import CheckboxInputFieldWrapper from "@/components/elements/CheckboxInputFieldWrapper";
-import {dateFormatDdMmYyyy, dateTimeFormatHHMM} from "@/helpers/formating";
-
+import { dateFormatDdMmYyyy, dateTimeFormatHHMM } from "@/helpers/formating";
 
 export default {
   name: "OrderWorksItem",
@@ -99,12 +98,6 @@ export default {
         buttonTitle: 'Завершить работу',
         tagClass: 'bg-success fn-success-t'
       },
-      // {
-      //   statusId: 3,
-      //   buttonClass: 'bg-primary bgL-5 bgLInvD bgHovL-10 uDisabled',
-      //   buttonTitle: 'Работы завершены',
-      //   tagClass: 'bg-primary fn-primary-t'
-      // },
       {
         statusId: 3,
         buttonClass: 'bg-primary-t fn-primary bgLInvD bgHovL-10 uDisabled',

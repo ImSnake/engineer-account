@@ -1,5 +1,4 @@
 <template>
-
   <div class="elz d-flex a-H pV8 pH16 mH8 fn14 lh14 al-center borB1 hmn80 br br-primary brL-5 brLF20 brFD bold">
     <div class="elz d-block al-center grow">{{ title }}</div>
   </div>
@@ -15,7 +14,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>

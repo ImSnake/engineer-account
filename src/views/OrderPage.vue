@@ -118,10 +118,5 @@ export default {
       this.$refs[bookmarkName].isActive = true;
     }
   }
-
 }
 </script>
-
-<style scoped>
-
-</style>

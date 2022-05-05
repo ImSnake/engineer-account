@@ -1,38 +1,35 @@
 <template>
-      <div class="elz p-rel d-flex grow fb280 dir-y gap16 lh12">
+  <div class="elz p-rel d-flex grow fb280 dir-y gap16 lh12">
+    <BaseButton
+        @click="datepicker = true"
+        :iconName="'truck'"
+        :classList="[{uDisabled: order.meetingStatusId > 2},' hmn48 grow bg-primary bgL-5 bgLInvD bgHovL-10']"
+        :title="formattedDateTime"   />
 
-        <BaseButton
-            @click="datepicker = true"
-            :iconName="'truck'"
-            :classList="[{uDisabled: order.meetingStatusId > 2},' hmn48 grow bg-primary bgL-5 bgLInvD bgHovL-10']"
-            :title="formattedDateTime"   />
+    <BaseButton
+        @onButtonClick="confirmAction('onWayConfirm', 'onWayDateTime', 3, )"
+        :iconName="onWayConfirm ? 'question' : 'location1'"
+        :classList="[{uDisabled: order.meetingStatusId > 2 || !order.meetingDateTime}, 'onWayConfirm hmn48 grow bg-ok bgHovL10 fn-ok-t']"
+        :title="onWayConfirm ? 'Подтвердить выезд' : titleOnWay"   />
 
-        <BaseButton
-            @onButtonClick="confirmAction('onWayConfirm', 'onWayDateTime', 3, )"
-            :iconName="onWayConfirm ? 'question' : 'location1'"
-            :classList="[{uDisabled: order.meetingStatusId > 2 || !order.meetingDateTime}, 'onWayConfirm hmn48 grow bg-ok bgHovL10 fn-ok-t']"
-            :title="onWayConfirm ? 'Подтвердить выезд' : titleOnWay"   />
+    <BaseButton
+        @onButtonClick="confirmAction('onPlaceConfirm', 'onPlaceDateTime', 4)"
+        :iconName="onPlaceConfirm ? 'question' : 'flag'"
+        :classList="[{uDisabled: order.meetingStatusId < 3 || order.meetingStatusId === 4}, 'onPlaceConfirm hmn48 grow bg-success bgHovL10 fn-ok-t']"
+        :title="onPlaceConfirm ? 'Подтвердить прибытие' : titleOnPlace"   />
 
-        <BaseButton
-            @onButtonClick="confirmAction('onPlaceConfirm', 'onPlaceDateTime', 4)"
-            :iconName="onPlaceConfirm ? 'question' : 'flag'"
-            :classList="[{uDisabled: order.meetingStatusId < 3 || order.meetingStatusId === 4}, 'onPlaceConfirm hmn48 grow bg-success bgHovL10 fn-ok-t']"
-            :title="onPlaceConfirm ? 'Подтвердить прибытие' : titleOnPlace"   />
-
-        <template v-if="datepicker">
-          <PopUpWindow @closePopUp="datepicker = false" :className="'p-AT mT-8 mH-16'">
-            <DateTimePicker @datepickerDate="updateMeetingDateTime" :currentDate="order.meetingDateTime"/>
-          </PopUpWindow>
-        </template>
-
-      </div>
+    <template v-if="datepicker">
+      <PopUpWindow @closePopUp="datepicker = false" :className="'p-AT mT-8 mH-16'">
+        <DateTimePicker @datepickerDate="updateMeetingDateTime" :currentDate="order.meetingDateTime"/>
+      </PopUpWindow>
+    </template>
+  </div>
 </template>
 
 <script>
 import DateTimePicker from "@/components/elements/DateTimePicker";
-import PopUpWindow    from "@/components/elements/PopUpWindow";
-import BaseButton     from "@/components/elements/BaseButton";
-
+import PopUpWindow from "@/components/elements/PopUpWindow";
+import BaseButton from "@/components/elements/BaseButton";
 import { dateFormatDdMmYyyy, dateTimeFormatHHMM } from "@/helpers/formating";
 
 export default {
@@ -109,10 +106,5 @@ export default {
       this.datepicker = false;
     }
   }
-
 }
 </script>
-
-<style scoped>
-
-</style>

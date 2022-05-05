@@ -1,5 +1,4 @@
 <template>
-
   <div class="elz elizeUI p-fixed p-T w100p fn12 fn-roboto fn fn-primary-t">
     <div class="elz elizeEP p-rel d-flex h56 bg bg-EP fn fn-EP-t visHovOut5">
       <div class="elz d-grid dir-y gap8 pH8 or2 grow"></div>
@@ -320,28 +319,35 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
 export default {
   name: "Header",
 
-  _theme: [{
-      name: 'darkMode',
-      title: 'Темная тема',
-      class: 'elzTheme-dark'
-    }, {
-      name: 'lightMode',
-      title: 'Светлая тема',
-      class: 'elzTheme-light'
-  }],
-
   emits: [ 'logOutApp' ],
+
+  setup() {
+    const loader = document.getElementById('engineer-account');
+
+    const themeProps = [
+      {
+        name: 'darkMode',
+        title: 'Темная тема',
+        class: 'elzTheme-dark'
+      },
+      {
+        name: 'lightMode',
+        title: 'Светлая тема',
+        class: 'elzTheme-light'
+      }
+    ];
+    return { themeProps, loader }
+  },
 
   data() {
     return {
-      activeTheme: this.$options._theme[0]
+      activeTheme: this.themeProps.find(el => el.class === this.$store.state.static.theme)
     }
   },
 
@@ -353,18 +359,23 @@ export default {
     iconCase() {
       return this.$store.state.homePage.headerIcons.case;
     },
+
     iconClock() {
       return this.$store.state.homePage.headerIcons.clock;
     },
+
     userDepartment() {
       return this.$store.state.static.user.departmentName;
     },
+
     userNameFull() {
       return `${this.$store.state.static.user.surname} ${this.$store.state.static.user.name} ${this.$store.state.static.user.patronymic}`;
     },
+
     userNameMin() {
       return `${this.$store.state.static.user.surname} ${this.$store.state.static.user.name[0].toUpperCase()}. ${this.$store.state.static.user.patronymic[0].toUpperCase()}.`;
     },
+
     userPosition() {
       return this.$store.state.static.user.position;
     }
@@ -390,15 +401,12 @@ export default {
     },
 
     toggleTheme() {
-      const loader = document.getElementById('engineer-account');
-      loader.classList.remove(this.$options._theme.find(el => el.name === this.activeTheme.name).class);
-      this.activeTheme = this.$options._theme.filter(el => el.name !== this.activeTheme.name)[0];
-      loader.classList.add(this.activeTheme.class);
+      this.loader.classList.remove(this.themeProps.find(el => el.name === this.activeTheme.name).class);
+      this.activeTheme = this.themeProps.filter(el => el.name !== this.activeTheme.name)[0];
+      this.loader.classList.add(this.activeTheme.class);
+      this.$store.state.static.theme = this.activeTheme.class;
+      localStorage.setItem('engineerAccountAppThemeSettings', this.activeTheme.class);
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

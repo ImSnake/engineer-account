@@ -20,7 +20,9 @@ export default createStore({
         hydraInternetTypes: [],
         responsibleList: [],
         visitStatuses: [],
-        scoreServices: []
+        scoreServices: [],
+
+        theme: 'elzTheme-dark',
       }),
 
       mutations: {

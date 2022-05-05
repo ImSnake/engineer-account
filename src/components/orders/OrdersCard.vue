@@ -1,8 +1,7 @@
 <template>
-
   <div class="elz  p-rel d-flex dir-y rT4 rB3 bg bg-primary bgL5 bsh-default2">
 
-    <a @click="toOrderDetails" href="#" class="elz d-flex fn16 al-center cur-pointer opAct07 cHovOut" title="Открыть карточку заявки">
+    <a @click="toOrderDetails" :href="orderPath" class="elz d-flex fn16 al-center cur-pointer opAct07 cHovOut" title="Открыть карточку заявки">
       <div class="elz d-flex a-X w50p p16 rEA3 bg bg-primary bgL-5 bgHovInL-10">
         <div v-if="orderIsImportant" title="Срочно" style="--elzMsk: url('/style/icons/fire.svg');" class="elz p-rel d-block p-rel mskBef s16 mT-2 mR8 cFillBef bgBef-CC fn fn-danger fnLF-10 fnFL"></div>
         <div class="elz d-block"># {{ order.OrderID }}</div>
@@ -17,10 +16,6 @@
         </div>
         <div class="elz d-block p20">
           <div class="elz d-block  mT-16">
-<!--            <div @click="datepicker = true" class="elz d-flex a-H mT20 cur-pointer fn fn-link-inline fnHovL10 opAct07 underlineHov" title="Дата и время визита к клиенту">
-              <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="&#45;&#45;elzMsk: url('/style/icons/truck.svg');"></div>
-              <div class="elz d-block mL8"><b class="elz bold">{{ formattedMeetingDateTime }}</b></div>
-            </div>-->
             <div class="elz d-flex a-H mT20" title="Срок выполнения">
               <div class="elz d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/clock.svg');"></div>
               <div class="elz d-block mL8"><b class="elz bold">{{ orderDate }}</b>&nbsp;({{ order.overdueTitle }})</div>
@@ -54,15 +49,8 @@
     </div>
 
     <div @click="toggleOrderView" class="elz d-block pAB16 pAT6">
-      <input :data-text-bef="hasComments ? 'Показать комментарий' : 'Комментарий отсутствует'" data-text-bef-check="Скрыть комментарий" type="checkbox"
-             :class="hasComments ? '' : 'uDisabled'" class="elz d-flex a-X w100p h36 hAuto r3 cur-pointer bold opAct07 cTextBef cTextChkBef bg bg-primary bgL-5 bgHovL-10"  />
+      <input :class="hasComments ? '' : 'uDisabled'" :data-text-bef="hasComments ? 'Показать комментарий' : 'Комментарий отсутствует'" data-text-bef-check="Скрыть комментарий" type="checkbox" class="elz d-flex a-X w100p h36 hAuto r3 cur-pointer bold opAct07 cTextBef cTextChkBef bg bg-primary bgL-5 bgHovL-10"  />
     </div>
-
-<!--    <template v-if="datepicker">
-      <PopUpWindow @closePopUp="datepicker = false" :className="'p-F m4'">
-        <DateTimePicker @datepickerDate="updateMeetingDateTime" :currentDate="order.MeetingDateTime.trim()" />
-      </PopUpWindow>
-    </template>-->
 
     <template v-if="responsible">
       <PopUpWindow @closePopUp="responsible = false" :className="'p-F m4'">
@@ -98,16 +86,12 @@
     </template>
 
   </div>
-
 </template>
 
 <script>
 import PopUpWindow       from "@/components/elements/PopUpWindow";
 import OrdersCardDetails from "@/components/orders/OrdersCardDetails";
-//import DateTimePicker    from "@/components/elements/DateTimePicker";
-
-import { dateFormatDdMmYyyy/*, dateTimeFormatHHMM*/ } from "@/helpers/formating";
-
+import { dateFormatDdMmYyyy } from "@/helpers/formating";
 
 export default {
   name: "OrdersCard",
@@ -115,7 +99,6 @@ export default {
   components: {
     OrdersCardDetails,
     PopUpWindow,
-    //DateTimePicker
   },
 
   props: {
@@ -124,8 +107,7 @@ export default {
 
   data() {
     return {
-      responsible: false,
-      //datepicker: false,
+      responsible: false
     }
   },
 
@@ -134,16 +116,16 @@ export default {
       return this.order.Comments.trim().length || this.order.Contacts.trim().length;
     },
 
-/*    formattedMeetingDateTime() {
-      return this.order.MeetingDateTime ? `${dateFormatDdMmYyyy(this.order.MeetingDateTime)} в ${dateTimeFormatHHMM(this.order.MeetingDateTime)}` : 'Дата и время выезда не заданы';
-    },*/
-
     orderDate() {
       return dateFormatDdMmYyyy(this.order.OrderDate);
     },
 
     orderIsImportant() {
       return +this.order.Priority === 2 || +this.order.Priority === 3;
+    },
+
+    orderPath() {
+      return `${window.location.href}/order/${this.order.OrderID}`;
     },
 
     responsibleDetails(){
@@ -162,7 +144,6 @@ export default {
 
   methods: {
     async showResponsibleDetails() {
-      // проверить есть ли данные в кэше, если нет - получить данные по ID и сохранить
       if (!this.responsibleDetails) {
         await this.$store.dispatch('static/fetchResponsible', this.order.ResponsibleID);
       }
@@ -181,13 +162,7 @@ export default {
       if (!$elem.children[0].classList.contains('uDisabled')) {
         $elem.previousElementSibling.classList.toggle('sel');
       }
-    },
-
-/*    async updateMeetingDateTime(date) {
-      await this.$store.dispatch('homePage/updateOrdersMeetingDateTime', {date, OrderID: this.order.OrderID});
-      this.datepicker = false;
-    }*/
-
+    }
   }
 }
 </script>

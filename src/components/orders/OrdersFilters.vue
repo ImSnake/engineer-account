@@ -1,10 +1,8 @@
 <template>
-
   <div class="elz cnnFilterPanel p-sticky p-TEP d-flex p16 mB-16 gap16 ac-between f-wrap fn12 z10 bg bg-primary">
     <div class="elz cnnSelects d-flex f-wrap grow gap16">
       <label class="elz d-grid grow w100 grPos fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0">
-        <input @keyup="findByOrderId" @keyup.enter="getByOrderId" @change="getByOrderId" v-model="orderId" type="number" placeholder="ID Заявки" class="elz elzInput d-block grPin grY2 w100p
-               bor1 r3 h40 pL32 pR8 ellipsis trns2 bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovL-20 brFoc-focus brFocL0 fn fn-primary-t" />
+        <input @keyup="findByOrderId" @keyup.enter="getByOrderId" @change="getByOrderId" v-model="orderId" type="number" placeholder="ID Заявки" class="elz elzInput d-block grPin grY2 w100p bor1 r3 h40 pL32 pR8 ellipsis trns2 bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovL-20 brFoc-focus brFocL0 fn fn-primary-t" />
         <span class="elz d-flex grPin grY2 a-H bor1 pH7 z6 evNone">
           <span class="elz p-rel d-flex a-X s24 trns2">
             <span class="elz p-rel d-flex a-X mskBef s1 bold fn16">#</span>
@@ -89,7 +87,7 @@ export default {
     return {
       orderId: '',
       orderSearchIcon: false,
-      departmentSelected: '',
+      //departmentSelected: '',
       prioritySelected: '',
       roleSelected: '',
       statusSelected: '',
@@ -98,9 +96,9 @@ export default {
   },
 
   computed: {
-    department() {
+    /*department() {
       return this.$store.state.static.filters.department;
-    },
+    },*/
 
     orders() {
       return this.$store.state.homePage.orders;
@@ -124,20 +122,20 @@ export default {
   },
 
   methods: {
-    changeDepartment() {
-      /*let depArr = [+this.departmentSelected];
-      let depId = this.department.find(el => +el.departmentId === +this.departmentSelected)?.headDepId;
-      console.log(depId);
-      while (depId !== 2 && depId !== undefined) {
-        depArr.push(depId);
-        depId = this.department.find(el => +el.departmentId === +depId).headDepId;
-      }
-      console.log(depArr);*/
+    /*changeDepartment() {
+      //let depArr = [+this.departmentSelected];
+      //let depId = this.department.find(el => +el.departmentId === +this.departmentSelected)?.headDepId;
+      //console.log(depId);
+      //while (depId !== 2 && depId !== undefined) {
+        //depArr.push(depId);
+        //depId = this.department.find(el => +el.departmentId === +depId).headDepId;
+      //}
+      //console.log(depArr);
 
       this.orders.forEach(order => {
         order.showInList.byDepartment = (+order.DepartmentID === +this.departmentSelected || +this.departmentSelected === 0);
       });
-    },
+    },*/
 
     changePriority() {
       this.orders.forEach(order => {
