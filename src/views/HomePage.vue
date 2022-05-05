@@ -6,10 +6,10 @@
 
     <OrdersFilters  />
 
-    <div class="elz d-grid fn12 lh12 grH320 gap16 p16">
+    <div class="elz cnnCardsList d-grid fn12 lh12 grH320 gap16 p16">
 
-      <template v-for="(order,index) in orders" >
-        <OrdersCard v-if="filtered(order)" :key="index" :order="order" />
+      <template v-for="order in orders" >
+        <OrdersCard v-if="filtered(order)" :key="order.OrderID" :order="order" />
       </template>
 
     </div>

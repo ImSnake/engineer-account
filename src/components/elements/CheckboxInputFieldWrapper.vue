@@ -4,21 +4,21 @@
       <div class="elz p-rel d-block noShrink p-rel mskBef s8 cFillBef bgBef-CC showSelIn1" style="--elzMsk: url('/style/icons/arrow1.svg');margin-left: 5px;margin-right: 4px;"></div>
       <div class="elz p-rel d-block noShrink p-rel mskBef s8 deg180 cFillBef bgBef-CC hideSelIn1" style="--elzMsk: url('/style/icons/arrow1.svg');margin-left: 5px;margin-right: 4px;"></div>
       <div class="elz d-block growX bold">{{ itemsList.name }}</div>
-      <div class="elz d-flex a-H gap8 wmn56 cur-help" :title="`Количество баллов: ${sumItems}`">
+      <div class="elz d-flex a-H gap8 wmn56 cur-help" :title="`Количество баллов: ${total.summary}`">
         <div class="elz p-rel d-block p-rel mskBef s14 cFillBef bgBef-CC msk-contain" style="--elzMsk: url('/style/icons/star3.svg');margin-right: 3px"></div>
-        <div class="elz d-block p4 al-center wmn24 r3 fn11 bold bg bg-primary bgL-10">{{ sumItems }}</div>
+        <div class="elz d-block p4 al-center wmn24 r3 fn11 bold bg bg-primary bgL-10">{{ total.summary }}</div>
       </div>
-      <div class="elz d-flex a-H gap8 wmn56 cur-help" :title="`Работ выполняется: ${countItems}`">
+      <div class="elz d-flex a-H gap8 wmn56 cur-help" :title="`Работ выполняется: ${total.count}`">
         <div class="elz p-rel d-block p-rel mskBef w18 h14 cFillBef bgBef-CC msk-contain" style="--elzMsk: url('/style/icons/hammer-wrench.svg');margin-right: 3px"></div>
-        <div class="elz d-block p4 al-center wmn24 r3 fn11 bold bg bg-primary bgL-10">{{ countItems }}</div>
+        <div class="elz d-block p4 al-center wmn24 r3 fn11 bold bg bg-primary bgL-10">{{ total.count }}</div>
       </div>
 
     </div>
     <div class="elz d-block showSelIn lh15 uStrip stripEven stripHover stripLD strip005 showSelIn1">
-      <template v-for="(field, index) in itemsList.list" :key="index">
+      <template v-for="field in itemsList.list" :key="field.id">
         <CheckboxInputField
-            @toggleCheckbox="(id, state) => this.$emit('updateWorkList', id, state)"
-            @updateCount="(id, count) => this.$emit('updateWorkCount', id, count)"
+            @toggleCheckbox="(id, checked) => $emit('updateServicesList', id, checked)"
+            @updateCount="(id, count) => $emit('updateServiceCount', id, count)"
             :field="field"
             :isDisabled="isDisabled"
             :params="setParams(field.id)"   />
@@ -37,7 +37,7 @@ export default {
     CheckboxInputField
   },
 
-  emits: [ 'updateWorkList', 'updateWorkCount' ],
+  emits: [ 'updateServicesList', 'updateServiceCount' ],
 
   props: {
     isDisabled: { required: true, type: Boolean },
@@ -47,37 +47,42 @@ export default {
 
   data() {
     return {
-      isClosed: true
+      isClosed: true,
+      total: {
+        summary: 0,
+        count: 0,
+      }
     }
   },
 
-  computed: {
-    countItems() {
-      let count = 0;
-      this.itemsSelected.forEach(parEl => {
-       if (this.itemsList.list.find(chEl => +chEl.id === +parEl.id)) {
-          count ++;
-        }
-      });
-      return count;
-    },
-
-    sumItems() {
-      let summary = 0;
-      this.itemsSelected.forEach(parEl => {
-        if (this.itemsList.list.find(chEl => +chEl.id === +parEl.id)) {
-          summary += +parEl.count * this.itemsList.list.find(chEl => +chEl.id === +parEl.id).sum;
-        }
-      });
-      return summary.toFixed(2);
-      //return summary;
-    },
+  created() {
+    this.getTotal();
   },
 
+  updated() {
+    this.getTotal();
+  },
+
+  computed: {},
+
   methods: {
+    getTotal() {
+      let count = 0;
+      let summary = 0;
+      this.itemsSelected.forEach(parEl => {
+        if (this.itemsList.list.find(chEl => +chEl.id === +parEl.scoreServiceId)) {
+          count ++;
+          summary += +parEl.serviceAmount * +parEl.serviceScore;
+          //summary += +parEl.serviceAmount * this.itemsList.list.find(chEl => +chEl.id === +parEl.scoreServiceId).value;
+        }
+      });
+      this.total.count = count;
+      this.total.summary = summary.toFixed(2);
+    },
+
     setParams(id) {
-      return (this.itemsSelected.length && !!this.itemsSelected.find(el => +el.id === +id))
-          ? {isChecked: true,  count: this.itemsSelected.find(el => +el.id === +id).count}
+      return (this.itemsSelected.length && !!this.itemsSelected.find(el => +el.scoreServiceId === +id))
+          ? {isChecked: true,  count: this.itemsSelected.find(el => +el.scoreServiceId === +id).serviceAmount}
           : {isChecked: false, count: 0}
     }
   }

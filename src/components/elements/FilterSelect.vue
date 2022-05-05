@@ -1,6 +1,6 @@
 <template>
 
-  <div class="elz d-grid grow mEA16 w100 grPos fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0 cHovOut">
+  <div class="elz d-grid grow w100 grPos fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0 cHovOut">
     <div class="elz elzInput d-flex grPin a-H grY2 w100p bor1 r3 h40 pL16 pR24 ellipsis trns2 invPssSib bg bg-primary bgL10 bgLInvD
          br brLInvD br-primary brL-10 brHovInL-20 brFoc-focus brFocL0 fn fn-primary-t">
       <div class="elz growX pV8 oH nowrap ellipsis" v-html="getTitle"></div>

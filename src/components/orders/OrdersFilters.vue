@@ -1,10 +1,10 @@
 <template>
 
-  <div class="elz d-flex ac-between f-wrap pAT16 mEA-16 fn12">
-    <div class="elz cnnSelects d-flex f-wrap grow">
-      <label class="elz d-grid grow mEA16 w100 grPos fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0">
-        <input @keyup="findByOrderId" @keyup.enter="getByOrderId" v-model="orderId" type="number" placeholder="ID Заявки" class="elz elzInput d-block grPin grY2 w100p
-               bor1 r3 h40 pL40 pR32 ellipsis trns2 bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovL-20 brFoc-focus brFocL0 fn fn-primary-t" />
+  <div class="elz cnnFilterPanel p-sticky p-TEP d-flex p16 mB-16 gap16 ac-between f-wrap fn12 z10 bg bg-primary">
+    <div class="elz cnnSelects d-flex f-wrap grow gap16">
+      <label class="elz d-grid grow w100 grPos fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0">
+        <input @keyup="findByOrderId" @keyup.enter="getByOrderId" @change="getByOrderId" v-model="orderId" type="number" placeholder="ID Заявки" class="elz elzInput d-block grPin grY2 w100p
+               bor1 r3 h40 pL32 pR8 ellipsis trns2 bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovL-20 brFoc-focus brFocL0 fn fn-primary-t" />
         <span class="elz d-flex grPin grY2 a-H bor1 pH7 z6 evNone">
           <span class="elz p-rel d-flex a-X s24 trns2">
             <span class="elz p-rel d-flex a-X mskBef s1 bold fn16">#</span>
@@ -37,11 +37,11 @@
           :options="statuses"
           :title="'Статус'"  />
 
-      <FilterSelect
-          v-model="departmentSelected"
-          @update:modelValue="changeDepartment"
-          :options="department"
-          :title="'Подразделение'"  />
+<!--      <FilterSelect-->
+<!--          v-model="departmentSelected"-->
+<!--          @update:modelValue="changeDepartment"-->
+<!--          :options="department"-->
+<!--          :title="'Подразделение'"  />-->
 
       <FilterSelect
           v-model="typeSelected"
@@ -51,8 +51,8 @@
 
     </div>
 
-    <div class="elz cnnFilters d-flex f-wrap">
-      <div @click="toggleSortFilter" class="elz d-flex grow a-H pH16 mEA16 w150 h40 r3 cur-pointer opAct07 bg bg-primary bgL-10
+    <div class="elz cnnFilters d-flex f-wrap gap16">
+      <div @click="toggleSortFilter" class="elz d-flex grow a-H pH16 w150 h40 r3 cur-pointer opAct07 bg bg-primary bgL-10
            bgHovL-15 bgLInvD bgSel bgSel-secondary fnSel fnSel-secondary-t">
         <div class="elz d-block grow bold">Срок</div>
         <div class="elz p-rel d-block s16 noShrink">

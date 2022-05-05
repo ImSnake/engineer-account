@@ -87,7 +87,6 @@ export const dateFormatDdMmYyyy = (date) => {
 	return date.substr(0, 10).replace(format, '$3.$2.$1');
 }
 
-
 // Формат даты по шаблону : из 2021-01-01(T00:00:00) в 01.01.2021
 export const dateTimeFormatHHMM = (date) => {
 	const dateSplit = date.split(/T| /);
@@ -145,4 +144,10 @@ export const numberFormat = (number, decimals, dec_point, thousands_sep) => {
 export const valueFormatToHtml = (value) => {
 	return value.replace(/\n/gim, '<br/>');
 }
+
+/*this.renderWorks = false;
+SOME ACTION
+this.$nextTick().then(() => {
+	this.renderWorks = true;
+});*/
 

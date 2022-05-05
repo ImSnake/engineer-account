@@ -75,17 +75,17 @@ export default {
     store.state.orderPage.SECTION_ID = 6;
     store.state.orderPage.ORDER_ID = orderId;
 
-    if (!store.state.static.visitStatuses.length) {
-      store.dispatch('static/fetchVisitStatuses');
-    }
+    onUnmounted(() => {store.state.orderPage.order = {}; });
 
     if (!store.state.static.scoreServices.length) {
       store.dispatch('static/fetchScoreServices');
     }
 
-    store.dispatch('orderPage/fetchOrderDetails', orderId);
+    if (!store.state.static.visitStatuses.length) {
+      store.dispatch('static/fetchVisitStatuses');
+    }
 
-    onUnmounted(() => {store.state.orderPage.order = {}; });
+    store.dispatch('orderPage/fetchOrderDetails', orderId);
   },
 
   watch: {

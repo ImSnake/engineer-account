@@ -2,13 +2,13 @@
 
   <div class="elz  p-rel d-flex dir-y rT4 rB3 bg bg-primary bgL5 bsh-default2">
 
-    <div @click="toOrderDetails" class="elz d-flex fn16 al-center cur-pointer opAct07 cHovOut" title="Открыть карточку заявки">
+    <a @click="toOrderDetails" href="#" class="elz d-flex fn16 al-center cur-pointer opAct07 cHovOut" title="Открыть карточку заявки">
       <div class="elz d-flex a-X w50p p16 rEA3 bg bg-primary bgL-5 bgHovInL-10">
         <div v-if="orderIsImportant" title="Срочно" style="--elzMsk: url('/style/icons/fire.svg');" class="elz p-rel d-block p-rel mskBef s16 mT-2 mR8 cFillBef bgBef-CC fn fn-danger fnLF-10 fnFL"></div>
         <div class="elz d-block"># {{ order.OrderID }}</div>
       </div>
       <div :class="statusColor" class="elz d-block w50p p16 rEB3 bg fn bgHovInL-10">{{ statusName }}</div>
-    </div>
+    </a>
 
     <div class="elz d-block p-rel showSelOut invSelOut grow ">
       <div class="elz d-block invSelIn">

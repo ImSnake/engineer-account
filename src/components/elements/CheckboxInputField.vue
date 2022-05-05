@@ -5,7 +5,7 @@
       <span class="elz d-block grow">{{ field.name }}</span>
     </label>
     <div class="elz d-flex f-wrap a-X gap8 pL16 pV8 grow fb280">
-      <div class="elz d-block al-right grow bold growMax pH20">{{ field.sum }}</div>
+      <div class="elz d-block al-right grow bold growMax pH20">{{ field.value }}</div>
       <label :class="{uDisabled: !params.isChecked}" type="checkbox" class="elz d-grid grow w56 noShrink grPos fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0">
         <input @change="(e) => $emit('updateCount', field.id, e.target.value)" :value="params.count" type="number" min="0" class="elz elzInput d-block grPin grY2 w100p bor1 r3 h24 pL20 fn12 ellipsis trns2 invPssSib bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovL-20 brFoc-focus brFocL0 fn fn-primary-t">
         <span class="elz d-flex grPin grY2 a-H pH8 z6 evNone">

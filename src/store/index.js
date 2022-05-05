@@ -1,7 +1,12 @@
 import AppDataServ from "@/services/AppDataServ";
 import { createStore } from 'vuex';
-import { prepareOrder } from "@/helpers/data_conversion";
-import { dateFormatDdMmYyyy } from "@/helpers/formating";
+import {
+  prepareCustomer,
+  prepareFilterDepartments,
+  prepareOrder,
+  prepareScoreServices,
+  prepareWorkItem
+} from "@/helpers/data_conversion";
 
 export default createStore({
   modules: {
@@ -39,21 +44,7 @@ export default createStore({
         },
 
         SET_FILTERS(state, data){
-          const departments = data.department.list;
-          let levels = [];
-          let spaces = '';
-
-          for (let a = 0; a <= +data.department.levelCount; a++) {
-            levels.push({level: a, spaces: spaces});
-            spaces += '&nbsp;&nbsp;&nbsp;&nbsp;';
-          }
-
-          departments.forEach(i => {
-            i.name = levels[+i.level].spaces + i.name;
-            i.value = (+i.level === 0) ? 0 : i.departmentId;
-          });
-
-          data.department = departments;
+          data.department = prepareFilterDepartments(data.department);
           state.filters = data;
           state.filters.readyState = true;
 
@@ -78,30 +69,9 @@ export default createStore({
         },
 
         SET_SCORE_SERVICES(state, data) {
-          const servicesDict = data.services;
-          const serviceCategories = data.serviceCategories;
-          const servicesMap = {};
-          let services = [];
-
-          servicesDict.forEach(({ScoreServiceCategoryID, ScoreServiceID, ServiceTitle, ServiceScore}) => {
-            (servicesMap[ScoreServiceCategoryID] = (servicesMap[ScoreServiceCategoryID] || [])).push({
-              id: ScoreServiceID,
-              name: ServiceTitle,
-              value: ServiceScore
-            });
-          });
-
-          serviceCategories.forEach(({ScoreServiceCategoryID, CategoryTitle}) => {
-            services.push({
-              categoryId: ScoreServiceCategoryID,
-              name: CategoryTitle,
-              list: servicesMap[ScoreServiceCategoryID] || []
-            });
-          });
-
-          state.scoreServices = services;
-
-          state.workStatuses = data.map(({ScoreWorkStatusID, StatusTitle}) => ({id: ScoreWorkStatusID, name: StatusTitle}));
+          state.scoreServicesRaw = data.services;
+          state.scoreServices = prepareScoreServices(data);
+          state.workStatuses = data.workStatuses;
         },
 
         UPDATE_RESPONSIBLE(state, data) {
@@ -263,6 +233,11 @@ export default createStore({
       }),
 
       mutations: {
+        DELETE_ORDER_WORK(state, data) {
+          console.log(state);
+          console.log(data);
+        },
+
         SET_ORDER_DETAILS(state, data) {
           state.order.details = data[0];
           state.order.readyState = true;
@@ -272,22 +247,18 @@ export default createStore({
           state.works = data;
         },
 
+        SET_NEW_ORDER_WORK(state, data) {
+          const item = data.work;
+          state.works.unshift(prepareWorkItem(data, item, true));
+        },
+
+        SET_ORDER_WORK_DETAILS(state, data) {
+          const item = state.works.find(({ScoreWorkID}) => +ScoreWorkID === +data.work.ScoreWorkID);
+          prepareWorkItem(data, item);
+        },
+
         SET_CUSTOMER_INFO(state, data) {
-          if (data.birthdayDate) {
-            data.birthdayDate = dateFormatDdMmYyyy(data.birthdayDate);
-          }
-          if (data.issueDate) {
-            data.issueDate = dateFormatDdMmYyyy(data.issueDate);
-          }
-          if (data.passportDetails) {
-            const pass = data.passportDetails.split(' ');
-            data.passportSeries = pass[0];
-            data.passportNumber = pass[1];
-          } else {
-            data.passportSeries = '';
-            data.passportNumber = '';
-          }
-          state.order.customerInfo = data;
+          state.order.customerInfo = prepareCustomer(data);
           state.order.customerInfo.UBN = state.order.details.CustomerUBN;
           state.order.customerInfo.readyState = true;
         },
@@ -306,7 +277,8 @@ export default createStore({
         },
 
         SET_INTERNET_CONNECTION(state, data) {
-          console.log(state, data);
+          console.log(state.works.find(({ScoreWorkID}) => +ScoreWorkID === +data.work.ScoreWorkID));
+          console.log(data);
         },
 
         UPDATE_CUSTOMER_INFO(state, data) {
@@ -328,10 +300,34 @@ export default createStore({
 
         UPDATE_ORDER_MEETING(state, status) {
           state.order.details.meetingStatusId = status;
-        },
+        }
       },
 
       actions: {
+        deleteOrderWork({ commit }, workId) {
+          return AppDataServ.deleteOrderWork(workId)
+            .then(response => {
+              commit('DELETE_ORDER_WORK', response.data);
+            })
+            .catch(error => {
+              throw(error);
+            });
+        },
+
+        deleteOrderWorkParticipant(state, data) {
+          return AppDataServ.deleteOrderWorkParticipant(data.workId, data.participantUserId)
+            .catch(error => {
+              throw(error);
+            });
+        },
+
+        deleteOrderWorkService(state, data) {
+          return AppDataServ.deleteOrderWorkService(data.scoreWorkId, data.service.scoreServiceId)
+            .catch(error => {
+              throw(error);
+            });
+        },
+
         fetchCustomerInfo({ commit }, customerId) {
           return AppDataServ.getCustomerInfo(customerId)
             .then(response => {
@@ -448,73 +444,30 @@ export default createStore({
             });
         },
 
+        fetchOrderWork({ commit }, workId) {
+          return AppDataServ.getOrderWorkDetails(workId)
+            .then(response => {
+              commit('SET_NEW_ORDER_WORK', response.data);
+            })
+            .catch(error => {
+              throw(error);
+            });
+        },
+
         fetchOrderWorks({ commit }, params) {
-
-          const works = [
-              {
-                workId: "123",
-                startDate: "2022-03-15 12:00:00.000",
-                finishDate: "",
-                workStatus: 2,
-                participants: [
-                  {
-                    participantId: "3337",
-                    participationStart: "2022-03-15 12:20:00.000"
-                  }
-                ],
-                workList: [
-                  {
-                    id: "12",
-                    count: 1
-                  },
-                  {
-                    id: "40",
-                    count: 10
-                  }
-                ]
-              },
-              {
-                workId: "124",
-                startDate: "",
-                finishDate: "",
-                workStatus: 1,
-                participants: [
-                  {
-                    participantId: "3337",
-                    participationStart: "2022-03-15 12:20:00.000"
-                  },
-                  {
-                    participantId: "3310",
-                    participationStart: "2022-04-21 12:20:00.000"
-                  }
-                ],
-                workList: [
-                  {
-                    id: "13",
-                    count: 2
-                  },
-                  {
-                    id: "37",
-                    count: 10
-                  },
-                  {
-                    id: "41",
-                    count: 2
-                  },
-                  {
-                    id: "45",
-                    count: 1
-                  }
-                ]
-              }
-            ];
-
-
           return AppDataServ.getOrderWorks(params)
             .then(response => {
-              console.log(response.data);
-              commit('SET_ORDER_WORKS', works);
-              //commit('SET_ORDER_DETAILS', response.data);
+              commit('SET_ORDER_WORKS', response.data);
+            })
+            .catch(error => {
+              throw(error);
+            });
+        },
+
+        fetchOrderWorkDetails({ commit }, workId) {
+          return AppDataServ.getOrderWorkDetails(workId)
+            .then(response => {
+              commit('SET_ORDER_WORK_DETAILS', response.data);
             })
             .catch(error => {
               throw(error);
@@ -522,11 +475,35 @@ export default createStore({
         },
 
         setInternetConnection({ commit }, params) {
-          console.log(params);
           return AppDataServ.setInternetConnection(params)
             .then(response => {
+              console.log(response);
               commit('SET_INTERNET_CONNECTION', response.data);
             })
+            .catch(error => {
+              throw(error);
+            });
+        },
+
+        setOrderWork(state, params) {
+          return AppDataServ.setOrderWork(params)
+            .then(response => {
+              return +response.data.scoreWorkId;
+            })
+            .catch(error => {
+              throw(error);
+            });
+        },
+
+        setOrderWorkParticipant(state, data) {
+          return AppDataServ.setOrderWorkParticipant(data.workId, data.params)
+            .catch(error => {
+              throw(error);
+            });
+        },
+
+        setOrderWorkService(state, data) {
+          return AppDataServ.setOrderWorkService(data.scoreWorkId, data.service)
             .catch(error => {
               throw(error);
             });
@@ -549,6 +526,31 @@ export default createStore({
                 commit('UPDATE_ORDER_MEETING', params.status - 1);
               }
             })
+            .catch(error => {
+              throw(error);
+            });
+        },
+
+        updateOrderWorkFinished(state, data) {
+          return AppDataServ.updateOrderWorkFinished(data.workId, data.params)
+            .catch(error => {
+              throw(error);
+            });
+        },
+
+        updateOrderWorkStarted(state, data) {
+          return AppDataServ.updateOrderWorkStarted(data.workId, data.params)
+            .catch(error => {
+              throw(error);
+            });
+        },
+
+        updateOrderWorkService(state, data) {
+          return AppDataServ.updateOrderWorkService(
+            data.scoreWorkId,
+            data.service.scoreServiceId,
+            { serviceAmount: +data.service.serviceAmount }
+          )
             .catch(error => {
               throw(error);
             });

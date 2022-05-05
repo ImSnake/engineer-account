@@ -1,7 +1,7 @@
 <template>
   <div class="elz d-block mV24 mAuto borV1 br br-primary brL-10 brLInvD">
     <div class="elz d-flex pV2 mV-2 oAuto scrollHide uDragToScroll cur-grabAct">
-      <div class="elz d-flex gap32 h56 wmn1200 pH16 mAuto">
+      <div class="elz d-flex h56 w1200 wmx100p mAuto">
 
         <OrderNavItem ref="works"
             @onItemClick="navClick('works')"

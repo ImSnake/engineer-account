@@ -11,13 +11,13 @@
       <table class="elz elzTable w100p showSelIn">
         <thead class="tbody bor borB1 br br-ok">
         <tr class="tr bold pad pV10 pH16 nowrap">
-          <td class="td">Бизнес-услуга</td>
-          <td class="td">Наименование в счете</td>
+          <td class="td wmn200">Бизнес-услуга</td>
+          <td class="td wmn200">Наименование в счете</td>
           <td class="td">Вид начисления</td>
           <td class="td">Сумма по сделке</td>
         </tr>
         </thead>
-        <tbody class="tbody pad pV10 pH16 fn16 uStrip stripEven strip005 stripHover stripLD">
+        <tbody class="tbody pad pV10 pH16 fn14 uStrip stripEven strip005 stripHover stripLD va-M lh15">
         <tr v-for="(service,index) in $store.state.orderPage.order.servicesSD" :key="index" class="tr">
           <td class="td">{{service.businessName}}</td>
           <td class="td">{{ service.billName }}</td>

@@ -5,6 +5,29 @@
     }
 }
 
+@media (max-width: 800px) {
+    .cnnFilterPanel {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .cnnCreateWork {
+        margin-bottom: 80px;
+    }
+
+    .cnnCreateWork .cnnCompletedLabel {
+        top: 100%;
+        left: 0;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 687px) {
+    .cnnCardsList { row-gap: 32px; }
+}
+
 @media (max-width: 640px) {
     .cnnFilters {
         width: 100%;
