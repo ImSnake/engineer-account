@@ -4,7 +4,7 @@
         <div class="elz d-flex f-wrap a-H grow gap8">
           <div class="elz d-block grow fb320 lh12">
             <div class="elz d-flex">
-              <div :class="workStatusTitleClass" class="elz d-block mR8 pH8 lh10 fn10 bold rRound pV4 pH6 bg fn" style="min-width: 64px; text-align: center;">{{ workStatusTitle }}</div>
+              <div :class="statusClass" class="elz d-block mR8 pH8 lh10 fn10 bold rRound pV4 pH6 bg fn" style="min-width: 64px; text-align: center;">{{ statusTitle }}</div>
               <div class="elz d-block">Работа #{{ work.ScoreWorkID }}</div>
             </div>
             <div class="elz d-flex f-wrap gapH16 gapV4 fn11 mT6 nowrap">
@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="elz d-grid gap8 grH200 pH16">
-          <label v-for="participant in work.workParticipants" :key="participant.UserID" :class="(+work.ScoreWorkStatusID >= 3) ? 'uDisabled' : ''" class="elz d-flex a-H r3 bor1 pH16 pV10 opAct07 cur-pointer bg bg-primary br br-primary brL-10 brHovL-15 brLInvD">
+          <label v-for="participant in participantList" :key="participant.UserID" :class="(+work.ScoreWorkStatusID >= 3) ? 'uDisabled' : ''" class="elz d-flex a-H r3 bor1 pH16 pV10 opAct07 cur-pointer bg bg-primary br br-primary brL-10 brHovL-15 brLInvD">
             <input type="checkbox" :checked="!!participant.UserSelected" @input="(e) => $emit('toggleParticipant', e.currentTarget.checked, participant.UserID, timeStampNow())" class="elz elzCheck checkbox p-rel d-flex noShrink cur-pointer bor1 s24 p4 r2 cLInvD bg bg-primary bgL10 br br-primary brL-10 brHovL-20 fn fn-primary-t fnHovL-5 bshAct-inset1">
             <span class="elz d-block growX mL16">
               <span class="elz d-block bold lh12 oH ellipsis nowrap">{{ participant.UserName }}</span>
@@ -51,7 +51,27 @@
             </span>
           </label>
         </div>
-        <div class="elz d-block mT16 r3 oH">
+        <div v-if="+work.ScoreWorkStatusID < 3" class="elz d-block mT16 r3 oH">
+          <template v-for="(list, index) in $store.state.static.scoreServices" :key="index">
+            <CheckboxInputFieldWrapper
+                @updateServicesList="(id, checked) => $emit('updateServicesList', id, checked)"
+                @updateServiceCount="(id, count) => $emit('updateServiceCount', id, count)"
+                :isDisabled="false"
+                :itemsList="list"
+                :itemsSelected="work.workServices"   />
+          </template>
+        </div>
+
+        <div v-else class="elz d-block mT16 r3 oH">
+          <template v-for="(list, index) in $store.state.static.scoreServices" :key="index">
+            <CheckboxInputFieldWrapper
+                :isDisabled="true"
+                :itemsList="list"
+                :itemsSelected="work.workServices"   />
+          </template>
+        </div>
+
+<!--        <div class="elz d-block mT16 r3 oH">
           <template v-for="(list, index) in $store.state.static.scoreServices" :key="index">
             <CheckboxInputFieldWrapper
                 @updateServicesList="(id, checked) => $emit('updateServicesList', id, checked)"
@@ -60,7 +80,7 @@
                 :itemsList="list"
                 :itemsSelected="work.workServices"   />
           </template>
-        </div>
+        </div>-->
       </div>
     </div>
 </template>
@@ -138,11 +158,15 @@ export default {
       return title += (this.changeWorkStatus) ? "?" : "";
     },
 
-    workStatusTitle() {
+    participantList() {
+      return this.work.ScoreWorkStatusID < 3 ? this.work.workParticipants : this.work.workParticipants.filter(({UserSelected}) => +UserSelected === 1);
+    },
+
+    statusTitle() {
       return this.$store.state.static.workStatuses.find(({ScoreWorkStatusID}) => +ScoreWorkStatusID === +this.work.ScoreWorkStatusID)?.StatusTitle;
     },
 
-    workStatusTitleClass() {
+    statusClass() {
       return this.workStatusProps.find(({statusId}) => statusId === +this.work.ScoreWorkStatusID)?.tagClass;
     }
   },

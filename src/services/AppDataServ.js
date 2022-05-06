@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const apiConnection = axios.create({
-	//baseURL: 'https://172.16.220.252:24237',
-	baseURL: 'https://amp.naukanet.ru',
+	baseURL: 'https://172.16.220.252:24137',
+	// baseURL: 'https://amp.naukanet.ru',
 	withCredentials: false,
 	headers: {
 		'Accept': 'application/json',
