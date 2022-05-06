@@ -64,6 +64,8 @@ export default {
       localStorage.removeItem('engineerAccountAppUserData');
       localStorage.removeItem('engineerAccountAppFilters');
       localStorage.removeItem('engineerAccountAppToken');
+
+      this.$store.commit('static/SET_CURRENT_PAGE', '/');
     },
 
     showAppPage() {
@@ -81,7 +83,6 @@ export default {
       this.loader.classList.add('hydraLoader');
       setTimeout(()=> this.loader.classList.add('authReady'), 1100);
       this.$router.push({name: 'Auth'});
-      this.$store.commit('static/SET_CURRENT_PAGE', '/');
     },
 
     async toHomePage() {
