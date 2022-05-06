@@ -173,12 +173,13 @@ export default {
 
     async updateServiceCount(index, id, count) {
       const params = this.getServiceParams(index, id);
-      if (+count === 0) {
+      count = parseInt(count, 0);
+      if (count === 0) {
         await this.deleteServiceItem(index, id, params);
       } else {
         params.service.serviceAmount = count;
         await this.$store.dispatch('orderPage/updateOrderWorkService', params);
-        this.works[index].workServices.find(({scoreServiceId}) => +scoreServiceId === +id).serviceAmount = +count;
+        this.works[index].workServices.find(({scoreServiceId}) => +scoreServiceId === +id).serviceAmount = count;
       }
       this.countServicesSummary(index);
     },
