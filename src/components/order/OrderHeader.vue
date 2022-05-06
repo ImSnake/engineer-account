@@ -80,8 +80,13 @@ export default {
     },
 
     orderAddress() {
-      return `${this.order.locationAddress}, ${this.order.locationAddressEntrance}, ${this.order.locationAddressLevel}, ${this.order.locationAddressFlat}`;
-      //return `${this.order.locationAddress}`;
+      let txt = this.order.locationAddress ? this.order.locationAddress : null;
+      if (txt) {
+        txt += this.order.locationAddressEntrance ? `, подъезд ${this.order.locationAddressEntrance}` : '';
+        txt += this.order.locationAddressLevel ? `, этаж ${this.order.locationAddressLevel}` : '';
+        txt += this.order.locationAddressFlat ? `, квартира ${this.order.locationAddressFlat}` : '';
+      }
+      return txt;
     }
   }
 
