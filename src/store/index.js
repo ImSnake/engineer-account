@@ -15,14 +15,15 @@ export default createStore({
       namespaced: true,
 
       state: () => ({
+        currentPage: '',
+        theme: 'elzTheme-dark',
+
         user: {},
         filters: {},
         hydraInternetTypes: [],
         responsibleList: [],
         visitStatuses: [],
         scoreServices: [],
-
-        theme: 'elzTheme-dark',
       }),
 
       mutations: {
@@ -45,6 +46,10 @@ export default createStore({
           state.filters = JSON.parse(filters);
         },
 
+        SET_CURRENT_PAGE(state, path) {
+          state.currentPage = path;
+        },
+
         SET_FILTERS(state, data){
           data.department = prepareFilterDepartments(data.department);
           state.filters = data;
@@ -53,10 +58,10 @@ export default createStore({
           localStorage.setItem('engineerAccountAppFilters',  JSON.stringify(state.filters));
         },
 
-/*        SET_HEADER_ICONS(state, data) {
-          console.log(state);
-          console.log(data);
-        },*/
+        /*        SET_HEADER_ICONS(state, data) {
+									console.log(state);
+									console.log(data);
+								},*/
 
         SET_HYDRA_INTERNET_TYPES(state, data) {
           state.hydraInternetTypes = data.map(({VALUE, NAME}) => ({value: VALUE, name: NAME}));
@@ -78,7 +83,7 @@ export default createStore({
 
         UPDATE_RESPONSIBLE(state, data) {
           state.responsibleList.push(data[0]);
-        }
+        },
       },
 
       actions: {
@@ -125,15 +130,15 @@ export default createStore({
             });
         },
 
-/*        fetchHeaderIcons({ commit }) {
-          return AppDataServ.getHeaderIcons()
-            .then(response => {
-              commit('SET_HEADER_ICONS', response.data);
-            })
-            .catch(error => {
-              throw(error);
-            });
-        },*/
+        /*        fetchHeaderIcons({ commit }) {
+									return AppDataServ.getHeaderIcons()
+										.then(response => {
+											commit('SET_HEADER_ICONS', response.data);
+										})
+										.catch(error => {
+											throw(error);
+										});
+								},*/
 
         fetchResponsible({ commit }, responsibleId) {
           return AppDataServ.getResponsibleDetails(responsibleId)
@@ -164,7 +169,7 @@ export default createStore({
               throw(error);
             });
         }
-     }
+      }
     },
 
     homePage: {
@@ -235,11 +240,6 @@ export default createStore({
       }),
 
       mutations: {
-        DELETE_ORDER_WORK(state, data) {
-          console.log(state);
-          console.log(data);
-        },
-
         SET_ORDER_DETAILS(state, data) {
           state.order.details = data[0];
           state.order.readyState = true;
@@ -306,11 +306,11 @@ export default createStore({
       },
 
       actions: {
-        deleteOrderWork({ commit }, workId) {
+        deleteOrderWork(state, workId) {
           return AppDataServ.deleteOrderWork(workId)
-            .then(response => {
-              commit('DELETE_ORDER_WORK', response.data);
-            })
+            /*            .then(response => {
+													commit('DELETE_ORDER_WORK', response.data);
+												})*/
             .catch(error => {
               throw(error);
             });
@@ -348,26 +348,26 @@ export default createStore({
               tariff: "Выбрать тарифный план",
               agreement: false,
               tariffList: [
-/*                {
-                  name: 'Выбрать тарифный план',
-                  value: ''
-                },
-                {
-                  name: 'ТП.ИНТ.Безлимитный 40',
-                  price: '700'
-                },
-                {
-                  name: 'ТП.ИНТ.Безлимитный 60',
-                  price: '1000'
-                },
-                {
-                  name: 'ТП.ИНТ.Безлимитный 100',
-                  price: '1500'
-                },
-                {
-                  name: 'ТП.Радиолинк 20',
-                  price: '2200'
-                }*/
+                /*                {
+																	name: 'Выбрать тарифный план',
+																	value: ''
+																},
+																{
+																	name: 'ТП.ИНТ.Безлимитный 40',
+																	price: '700'
+																},
+																{
+																	name: 'ТП.ИНТ.Безлимитный 60',
+																	price: '1000'
+																},
+																{
+																	name: 'ТП.ИНТ.Безлимитный 100',
+																	price: '1500'
+																},
+																{
+																	name: 'ТП.Радиолинк 20',
+																	price: '2200'
+																}*/
               ],
               monthly: [
                 {
@@ -387,20 +387,20 @@ export default createStore({
                   price: '200'
                 }
               ],
-/*              oneTime: [
-                {
-                  name: 'Keenetic Lite',
-                  price: '2500'
-                },
-                {
-                  name: 'Keenetic Start',
-                  price: '2000'
-                },
-                {
-                  name: 'Keenetic Air',
-                  price: '4000'
-                }
-              ]*/
+              /*              oneTime: [
+															{
+																name: 'Keenetic Lite',
+																price: '2500'
+															},
+															{
+																name: 'Keenetic Start',
+																price: '2000'
+															},
+															{
+																name: 'Keenetic Air',
+																price: '4000'
+															}
+														]*/
             },
             {
               name: "Телевидение",
