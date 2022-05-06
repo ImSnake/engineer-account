@@ -63,7 +63,7 @@
         </div>
 
         <div v-else class="elz d-block mT16 r3 oH">
-          <template v-for="(list, index) in $store.state.static.scoreServices" :key="index">
+          <template v-for="(list, index) in loggedServices" :key="index">
             <CheckboxInputFieldWrapper
                 :isDisabled="true"
                 :itemsList="list"
@@ -156,6 +156,32 @@ export default {
     buttonTitle() {
       let title = this.workStatusProps.find(({statusId}) => +statusId === this.work.ScoreWorkStatusID)?.buttonTitle;
       return title += (this.changeWorkStatus) ? "?" : "";
+    },
+
+    loggedServices() {
+      let services = [];
+
+      if (this.work.workServices.length) {
+        const list = [];
+        this.work.workServices.forEach(({scoreServiceId, serviceScore, serviceTitle}) => {
+          list.push({
+            id: scoreServiceId,
+            name: serviceTitle,
+            value: serviceScore
+          });
+        });
+
+        list.sort(function (a, b) {
+          return a.id - b.id;
+        });
+
+        services.push({
+          categoryId: 0,
+          name: 'Выбранные работы',
+          list: list
+        });
+      }
+      return services;
     },
 
     participantList() {
