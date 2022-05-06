@@ -47,7 +47,7 @@ export default {
 
   data() {
     return {
-      isClosed: true,
+      isClosed: !this.isDisabled,
       total: {
         summary: 0,
         count: 0,

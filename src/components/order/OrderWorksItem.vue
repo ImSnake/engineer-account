@@ -70,17 +70,6 @@
                 :itemsSelected="work.workServices"   />
           </template>
         </div>
-
-<!--        <div class="elz d-block mT16 r3 oH">
-          <template v-for="(list, index) in $store.state.static.scoreServices" :key="index">
-            <CheckboxInputFieldWrapper
-                @updateServicesList="(id, checked) => $emit('updateServicesList', id, checked)"
-                @updateServiceCount="(id, count) => $emit('updateServiceCount', id, count)"
-                :isDisabled="+work.ScoreWorkStatusID >= 3"
-                :itemsList="list"
-                :itemsSelected="work.workServices"   />
-          </template>
-        </div>-->
       </div>
     </div>
 </template>
