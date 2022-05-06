@@ -64,6 +64,8 @@ export default {
       localStorage.removeItem('engineerAccountAppUserData');
       localStorage.removeItem('engineerAccountAppFilters');
       localStorage.removeItem('engineerAccountAppToken');
+
+      this.$store.commit('static/SET_CURRENT_PAGE', '/');
     },
 
     showAppPage() {
