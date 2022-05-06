@@ -11,17 +11,20 @@ export default {
   name: 'App',
 
   setup() {
-    const store = useStore();
+    const requiredPage = window.location.pathname;
     const loader = document.getElementById('engineer-account');
+
+    const store = useStore();
     store.state.static.theme = localStorage.getItem('engineerAccountAppThemeSettings');
 
     if (!store.state.static.theme) {
       localStorage.setItem('engineerAccountAppThemeSettings', 'elzTheme-dark');
       store.state.static.theme = 'elzTheme-dark';
     }
+
     loader.classList.add(store.state.static.theme);
 
-    return { loader }
+    return { loader, requiredPage }
   },
 
   created() {
@@ -60,9 +63,8 @@ export default {
 
     showAppPage() {
       this.loader.classList.remove('hydraLoader', 'authReady');
-      const path = window.location.pathname;
-      if (path.includes('order')) {
-        const pathArr = path.split('/');
+      if (this.requiredPage.includes('order')) {
+        const pathArr = this.requiredPage.split('/');
         this.toOrderPage(pathArr.slice(-1)[0]);
       } else {
         this.toHomePage();
