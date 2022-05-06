@@ -31,7 +31,7 @@
         </div>
         <div class="elz d-flex f-wrap gapH8">
           <div class="elz d-block fb120 grow noShrink fn14 pV1">Статус:</div>
-          <div class="elz d-block fb150 growMax bold">В работе</div>
+          <div class="elz d-block fb150 growMax bold">{{ order.orderStatusName }}</div>
         </div>
         <div v-if="order.TariffZone" class="elz d-flex f-wrap gapH8">
           <div class="elz d-block fb120 grow noShrink fn14 pV1">Тарифная зона:</div>

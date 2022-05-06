@@ -35,11 +35,11 @@
           :options="statuses"
           :title="'Статус'"  />
 
-<!--      <FilterSelect-->
-<!--          v-model="departmentSelected"-->
-<!--          @update:modelValue="changeDepartment"-->
-<!--          :options="department"-->
-<!--          :title="'Подразделение'"  />-->
+      <FilterSelect
+          v-model="departmentSelected"
+          @update:modelValue="changeDepartment"
+          :options="department"
+          :title="'Подразделение'"  />
 
       <FilterSelect
           v-model="typeSelected"
@@ -87,7 +87,7 @@ export default {
     return {
       orderId: '',
       orderSearchIcon: false,
-      //departmentSelected: '',
+      departmentSelected: '',
       prioritySelected: '',
       roleSelected: '',
       statusSelected: '',
@@ -96,9 +96,9 @@ export default {
   },
 
   computed: {
-    /*department() {
+    department() {
       return this.$store.state.static.filters.department;
-    },*/
+    },
 
     orders() {
       return this.$store.state.homePage.orders;
@@ -122,7 +122,7 @@ export default {
   },
 
   methods: {
-    /*changeDepartment() {
+    changeDepartment() {
       //let depArr = [+this.departmentSelected];
       //let depId = this.department.find(el => +el.departmentId === +this.departmentSelected)?.headDepId;
       //console.log(depId);
@@ -135,7 +135,7 @@ export default {
       this.orders.forEach(order => {
         order.showInList.byDepartment = (+order.DepartmentID === +this.departmentSelected || +this.departmentSelected === 0);
       });
-    },*/
+    },
 
     changePriority() {
       this.orders.forEach(order => {
