@@ -11,10 +11,8 @@ export default {
   name: 'App',
 
   setup() {
-    const requiredPage = window.location.pathname;
-    const loader = document.getElementById('engineer-account');
-
     const store = useStore();
+    store.state.static.currentPage = window.location.pathname;
     store.state.static.theme = localStorage.getItem('engineerAccountAppThemeSettings');
 
     if (!store.state.static.theme) {
@@ -22,9 +20,10 @@ export default {
       store.state.static.theme = 'elzTheme-dark';
     }
 
+    const loader = document.getElementById('engineer-account');
     loader.classList.add(store.state.static.theme);
 
-    return { loader, requiredPage }
+    return { loader }
   },
 
   created() {
@@ -33,6 +32,12 @@ export default {
       this.$store.dispatch('static/fetchAuthUserToken');
     }
     this.definePageView();
+  },
+
+  computed: {
+    currentPage() {
+      return this.$store.state.static.currentPage;
+    }
   },
 
   methods: {
@@ -63,8 +68,8 @@ export default {
 
     showAppPage() {
       this.loader.classList.remove('hydraLoader', 'authReady');
-      if (this.requiredPage.includes('order')) {
-        const pathArr = this.requiredPage.split('/');
+      if (this.currentPage.includes('order')) {
+        const pathArr = this.currentPage.split('/');
         this.toOrderPage(pathArr.slice(-1)[0]);
       } else {
         this.toHomePage();
@@ -78,18 +83,19 @@ export default {
       this.$router.push({name: 'Auth'});
     },
 
-    toHomePage() {
+    async toHomePage() {
       console.log('TO HOME PAGE');
-      this.$router.push({name: 'Home'});
+      await this.$router.push({name: 'Home'});
+      this.$store.commit('static/SET_CURRENT_PAGE', window.location.pathname);
     },
 
-    toOrderPage(orderId) {
+    async toOrderPage(orderId) {
       console.log('TO ORDER PAGE');
-      console.log(orderId);
-      this.$router.push({
+      await this.$router.push({
         name: 'Order',
         params: { orderId: orderId }
       });
+      this.$store.commit('static/SET_CURRENT_PAGE', window.location.pathname);
     },
 
   }

@@ -15,14 +15,15 @@ export default createStore({
       namespaced: true,
 
       state: () => ({
+        currentPage: '',
+        theme: 'elzTheme-dark',
+
         user: {},
         filters: {},
         hydraInternetTypes: [],
         responsibleList: [],
         visitStatuses: [],
         scoreServices: [],
-
-        theme: 'elzTheme-dark',
       }),
 
       mutations: {
@@ -43,6 +44,10 @@ export default createStore({
 
           const filters = localStorage.getItem('engineerAccountAppFilters');
           state.filters = JSON.parse(filters);
+        },
+
+        SET_CURRENT_PAGE(state, path) {
+          state.currentPage = path;
         },
 
         SET_FILTERS(state, data){
@@ -78,7 +83,7 @@ export default createStore({
 
         UPDATE_RESPONSIBLE(state, data) {
           state.responsibleList.push(data[0]);
-        }
+        },
       },
 
       actions: {
@@ -235,11 +240,6 @@ export default createStore({
       }),
 
       mutations: {
-        DELETE_ORDER_WORK(state, data) {
-          console.log(state);
-          console.log(data);
-        },
-
         SET_ORDER_DETAILS(state, data) {
           state.order.details = data[0];
           state.order.readyState = true;
@@ -306,11 +306,11 @@ export default createStore({
       },
 
       actions: {
-        deleteOrderWork({ commit }, workId) {
+        deleteOrderWork(state, workId) {
           return AppDataServ.deleteOrderWork(workId)
-            .then(response => {
+/*            .then(response => {
               commit('DELETE_ORDER_WORK', response.data);
-            })
+            })*/
             .catch(error => {
               throw(error);
             });

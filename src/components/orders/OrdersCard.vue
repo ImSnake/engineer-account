@@ -1,7 +1,7 @@
 <template>
   <div class="elz  p-rel d-flex dir-y rT4 rB3 bg bg-primary bgL5 bsh-default2">
 
-    <a @click="toOrderDetails" :href="orderPath" class="elz d-flex fn16 al-center cur-pointer opAct07 cHovOut" title="Открыть карточку заявки">
+    <a @click.prevent="toOrderDetails" :href="orderPath" class="elz d-flex fn16 al-center cur-pointer opAct07 cHovOut" title="Открыть карточку заявки">
       <div class="elz d-flex a-X w50p p16 rEA3 bg bg-primary bgL-5 bgHovInL-10">
         <div v-if="orderIsImportant" title="Срочно" style="--elzMsk: url('/style/icons/fire.svg');" class="elz p-rel d-block p-rel mskBef s16 mT-2 mR8 cFillBef bgBef-CC fn fn-danger fnLF-10 fnFL"></div>
         <div class="elz d-block"># {{ order.OrderID }}</div>
@@ -125,7 +125,7 @@ export default {
     },
 
     orderPath() {
-      return `${window.location.href}/order/${this.order.OrderID}`;
+      return `${window.location.href}order/${this.order.OrderID}`;
     },
 
     responsibleDetails(){
@@ -150,11 +150,12 @@ export default {
       this.responsible = true;
     },
 
-    toOrderDetails() {
-      this.$router.push({
+    async toOrderDetails() {
+      await this.$router.push({
         name: 'Order',
         params: { orderId: this.order.OrderID }
       });
+      this.$store.commit('static/SET_CURRENT_PAGE', window.location.pathname);
     },
 
     toggleOrderView(e) {
