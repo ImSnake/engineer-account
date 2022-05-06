@@ -196,7 +196,7 @@ export default createStore({
         UPDATE_ORDERS_LIST(state, data) {
           const order = data[0];
           if (!state.orders.find(({OrderID}) => +OrderID === +order.OrderID)) {
-            state.orders.push(prepareOrder(order));
+            state.orders.unshift(prepareOrder(order));
           }
         },
       },
