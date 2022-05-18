@@ -120,7 +120,7 @@ export default {
     },
 
     validationLogin() {
-      const pattern = /^[a-z0-9_.-]{4,}$/;
+      const pattern = /^[a-z0-9_.-]{2,}$/;
       //const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
       let data = this.login.trim();
       this.loginProps = this.validationDefineOptions(data.match(pattern), 'Валидный логин', 'Логин введен не корректно');
