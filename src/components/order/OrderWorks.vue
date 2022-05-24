@@ -87,11 +87,7 @@ export default {
       } else {
         return this.$store.state.orderPage.works;
       }
-    },
-
-    servicesRaw() {
-      return this.$store.state.static.scoreServicesRaw;
-    },
+    }
   },
 
   methods: {
@@ -189,7 +185,11 @@ export default {
       if (checked) {
         await this.$store.dispatch('orderPage/setOrderWorkService', params);
         params.service.serviceAmount = 1;
-        params.service.serviceScore = this.servicesRaw.find(({ScoreServiceID}) => ScoreServiceID === id).ServiceScore;
+        //params.service.serviceScore = this.$store.state.static.scoreServicesRaw.find(({ScoreServiceID}) => ScoreServiceID === id).ServiceScore;
+        //params.service.scoreTitle = name;
+        const scoreParams = this.$store.state.static.scoreServicesRaw.find(({ScoreServiceID}) => ScoreServiceID === id);
+        params.service.serviceScore = scoreParams.ServiceScore;
+        params.service.serviceTitle = scoreParams.ServiceTitle;
         this.works[index].workServices.push(params.service);
       } else {
         await this.deleteServiceItem(index, id, params);

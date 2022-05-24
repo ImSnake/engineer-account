@@ -17,9 +17,9 @@
             <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC msk-contain" style="--elzMsk: url('/style/icons/user.svg');"></div>
             <div class="elz d-block bold">{{ work.UserCount }}</div>
           </div>
-          <div class="elz d-flex a-H gap8 wmn64 cur-help" :title="`Баллов начислено: ${work.ScoreTotal}`">
+          <div class="elz d-flex a-H gap8 wmn64 cur-help" :title="`Баллов начислено: ${+work.ScoreTotal.toFixed(2)}`">
             <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC msk-contain" style="--elzMsk: url('/style/icons/star3.svg');"></div>
-            <div class="elz d-block bold">{{ work.ScoreTotal }}</div>
+            <div class="elz d-block bold">{{ +work.ScoreTotal.toFixed(2) }}</div>
           </div>
           <div class="elz d-flex a-H gap8 wmn64 cur-help" :title="`Работ выполняется: ${work.ServiceCount}`">
             <div class="elz p-rel d-block p-rel mskBef w20 h16 cFillBef bgBef-CC msk-contain" style="--elzMsk: url('/style/icons/hammer-wrench.svg');"></div>
@@ -119,7 +119,7 @@ export default {
         buttonTitle: 'Работы отменены',
         tagClass: 'bg-error fn-error-t '
       }
-    ]
+    ];
     return { workStatusProps }
   },
 
@@ -230,3 +230,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>
