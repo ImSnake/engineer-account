@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const apiConnection = axios.create({
 	baseURL: 'https://172.16.220.252:24137',
-	// baseURL: 'https://amp.naukanet.ru',
+	// baseURL: 'https://api-emp.naukanet.ru',
 	withCredentials: false,
 	headers: {
 		'Accept': 'application/json',
@@ -10,7 +10,7 @@ const apiConnection = axios.create({
 	},
 	proxy: {
 		protocol: 'https',
-		host: 'amp.naukanet.ru',
+		host: 'api-emp.naukanet.ru',
 		port: 80
 	}
 });
