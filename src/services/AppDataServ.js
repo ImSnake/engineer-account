@@ -47,6 +47,10 @@ export default {
 		return apiConnection.get(`/hydraWorker/serviceConfig/serviceType/getList`);
 	},
 
+	getHydraServices(dealId) {
+		return apiConnection.get(`deal/getBusinessType/${dealId}`);
+	},
+
 	getSDServices(dealId) {
 		return apiConnection.get(`/deal/getServiceList/${dealId}`);
 	},

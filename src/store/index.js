@@ -340,7 +340,7 @@ export default createStore({
             });
         },
 
-        fetchHydraServices({ commit }, /*dealId*/) {
+        fetchHydraServices({ commit }, dealId) {
           const data = [
             {
               name: "Интернет",
@@ -415,15 +415,15 @@ export default createStore({
             }
           ];
           commit('SET_HYDRA_SERVICES', data);
-          /* return AppDataServ.getHydraServices(dealId)
+           return AppDataServ.getHydraServices(dealId)
             .then(response => {
               console.log(response);
-              commit('SET_HYDRA_SERVICES', response.data);
+              commit('SET_HYDRA_SERVICES', data);
 
             })
             .catch(error => {
               throw(error);
-            });*/
+            });
         },
 
         fetchSDServices({ commit }, dealId) {
