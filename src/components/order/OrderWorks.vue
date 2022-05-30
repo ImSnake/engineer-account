@@ -38,9 +38,10 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
+import { io } from 'socket.io-client';
 import BaseButton     from "@/components/elements/BaseButton";
 import OrderWorksItem from "@/components/order/OrderWorksItem";
-import { useStore } from "vuex";
 
 export default {
   name: "OrderWorks",
@@ -57,6 +58,27 @@ export default {
       sectionId: store.state.orderPage.SECTION_ID,
       subSectionId: store.state.orderPage.ORDER_ID
     });
+
+
+    // ===========================================================================
+
+    //const socket = io('https://172.16.220.252:24136');
+    const socket = io('https://socket-emp.naukanet.ru');
+
+    console.log(socket);
+
+    socket.on("connect_error", (e) => {
+      console.log(e);
+      console.log('connection error');
+    });
+
+    socket.emit('switch_order',  store.state.orderPage.ORDER_ID);
+
+    socket.on('order_message_work', function(res) {
+      console.log(res);
+      store.dispatch('updateOrderWorks', res);
+    });
+
   },
 
   data() {
