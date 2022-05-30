@@ -63,7 +63,7 @@ export default {
 // ===========================================================================
 
     //const socket = io('https://172.16.220.252:24136');
-    const socket = io('https://socket-emp.naukanet.ru');
+    const socket = io('https://172.16.220.252:24236');
 
     console.log(socket);
 
