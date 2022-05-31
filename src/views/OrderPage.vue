@@ -10,7 +10,7 @@
 
     <OrderNav @switchOrderContent="switchComponentView" :isConnection="isConnection"  />
 
-    <div class="elz d-block p16 wmx1200 mAuto">
+    <div class="elz d-block p16 p-rel wmx1200 mAuto">
 
       <OrderWorks ref="works"   />
 
