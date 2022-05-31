@@ -1,5 +1,6 @@
 <template>
   <template v-if="isActive">
+
     <div class="elz cnnCreateWork p-rel d-flex a-X mB48">
       <BaseButton
           @onButtonClick="setWorkItem"
@@ -18,7 +19,7 @@
       </div>
     </div>
 
-    <div class="elz d-flex dir-y p-rel gap16">
+    <div class="elz d-flex dir-y gap16">
       <template v-for="(work,index) in works" :key="work.ScoreWorkID">
         <OrderWorksItem
             :work="work"
@@ -28,15 +29,15 @@
             @updateServicesList="(id, checked) => updateServicesList(index, +id, checked)"
             @updateServiceCount="(id, count) => updateServiceCount(index, +id, count)"   />
       </template>
-
-      <template v-if="showUploader">
-        <Uploader
-            :circleSize   = "'s120'"
-            :circleWidth  = "'2'"
-            :viewSettings = "'p-abs p16 r3 z5 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
-      </template>
-
     </div>
+
+    <template v-if="showUploader">
+      <Uploader
+          :circleSize   = "'s120'"
+          :circleWidth  = "'2'"
+          :viewSettings = "'p-abs p16 r3 z5 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
+    </template>
+
   </template>
 </template>
 
