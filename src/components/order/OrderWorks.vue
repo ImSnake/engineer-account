@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="elz d-flex dir-y gap16">
+    <div class="elz d-flex dir-y p-rel gap16">
       <template v-for="(work,index) in works" :key="work.ScoreWorkID">
         <OrderWorksItem
             :work="work"
@@ -33,7 +33,7 @@
         <Uploader
             :circleSize   = "'s120'"
             :circleWidth  = "'2'"
-            :viewSettings = "'p-fixed p16 z1k bg bg-primary bgA80'"  />
+            :viewSettings = "'p-abs p16 r3 z5 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
       </template>
 
     </div>
@@ -88,7 +88,15 @@ export default {
       isActive: false,
       showFinished: false,
       showCancelled: false,
-      showUploader: false
+      showUploader: true
+    }
+  },
+
+  watch: {
+    works() {
+      if (this.works.length) {
+        this.showUploader = false;
+      }
     }
   },
 
