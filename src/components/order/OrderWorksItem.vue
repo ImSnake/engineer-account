@@ -1,5 +1,5 @@
 <template>
-    <div :class="isClosed ? '' : 'sel'" class="elz d-block mB16 bor1 r3 bg bg-primary bgL5 br br-primary brL-10 brLInvD hideSelOut showSelOut">
+    <div :class="isClosed ? '' : 'sel'" class="elz p-rel d-block mB16 bor1 r3 bg bg-primary bgL5 br br-primary brL-10 brLInvD hideSelOut showSelOut">
       <div @click="toggleWorkItem" class="elz d-flex gap8 a-H p16 opAct07 cur-pointer">
         <div class="elz d-flex f-wrap a-H grow gap8">
           <div class="elz d-block grow fb320 lh12">
@@ -71,6 +71,14 @@
           </template>
         </div>
       </div>
+
+      <template v-if="showUploader">
+        <Uploader
+            :circleSize = "'s32'"
+            :circleWidth = "'2'"
+            :viewSettings = "'p-abs p16 r3 z5 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
+      </template>
+
     </div>
 </template>
 
@@ -127,7 +135,8 @@ export default {
     return {
       isClosed: true,
       deleteWorkItem: false,
-      changeWorkStatus: false
+      changeWorkStatus: false,
+      showUploader: false
     }
   },
 
@@ -144,7 +153,7 @@ export default {
 
     buttonTitle() {
       let title = this.workStatusProps.find(({statusId}) => +statusId === this.work.ScoreWorkStatusID)?.buttonTitle;
-      return title += (this.changeWorkStatus) ? "?" : "";
+      return title += this.changeWorkStatus ? "?" : "";
     },
 
     loggedServices() {
@@ -170,6 +179,7 @@ export default {
           list: list
         });
       }
+
       return services;
     },
 
@@ -223,7 +233,9 @@ export default {
 
     async toggleWorkItem() {
       if (this.isClosed && !this.work.hasDetails) {
+        this.showUploader = true;
         await this.$store.dispatch('orderPage/fetchOrderWorkDetails', this.work.ScoreWorkID);
+        this.showUploader = false;
       }
       this.isClosed = !this.isClosed;
     },

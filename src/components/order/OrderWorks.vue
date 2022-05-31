@@ -30,7 +30,10 @@
       </template>
 
       <template v-if="showUploader">
-        <Uploader />
+        <Uploader
+            :circleSize   = "'s120'"
+            :circleWidth  = "'2'"
+            :viewSettings = "'p-fixed p16 z1k bg bg-primary bgA80'"  />
       </template>
 
     </div>
