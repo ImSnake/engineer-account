@@ -7,11 +7,9 @@
     <OrdersFilters  />
 
     <div class="elz cnnCardsList d-grid fn12 lh12 grH320 gap16 p16">
-
       <template v-for="order in orders" >
         <OrdersCard v-if="filtered(order)" :key="order.OrderID" :order="order" />
       </template>
-
     </div>
 
   </template>
@@ -30,7 +28,6 @@ import Header        from "@/components/elements/Header";
 import OrdersFilters from "@/components/orders/OrdersFilters";
 import OrdersCard    from "@/components/orders/OrdersCard";
 import { useStore }  from 'vuex';
-
 
 export default {
   name: "HomePage",

@@ -4,7 +4,7 @@
 
     <div class="elz d-block r3 bor1 fn12 mB32 oAuto br br-ok bg bg-ok bgA10 showSelOut hideSelOut">
       <div @click="toggleTableView" class="elz d-flex gap8 a-H p16 fn16 opAct07 cur-pointer">
-        <div class="elz d-block grow bold">Услуги по сделке: #{{ $store.state.orderPage.order.details.DealID }}</div>
+        <div class="elz d-block grow bold">Услуги по сделке: #{{ dealId }}</div>
         <div class="elz p-rel d-block noShrink p-rel mskBef s8 deg180 cFillBef bgBef-CC hideSelIn" style="--elzMsk: url('/style/icons/arrow1.svg');"></div>
         <div class="elz p-rel d-block noShrink p-rel mskBef s8 cFillBef bgBef-CC showSelIn" style="--elzMsk: url('/style/icons/arrow1.svg');"></div>
       </div>
@@ -45,7 +45,8 @@
 
 <script>
 import OrderServicesHydra from "@/components/order/OrderServicesHydra";
-//import { useStore } from "vuex";
+import { useStore } from "vuex";
+//import { computed } from 'vue';
 
 export default {
   name: "OrderServices",
@@ -54,6 +55,19 @@ export default {
     OrderServicesHydra
   },
 
+  setup() {
+    const store = useStore();
+
+    const dealId = store.state.orderPage.order.details.DealID;
+
+    if (!store.state.static.hydraInternetTypes.length) {
+      store.dispatch('static/fetchHydraInternetTypes');
+    }
+    store.dispatch('orderPage/fetchSDServices', dealId);
+    store.dispatch('orderPage/fetchHydraServices', dealId);
+
+    return { dealId }
+  },
 
   data() {
     return {
@@ -61,19 +75,19 @@ export default {
     }
   },
 
-  created() {
+/*  mounted() {
     if (!this.$store.state.static.hydraInternetTypes.length) {
       this.$store.dispatch('static/fetchHydraInternetTypes');
     }
     this.$store.dispatch('orderPage/fetchSDServices', this.dealId);
     this.$store.dispatch('orderPage/fetchHydraServices', this.dealId);
-  },
+  },*/
 
-  computed: {
+/*  computed: {
     dealId() {
       return this.$store.state.orderPage.order.details.DealID;
     }
-  },
+  },*/
 
   methods: {
     toggleTableView(e){

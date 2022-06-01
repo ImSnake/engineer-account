@@ -7,7 +7,7 @@
             @onItemClick="navClick('works')"
             :iconName="'hammer1'"
             :title="'Работы по заявке'"
-            :label="worksLength"   />
+            :label="$store.state.scoreWorks.works.length"   />
 
 <!--        <template v-if="isConnection">
           <OrderNavItem ref="customer"
@@ -53,9 +53,17 @@ export default {
   },
 
   computed: {
-    worksLength() {
+/*    isConnection() {
+      return (+this.order.OrderTypeID === 2 || +this.order.OrderTypeID === 11) && (+this.order.CustomerTypeID === 2);
+    },
+
+    order() {
+      return this.$store.state.orderPage.order.details;
+    },*/
+
+/*    worksLength() {
       return this.$store.state.orderPage.works.length;
-    }
+    }*/
   },
 
   methods: {

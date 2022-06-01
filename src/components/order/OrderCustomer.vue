@@ -158,6 +158,41 @@
                    :titleMain="'E-Mail:'"
                    :titleFocus="'E-Mail:'"
                    :inputProps="validationEmail()"   />
+
+        <InputItem ref="registrationAddress" @updateModelValue="(val) => {customer.factAddress = val; validationDaDataAddress();}"
+                   @autocompleteSelected="updateAddress"
+                   :autocomplete="addressList.length ? addressList : false"
+                   :modelValue="customer.factAddress"
+                   :inputType="'text'"
+                   :inputMask="validation.text"
+                   :placeholder="'Москва, ул. 2я Хуторская д. 38А стр. 9'"
+                   :titleMain="'Адрес прописки:'"
+                   :titleFocus="'Город, улица, дом'"
+                   :inputProps="validationText(customer.factAddress, 5)"   />
+
+        <div class="elz infoLine d-block mB32">
+          <div class="elz infoTitle d-flex a-H hmn40 borB2 mL24 noShrink"></div>
+          <div class="elz d-flex cnnFlexibleInputs">
+            <InputItem @updateModelValue="(val) => customer.factAddressEntrance = val"
+                       :modelValue="customer.factAddressEntrance"
+                       :inputType="'text'"
+                       :titleFocus="'Подъезд:'"
+                       :inputProps="customer.factAddressEntrance ? elemProps.success : ''"   />
+
+            <InputItem @updateModelValue="(val) => customer.factAddressLevel = val"
+                       :modelValue="customer.factAddressLevel"
+                       :inputType="'text'"
+                       :titleFocus="'Этаж:'"
+                       :inputProps="customer.factAddressLevel ? elemProps.success : ''"   />
+
+            <InputItem @updateModelValue="(val) => customer.factAddressFlat = val"
+                       :modelValue="customer.factAddressFlat"
+                       :inputType="'text'"
+                       :titleFocus="'Квартира'"
+                       :inputProps="customer.factAddressFlat ? elemProps.success : ''"   />
+          </div>
+        </div>
+
       </div>
     </div>
 

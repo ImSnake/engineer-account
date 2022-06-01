@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from "@/views/HomePage";
 import AuthPage from "@/views/AuthPage";
 import OrderPage from "@/views/OrderPage";
-import ErrorPage from '@/views/ErrorPage';
 
 const routes = [
 	{
@@ -21,12 +20,6 @@ const routes = [
 		props: true,
 		component: OrderPage
 	},
-	{
-		path: '/error/:error',
-		name: 'ErrorPage',
-		props: true,
-		component: ErrorPage
-	}
 ]
 
 const index = createRouter({
