@@ -1,3 +1,4 @@
+import Socket from "@/services/Socket";
 import AppDataServ from "@/services/AppDataServ";
 import { prepareCustomer } from "@/helpers/data_conversion";
 
@@ -193,6 +194,10 @@ export const ModuleOrder = () => {
 					.catch(error => {
 						throw(error);
 					});
+			},
+
+			socketRegisterOrder(state, orderId) {
+				return Socket.setOrder(orderId);
 			},
 
 			updateCustomerInfo({ commit }, customerData) {

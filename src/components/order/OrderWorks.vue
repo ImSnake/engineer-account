@@ -1,7 +1,7 @@
 <template>
   <template v-if="isActive">
 
-    <div class="elz cnnCreateWork p-rel d-flex a-X mB48">
+    <div :class="showUploader ? 'uDisabled' : ''" class="elz cnnCreateWork p-rel d-flex a-X mB48">
       <BaseButton
           @onButtonClick="setWorkItem"
           :classList="'hmn48 bg-ok bgHovL10 fn-ok-t'"
@@ -42,10 +42,10 @@
 </template>
 
 <script>
-import { io } from 'socket.io-client';
 import { useStore } from "vuex";
 import BaseButton from "@/components/elements/BaseButton";
 import OrderWorksItem from "@/components/order/OrderWorksItem";
+import {onMounted, onUnmounted} from "vue";
 
 export default {
   name: "OrderWorks",
@@ -65,21 +65,13 @@ export default {
       subSectionId: orderId
     });
 
-// ===========================================================================
-
-   const socket = io('https://172.16.220.252:24136');
-
-     socket.on("connect_error", (e) => {
-      console.log(e);
-      console.log('socket connection error');
+    onMounted(() => {
+      store.dispatch('scoreWorks/socketRegisterScoreWorks', res => {
+        store.dispatch('scoreWorks/updateOrderWork', res);
+      });
     });
 
-    socket.emit('switch_order',  orderId);
-
-    socket.on('order_message_work', function(res) {
-      console.log(res);
-      store.dispatch('scoreWorks/updateOrderWork', res);
-    });
+    onUnmounted(() => {store.dispatch('scoreWorks/socketOffScoreWorks')});
   },
 
   data() {
@@ -87,15 +79,7 @@ export default {
       isActive: false,
       showFinished: false,
       showCancelled: false,
-      showUploader: true
-    }
-  },
-
-  watch: {
-    works() {
-      if (this.works.length) {
-        this.showUploader = false;
-      }
+      showUploader: this.isReady
     }
   },
 
@@ -106,6 +90,10 @@ export default {
 
     hasCanceled() {
       return this.$store.state.scoreWorks.works.filter(el => +el.ScoreWorkStatusID === 4).length;
+    },
+
+    isReady() {
+      return this.$store.state.scoreWorks.readyState;
     },
 
     works() {
@@ -161,7 +149,6 @@ export default {
     async deleteWorkItem(index, id) {
       this.showUploader = true;
       await this.$store.dispatch('scoreWorks/deleteOrderWork', id);
-      this.works.find(({ScoreWorkID}) => +ScoreWorkID === +id).ScoreWorkStatusID = 4;
       this.showUploader = false;
     },
 
@@ -229,8 +216,7 @@ export default {
         await this.deleteServiceItem(index, id, params);
       }
       this.countServicesSummary(index);
-    },
-
+    }
   }
 }
 </script>

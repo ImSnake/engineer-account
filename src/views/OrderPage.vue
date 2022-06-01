@@ -2,7 +2,7 @@
 
   <Header @logOutApp="$emit('logEvent')"/>
 
-  <BreadCrumbs :title="'К списку заявок'" :path="'Home'" />
+  <BreadCrumbs :title="'К списку заявок'" :path="'Home'" :url="'/'" />
 
   <template v-if="dataIsReady">
 
@@ -48,7 +48,7 @@ import OrderServices from "@/components/order/OrderServices";
 import OrderFinish   from "@/components/order/OrderFinish";
 
 import { useStore } from "vuex";
-import { onUnmounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 
 export default {
   name: "OrderPage",
@@ -78,8 +78,6 @@ export default {
     store.state.orderPage.SECTION_ID = 6;
     store.state.orderPage.ORDER_ID = orderId;
 
-    onUnmounted(() => {store.state.orderPage.order = {}; });
-
     if (!store.state.static.scoreServices.length) {
       store.dispatch('static/fetchScoreServices');
     }
@@ -89,6 +87,9 @@ export default {
     }
 
     store.dispatch('orderPage/fetchOrderDetails', orderId);
+
+    onMounted(() => store.dispatch('orderPage/socketRegisterOrder', orderId));
+    onUnmounted(() => store.state.orderPage.order = {});
   },
 
   watch: {

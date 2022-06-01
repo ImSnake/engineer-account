@@ -121,15 +121,15 @@ export const ModuleStatic = () => {
 					});
 			},
 
-			/*        fetchHeaderIcons({ commit }) {
-								return AppDataServ.getHeaderIcons()
-									.then(response => {
-										commit('SET_HEADER_ICONS', response.data);
-									})
-									.catch(error => {
-										throw(error);
-									});
-							},*/
+			/*fetchHeaderIcons({ commit }) {
+				return AppDataServ.getHeaderIcons()
+					.then(response => {
+						commit('SET_HEADER_ICONS', response.data);
+					})
+					.catch(error => {
+						throw(error);
+					});
+			},*/
 
 			fetchResponsible({ commit }, responsibleId) {
 				return AppDataServ.getResponsibleDetails(responsibleId)
@@ -159,7 +159,7 @@ export const ModuleStatic = () => {
 					.catch(error => {
 						throw(error);
 					});
-			}
+			},
 		}
 	}
 }

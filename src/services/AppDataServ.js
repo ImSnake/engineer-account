@@ -112,6 +112,10 @@ export default {
 		return apiConnection.post(`/scoreWorks/${workId}/services`, params);
 	},
 
+	setWebSocketHeader(socketId) {
+		apiConnection.defaults.headers.common['socket'] = socketId;
+	},
+
 	updateCustomerInfo(customerData) {
 		return apiConnection.post(`/customer/updateInfo`, customerData);
 	},
@@ -125,7 +129,6 @@ export default {
 	},
 
 	updateOrderWorkParticipant(workId, participantId) {
-		console.log('API CALL');
 		return apiConnection.patch(`/scoreWorks/${workId}/participants/${participantId}/pause`);
 	},
 
