@@ -1,4 +1,4 @@
-/*import { io } from 'socket.io-client';
+import { io } from 'socket.io-client';
 import AppDataServ from "@/services/AppDataServ";
 
 const socket = io('https://172.16.220.252:24136');
@@ -24,4 +24,4 @@ export default {
 	offScoreWorksListener() {
 		socket.off('order_message_work');
 	},
-}*/
+}
