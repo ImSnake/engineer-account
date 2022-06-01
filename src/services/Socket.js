@@ -14,17 +14,14 @@ socket.on('connect', () => {
 
 export default {
 	setOrder(orderId) {
-		console.log('ebani');
 		socket.emit('switch_order',  orderId);
 	},
 
 	setScoreWorksListener(callback) {
-		console.log('menya');
 		socket.on('order_message_work', callback);
 	},
 
 	offScoreWorksListener() {
-		console.log('veslom');
 		socket.off('order_message_work');
 	},
 }

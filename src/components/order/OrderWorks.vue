@@ -206,8 +206,6 @@ export default {
       if (checked) {
         await this.$store.dispatch('scoreWorks/setOrderWorkService', params);
         params.service.serviceAmount = 1;
-        //params.service.serviceScore = this.$store.state.static.scoreServicesRaw.find(({ScoreServiceID}) => ScoreServiceID === id).ServiceScore;
-        //params.service.scoreTitle = name;
         const scoreParams = this.$store.state.static.scoreServicesRaw.find(({ScoreServiceID}) => ScoreServiceID === id);
         params.service.serviceScore = scoreParams.ServiceScore;
         params.service.serviceTitle = scoreParams.ServiceTitle;
