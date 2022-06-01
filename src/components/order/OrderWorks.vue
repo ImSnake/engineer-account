@@ -65,13 +65,13 @@ export default {
       subSectionId: orderId
     });
 
-    onMounted(() => {
+/*    onMounted(() => {
       store.dispatch('scoreWorks/socketRegisterScoreWorks', res => {
         store.dispatch('scoreWorks/updateOrderWork', res);
       });
     });
 
-    onUnmounted(() => {store.dispatch('scoreWorks/socketOffScoreWorks')});
+    onUnmounted(() => {store.dispatch('scoreWorks/socketOffScoreWorks')});*/
   },
 
   data() {

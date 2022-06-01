@@ -88,7 +88,7 @@ export default {
 
     store.dispatch('orderPage/fetchOrderDetails', orderId);
 
-    onMounted(() => store.dispatch('orderPage/socketRegisterOrder', orderId));
+/*    onMounted(() => store.dispatch('orderPage/socketRegisterOrder', orderId));*/
     onUnmounted(() => store.state.orderPage.order = {});
   },
 

@@ -1,6 +1,6 @@
 import AppDataServ from "@/services/AppDataServ";
 import { prepareWorkItem } from "@/helpers/data_conversion";
-import Socket from "@/services/Socket";
+//import Socket from "@/services/Socket";
 
 export const ModuleWorks = () => {
 	return {
@@ -17,8 +17,8 @@ export const ModuleWorks = () => {
 				state.works.find(w => w.ScoreWorkID === scoreWorkId).ScoreWorkStatusID = 4;
 			},
 
-			SET_ORDER_WORKS(state, data) {
-				state.works = data;
+			async SET_ORDER_WORKS(state, data) {
+				state.works = await data;
 				state.readyState = true;
 			},
 
@@ -132,13 +132,13 @@ export const ModuleWorks = () => {
 					});
 			},
 
-			socketRegisterScoreWorks(state, callback) {
+/*			socketRegisterScoreWorks(state, callback) {
 				return Socket.setScoreWorksListener(callback);
 			},
 
 			socketOffScoreWorks() {
 				return Socket.offScoreWorksListener();
-			},
+			},*/
 
 			updateOrderWork({ commit }, { action, scoreWorkId }) {
 				switch (action) {
