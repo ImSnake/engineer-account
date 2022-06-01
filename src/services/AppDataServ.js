@@ -124,6 +124,11 @@ export default {
 		return apiConnection.patch(`/scoreWorks/${workId}/finish`, params);
 	},
 
+	updateOrderWorkParticipant(workId, participantId) {
+		console.log('API CALL');
+		return apiConnection.patch(`/scoreWorks/${workId}/participants/${participantId}/pause`);
+	},
+
 	updateOrderWorkStarted(workId, params) {
 		return apiConnection.patch(`/scoreWorks/${workId}/start`, params);
 	},

@@ -7,7 +7,7 @@
             @onItemClick="navClick('works')"
             :iconName="'hammer1'"
             :title="'Работы по заявке'"
-            :label="worksLength"   />
+            :label="$store.state.scoreWorks.works.length"   />
 
         <template v-if="isConnection">
 
@@ -62,9 +62,9 @@ export default {
       return this.$store.state.orderPage.order.details;
     },*/
 
-    worksLength() {
+/*    worksLength() {
       return this.$store.state.orderPage.works.length;
-    }
+    }*/
   },
 
   methods: {

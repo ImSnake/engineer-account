@@ -42,14 +42,27 @@
             </div>
           </div>
         </div>
-        <div class="elz d-grid gap8 grH200 pH16">
-          <label v-for="participant in participantList" :key="participant.UserID" :class="(+work.ScoreWorkStatusID >= 3) ? 'uDisabled' : ''" class="elz d-flex a-H r3 bor1 pH16 pV10 opAct07 cur-pointer bg bg-primary br br-primary brL-10 brHovL-15 brLInvD">
-            <input type="checkbox" :checked="!!participant.UserSelected" @input="(e) => $emit('toggleParticipant', e.currentTarget.checked, participant.UserID, timeStampNow())" class="elz elzCheck checkbox p-rel d-flex noShrink cur-pointer bor1 s24 p4 r2 cLInvD bg bg-primary bgL10 br br-primary brL-10 brHovL-20 fn fn-primary-t fnHovL-5 bshAct-inset1">
-            <span class="elz d-block growX mL16">
-              <span class="elz d-block bold lh12 oH ellipsis nowrap">{{ participant.UserName }}</span>
-              <span class="elz d-block fn11 mT8">{{ setDateTime(participant.CreatedAt, 'Не назначен') }}</span>
-            </span>
-          </label>
+        <div class="elz d-grid gap8 grH240 pH16">
+          <div v-for="participant in participantList" :key="participant.UserID" :class="(+work.ScoreWorkStatusID >= 3 || participant.StoppedAt) ? 'uDisabled' : ''" class="p-rel d-flex a-H r3 bor1 bg bg-primary br br-primary brL-10 brHovL-15 brLInvD">
+
+            <label :class="participant.StoppedAt ? 'hide' : 'or1'" class="p-rel d-flex a-X pV12 pH16 s-SV cur-pointer or1" title="Назначить / снять участника">
+              <input type="checkbox" :checked="!!participant.UserSelected" @input="(e) => $emit('toggleParticipant', e.currentTarget.checked, participant.UserID, timeStampNow())" class="elz elzCheck checkbox p-rel d-flex noShrink cur-pointer bor1 s24 p4 r2 cLInvD bg bg-primary bgL10 br br-primary brL-10 brHovL-20 fn fn-primary-t fnHovL-5 bshAct-inset1">
+            </label>
+
+            <div class="elz d-block growX hmn32 pV12 or2">
+              <div class="elz d-block bold lh12 oH ellipsis nowrap">{{ participant.UserName }}</div>
+              <div class="elz d-block fn11 mT4">{{ setDateTime(participant.CreatedAt, 'Не назначен') }}</div>
+            </div>
+
+            <div @click="finishParticipation(participant.UserID)" v-if="participant.UserSelected" :class="participant.StoppedAt ? 'or1' : 'or3'" class="elz d-flex a-PR wmn56 pR16 s-SV cur-pointer opAct07 fnHov fnHov-primary-t fnHovL-20 fnHovLInvD" title="Завершить участие">
+              <div class="elz d-flex a-X noShrink r3 s32">
+                <div class="elz d-flex a-X rRound bor2 s20 noShrink br-CC">
+                  <div class="elz p-rel d-block p-rel noShrink mskBef s8 cFillBef bgBef-CC" style="--elzMsk: url('https://lelouch.ru/dev/elize/design/icons/stop.svg');"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
         <div v-if="+work.ScoreWorkStatusID < 3" class="elz d-block mT16 r3 oH">
           <template v-for="(list, index) in $store.state.static.scoreServices" :key="index">
@@ -197,10 +210,6 @@ export default {
   },
 
   methods: {
-    setDateTime(date, defaultTitle) {
-      return (date) ? `${dateFormatDdMmYyyy(date)} в ${dateTimeFormatHHMM(date)}` : defaultTitle;
-    },
-
     clickOut(actionName, e) {
       if (this[actionName] === false || !e.target.closest(`.${actionName}`)) {
         this[actionName] = false;
@@ -226,6 +235,24 @@ export default {
       }
     },
 
+    finishParticipation(userId) {
+      console.log('finish Participation');
+      console.log(userId);
+
+      const user = this.work.workParticipants.find(({UserID}) => UserID === userId);
+
+      user.StoppedAt = this.timeStampNow();
+
+      this.$store.dispatch('scoreWorks/updateOrderWorkParticipant', {
+        workId: +this.work.ScoreWorkID,
+        participantId: +userId
+      });
+    },
+
+    setDateTime(date, defaultTitle) {
+      return (date) ? `${dateFormatDdMmYyyy(date)} в ${dateTimeFormatHHMM(date)}` : defaultTitle;
+    },
+
     timeStampNow() {
       const date = new Date();
       return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
@@ -234,7 +261,7 @@ export default {
     async toggleWorkItem() {
       if (this.isClosed && !this.work.hasDetails) {
         this.showUploader = true;
-        await this.$store.dispatch('orderPage/fetchOrderWorkDetails', this.work.ScoreWorkID);
+        await this.$store.dispatch('scoreWorks/fetchOrderWorkDetails', this.work.ScoreWorkID);
         this.showUploader = false;
       }
       this.isClosed = !this.isClosed;

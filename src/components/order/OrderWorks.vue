@@ -42,11 +42,10 @@
 </template>
 
 <script>
-import BaseButton     from "@/components/elements/BaseButton";
-import OrderWorksItem from "@/components/order/OrderWorksItem";
-import { useStore } from "vuex";
-
 import { io } from 'socket.io-client';
+import { useStore } from "vuex";
+import BaseButton from "@/components/elements/BaseButton";
+import OrderWorksItem from "@/components/order/OrderWorksItem";
 
 export default {
   name: "OrderWorks",
@@ -59,29 +58,28 @@ export default {
   setup() {
     const store = useStore();
 
-    store.dispatch('orderPage/fetchOrderWorks', {
+    const orderId = store.state.orderPage.ORDER_ID;
+
+    store.dispatch('scoreWorks/fetchOrderWorks', {
       sectionId: store.state.orderPage.SECTION_ID,
-      subSectionId: store.state.orderPage.ORDER_ID
+      subSectionId: orderId
     });
 
 // ===========================================================================
 
-    //const socket = io('https://172.16.220.252:24136');
-    const socket = io('https://172.16.220.252:24236');
+   const socket = io('https://172.16.220.252:24136');
 
-    socket.on("connect_error", (e) => {
+     socket.on("connect_error", (e) => {
       console.log(e);
-      console.log('connection error');
+      console.log('socket connection error');
     });
 
-    socket.emit('switch_order',  store.state.orderPage.ORDER_ID);
+    socket.emit('switch_order',  orderId);
 
     socket.on('order_message_work', function(res) {
       console.log(res);
-      store.dispatch('updateOrderWorks', res);
+      store.dispatch('scoreWorks/updateOrderWork', res);
     });
-
-    console.log(socket);
   },
 
   data() {
@@ -103,25 +101,25 @@ export default {
 
   computed: {
     hasFinished() {
-      return this.$store.state.orderPage.works.filter(el => +el.ScoreWorkStatusID === 3).length;
+      return this.$store.state.scoreWorks.works.filter(el => +el.ScoreWorkStatusID === 3).length;
     },
 
     hasCanceled() {
-      return this.$store.state.orderPage.works.filter(el => +el.ScoreWorkStatusID === 4).length;
+      return this.$store.state.scoreWorks.works.filter(el => +el.ScoreWorkStatusID === 4).length;
     },
 
     works() {
       if (!this.showFinished && !this.showCancelled) {
-        return this.$store.state.orderPage.works.filter(el => el.ScoreWorkStatusID < 3);
+        return this.$store.state.scoreWorks.works.filter(el => el.ScoreWorkStatusID < 3);
       }
       else if (this.showFinished && !this.showCancelled) {
-        return this.$store.state.orderPage.works.filter(el => el.ScoreWorkStatusID !== 4);
+        return this.$store.state.scoreWorks.works.filter(el => el.ScoreWorkStatusID !== 4);
       }
       else if (!this.showFinished && this.showCancelled) {
-        return this.$store.state.orderPage.works.filter(el => el.ScoreWorkStatusID !== 3);
+        return this.$store.state.scoreWorks.works.filter(el => el.ScoreWorkStatusID !== 3);
       }
       else {
-        return this.$store.state.orderPage.works;
+        return this.$store.state.scoreWorks.works;
       }
     }
   },
@@ -134,11 +132,11 @@ export default {
         params: { scoreWorkId: workId }
       }
       if (newStatus === 2) {
-        await this.$store.dispatch('orderPage/updateOrderWorkStarted', data);
+        await this.$store.dispatch('scoreWorks/updateOrderWorkStarted', data);
         this.works[index].StartedAt = timeStamp;
       }
       else if (newStatus === 3) {
-        await this.$store.dispatch('orderPage/updateOrderWorkFinished', data);
+        await this.$store.dispatch('scoreWorks/updateOrderWorkFinished', data);
         this.works[index].FinishedAt = timeStamp;
       }
       this.works[index].ScoreWorkStatusID = newStatus;
@@ -156,13 +154,13 @@ export default {
     },
 
     async deleteServiceItem(index, id, params) {
-      await this.$store.dispatch('orderPage/deleteOrderWorkService', params);
+      await this.$store.dispatch('scoreWorks/deleteOrderWorkService', params);
       this.works[index].workServices = this.works[index].workServices.filter(({scoreServiceId}) => +scoreServiceId !== id);
     },
 
     async deleteWorkItem(index, id) {
       this.showUploader = true;
-      await this.$store.dispatch('orderPage/deleteOrderWork', id);
+      await this.$store.dispatch('scoreWorks/deleteOrderWork', id);
       this.works.find(({ScoreWorkID}) => +ScoreWorkID === +id).ScoreWorkStatusID = 4;
       this.showUploader = false;
     },
@@ -176,11 +174,11 @@ export default {
 
     async setWorkItem() {
       this.showUploader = true;
-      const workId = await this.$store.dispatch('orderPage/setOrderWork',{
+      const workId = await this.$store.dispatch('scoreWorks/setOrderWork',{
         sectionId: +this.$store.state.orderPage.SECTION_ID,
         subSectionId: +this.$store.state.orderPage.ORDER_ID
       });
-      await this.$store.dispatch('orderPage/fetchOrderWork', workId);
+      await this.$store.dispatch('scoreWorks/fetchOrderWork', workId);
       this.showUploader = false;
     },
 
@@ -191,12 +189,12 @@ export default {
       }
       if (checked) {
         data.params = { participantUserId: +participantId };
-        await this.$store.dispatch('orderPage/setOrderWorkParticipant', data);
+        await this.$store.dispatch('scoreWorks/setOrderWorkParticipant', data);
         user.CreatedAt = timeStamp;
         user.UserSelected = 1;
       } else {
         data.participantUserId = +participantId;
-        await this.$store.dispatch('orderPage/deleteOrderWorkParticipant', data);
+        await this.$store.dispatch('scoreWorks/deleteOrderWorkParticipant', data);
         user.CreatedAt = "";
         user.UserSelected = 0;
       }
@@ -210,7 +208,7 @@ export default {
         await this.deleteServiceItem(index, id, params);
       } else {
         params.service.serviceAmount = count;
-        await this.$store.dispatch('orderPage/updateOrderWorkService', params);
+        await this.$store.dispatch('scoreWorks/updateOrderWorkService', params);
         this.works[index].workServices.find(({scoreServiceId}) => +scoreServiceId === +id).serviceAmount = count;
       }
       this.countServicesSummary(index);
@@ -219,7 +217,7 @@ export default {
     async updateServicesList(index, id, checked) {
       const params = this.getServiceParams(index, id);
       if (checked) {
-        await this.$store.dispatch('orderPage/setOrderWorkService', params);
+        await this.$store.dispatch('scoreWorks/setOrderWorkService', params);
         params.service.serviceAmount = 1;
         //params.service.serviceScore = this.$store.state.static.scoreServicesRaw.find(({ScoreServiceID}) => ScoreServiceID === id).ServiceScore;
         //params.service.scoreTitle = name;
