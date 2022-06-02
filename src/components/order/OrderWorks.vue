@@ -85,7 +85,6 @@ export default {
 
   watch: {
     isReady() {
-      console.log('is ready func');
       this.showUploader = !this.isReady;
     }
   },
