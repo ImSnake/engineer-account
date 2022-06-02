@@ -1,3 +1,4 @@
+/*
 import { io } from 'socket.io-client';
 import AppDataServ from "@/services/AppDataServ";
 
@@ -12,6 +13,9 @@ socket.on('connect', () => {
 	AppDataServ.setWebSocketHeader(socket.id);
 });
 
+console.log('ITS A SOCKET!!!');
+console.log(socket);
+
 export default {
 	setOrder(orderId) {
 		socket.emit('switch_order',  orderId);
@@ -25,3 +29,4 @@ export default {
 		socket.off('order_message_work');
 	},
 }
+*/
