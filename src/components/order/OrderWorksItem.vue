@@ -236,13 +236,8 @@ export default {
     },
 
     finishParticipation(userId) {
-      console.log('finish Participation');
-      console.log(userId);
-
       const user = this.work.workParticipants.find(({UserID}) => UserID === userId);
-
       user.StoppedAt = this.timeStampNow();
-
       this.$store.dispatch('scoreWorks/updateOrderWorkParticipant', {
         workId: +this.work.ScoreWorkID,
         participantId: +userId
