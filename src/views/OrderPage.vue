@@ -48,7 +48,7 @@ import OrderWorks    from "@/components/order/OrderWorks";
 //import OrderFinish   from "@/components/order/OrderFinish";
 
 import { useStore } from "vuex";
-import { /*onMounted,*/ onUnmounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 
 export default {
   name: "OrderPage",
@@ -88,7 +88,7 @@ export default {
 
     store.dispatch('orderPage/fetchOrderDetails', orderId);
 
-/*    onMounted(() => store.dispatch('orderPage/socketRegisterOrder', orderId));*/
+    onMounted(() => store.dispatch('orderPage/socketRegisterOrder', orderId));
     onUnmounted(() => store.state.orderPage.order = {});
   },
 

@@ -45,7 +45,7 @@
 import { useStore } from "vuex";
 import BaseButton from "@/components/elements/BaseButton";
 import OrderWorksItem from "@/components/order/OrderWorksItem";
-//import {onMounted, onUnmounted} from "vue";
+import { onMounted, onUnmounted } from "vue";
 
 export default {
   name: "OrderWorks",
@@ -65,13 +65,13 @@ export default {
       subSectionId: orderId
     });
 
-/*    onMounted(() => {
+    onMounted(() => {
       store.dispatch('scoreWorks/socketRegisterScoreWorks', res => {
         store.dispatch('scoreWorks/updateOrderWork', res);
       });
     });
 
-    onUnmounted(() => {store.dispatch('scoreWorks/socketOffScoreWorks')});*/
+    onUnmounted(() => {store.dispatch('scoreWorks/socketOffScoreWorks')});
   },
 
   data() {

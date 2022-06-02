@@ -111,9 +111,9 @@ export default {
 		return apiConnection.post(`/scoreWorks/${workId}/services`, params);
 	},
 
-/*	setWebSocketHeader(socketId) {
+	setWebSocketHeader(socketId) {
 		apiConnection.defaults.headers.common['socket'] = socketId;
-	},*/
+	},
 
 	updateCustomerInfo(customerData) {
 		return apiConnection.post(`/customer/updateInfo`, customerData);
