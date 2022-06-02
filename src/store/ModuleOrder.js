@@ -1,4 +1,4 @@
-import Socket from "@/services/Socket";
+//import Socket from "@/services/Socket";
 import AppDataServ from "@/services/AppDataServ";
 import { prepareCustomer } from "@/helpers/data_conversion";
 
@@ -196,9 +196,9 @@ export const ModuleOrder = () => {
 					});
 			},
 
-			socketRegisterOrder(state, orderId) {
+/*			socketRegisterOrder(state, orderId) {
 				return Socket.setOrder(orderId);
-			},
+			},*/
 
 			updateCustomerInfo({ commit }, customerData) {
 				return AppDataServ.updateCustomerInfo(customerData)

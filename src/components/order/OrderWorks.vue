@@ -35,7 +35,7 @@
       <Uploader
           :circleSize   = "'s120'"
           :circleWidth  = "'2'"
-          :viewSettings = "'p-abs p16 r3 z5 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
+          :viewSettings = "'p-abs p16 r3 z10 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
     </template>
 
   </template>
@@ -45,7 +45,7 @@
 import { useStore } from "vuex";
 import BaseButton from "@/components/elements/BaseButton";
 import OrderWorksItem from "@/components/order/OrderWorksItem";
-import { onMounted, onUnmounted } from "vue";
+//import { onMounted, onUnmounted } from "vue";
 
 export default {
   name: "OrderWorks",
@@ -65,13 +65,13 @@ export default {
       subSectionId: orderId
     });
 
-    onMounted(() => {
+/*    onMounted(() => {
       store.dispatch('scoreWorks/socketRegisterScoreWorks', res => {
         store.dispatch('scoreWorks/updateOrderWork', res);
       });
     });
 
-    onUnmounted(() => {store.dispatch('scoreWorks/socketOffScoreWorks')});
+    onUnmounted(() => {store.dispatch('scoreWorks/socketOffScoreWorks')});*/
   },
 
   data() {
@@ -79,7 +79,14 @@ export default {
       isActive: false,
       showFinished: false,
       showCancelled: false,
-      showUploader: this.isReady
+      showUploader: false
+    }
+  },
+
+  watch: {
+    isReady() {
+      console.log('is ready func');
+      this.showUploader = !this.isReady;
     }
   },
 

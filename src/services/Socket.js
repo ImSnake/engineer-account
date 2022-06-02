@@ -1,4 +1,4 @@
-import { io } from 'socket.io-client';
+/*import { io } from 'socket.io-client';
 import AppDataServ from "@/services/AppDataServ";
 
 const socket = io('https://socket-emp.naukanet.ru');
@@ -13,9 +13,9 @@ socket.on('connect', () => {
 });
 
 console.log('ITS A SOCKET!!!');
-console.log(socket);
+console.log(socket);*/
 
-export default {
+/*export default {
 	setOrder(orderId) {
 		socket.emit('switch_order',  orderId);
 	},
@@ -27,4 +27,4 @@ export default {
 	offScoreWorksListener() {
 		socket.off('order_message_work');
 	},
-}
+}*/

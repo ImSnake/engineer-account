@@ -1,4 +1,4 @@
-import Socket from "@/services/Socket";
+//import Socket from "@/services/Socket";
 import AppDataServ from "@/services/AppDataServ";
 import { prepareWorkItem } from "@/helpers/data_conversion";
 
@@ -132,13 +132,13 @@ export const ModuleWorks = () => {
 					});
 			},
 
-			socketRegisterScoreWorks(state, callback) {
+/*			socketRegisterScoreWorks(state, callback) {
 				return Socket.setScoreWorksListener(callback);
 			},
 
 			socketOffScoreWorks() {
 				return Socket.offScoreWorksListener();
-			},
+			},*/
 
 			updateOrderWork({ commit }, { action, scoreWorkId }) {
 				switch (action) {
