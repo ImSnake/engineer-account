@@ -79,7 +79,15 @@ export default {
       isActive: false,
       showFinished: false,
       showCancelled: false,
-      showUploader: this.isReady
+      showUploader: true
+    }
+  },
+
+  watch: {
+    isReady() {
+      if (this.isReady) {
+        this.showUploader = false;
+      }
     }
   },
 
@@ -114,20 +122,25 @@ export default {
 
   methods: {
     async changeWorkStatus(index, newStatus, timeStamp) {
+      this.showUploader = true;
+
       const workId = +this.works[index].ScoreWorkID;
       const data = {
         workId: workId,
         params: { scoreWorkId: workId }
       }
+
       if (newStatus === 2) {
         await this.$store.dispatch('scoreWorks/updateOrderWorkStarted', data);
         this.works[index].StartedAt = timeStamp;
-      }
-      else if (newStatus === 3) {
+      } else if (newStatus === 3) {
         await this.$store.dispatch('scoreWorks/updateOrderWorkFinished', data);
         this.works[index].FinishedAt = timeStamp;
       }
+
       this.works[index].ScoreWorkStatusID = newStatus;
+
+      this.showUploader = false;
     },
 
     countServicesSummary(index) {

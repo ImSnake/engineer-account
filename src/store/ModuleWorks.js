@@ -1,6 +1,6 @@
+import Socket from "@/services/Socket";
 import AppDataServ from "@/services/AppDataServ";
 import { prepareWorkItem } from "@/helpers/data_conversion";
-import Socket from "@/services/Socket";
 
 export const ModuleWorks = () => {
 	return {
@@ -12,8 +12,6 @@ export const ModuleWorks = () => {
 
 		mutations: {
 			DELETE_ORDER_WORK(state, scoreWorkId) {
-				console.log(scoreWorkId);
-				console.log(scoreWorkId);
 				state.works.find(w => w.ScoreWorkID === scoreWorkId).ScoreWorkStatusID = 4;
 			},
 
@@ -33,13 +31,11 @@ export const ModuleWorks = () => {
 			},
 
 			UPDATE_NEW_ORDER_WORK(state, data) {
-				console.log('NEW_UPDATE_ORDER_WORK');
 				const item = data.work;
 				state.works.unshift(prepareWorkItem(data, item, false));
 			},
 
 			UPDATE_ORDER_WORK(state, data) {
-				console.log('UPDATE_ORDER_WORK');
 				const item = data.work;
 				item.isOpened = state.works.find(({ScoreWorkID}) => +ScoreWorkID === +data.work.ScoreWorkID).isOpened;
 

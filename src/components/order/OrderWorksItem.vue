@@ -89,7 +89,7 @@
         <Uploader
             :circleSize = "'s32'"
             :circleWidth = "'2'"
-            :viewSettings = "'p-abs p16 r3 z5 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
+            :viewSettings = "'p-abs p16 r3 z10 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
       </template>
 
     </div>
@@ -242,6 +242,7 @@ export default {
         workId: +this.work.ScoreWorkID,
         participantId: +userId
       });
+
     },
 
     setDateTime(date, defaultTitle) {
@@ -260,6 +261,7 @@ export default {
         this.showUploader = false;
       }
       this.isClosed = !this.isClosed;
+      this.showUploader = true;
     },
   }
 }
