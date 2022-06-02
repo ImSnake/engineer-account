@@ -35,11 +35,11 @@
           :options="statuses"
           :title="'Статус'"  />
 
-      <FilterSelect
+<!--      <FilterSelect
           v-model="departmentSelected"
           @update:modelValue="changeDepartment"
           :options="department"
-          :title="'Подразделение'"  />
+          :title="'Подразделение'"  />-->
 
       <FilterSelect
           v-model="typeSelected"

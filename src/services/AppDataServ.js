@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const apiConnection = axios.create({
 	baseURL: 'https://api-emp.naukanet.ru',
-	// baseURL: 'https://api-emp.naukanet.ru',
 	withCredentials: false,
 	headers: {
 		'Accept': 'application/json',
@@ -112,9 +111,9 @@ export default {
 		return apiConnection.post(`/scoreWorks/${workId}/services`, params);
 	},
 
-	setWebSocketHeader(socketId) {
+/*	setWebSocketHeader(socketId) {
 		apiConnection.defaults.headers.common['socket'] = socketId;
-	},
+	},*/
 
 	updateCustomerInfo(customerData) {
 		return apiConnection.post(`/customer/updateInfo`, customerData);
