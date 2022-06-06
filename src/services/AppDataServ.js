@@ -39,8 +39,8 @@ export default {
 		return apiConnection.delete(`/scoreWorks/${workId}/services/${serviceId}`);
 	},
 
-	getCustomerInfo(customerId) {
-		return apiConnection.get(`/customer/getInfo/${customerId}`);
+	getCustomerInfo(customerId, dealId) {
+		return apiConnection.get(`/customer/getInfo/${customerId}/${dealId}`);
 	},
 
 	getHydraInternetTypes() {

@@ -46,7 +46,7 @@
           <div v-for="participant in participantList" :key="participant.UserID" :class="(+work.ScoreWorkStatusID >= 3 || participant.StoppedAt) ? 'uDisabled' : ''" class="p-rel d-flex a-H r3 bor1 bg bg-primary br br-primary brL-10 brHovL-15 brLInvD">
 
             <label :class="participant.StoppedAt ? 'hide' : 'or1'" class="p-rel d-flex a-X pV12 pH16 s-SV cur-pointer or1" title="Назначить / снять участника">
-              <input type="checkbox" :checked="!!participant.UserSelected" @input="(e) => $emit('toggleParticipant', e.currentTarget.checked, participant.UserID, timeStampNow())" class="elz elzCheck checkbox p-rel d-flex noShrink cur-pointer bor1 s24 p4 r2 cLInvD bg bg-primary bgL10 br br-primary brL-10 brHovL-20 fn fn-primary-t fnHovL-5 bshAct-inset1">
+              <input type="checkbox" :checked="!!participant.UserSelected" @input="(e) => participantToggle(e, participant.UserID)" class="elz elzCheck checkbox p-rel d-flex noShrink cur-pointer bor1 s24 p4 r2 cLInvD bg bg-primary bgL10 br br-primary brL-10 brHovL-20 fn fn-primary-t fnHovL-5 bshAct-inset1">
             </label>
 
             <div class="elz d-block growX hmn32 pV12 or2">
@@ -54,7 +54,7 @@
               <div class="elz d-block fn11 mT4">{{ setDateTime(participant.CreatedAt, 'Не назначен') }}</div>
             </div>
 
-            <div @click="finishParticipation(participant.UserID)" v-if="participant.UserSelected" :class="participant.StoppedAt ? 'or1' : 'or3'" class="elz d-flex a-PR wmn56 pR16 s-SV cur-pointer opAct07 fnHov fnHov-primary-t fnHovL-20 fnHovLInvD" title="Завершить участие">
+            <div @click="participantFinish(participant.UserID)" v-if="participant.UserSelected" :class="participant.StoppedAt ? 'or1' : 'or3'" class="elz d-flex a-PR wmn56 pR16 s-SV cur-pointer opAct07 fnHov fnHov-primary-t fnHovL-20 fnHovLInvD" title="Завершить участие">
               <div class="elz d-flex a-X noShrink r3 s32">
                 <div class="elz d-flex a-X rRound bor2 s20 noShrink br-CC">
                   <div class="elz p-rel d-block p-rel noShrink mskBef s8 cFillBef bgBef-CC" style="--elzMsk: url('https://lelouch.ru/dev/elize/design/icons/stop.svg');"></div>
@@ -108,7 +108,7 @@ export default {
     CheckboxInputFieldWrapper,
   },
 
-  emits: [ 'changeWorkStatus', 'deleteWorkItem', 'toggleParticipant', 'updateServiceCount', 'updateServicesList' ],
+  emits: [ 'changeWorkStatus', 'deleteWorkItem', 'participantFinish', 'participantToggle', 'updateServiceCount', 'updateServicesList' ],
 
   props: {
     work: { required: true,  type: Object }
@@ -159,6 +159,19 @@ export default {
     }
   },
 
+  watch: {
+    status() {
+      this.showUploader = false;
+    },
+
+/*    participantList: {
+      deep: true,
+      handler() {
+        this.showUploader = false;
+      }
+    }*/
+  },
+
   computed: {
     buttonClass() {
       return this.workStatusProps.find(({statusId}) => +statusId === this.work.ScoreWorkStatusID)?.buttonClass;
@@ -200,6 +213,10 @@ export default {
       return this.work.ScoreWorkStatusID < 3 ? this.work.workParticipants : this.work.workParticipants.filter(({UserSelected}) => +UserSelected === 1);
     },
 
+    status() {
+      return this.work.ScoreWorkStatusID;
+    },
+
     statusTitle() {
       return this.$store.state.static.workStatuses.find(({ScoreWorkStatusID}) => +ScoreWorkStatusID === +this.work.ScoreWorkStatusID)?.StatusTitle;
     },
@@ -221,28 +238,30 @@ export default {
         this.deleteWorkItem = true;
         document.addEventListener("click", this.clickOut.bind(null, 'deleteWorkItem'), { capture: true, once:true });
       } else {
+        this.showUploader = true;
         this.$emit('deleteWorkItem', this.work.ScoreWorkID);
       }
     },
 
-    confirmChangeWorkStatus() {
+    async confirmChangeWorkStatus() {
       if (!this.changeWorkStatus) {
         this.changeWorkStatus = true;
         document.addEventListener("click", this.clickOut.bind(null, 'changeWorkStatus'), { capture: true, once:true });
       } else {
+        this.showUploader = true;
         this.$emit('changeWorkStatus', +this.work.ScoreWorkStatusID + 1, this.timeStampNow());
         this.changeWorkStatus = false;
       }
     },
 
-    finishParticipation(userId) {
-      const user = this.work.workParticipants.find(({UserID}) => UserID === userId);
-      user.StoppedAt = this.timeStampNow();
-      this.$store.dispatch('scoreWorks/updateOrderWorkParticipant', {
-        workId: +this.work.ScoreWorkID,
-        participantId: +userId
-      });
+    participantToggle(e, userId) {
+      //this.showUploader = true;
+      this.$emit('participantToggle', e.currentTarget.checked, userId, this.timeStampNow());
+    },
 
+    participantFinish(userId) {
+      this.showUploader = true;
+      this.$emit('participantFinish', userId, this.timeStampNow());
     },
 
     setDateTime(date, defaultTitle) {
@@ -261,7 +280,6 @@ export default {
         this.showUploader = false;
       }
       this.isClosed = !this.isClosed;
-      this.showUploader = true;
     },
   }
 }

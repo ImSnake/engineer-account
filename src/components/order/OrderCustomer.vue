@@ -101,9 +101,9 @@
                    :titleFocus="'Кем выдан:'"
                    :inputProps="validationText(customer.issueDepartment, 4)"   />
 
-        <InputItem ref="registrationAddress" @updateModelValue="(val) => {customer.registrationAddress = val; validationDaDataAddress();}"
-                   @autocompleteSelected="updateAddress"
-                   :autocomplete="addressList.length ? addressList : false"
+        <InputItem ref="registrationAddress" @updateModelValue="(val) => {customer.registrationAddress = val; validationDaDataAddress('registrationAddress', 'addressFactList');}"
+                   @autocompleteSelected="(idx) => updateAddress(idx, 'addressFactList', 'addressFactList')"
+                   :autocomplete="addressFactList.length ? addressFactList : false"
                    :modelValue="customer.registrationAddress"
                    :inputType="'text'"
                    :inputMask="validation.text"
@@ -159,37 +159,37 @@
                    :titleFocus="'E-Mail:'"
                    :inputProps="validationEmail()"   />
 
-        <InputItem ref="registrationAddress" @updateModelValue="(val) => {customer.factAddress = val; validationDaDataAddress();}"
-                   @autocompleteSelected="updateAddress"
-                   :autocomplete="addressList.length ? addressList : false"
-                   :modelValue="customer.factAddress"
+        <InputItem @updateModelValue="(val) => {customer.serviceAdr = val; validationDaDataAddress('serviceAdr', 'addressServiceList');}"
+                   @autocompleteSelected="(idx) => updateAddress(idx, 'serviceAdr','addressServiceList')"
+                   :autocomplete="addressServiceList.length ? addressServiceList : false"
+                   :modelValue="customer.serviceAdr"
                    :inputType="'text'"
                    :inputMask="validation.text"
                    :placeholder="'Москва, ул. 2я Хуторская д. 38А стр. 9'"
-                   :titleMain="'Адрес прописки:'"
+                   :titleMain="'Адрес оказания услуги:'"
                    :titleFocus="'Город, улица, дом'"
-                   :inputProps="validationText(customer.factAddress, 5)"   />
+                   :inputProps="validationText(customer.serviceAdr, 5)"   />
 
         <div class="elz infoLine d-block mB32">
           <div class="elz infoTitle d-flex a-H hmn40 borB2 mL24 noShrink"></div>
           <div class="elz d-flex cnnFlexibleInputs">
-            <InputItem @updateModelValue="(val) => customer.factAddressEntrance = val"
-                       :modelValue="customer.factAddressEntrance"
+            <InputItem @updateModelValue="(val) => customer.serviceEntrance = val"
+                       :modelValue="customer.serviceEntrance"
                        :inputType="'text'"
                        :titleFocus="'Подъезд:'"
-                       :inputProps="customer.factAddressEntrance ? elemProps.success : ''"   />
+                       :inputProps="customer.serviceEntrance ? elemProps.success : ''"   />
 
-            <InputItem @updateModelValue="(val) => customer.factAddressLevel = val"
-                       :modelValue="customer.factAddressLevel"
+            <InputItem @updateModelValue="(val) => customer.serviceLevel = val"
+                       :modelValue="customer.serviceLevel"
                        :inputType="'text'"
                        :titleFocus="'Этаж:'"
-                       :inputProps="customer.factAddressLevel ? elemProps.success : ''"   />
+                       :inputProps="customer.serviceLevel ? elemProps.success : ''"   />
 
-            <InputItem @updateModelValue="(val) => customer.factAddressFlat = val"
-                       :modelValue="customer.factAddressFlat"
+            <InputItem @updateModelValue="(val) => customer.serviceFlat = val"
+                       :modelValue="customer.serviceFlat"
                        :inputType="'text'"
                        :titleFocus="'Квартира'"
-                       :inputProps="customer.factAddressFlat ? elemProps.success : ''"   />
+                       :inputProps="customer.serviceFlat ? elemProps.success : ''"   />
           </div>
         </div>
 
@@ -225,7 +225,10 @@ export default {
     const store = useStore();
 
     if (!store.state.orderPage.order.customerInfo) {
-      store.dispatch('orderPage/fetchCustomerInfo', store.state.orderPage.order.details.CustomerIDTTS);
+      store.dispatch('orderPage/fetchCustomerInfo', {
+        customerId: store.state.orderPage.order.details.CustomerIDTTS,
+        dealId: store.state.orderPage.order.details.DealID
+      });
     }
 
     return {
@@ -282,7 +285,8 @@ export default {
     return {
       formIsValid: false,
       isActive: false,
-      addressList: [],
+      addressFactList: [],
+      addressServiceList: [],
       ufmsList: []
     }
   },
@@ -323,16 +327,16 @@ export default {
       this.$store.dispatch('orderPage/updateCustomerInfo', this.customer);
     },
 
-    updateAddress(index) {
-      const {house_type, house, block_type, block} = this.addressList[index].data;
+    updateAddress(index, paramName, listName) {
+      const {house_type, house, block_type, block} = this[listName][index].data;
       let houseName = house_type + ' ' + house;
       if (block) {
         houseName += ' ' + block_type + ' ' + block;
       }
-      this.customer.registrationAddressFiass = this.addressList[index].data;
-      this.customer.registrationAddressFiass.houseName = houseName;
-      this.customer.registrationAddress = this.addressList[index].value;
-      this.addressList = [];
+      this.customer[`${paramName}Fiass`] = this[listName][index].data;
+      this.customer[`${paramName}Fiass`].houseName = houseName;
+      this.customer[paramName] = this[listName][index].value;
+      this[listName] = [];
       setTimeout(()=> this.defineSendButtonState(), 500);
     },
 
@@ -342,12 +346,12 @@ export default {
       setTimeout(()=> this.defineSendButtonState(), 500);
     },
 
-    async validationDaDataAddress() {
-      if (this.customer.registrationAddress.length >= 4) {
-        this.addressList = (await DaDataService.getSuggestionAddress(this.customer.registrationAddress)).suggestions;
+    async validationDaDataAddress(paramName, listName) {
+      if (this.customer[paramName].length >= 4) {
+        this[listName] = (await DaDataService.getSuggestionAddress(this.customer[paramName])).suggestions;
       }
-      if (!this.addressList.length) {
-        this.customer.registrationAddressFiass = 'is not exist';
+      if (!this[listName].length) {
+        this.customer[`${paramName}Fiass`] = 'is not exist';
       }
     },
 

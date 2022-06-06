@@ -44,7 +44,7 @@ export default {
 
     autocomplete:{ required: false, type: [Array, Boolean] },
     inputMask:   { required: false, type: [Object, String] },
-    inputProps:  { required: false, type: Object },
+    inputProps:  { required: false, type: [Object, String] },
     labelClass:  { required: false, type: [Function, String] },
     placeholder: { required: false, type: String },
     titleFocus:  { required: false, type: String },

@@ -69,8 +69,8 @@ export const ModuleOrder = () => {
 		},
 
 		actions: {
-			fetchCustomerInfo({ commit }, customerId) {
-				return AppDataServ.getCustomerInfo(customerId)
+			fetchCustomerInfo({ commit }, {customerId, dealId}) {
+				return AppDataServ.getCustomerInfo(customerId, dealId)
 					.then(response => {
 						commit('SET_CUSTOMER_INFO', response.data);
 					})

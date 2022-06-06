@@ -24,8 +24,9 @@
         <OrderWorksItem
             :work="work"
             @changeWorkStatus="(status, timeStamp) => changeWorkStatus(index, status, timeStamp)"
-            @deleteWorkItem="(id) => deleteWorkItem(index, id)"
-            @toggleParticipant="(checked, participantId, timeStamp) => toggleParticipant(index, checked, participantId, timeStamp)"
+            @deleteWorkItem="deleteWorkItem"
+            @participantFinish="(participantId, timeStamp) => participantFinish(index, participantId, timeStamp)"
+            @participantToggle="(checked, participantId, timeStamp) => participantToggle(index, checked, participantId, timeStamp)"
             @updateServicesList="(id, checked) => updateServicesList(index, +id, checked)"
             @updateServiceCount="(id, count) => updateServiceCount(index, +id, count)"   />
       </template>
@@ -35,7 +36,7 @@
       <Uploader
           :circleSize   = "'s120'"
           :circleWidth  = "'2'"
-          :viewSettings = "'p-abs p16 r3 z5 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
+          :viewSettings = "'p-abs p16 r3 z10 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
     </template>
 
   </template>
@@ -71,7 +72,11 @@ export default {
       });
     });
 
-    onUnmounted(() => {store.dispatch('scoreWorks/socketOffScoreWorks')});
+    onUnmounted(() => {
+      store.dispatch('scoreWorks/socketOffScoreWorks');
+      store.state.scoreWorks.works = [];
+      store.state.scoreWorks.readyState = false;
+    });
   },
 
   data() {
@@ -85,9 +90,7 @@ export default {
 
   watch: {
     isReady() {
-      if (this.isReady) {
-        this.showUploader = false;
-      }
+      this.showUploader = !this.isReady;
     }
   },
 
@@ -122,14 +125,11 @@ export default {
 
   methods: {
     async changeWorkStatus(index, newStatus, timeStamp) {
-      this.showUploader = true;
-
       const workId = +this.works[index].ScoreWorkID;
       const data = {
         workId: workId,
         params: { scoreWorkId: workId }
       }
-
       if (newStatus === 2) {
         await this.$store.dispatch('scoreWorks/updateOrderWorkStarted', data);
         this.works[index].StartedAt = timeStamp;
@@ -137,10 +137,7 @@ export default {
         await this.$store.dispatch('scoreWorks/updateOrderWorkFinished', data);
         this.works[index].FinishedAt = timeStamp;
       }
-
       this.works[index].ScoreWorkStatusID = newStatus;
-
-      this.showUploader = false;
     },
 
     countServicesSummary(index) {
@@ -159,10 +156,8 @@ export default {
       this.works[index].workServices = this.works[index].workServices.filter(({scoreServiceId}) => +scoreServiceId !== id);
     },
 
-    async deleteWorkItem(index, id) {
-      this.showUploader = true;
+    async deleteWorkItem(id) {
       await this.$store.dispatch('scoreWorks/deleteOrderWork', id);
-      this.showUploader = false;
     },
 
     getServiceParams(index, id) {
@@ -182,8 +177,23 @@ export default {
       this.showUploader = false;
     },
 
-    async toggleParticipant(index, checked, participantId, timeStamp) {
+    async participantFinish(index, participantId, timeStamp) {
       const user = this.works[index].workParticipants.find(({UserID}) => +UserID === +participantId);
+      await this.$store.dispatch('scoreWorks/updateOrderWorkParticipant', {
+        workId: +this.works[index].ScoreWorkID,
+        participantId: +participantId
+      });
+      user.StoppedAt = timeStamp;
+    },
+
+    async participantToggle(index, checked, participantId, timeStamp) {
+      const user = this.works[index].workParticipants.find(({UserID}) => +UserID === +participantId);
+
+
+      user.showUploader = true;
+      console.log(user);
+
+
       const data = {
         workId: +this.works[index].ScoreWorkID
       }
