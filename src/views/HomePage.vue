@@ -24,10 +24,11 @@
 </template>
 
 <script>
+import { useStore }  from 'vuex';
+import { onUnmounted } from "vue";
 import Header        from "@/components/elements/Header";
 import OrdersFilters from "@/components/orders/OrdersFilters";
 import OrdersCard    from "@/components/orders/OrdersCard";
-import { useStore }  from 'vuex';
 
 export default {
   name: "HomePage",
@@ -47,6 +48,8 @@ export default {
     if (!store.state.static.filters.readyState) {
       store.dispatch('static/fetchFilters');
     }
+
+    onUnmounted(() => store.state.homePage.orders = []);
   },
 
   computed: {

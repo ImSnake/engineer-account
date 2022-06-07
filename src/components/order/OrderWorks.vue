@@ -27,8 +27,8 @@
             @deleteWorkItem="deleteWorkItem"
             @participantFinish="(participantId, timeStamp) => participantFinish(index, participantId, timeStamp)"
             @participantToggle="(checked, participantId, timeStamp) => participantToggle(index, checked, participantId, timeStamp)"
-            @updateServicesList="(id, checked) => updateServicesList(index, +id, checked)"
-            @updateServiceCount="(id, count) => updateServiceCount(index, +id, count)"   />
+            @updateServicesList="(id, checked, list) => updateServicesList(index, +id, checked, list)"
+            @updateServiceCount="(id, count, list) => updateServiceCount(index, +id, count, list)"   />
       </template>
     </div>
 
@@ -179,21 +179,18 @@ export default {
 
     async participantFinish(index, participantId, timeStamp) {
       const user = this.works[index].workParticipants.find(({UserID}) => +UserID === +participantId);
+      user.showUploader = true;
       await this.$store.dispatch('scoreWorks/updateOrderWorkParticipant', {
         workId: +this.works[index].ScoreWorkID,
         participantId: +participantId
       });
       user.StoppedAt = timeStamp;
+      user.showUploader = false;
     },
 
     async participantToggle(index, checked, participantId, timeStamp) {
       const user = this.works[index].workParticipants.find(({UserID}) => +UserID === +participantId);
-
-
       user.showUploader = true;
-      console.log(user);
-
-
       const data = {
         workId: +this.works[index].ScoreWorkID
       }
@@ -209,9 +206,12 @@ export default {
         user.UserSelected = 0;
       }
       checked ? this.works[index].UserCount += 1 : this.works[index].UserCount -= 1;
+      user.showUploader = false;
     },
 
-    async updateServiceCount(index, id, count) {
+    async updateServiceCount(index, id, count, list) {
+      list.showUploader = true;
+
       const params = this.getServiceParams(index, id);
       count = parseInt(count, 0);
       if (count === 0) {
@@ -222,9 +222,13 @@ export default {
         this.works[index].workServices.find(({scoreServiceId}) => +scoreServiceId === +id).serviceAmount = count;
       }
       this.countServicesSummary(index);
+
+      list.showUploader = false;
     },
 
-    async updateServicesList(index, id, checked) {
+    async updateServicesList(index, id, checked, list) {
+      list.showUploader = true;
+
       const params = this.getServiceParams(index, id);
       if (checked) {
         await this.$store.dispatch('scoreWorks/setOrderWorkService', params);
@@ -237,6 +241,8 @@ export default {
         await this.deleteServiceItem(index, id, params);
       }
       this.countServicesSummary(index);
+
+      list.showUploader = false;
     }
   }
 }

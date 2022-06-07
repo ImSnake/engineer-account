@@ -102,7 +102,7 @@
                    :inputProps="validationText(customer.issueDepartment, 4)"   />
 
         <InputItem ref="registrationAddress" @updateModelValue="(val) => {customer.registrationAddress = val; validationDaDataAddress('registrationAddress', 'addressFactList');}"
-                   @autocompleteSelected="(idx) => updateAddress(idx, 'addressFactList', 'addressFactList')"
+                   @autocompleteSelected="(idx) => updateAddress(idx, 'registrationAddress', 'addressFactList')"
                    :autocomplete="addressFactList.length ? addressFactList : false"
                    :modelValue="customer.registrationAddress"
                    :inputType="'text'"
@@ -335,6 +335,7 @@ export default {
       }
       this.customer[`${paramName}Fiass`] = this[listName][index].data;
       this.customer[`${paramName}Fiass`].houseName = houseName;
+      this.customer[`${paramName}Fiass`].fullAddress = this[listName][index].value;
       this.customer[paramName] = this[listName][index].value;
       this[listName] = [];
       setTimeout(()=> this.defineSendButtonState(), 500);

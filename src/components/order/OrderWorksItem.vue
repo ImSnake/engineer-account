@@ -45,6 +45,13 @@
         <div class="elz d-grid gap8 grH240 pH16">
           <div v-for="participant in participantList" :key="participant.UserID" :class="(+work.ScoreWorkStatusID >= 3 || participant.StoppedAt) ? 'uDisabled' : ''" class="p-rel d-flex a-H r3 bor1 bg bg-primary br br-primary brL-10 brHovL-15 brLInvD">
 
+            <template v-if="participant.showUploader">
+              <Uploader
+                  :circleSize = "'s32'"
+                  :circleWidth = "'2'"
+                  :viewSettings = "'p-abs p16 r3 z10 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
+            </template>
+
             <label :class="participant.StoppedAt ? 'hide' : 'or1'" class="p-rel d-flex a-X pV12 pH16 s-SV cur-pointer or1" title="Назначить / снять участника">
               <input type="checkbox" :checked="!!participant.UserSelected" @input="(e) => participantToggle(e, participant.UserID)" class="elz elzCheck checkbox p-rel d-flex noShrink cur-pointer bor1 s24 p4 r2 cLInvD bg bg-primary bgL10 br br-primary brL-10 brHovL-20 fn fn-primary-t fnHovL-5 bshAct-inset1">
             </label>
@@ -67,11 +74,20 @@
         <div v-if="+work.ScoreWorkStatusID < 3" class="elz d-block mT16 r3 oH">
           <template v-for="(list, index) in $store.state.static.scoreServices" :key="index">
             <CheckboxInputFieldWrapper
-                @updateServicesList="(id, checked) => $emit('updateServicesList', id, checked)"
-                @updateServiceCount="(id, count) => $emit('updateServiceCount', id, count)"
+                @updateServicesList="(id, checked) => $emit('updateServicesList', id, checked, list)"
+                @updateServiceCount="(id, count) => $emit('updateServiceCount', id, count, list)"
                 :isDisabled="false"
                 :itemsList="list"
                 :itemsSelected="work.workServices"   />
+
+            <template v-if="list.showUploader">
+              <Uploader
+                  :circleSize = "'s32'"
+                  :circleWidth = "'2'"
+                  :viewSettings = "'p-abs p16 r3 z10 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
+            </template>
+
+
           </template>
         </div>
 
@@ -162,14 +178,7 @@ export default {
   watch: {
     status() {
       this.showUploader = false;
-    },
-
-/*    participantList: {
-      deep: true,
-      handler() {
-        this.showUploader = false;
-      }
-    }*/
+    }
   },
 
   computed: {
@@ -255,12 +264,10 @@ export default {
     },
 
     participantToggle(e, userId) {
-      //this.showUploader = true;
       this.$emit('participantToggle', e.currentTarget.checked, userId, this.timeStampNow());
     },
 
     participantFinish(userId) {
-      this.showUploader = true;
       this.$emit('participantFinish', userId, this.timeStampNow());
     },
 
