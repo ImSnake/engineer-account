@@ -73,6 +73,7 @@
         </div>
         <div v-if="+work.ScoreWorkStatusID < 3" class="elz d-block mT16 r3 oH">
           <template v-for="(list, index) in $store.state.static.scoreServices" :key="index">
+
             <CheckboxInputFieldWrapper
                 @updateServicesList="(id, checked) => $emit('updateServicesList', id, checked, list)"
                 @updateServiceCount="(id, count) => $emit('updateServiceCount', id, count, list)"
@@ -86,7 +87,6 @@
                   :circleWidth = "'2'"
                   :viewSettings = "'p-abs p16 r3 z10 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
             </template>
-
 
           </template>
         </div>
