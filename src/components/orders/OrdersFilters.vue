@@ -138,8 +138,12 @@ export default {
     },
 
     changePriority() {
+      let temp = +this.prioritySelected;
+      if (temp === 4) {
+        temp = 0;   // priority 4 (низкий) = 0 (по TTS)
+      }
       this.orders.forEach(order => {
-        order.showInList.byPriority = (+order.Priority === +this.prioritySelected || +this.prioritySelected === 4);
+        order.showInList.byPriority = (+order.Priority === temp || +this.prioritySelected === 0);
       });
     },
 

@@ -43,16 +43,23 @@ export const ModuleStatic = () => {
 
 			SET_FILTERS(state, data){
 				data.department = prepareFilterDepartments(data.department);
+
+				// priority 4 (низкий) = 0 (по TTS)
+				data.priorities[0].value = '0';
+				data.priorities[1].value = '4';
+
 				state.filters = data;
 				state.filters.readyState = true;
 
 				localStorage.setItem('engineerAccountAppFilters',  JSON.stringify(state.filters));
 			},
 
-			/*        SET_HEADER_ICONS(state, data) {
-								console.log(state);
-								console.log(data);
-							},*/
+			/*
+				SET_HEADER_ICONS(state, data) {
+					console.log(state);
+					console.log(data);
+				},
+			*/
 
 			SET_HYDRA_INTERNET_TYPES(state, data) {
 				state.hydraInternetTypes = data.map(({VALUE, NAME}) => ({value: VALUE, name: NAME}));

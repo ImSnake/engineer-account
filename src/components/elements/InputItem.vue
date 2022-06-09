@@ -6,12 +6,12 @@
     <div class="elz d-block mL24 p-rel">
       <label class="elz d-grid grPos fn fnLInvD fn-primary-t fnL20 fnHovL10 fnFow-focus fnFowL0">
         <input class="elz d-block grPin grY2 w100p borB2 h40 pR20 ellipsis trns2 invPssSib br brLInvD br-primary brL-10 brHovL-20 brFoc-focus brFocL0 fn fn-primary-t"
-            @input="$emit('updateModelValue', $event.target.value)"
-            @keyup="$emit('keyupAction', $event.target)"
-            v-maska="inputMask"
-            :placeholder="placeholder"
-            :type="inputType"
-            :value="modelValue"   />
+               @input="$emit('updateModelValue', $event.target.value)"
+               @keyup="$emit('keyupAction', $event.target)"
+               v-maska="inputMask"
+               :placeholder="placeholder"
+               :type="inputType"
+               :value="modelValue"   />
         <span v-if="titleFocus" class="elz infoLabel d-block fn11 trns2 invPssLing">{{ titleFocus }}</span>
         <span class="elz d-flex grPin grY2 a-X borB2 evNone">
           <span class="elz p-rel growZ d-flex a-PR">
@@ -44,7 +44,7 @@ export default {
 
     autocomplete:{ required: false, type: [Array, Boolean] },
     inputMask:   { required: false, type: [Object, String] },
-    inputProps:  { required: false, type: Object },
+    inputProps:  { required: false, type: [Object, String] },
     labelClass:  { required: false, type: [Function, String] },
     placeholder: { required: false, type: String },
     titleFocus:  { required: false, type: String },

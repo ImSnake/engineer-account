@@ -11,5 +11,3 @@ const app = createApp(App);
 			app.use(Maska);
 			app.component("Uploader", Uploader);
 			app.mount('#app-engineer-account');
-
-console.log(app);
