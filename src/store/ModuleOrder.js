@@ -34,17 +34,124 @@ export const ModuleOrder = () => {
 			},
 
 			SET_HYDRA_SERVICES(state, data) {
-				state.order.servicesHydra = data;
+				state.order.servicesHydra = [];
+
+				data.forEach(i => {
+					state.order.servicesHydra.push({
+						name: i,
+						type: "Выбрать тип услуги",
+						tariff: "Выбрать тарифный план",
+						billingStart: false,
+						isConnected: false,
+						isOpened: false,
+						showUploader: false,
+						tariffList: [],
+						monthly: [
+							{
+								name: 'Какая-то услуга 1',
+								price: '200'
+							},
+							{
+								name: 'Какая-то услуга 2',
+								price: '150'
+							},
+							{
+								name: 'Какая-то услуга 3',
+								price: '150'
+							},
+							{
+								name: 'Какая-то услуга 4',
+								price: '200'
+							}
+						],
+					})
+				});
+
+/*				const data = [
+					{
+						name: "Интернет",
+						type: "Выбрать тип услуги",
+						tariff: "Выбрать тарифный план",
+						agreement: false,
+						tariffList: [
+							/!*                {
+																name: 'Выбрать тарифный план',
+																value: ''
+															},
+															{
+																name: 'ТП.ИНТ.Безлимитный 40',
+																price: '700'
+															},
+															{
+																name: 'ТП.ИНТ.Безлимитный 60',
+																price: '1000'
+															},
+															{
+																name: 'ТП.ИНТ.Безлимитный 100',
+																price: '1500'
+															},
+															{
+																name: 'ТП.Радиолинк 20',
+																price: '2200'
+															}*!/
+						],
+						monthly: [
+							{
+								name: 'IP-адрес',
+								price: '200'
+							},
+							{
+								name: 'Keenetic Lite',
+								price: '150'
+							},
+							{
+								name: 'Keenetic Start',
+								price: '150'
+							},
+							{
+								name: 'Keenetic Air',
+								price: '200'
+							}
+						],
+						/!*              oneTime: [
+														{
+															name: 'Keenetic Lite',
+															price: '2500'
+														},
+														{
+															name: 'Keenetic Start',
+															price: '2000'
+														},
+														{
+															name: 'Keenetic Air',
+															price: '4000'
+														}
+													]*!/
+					},
+					{
+						name: "Телевидение",
+						tariff: "ТП.ТВ.Комбо Люкс + AMEDIATEKA",
+						agreement: false,
+						tariffList: [{
+							name: 'ТП.ТВ.Комбо Люкс + AMEDIATEKA',
+							price: '700'
+						}],
+						monthly: [],
+						oneTime: []
+					}
+				];*/
+
+				//state.order.servicesHydra = data;
 			},
 
 			SET_SD_SERVICES(state, data) {
 				state.order.servicesSD = data;
 			},
 
-			SET_INTERNET_CONNECTION(state, data) {
+/*			SET_INTERNET_CONNECTION(state, data) {
 				console.log(state.works.find(({ScoreWorkID}) => +ScoreWorkID === +data.work.ScoreWorkID));
 				console.log(data);
-			},
+			},*/
 
 			UPDATE_CUSTOMER_INFO(state, data) {
 				console.log(data);
@@ -80,84 +187,9 @@ export const ModuleOrder = () => {
 			},
 
 			fetchHydraServices({ commit }, dealId) {
-				const data = [
-					{
-						name: "Интернет",
-						type: "Выбрать тип услуги",
-						tariff: "Выбрать тарифный план",
-						agreement: false,
-						tariffList: [
-							/*                {
-																name: 'Выбрать тарифный план',
-																value: ''
-															},
-															{
-																name: 'ТП.ИНТ.Безлимитный 40',
-																price: '700'
-															},
-															{
-																name: 'ТП.ИНТ.Безлимитный 60',
-																price: '1000'
-															},
-															{
-																name: 'ТП.ИНТ.Безлимитный 100',
-																price: '1500'
-															},
-															{
-																name: 'ТП.Радиолинк 20',
-																price: '2200'
-															}*/
-						],
-						monthly: [
-							{
-								name: 'IP-адрес',
-								price: '200'
-							},
-							{
-								name: 'Keenetic Lite',
-								price: '150'
-							},
-							{
-								name: 'Keenetic Start',
-								price: '150'
-							},
-							{
-								name: 'Keenetic Air',
-								price: '200'
-							}
-						],
-						/*              oneTime: [
-														{
-															name: 'Keenetic Lite',
-															price: '2500'
-														},
-														{
-															name: 'Keenetic Start',
-															price: '2000'
-														},
-														{
-															name: 'Keenetic Air',
-															price: '4000'
-														}
-													]*/
-					},
-					{
-						name: "Телевидение",
-						tariff: "ТП.ТВ.Комбо Люкс + AMEDIATEKA",
-						agreement: false,
-						tariffList: [{
-							name: 'ТП.ТВ.Комбо Люкс + AMEDIATEKA',
-							price: '700'
-						}],
-						monthly: [],
-						oneTime: []
-					}
-				];
-				commit('SET_HYDRA_SERVICES', data);
 				return AppDataServ.getHydraServices(dealId)
 					.then(response => {
-						console.log(response);
-						commit('SET_HYDRA_SERVICES', data);
+						commit('SET_HYDRA_SERVICES', response.data);
 
 					})
 					.catch(error => {
@@ -185,11 +217,21 @@ export const ModuleOrder = () => {
 					});
 			},
 
-			setInternetConnection({ commit }, params) {
+			setInternetConnection(state, params) {
 				return AppDataServ.setInternetConnection(params)
 					.then(response => {
 						console.log(response);
-						commit('SET_INTERNET_CONNECTION', response.data);
+						/*commit('SET_INTERNET_CONNECTION', response.data);*/
+					})
+					.catch(error => {
+						throw(error);
+					});
+			},
+
+			setHydraConnection(state, params) {
+				return AppDataServ.createSubscriber(params)
+					.then(response => {
+						console.log(response);
 					})
 					.catch(error => {
 						throw(error);

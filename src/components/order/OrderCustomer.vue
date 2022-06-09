@@ -199,8 +199,15 @@
     <div class="elz d-flex a-X mT48">
       <BaseButton @onButtonClick="updateCustomerData"
                   :classList="buttonClass"
-                  :title="'Подтвердить данные'"   />
+                  :title="dataSaved ? 'Данные сохранены' : 'Сохранить данные'"   />
     </div>
+
+    <template v-if="showUploader">
+      <Uploader
+          :circleSize   = "'s120'"
+          :circleWidth  = "'2'"
+          :viewSettings = "'p-abs p16 r3 z10 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
+    </template>
 
   </template>
 
@@ -224,14 +231,17 @@ export default {
   setup(){
     const store = useStore();
 
+    const dealId = store.state.orderPage.order.details.DealID;
+
     if (!store.state.orderPage.order.customerInfo) {
       store.dispatch('orderPage/fetchCustomerInfo', {
         customerId: store.state.orderPage.order.details.CustomerIDTTS,
-        dealId: store.state.orderPage.order.details.DealID
+        dealId: dealId
       });
     }
 
     return {
+      dealId,
       elemProps: {
         error: {
           classApproval: '',
@@ -283,11 +293,22 @@ export default {
 
   data() {
     return {
+      dataSaved: false,
       formIsValid: false,
       isActive: false,
+      showUploader: false,
       addressFactList: [],
       addressServiceList: [],
       ufmsList: []
+    }
+  },
+
+  watch: {
+    customer: {
+      deep: true,
+      handler: function() {
+        this.dataSaved = false;
+      }
     }
   },
 
@@ -297,13 +318,13 @@ export default {
     },
 
     buttonClass() {
-      return `hmn48 bg-ok bgHovL10 fn-ok-t ${this.formIsValid ? '' : 'uDisabled'}`;
+      return this.dataSaved ? 'hmn48 bg-success bgHovL10 fn-success-t uDisabled' : `hmn48 bg-ok bgHovL10 fn-ok-t ${this.formIsValid ? '' : 'uDisabled'}`
     }
   },
 
   methods: {
     defineSendButtonState() {
-      this.formIsValid = (this.$refs.surname.$el.classList.contains('isValidValue')
+      this.formIsValid = /*(this.$refs.surname.$el.classList.contains('isValidValue')
           && this.$refs.name.$el.classList.contains('isValidValue')
           && this.$refs.birthdayDate.$el.classList.contains('isValidValue')
           && this.$refs.birthdayPlace.$el.classList.contains('isValidValue')
@@ -313,18 +334,24 @@ export default {
           && this.$refs.ufmsCode.$el.classList.contains('isValidValue')
           && this.$refs.issueDepartment.$el.classList.contains('isValidValue')
           && this.$refs.registrationAddress.$el.classList.contains('isValidValue')
-          && this.$refs.mobile.$el.classList.contains('isValidValue')
-          && this.$refs.email.$el.classList.contains('isValidValue'));
+          && */this.$refs.mobile.$el.classList.contains('isValidValue')
+          /*&& this.$refs.email.$el.classList.contains('isValidValue'))*/;
     },
 
-    updateCustomerData(){
-      console.log(this.customer.registrationAddressFiass);
+    async updateCustomerData(){
+      this.showUploader = true;
       if (this.customer.registrationAddressFiass === undefined) {
         this.customer.registrationAddressFiass = 'old value';
       }
-
-      this.customer.passportDetails = `${this.customer.passportSeries.replace(/ +/g, '')} ${this.customer.passportNumber.replace(/ +/g, '')}`
-      this.$store.dispatch('orderPage/updateCustomerInfo', this.customer);
+      if (this.customer.serviceAdrFiass === undefined) {
+        this.customer.serviceAdrFiass = 'old value';
+      }
+      this.customer.passportDetails = `${this.customer.passportSeries.replace(/ +/g, '')} ${this.customer.passportNumber.replace(/ +/g, '')}`;
+      const data = this.customer;
+      data.dealId = this.dealId;
+      await this.$store.dispatch('orderPage/updateCustomerInfo', data);
+      this.dataSaved = true;
+      this.showUploader = false;
     },
 
     updateAddress(index, paramName, listName) {

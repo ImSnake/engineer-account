@@ -1,12 +1,14 @@
 <template>
-  <div class="elz d-block bor1 r3 bg bg-primary bgL5 br br-primary brL-10 brLInvD hideSelOut showSelOut">
+  <div :class="service.isOpened ? 'sel' : ''" class="elz d-block p-rel bor1 r3 bg bg-primary bgL5 br br-primary brL-10 brLInvD hideSelOut showSelOut">
 
-    <div @click="toggleTableView" :class="service.agreement ? 'cur-pointer ' : ''" class="elz d-flex gap8 a-H p16 opAct07">
+    <div @click="service.isConnected ? $emit('toggleServiceView') : ''"
+         :class="service.isConnected ? 'cur-pointer ' : ''"
+         class="elz d-flex gap8 a-H p16 opAct07">
       <div class="elz d-flex f-wrap a-H grow gap8">
         <div class="elz d-block grow fb320 lh12">
           <div class="elz d-block bold">{{ service.name }}</div>
         </div>
-        <div v-if="service.agreement" class="elz d-flex f-wrap fn12 gapH16 gapV8">
+        <div v-if="service.isConnected" class="elz d-flex f-wrap fn12 gapH16 gapV8">
           <div class="elz d-flex a-H gap8 wmn64 cur-help" :title="`Выбрано подписок: ${subscription.count}`">
             <div class="elz p-rel d-block p-rel mskBef s16 cFillBef bgBef-CC msk-contain" style="--elzMsk: url('/style/icons/loop.svg');"></div>
             <div class="elz d-block bold">{{ subscription.count }}</div>
@@ -21,16 +23,16 @@
           </div>
         </div>
       </div>
-      <template v-if="service.agreement">
+      <template v-if="service.isConnected">
         <div class="elz p-rel d-block noShrink p-rel mskBef s8 deg180 cFillBef bgBef-CC hideSelIn" style="--elzMsk: url('/style/icons/arrow1.svg');"></div>
         <div class="elz p-rel d-block noShrink p-rel mskBef s8 cFillBef bgBef-CC showSelIn" style="--elzMsk: url('/style/icons/arrow1.svg');"></div>
       </template>
       <template v-else>
-        <div @click="$emit('createAgreement')" class="elz d-block p8 r3 fn11 bold bg cur-pointer opAct07 bg-success fn fn-success-t">Выбрать тарифы</div>
+        <div @click="$emit('createConnection')" class="elz d-block p8 r3 fn11 bold bg cur-pointer opAct07 bg-success fn fn-success-t">Настроить тарификацию</div>
       </template>
     </div>
 
-    <div class="elz d-block borT1 br br-primary brL-10 brLInvD fn12 showSelIn">
+    <div :class="service.billingStart ? 'uDisabled' : '' " class="elz d-block borT1 br br-primary brL-10 brLInvD fn12 showSelIn">
       <div class="elz d-flex a-H f-wrap fn16 p16 gap8">
         <div class="elz d-block fb320">Тип услуги:</div>
         <div class="elz d-flex f-wrap gap8 fb480 grow">
@@ -46,7 +48,9 @@
                   </span>
                 </span>
               </span>
-              <select @change="changeType" v-model="serviceType" class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
+              <select v-model="serviceType"
+                      @change="(e) => { $emit('changeType', e.target.value, order.TariffZoneSDId ); selectedTariff = '' }"
+                      class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
                 <template v-for="(type, index) in types" :key="index">
                   <option :value="type.value">{{ type.name }}</option>
                 </template>
@@ -73,7 +77,7 @@
                   </span>
                 </span>
               </span>
-                <select @change="setInternetTariff" class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
+                <select @change="(e) => { selectedTariff = e.target.value; $emit('changeTariff', e.target.value )}" class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
                   <template v-for="(tariff, index) in service.tariffList" :key="index">
                     <option :value="tariff.value">{{ tariff.name }}</option>
                   </template>
@@ -88,15 +92,15 @@
         </div>
 
         <div class="elz d-block mT16 r3 oH">
-          <div v-if="service.monthly.length && service.tariffList.length" class="elz d-block showSelOut1 hideSelOut1 sel">
-            <div @click="toggleTableView" class="elz d-flex a-H borV1 pH16 gap16 pV10 lh12 opAct07 cur-pointer bg bg-primary br br-primary brL-10 brHovL-15 brLInvD">
+<!--          <div v-if="service.monthly.length && service.tariffList.length" class="elz d-block showSelOut1 hideSelOut1 sel">
+            <div class="elz d-flex a-H borV1 pH16 gap16 pV10 lh12 opAct07 cur-pointer bg bg-primary br br-primary brL-10 brHovL-15 brLInvD">
               <div class="elz d-block growX bold">Подписки</div>
               <div class="elz d-block pV4 pH6 al-center wmn24 r3 fn11 bold bg bg-primary bgL-10">{{ subscription.count }}</div>
               <div class="elz d-flex a-H gap8 cur-help fn11 pV4 pH8 al-center wmn24 r3 fn11 bold bg bg-primary bgL-10" :title="`Сумма за подписки: ${subscription.summary}`">
                 <div class="elz d-block bold">{{ subscription.summary }} руб.</div>
               </div>
-              <div class="elz p-rel d-block noShrink p-rel mskBef s8 cFillBef bgBef-CC showSelIn1" style="--elzMsk: url('/style/icons/arrow1.svg');"></div>
-              <div class="elz p-rel d-block noShrink p-rel mskBef s8 deg180 cFillBef bgBef-CC hideSelIn1" style="--elzMsk: url('/style/icons/arrow1.svg');"></div>
+              <div class="elz p-rel d-block noShrink p-rel mskBef s8 cFillBef bgBef-CC showSelIn1" style="&#45;&#45;elzMsk: url('/style/icons/arrow1.svg');"></div>
+              <div class="elz p-rel d-block noShrink p-rel mskBef s8 deg180 cFillBef bgBef-CC hideSelIn1" style="&#45;&#45;elzMsk: url('/style/icons/arrow1.svg');"></div>
             </div>
             <div class="elz d-block showSelIn lh15 uStrip stripEven stripHover stripLD strip005 showSelIn1">
               <template v-for="(item, index) in service.monthly" :key="index">
@@ -111,7 +115,7 @@
                 </div>
               </template>
             </div>
-          </div>
+          </div>-->
 
 <!--          <div v-if="service.oneTime.length" class="elz d-block showSelOut1 hideSelOut1 sel">
             <div @click="toggleTableView" class="elz d-flex a-H borV1 pH16 gap16 pV10 lh12 opAct07 cur-pointer bg bg-primary br br-primary brL-10 brHovL-15 brLInvD">
@@ -145,15 +149,23 @@
           </div>-->
         </div>
 
-        <div v-if="service.monthly.length && service.tariffList.length" class="elz p-rel d-flex f-wrap a-X gap8 pV8 borT1 br br-primary brL-10 brLInvD">
-          <div @click="setInternetConnection" class="elz d-flex gap8 a-X al-center r3 hmn36 pH24 cur-pointer opAct07 bg bg-ok bgHovL10 fn fn-ok-t">
-            <div class="elz d-block">Подключить</div>
+        <div v-if="service.monthly.length && service.tariffList.length" :class="selectedTariff ? '' : 'uDisabled' " class="elz p-rel d-flex f-wrap a-X gap8 pV8 borT1 br br-primary brL-10 brLInvD">
+          <div @click="$emit('setInternetConnection', selectedTariff, order.CustomerUBN, service.baseContractHydraId)" class="elz d-flex gap8 a-X al-center r3 hmn36 mV12 pH24 cur-pointer opAct07 bg bg-ok bgHovL10 fn fn-ok-t">
+            <div class="elz d-block">{{service.billingStart ? 'На тарификации' : 'Поставить на тарификацию' }}</div>
           </div>
         </div>
 
       </template>
 
     </div>
+
+
+    <template v-if="service.showUploader">
+      <Uploader
+          :circleSize = "'s32'"
+          :circleWidth = "'2'"
+          :viewSettings = "'p-abs p16 r3 z10 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
+    </template>
 
   </div>
 </template>
@@ -164,7 +176,7 @@ import { numberFormat } from "@/helpers/formating";
 export default {
   name: "OrderServicesHydra",
 
-  emits: [ 'createAgreement', 'changeTariff' ],
+  emits: [ 'createConnection', 'changeTariff', 'changeType', 'setInternetConnection', 'toggleServiceView' ],
 
   props: {
     service: { required: true, type: Object }
@@ -209,18 +221,16 @@ export default {
   },
 
   methods: {
-    async changeType(e) {
+/*    async changeType(e) {
       await this.$store.dispatch('orderPage/updateTypeServices', {
         tariffZone: this.order.TariffZoneSDId,
         internetType: e.target.value,
         typeOfService: 2
       });
       this.selectedTariff = '';
-      //this.service.baseContractHydraId = '';
-      //this.service.tariff = '';
-    },
+    },*/
 
-    async setInternetConnection() {
+/*    async setInternetConnection() {
       await this.$store.dispatch('orderPage/setInternetConnection', {
         serviceId: this.selectedTariff,
         customerId: this.order.CustomerUBN,
@@ -228,12 +238,13 @@ export default {
         objectId: 0,  //если есть, если нет то 0
         baseContractHydraId: this.service.baseContractHydraId //передаю теперь в hydraworker/serviceConfig **
       });
-    },
+      this.service.billingStart = true;
+    },*/
 
-    setInternetTariff(e) {
+/*    setInternetTariff(e) {
       this.selectedTariff = e.target.value;
       this.$emit('changeTariff', e.target.value);
-    },
+    },*/
 
 /*    setPurchaseValue(e) {
       const checkbox = e.currentTarget.closest('.oneTimeItem').getElementsByClassName('oneTimeItemCheckbox')[0];
@@ -274,7 +285,7 @@ export default {
       }
     },*/
 
-    toggleSubscription(e) {
+/*    toggleSubscription(e) {
       if (e.target.checked) {
         this.subscription.count += 1;
         this.subscription.summary += +e.target.value;
@@ -282,14 +293,8 @@ export default {
         this.subscription.count -= 1;
         this.subscription.summary -= +e.target.value;
       }
-    },
+    },*/
 
-    toggleTableView(e){
-      if (this.service.agreement) {
-        const elem = e.currentTarget.parentNode;
-        elem.classList.contains('sel') ? elem.classList.remove('sel') :  elem.classList.add('sel');
-      }
-    },
   }
 }
 </script>

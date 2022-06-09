@@ -28,12 +28,16 @@
       </table>
     </div>
 
+
     <div class="elz d-flex dir-y gap16">
 
-      <template v-for="(service, index) in $store.state.orderPage.order.servicesHydra" :key="index">
+      <template v-for="(service, idx) in $store.state.orderPage.order.servicesHydra" :key="idx">
         <OrderServicesHydra
-            @changeTariff="(val) => service.tariff = val"
-            @createAgreement="service.agreement = true"
+            @changeTariff="(val) => changeTariff(idx, val)"
+            @changeType="(val, zone) => changeType(idx, val, zone)"
+            @createConnection="createConnection(idx)"
+            @setInternetConnection="(tariff, ubn, contract) => setInternetConnection(idx, tariff, ubn, contract)"
+            @toggleServiceView="servicesHydra[idx].isOpened = !servicesHydra[idx].isOpened"
             :service="service"   />
       </template>
 
@@ -44,14 +48,14 @@
 </template>
 
 <script>
-import OrderServicesHydra from "@/components/order/OrderServicesHydra";
 import { useStore } from "vuex";
-//import { computed } from 'vue';
+import OrderServicesHydra from "@/components/order/OrderServicesHydra";
 
 export default {
   name: "OrderServices",
 
   components: {
+    //BaseButton,
     OrderServicesHydra
   },
 
@@ -75,30 +79,63 @@ export default {
     }
   },
 
-/*  mounted() {
-    if (!this.$store.state.static.hydraInternetTypes.length) {
-      this.$store.dispatch('static/fetchHydraInternetTypes');
+  computed: {
+    servicesHydra() {
+     return this.$store.state.orderPage.order.servicesHydra;
     }
-    this.$store.dispatch('orderPage/fetchSDServices', this.dealId);
-    this.$store.dispatch('orderPage/fetchHydraServices', this.dealId);
-  },*/
-
-/*  computed: {
-    dealId() {
-      return this.$store.state.orderPage.order.details.DealID;
-    }
-  },*/
+  },
 
   methods: {
+    changeTariff(idx, val) {
+      const item = this.servicesHydra[idx];
+
+      item.tariff = val;
+/*      if (!val) {
+        item.tariffList = [];
+      }*/
+    },
+
+    async changeType(idx, val, zone) {
+      this.servicesHydra[idx].showUploader = true;
+      await this.$store.dispatch('orderPage/updateTypeServices', {
+        tariffZone: zone,
+        internetType: val,
+        typeOfService: 2
+      });
+      this.servicesHydra[idx].showUploader = false;
+    },
+
+    async createConnection(idx) {
+      const item = this.servicesHydra[idx];
+      item.showUploader = true;
+      await this.$store.dispatch('orderPage/setHydraConnection', {
+        goodName: item.name,
+        customerHydraId: this.$store.state.orderPage.order.details.CustomerUBN
+      });
+      item.isConnected = true;
+      item.isOpened = true;
+      item.showUploader = false;
+    },
+
+    async setInternetConnection(idx, tariff, ubn, contract) {
+      const item = this.servicesHydra[idx];
+      item.showUploader = true;
+      await this.$store.dispatch('orderPage/setInternetConnection', {
+        serviceId: tariff,
+        customerId: ubn,
+        accountId: 0, //если есть, если нет то 0
+        objectId: 0,  //если есть, если нет то 0
+        baseContractHydraId: contract //передаю теперь в hydraworker/serviceConfig **
+      });
+      item.billingStart = true;
+      item.showUploader = false;
+    },
+
     toggleTableView(e){
       const elem = e.currentTarget.parentNode;
       elem.classList.contains('sel') ? elem.classList.remove('sel') :  elem.classList.add('sel');
     },
 
-    /*createAgreement(service) {
-      //TODO запрос на создание договора в ГИДРА
-      service.agreement = true;
-    },*/
   }
 
 }

@@ -26,6 +26,10 @@ export default {
 		}
 	},
 
+	createSubscriber(params) {
+		return apiConnection.post('/hydraWorker/createSubscriber/', params);
+	},
+
 	deleteOrderWork(workId) {
 		console.log('API Delete Work Item');
 		return apiConnection.delete(`/scoreWorks/${workId}`);
