@@ -52,7 +52,7 @@
                   <div class="elz uAvatar d-block p-abs s120">
                     <div class="elz d-flex a-X avCutMask p-abs p-F oH rCircle fn24">
                       <!-- Если есть аватар - выводить аватар -->
-                      <img class="elz d-block s100p rCircle" alt="user avatar" :src="'https://kpi2.naukanet.ru:24137/customer/getInfo/getAvatar/user/'+userId"/>
+                      <img class="elz d-block rCircle" style="width: 100%" alt="user avatar" :src="'https://kpi2.naukanet.ru:24137/customer/getInfo/getAvatar/user/'+userId"/>
                     </div>
                   </div>
                 </div>
