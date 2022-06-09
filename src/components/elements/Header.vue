@@ -21,7 +21,7 @@
       <div class="elz elizeTaskbar d-grid dir-y gap8 pH8 or1">
         <div @click="toggleMenu" class="elz elizeAction p-rel d-flex a-X elizeOverMenuToggler cur-pointer opAct07">
           <div class="elz p-rel d-flex a-X s40 rCircle oH noShrink">
-            <img alt="" class="elz d-block s100p" src="/style/icons/avatar.svg" />
+            <img class="elz d-block rCircle" style="width: 100%" alt="user avatar" :src="'https://kpi2.naukanet.ru:24137/customer/getInfo/getAvatar/user/'+userId"/>
             <div class="elz p-abs d-grid gap4 a-X p-F trns visHovIn5">
               <div class="elz d-block bg bg-white w20 h2 r2 bshD bsh-itext1"></div>
               <div class="elz d-block bg bg-white w20 h2 r2 bshD bsh-itext1"></div>
@@ -52,7 +52,7 @@
                   <div class="elz uAvatar d-block p-abs s120">
                     <div class="elz d-flex a-X avCutMask p-abs p-F oH rCircle fn24">
                       <!-- Если есть аватар - выводить аватар -->
-                      <img class="elz d-block s100p rCircle" alt="" src="/style/icons/avatar.svg"/>
+                      <img alt="user avatar" class="elz d-block s100p" :src="'https://kpi2.naukanet.ru:24137/customer/getInfo/getAvatar/user/'+userId"/>
                     </div>
                   </div>
                 </div>
@@ -366,6 +366,10 @@ export default {
 
     userDepartment() {
       return this.$store.state.static.user.departmentName;
+    },
+
+    userId() {
+      return this.$store.state.static.user.userId;
     },
 
     userNameFull() {
