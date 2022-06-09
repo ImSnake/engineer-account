@@ -56,7 +56,7 @@
       <PopUpWindow @closePopUp="responsible = false" :className="'p-F m4'">
         <div class="elz d-block s-M">
           <div class="elz d-block mAuto mT36 s64 oH rCircle">
-            <img alt="" class="elz d-block s100p obj-cover" :src="'https://kpi2.naukanet.ru:24137/customer/getInfo/getAvatar/user/'+responsibleDetails.ResponsibleID">
+            <img alt="" class="elz d-block s100p obj-cover" :src="'https://api-emp.naukanet.ru/customer/getInfo/getAvatar/user/'+responsibleDetails.ResponsibleID">
           </div>
           <div class="elz d-block fn14 al-center mT16">{{ responsibleDetails.ResponsibleName }}</div>
         </div>

@@ -21,7 +21,7 @@
       <div class="elz elizeTaskbar d-grid dir-y gap8 pH8 or1">
         <div @click="toggleMenu" class="elz elizeAction p-rel d-flex a-X elizeOverMenuToggler cur-pointer opAct07">
           <div class="elz p-rel d-flex a-X s40 rCircle oH noShrink">
-            <img class="elz d-block rCircle s100p" alt="user avatar" :src="'https://kpi2.naukanet.ru:24137/customer/getInfo/getAvatar/user/'+userId"/>
+            <img class="elz d-block rCircle s100p" alt="user avatar" :src="'https://api-emp.naukanet.ru/customer/getInfo/getAvatar/user/'+userId"/>
             <div class="elz p-abs d-grid gap4 a-X p-F trns visHovIn5">
               <div class="elz d-block bg bg-white w20 h2 r2 bshD bsh-itext1"></div>
               <div class="elz d-block bg bg-white w20 h2 r2 bshD bsh-itext1"></div>
@@ -52,7 +52,7 @@
                   <div class="elz uAvatar d-block p-abs s120">
                     <div class="elz d-flex a-X avCutMask p-abs p-F oH rCircle fn24">
                       <!-- Если есть аватар - выводить аватар -->
-                      <img alt="user avatar" class="elz d-block" style="width: 100%" :src="'https://kpi2.naukanet.ru:24137/customer/getInfo/getAvatar/user/'+userId"/>
+                      <img alt="user avatar" class="elz d-block" style="width: 100%" :src="'https://api-emp.naukanet.ru/customer/getInfo/getAvatar/user/'+userId"/>
                     </div>
                   </div>
                 </div>
