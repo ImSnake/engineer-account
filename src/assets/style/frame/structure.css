@@ -10,6 +10,17 @@
 
 */
 
+/* Global variables */
+
+:root {
+    --uniVar:  0;
+    --uniVar1: 0;
+    --uniVar2: 0;
+    --uniVar3: 0;
+    --uniVar4: 0;
+    --uniVar5: 0;
+}
+
 /* Text format ********************************************************************************************************/
 
 /* Text styles */
@@ -244,6 +255,7 @@
 .pBef-F:before, .pBef-AT:before, .pBef-AR:before, .pBef-AB:before, .pBef-EB:before, .pBef-EC:before, .pBef-H:before, .pBef-R:before,
 .pAft-F:after,  .pAft-AT:after,  .pAft-AR:after,  .pAft-AB:after,  .pAft-EB:after,  .pAft-EC:after,  .pAft-H:after,  .pAft-R:after { right: 0; }
 
+
 .pi-F, .pi-AT, .pi-AR, .pi-AL, .pi-EA, .pi-EB, .pi-V, .pi-T { top:    100%; }
 .pi-F, .pi-AR, .pi-AB, .pi-AL, .pi-EC, .pi-ED, .pi-V, .pi-B { bottom: 100%; }
 .pi-F, .pi-AT, .pi-AB, .pi-AL, .pi-EA, .pi-ED, .pi-H, .pi-L { left:   100%; }
@@ -253,6 +265,34 @@
 .p-FEP, .p-AREP, .p-ABEP, .p-ALEP, .p-ECEP, .p-EDEP, .p-VEP, .p-BEP { bottom: var(--elzEPSize, 0); }
 .p-FEP, .p-ATEP, .p-ABEP, .p-ALEP, .p-EAEP, .p-EDEP, .p-HEP, .p-LEP { left:   var(--elzEPSize, 0); }
 .p-FEP, .p-ATEP, .p-AREP, .p-ABEP, .p-EBEP, .p-ECEP, .p-HEP, .p-REP { right:  var(--elzEPSize, 0); }
+
+.p-FVar,  .p-ATVar,  .p-ARVar,  .p-ALVar,  .p-EAVar,  .p-EBVar,  .p-VVar,  .p-TVar  { top: var(--uniVar);  }
+.p-FVar1, .p-ATVar1, .p-ARVar1, .p-ALVar1, .p-EAVar1, .p-EBVar1, .p-VVar1, .p-TVar1 { top: var(--uniVar1); }
+.p-FVar2, .p-ATVar2, .p-ARVar2, .p-ALVar2, .p-EAVar2, .p-EBVar2, .p-VVar2, .p-TVar2 { top: var(--uniVar2); }
+.p-FVar3, .p-ATVar3, .p-ARVar3, .p-ALVar3, .p-EAVar3, .p-EBVar3, .p-VVar3, .p-TVar3 { top: var(--uniVar3); }
+.p-FVar4, .p-ATVar4, .p-ARVar4, .p-ALVar4, .p-EAVar4, .p-EBVar4, .p-VVar4, .p-TVar4 { top: var(--uniVar4); }
+.p-FVar5, .p-ATVar5, .p-ARVar5, .p-ALVar5, .p-EAVar5, .p-EBVar5, .p-VVar5, .p-TVar5 { top: var(--uniVar5); }
+
+.p-FVar,  .p-ARVar,  .p-ABVar,  .p-ALVar,  .p-ECVar,  .p-EDVar,  .p-VVar,  .p-BVar  { bottom: var(--uniVar);  }
+.p-FVar1, .p-ARVar1, .p-ABVar1, .p-ALVar1, .p-ECVar1, .p-EDVar1, .p-VVar1, .p-BVar1 { bottom: var(--uniVar1); }
+.p-FVar2, .p-ARVar2, .p-ABVar2, .p-ALVar2, .p-ECVar2, .p-EDVar2, .p-VVar2, .p-BVar2 { bottom: var(--uniVar2); }
+.p-FVar3, .p-ARVar3, .p-ABVar3, .p-ALVar3, .p-ECVar3, .p-EDVar3, .p-VVar3, .p-BVar3 { bottom: var(--uniVar3); }
+.p-FVar4, .p-ARVar4, .p-ABVar4, .p-ALVar4, .p-ECVar4, .p-EDVar4, .p-VVar4, .p-BVar4 { bottom: var(--uniVar4); }
+.p-FVar5, .p-ARVar5, .p-ABVar5, .p-ALVar5, .p-ECVar5, .p-EDVar5, .p-VVar5, .p-BVar5 { bottom: var(--uniVar5); }
+
+.p-FVar,  .p-ATVar,  .p-ABVar,  .p-ALVar,  .p-EAVar,  .p-EDVar,  .p-HVar,  .p-LVar  { left: var(--uniVar);  }
+.p-FVar1, .p-ATVar1, .p-ABVar1, .p-ALVar1, .p-EAVar1, .p-EDVar1, .p-HVar1, .p-LVar1 { left: var(--uniVar1); }
+.p-FVar2, .p-ATVar2, .p-ABVar2, .p-ALVar2, .p-EAVar2, .p-EDVar2, .p-HVar2, .p-LVar2 { left: var(--uniVar2); }
+.p-FVar3, .p-ATVar3, .p-ABVar3, .p-ALVar3, .p-EAVar3, .p-EDVar3, .p-HVar3, .p-LVar3 { left: var(--uniVar3); }
+.p-FVar4, .p-ATVar4, .p-ABVar4, .p-ALVar4, .p-EAVar4, .p-EDVar4, .p-HVar4, .p-LVar4 { left: var(--uniVar4); }
+.p-FVar5, .p-ATVar5, .p-ABVar5, .p-ALVar5, .p-EAVar5, .p-EDVar5, .p-HVar5, .p-LVar5 { left: var(--uniVar5); }
+
+.p-FVar,  .p-ATVar,  .p-ARVar,  .p-ABVar,  .p-EBVar,  .p-ECVar,  .p-HVar,  .p-RVar  { right: var(--uniVar);  }
+.p-FVar1, .p-ATVar1, .p-ARVar1, .p-ABVar1, .p-EBVar1, .p-ECVar1, .p-HVar1, .p-RVar1 { right: var(--uniVar1); }
+.p-FVar2, .p-ATVar2, .p-ARVar2, .p-ABVar2, .p-EBVar2, .p-ECVar2, .p-HVar2, .p-RVar2 { right: var(--uniVar2); }
+.p-FVar3, .p-ATVar3, .p-ARVar3, .p-ABVar3, .p-EBVar3, .p-ECVar3, .p-HVar3, .p-RVar3 { right: var(--uniVar3); }
+.p-FVar4, .p-ATVar4, .p-ARVar4, .p-ABVar4, .p-EBVar4, .p-ECVar4, .p-HVar4, .p-RVar4 { right: var(--uniVar4); }
+.p-FVar5, .p-ATVar5, .p-ARVar5, .p-ABVar5, .p-EBVar5, .p-ECVar5, .p-HVar5, .p-RVar5 { right: var(--uniVar5); }
 
 
 
@@ -585,9 +625,11 @@ C  D
 .fb36   { flex-basis:   36px; } .s36,   .w36   { width:   36px; } .smn36,   .wmn36   { min-width:   36px; } .smx36,   .wmx36   { max-width:   36px; } .s36,   .h36   { height:   36px; } .smn36,   .hmn36   { min-height:   36px; } .smx36,   .hmx36   { max-height:   36px; } .gr36,  .grH36  { grid-template-columns: repeat(var(--elzGridFillH), minmax(min(100%, 36px),  1fr)); } .gr36,  .grV36  { grid-template-rows: repeat(var(--elzGridFillV), minmax(min(100%, 36px),  1fr)); }
 .fb40   { flex-basis:   40px; } .s40,   .w40   { width:   40px; } .smn40,   .wmn40   { min-width:   40px; } .smx40,   .wmx40   { max-width:   40px; } .s40,   .h40   { height:   40px; } .smn40,   .hmn40   { min-height:   40px; } .smx40,   .hmx40   { max-height:   40px; } .gr40,  .grH40  { grid-template-columns: repeat(var(--elzGridFillH), minmax(min(100%, 40px),  1fr)); } .gr40,  .grV40  { grid-template-rows: repeat(var(--elzGridFillV), minmax(min(100%, 40px),  1fr)); }
 .fb48   { flex-basis:   48px; } .s48,   .w48   { width:   48px; } .smn48,   .wmn48   { min-width:   48px; } .smx48,   .wmx48   { max-width:   48px; } .s48,   .h48   { height:   48px; } .smn48,   .hmn48   { min-height:   48px; } .smx48,   .hmx48   { max-height:   48px; } .gr48,  .grH48  { grid-template-columns: repeat(var(--elzGridFillH), minmax(min(100%, 48px),  1fr)); } .gr48,  .grV48  { grid-template-rows: repeat(var(--elzGridFillV), minmax(min(100%, 48px),  1fr)); }
+.fb52   { flex-basis:   52px; } .s52,   .w52   { width:   52px; } .smn52,   .wmn52   { min-width:   52px; } .smx52,   .wmx52   { max-width:   52px; } .s52,   .h52   { height:   52px; } .smn52,   .hmn52   { min-height:   52px; } .smx52,   .hmx52   { max-height:   52px; } .gr52,  .grH52  { grid-template-columns: repeat(var(--elzGridFillH), minmax(min(100%, 52px),  1fr)); } .gr52,  .grV52  { grid-template-rows: repeat(var(--elzGridFillV), minmax(min(100%, 52px),  1fr)); }
 .fb56   { flex-basis:   56px; } .s56,   .w56   { width:   56px; } .smn56,   .wmn56   { min-width:   56px; } .smx56,   .wmx56   { max-width:   56px; } .s56,   .h56   { height:   56px; } .smn56,   .hmn56   { min-height:   56px; } .smx56,   .hmx56   { max-height:   56px; } .gr56,  .grH56  { grid-template-columns: repeat(var(--elzGridFillH), minmax(min(100%, 56px),  1fr)); } .gr56,  .grV56  { grid-template-rows: repeat(var(--elzGridFillV), minmax(min(100%, 56px),  1fr)); }
 .fb64   { flex-basis:   64px; } .s64,   .w64   { width:   64px; } .smn64,   .wmn64   { min-width:   64px; } .smx64,   .wmx64   { max-width:   64px; } .s64,   .h64   { height:   64px; } .smn64,   .hmn64   { min-height:   64px; } .smx64,   .hmx64   { max-height:   64px; } .gr64,  .grH64  { grid-template-columns: repeat(var(--elzGridFillH), minmax(min(100%, 64px),  1fr)); } .gr64,  .grV64  { grid-template-rows: repeat(var(--elzGridFillV), minmax(min(100%, 64px),  1fr)); }
 .fb80   { flex-basis:   80px; } .s80,   .w80   { width:   80px; } .smn80,   .wmn80   { min-width:   80px; } .smx80,   .wmx80   { max-width:   80px; } .s80,   .h80   { height:   80px; } .smn80,   .hmn80   { min-height:   80px; } .smx80,   .hmx80   { max-height:   80px; } .gr80,  .grH80  { grid-template-columns: repeat(var(--elzGridFillH), minmax(min(100%, 80px),  1fr)); } .gr80,  .grV80  { grid-template-rows: repeat(var(--elzGridFillV), minmax(min(100%, 80px),  1fr)); }
+.fb96   { flex-basis:   96px; } .s96,   .w96   { width:   96px; } .smn96,   .wmn96   { min-width:   96px; } .smx96,   .wmx96   { max-width:   96px; } .s96,   .h96   { height:   96px; } .smn96,   .hmn96   { min-height:   96px; } .smx96,   .hmx96   { max-height:   96px; } .gr96,  .grH96  { grid-template-columns: repeat(var(--elzGridFillH), minmax(min(100%, 96px),  1fr)); } .gr96,  .grV96  { grid-template-rows: repeat(var(--elzGridFillV), minmax(min(100%, 96px),  1fr)); }
 .fb100  { flex-basis:  100px; } .s100,  .w100  { width:  100px; } .smn100,  .wmn100  { min-width:  100px; } .smx100,  .wmx100  { max-width:  100px; } .s100,  .h100  { height:  100px; } .smn100,  .hmn100  { min-height:  100px; } .smx100,  .hmx100  { max-height:  100px; } .gr100, .grH100 { grid-template-columns: repeat(var(--elzGridFillH), minmax(min(100%, 100px), 1fr)); } .gr100, .grV100 { grid-template-rows: repeat(var(--elzGridFillV), minmax(min(100%, 100px), 1fr)); }
 .fb110  { flex-basis:  110px; } .s110,  .w110  { width:  110px; } .smn110,  .wmn110  { min-width:  110px; } .smx110,  .wmx110  { max-width:  110px; } .s110,  .h110  { height:  110px; } .smn110,  .hmn110  { min-height:  110px; } .smx110,  .hmx110  { max-height:  110px; } .gr110, .grH110 { grid-template-columns: repeat(var(--elzGridFillH), minmax(min(100%, 110px), 1fr)); } .gr110, .grV110 { grid-template-rows: repeat(var(--elzGridFillV), minmax(min(100%, 110px), 1fr)); }
 .fb120  { flex-basis:  120px; } .s120,  .w120  { width:  120px; } .smn120,  .wmn120  { min-width:  120px; } .smx120,  .wmx120  { max-width:  120px; } .s120,  .h120  { height:  120px; } .smn120,  .hmn120  { min-height:  120px; } .smx120,  .hmx120  { max-height:  120px; } .gr120, .grH120 { grid-template-columns: repeat(var(--elzGridFillH), minmax(min(100%, 120px), 1fr)); } .gr120, .grV120 { grid-template-rows: repeat(var(--elzGridFillV), minmax(min(100%, 120px), 1fr)); }
@@ -680,8 +722,12 @@ C  D
 .p128, .pAT128, .pAR128, .pAL128, .pV128, .pEA128, .pEB128, .pT128 { padding-top: 128px; } .p128, .pAR128, .pAB128, .pAL128, .pV128, .pED128, .pEC128, .pB128 { padding-bottom: 128px; } .p128, .pAT128, .pAB128, .pAL128, .pH128, .pEA128, .pED128, .pL128 { padding-left: 128px; } .p128, .pAT128, .pAR128, .pAB128, .pH128, .pEB128, .pEC128, .pR128 { padding-right: 128px; }
 .p160, .pAT160, .pAR160, .pAL160, .pV160, .pEA160, .pEB160, .pT160 { padding-top: 160px; } .p160, .pAR160, .pAB160, .pAL160, .pV160, .pED160, .pEC160, .pB160 { padding-bottom: 160px; } .p160, .pAT160, .pAB160, .pAL160, .pH160, .pEA160, .pED160, .pL160 { padding-left: 160px; } .p160, .pAT160, .pAR160, .pAB160, .pH160, .pEB160, .pEC160, .pR160 { padding-right: 160px; }
 
-
-
+.pVar,  .pATVar,  .pARVar,  .pALVar,  .pVVar,  .pEAVar,  .pEBVar,  .pTVar  { padding-top: var(--uniVar);  } .pVar,  .pARVar,  .pABVar,  .pALVar,  .pVVar,  .pEDVar,  .pECVar,  .pBVar  { padding-bottom: var(--uniVar);  } .pVar,  .pATVar,  .pABVar,  .pALVar,  .pHVar,  .pEAVar,  .pEDVar,  .pLVar  { padding-left: var(--uniVar);  } .pVar,  .pATVar,  .pARVar,  .pABVar,  .pHVar,  .pEBVar,  .pECVar,  .pRVar  { padding-right: var(--uniVar);  }
+.pVar1, .pATVar1, .pARVar1, .pALVar1, .pVVar1, .pEAVar1, .pEBVar1, .pTVar1 { padding-top: var(--uniVar1); } .pVar1, .pARVar1, .pABVar1, .pALVar1, .pVVar1, .pEDVar1, .pECVar1, .pBVar1 { padding-bottom: var(--uniVar1); } .pVar1, .pATVar1, .pABVar1, .pALVar1, .pHVar1, .pEAVar1, .pEDVar1, .pLVar1 { padding-left: var(--uniVar1); } .pVar1, .pATVar1, .pARVar1, .pABVar1, .pHVar1, .pEBVar1, .pECVar1, .pRVar1 { padding-right: var(--uniVar1); }
+.pVar2, .pATVar2, .pARVar2, .pALVar2, .pVVar2, .pEAVar2, .pEBVar2, .pTVar2 { padding-top: var(--uniVar2); } .pVar2, .pARVar2, .pABVar2, .pALVar2, .pVVar2, .pEDVar2, .pECVar2, .pBVar2 { padding-bottom: var(--uniVar2); } .pVar2, .pATVar2, .pABVar2, .pALVar2, .pHVar2, .pEAVar2, .pEDVar2, .pLVar2 { padding-left: var(--uniVar2); } .pVar2, .pATVar2, .pARVar2, .pABVar2, .pHVar2, .pEBVar2, .pECVar2, .pRVar2 { padding-right: var(--uniVar2); }
+.pVar3, .pATVar3, .pARVar3, .pALVar3, .pVVar3, .pEAVar3, .pEBVar3, .pTVar3 { padding-top: var(--uniVar3); } .pVar3, .pARVar3, .pABVar3, .pALVar3, .pVVar3, .pEDVar3, .pECVar3, .pBVar3 { padding-bottom: var(--uniVar3); } .pVar3, .pATVar3, .pABVar3, .pALVar3, .pHVar3, .pEAVar3, .pEDVar3, .pLVar3 { padding-left: var(--uniVar3); } .pVar3, .pATVar3, .pARVar3, .pABVar3, .pHVar3, .pEBVar3, .pECVar3, .pRVar3 { padding-right: var(--uniVar3); }
+.pVar4, .pATVar4, .pARVar4, .pALVar4, .pVVar4, .pEAVar4, .pEBVar4, .pTVar4 { padding-top: var(--uniVar4); } .pVar4, .pARVar4, .pABVar4, .pALVar4, .pVVar4, .pEDVar4, .pECVar4, .pBVar4 { padding-bottom: var(--uniVar4); } .pVar4, .pATVar4, .pABVar4, .pALVar4, .pHVar4, .pEAVar4, .pEDVar4, .pLVar4 { padding-left: var(--uniVar4); } .pVar4, .pATVar4, .pARVar4, .pABVar4, .pHVar4, .pEBVar4, .pECVar4, .pRVar4 { padding-right: var(--uniVar4); }
+.pVar5, .pATVar5, .pARVar5, .pALVar5, .pVVar5, .pEAVar5, .pEBVar5, .pTVar5 { padding-top: var(--uniVar5); } .pVar5, .pARVar5, .pABVar5, .pALVar5, .pVVar5, .pEDVar5, .pECVar5, .pBVar5 { padding-bottom: var(--uniVar5); } .pVar5, .pATVar5, .pABVar5, .pALVar5, .pHVar5, .pEAVar5, .pEDVar5, .pLVar5 { padding-left: var(--uniVar5); } .pVar5, .pATVar5, .pARVar5, .pABVar5, .pHVar5, .pEBVar5, .pECVar5, .pRVar5 { padding-right: var(--uniVar5); }
 
 /* Margin */
 
@@ -721,12 +767,19 @@ C  D
 .m36, .mAT36, .mAR36, .mAL36, .mV36, .mEA36, .mEB36, .mT36 { margin-top: 36px; } .m-36, .mAT-36, .mAR-36, .mAL-36, .mV-36, .mEA-36, .mEB-36, .mT-36 { margin-top: -36px; } .m36, .mAR36, .mAB36, .mAL36, .mV36, .mED36, .mEC36, .mB36 { margin-bottom: 36px; } .m-36, .mAR-36, .mAB-36, .mAL-36, .mV-36, .mED-36, .mEC-36, .mB-36 { margin-bottom: -36px; } .m36, .mAT36, .mAB36, .mAL36, .mH36, .mEA36, .mED36, .mL36 { margin-left: 36px; } .m-36, .mAT-36, .mAB-36, .mAL-36, .mH-36, .mEA-36, .mED-36, .mL-36 { margin-left: -36px; } .m36, .mAT36, .mAR36, .mAB36, .mH36, .mEB36, .mEC36, .mR36 { margin-right: 36px; } .m-36, .mAT-36, .mAR-36, .mAB-36, .mH-36, .mEB-36, .mEC-36, .mR-36 { margin-right: -36px; }
 .m40, .mAT40, .mAR40, .mAL40, .mV40, .mEA40, .mEB40, .mT40 { margin-top: 40px; } .m-40, .mAT-40, .mAR-40, .mAL-40, .mV-40, .mEA-40, .mEB-40, .mT-40 { margin-top: -40px; } .m40, .mAR40, .mAB40, .mAL40, .mV40, .mED40, .mEC40, .mB40 { margin-bottom: 40px; } .m-40, .mAR-40, .mAB-40, .mAL-40, .mV-40, .mED-40, .mEC-40, .mB-40 { margin-bottom: -40px; } .m40, .mAT40, .mAB40, .mAL40, .mH40, .mEA40, .mED40, .mL40 { margin-left: 40px; } .m-40, .mAT-40, .mAB-40, .mAL-40, .mH-40, .mEA-40, .mED-40, .mL-40 { margin-left: -40px; } .m40, .mAT40, .mAR40, .mAB40, .mH40, .mEB40, .mEC40, .mR40 { margin-right: 40px; } .m-40, .mAT-40, .mAR-40, .mAB-40, .mH-40, .mEB-40, .mEC-40, .mR-40 { margin-right: -40px; }
 .m48, .mAT48, .mAR48, .mAL48, .mV48, .mEA48, .mEB48, .mT48 { margin-top: 48px; } .m-48, .mAT-48, .mAR-48, .mAL-48, .mV-48, .mEA-48, .mEB-48, .mT-48 { margin-top: -48px; } .m48, .mAR48, .mAB48, .mAL48, .mV48, .mED48, .mEC48, .mB48 { margin-bottom: 48px; } .m-48, .mAR-48, .mAB-48, .mAL-48, .mV-48, .mED-48, .mEC-48, .mB-48 { margin-bottom: -48px; } .m48, .mAT48, .mAB48, .mAL48, .mH48, .mEA48, .mED48, .mL48 { margin-left: 48px; } .m-48, .mAT-48, .mAB-48, .mAL-48, .mH-48, .mEA-48, .mED-48, .mL-48 { margin-left: -48px; } .m48, .mAT48, .mAR48, .mAB48, .mH48, .mEB48, .mEC48, .mR48 { margin-right: 48px; } .m-48, .mAT-48, .mAR-48, .mAB-48, .mH-48, .mEB-48, .mEC-48, .mR-48 { margin-right: -48px; }
+.m52, .mAT52, .mAR52, .mAL52, .mV52, .mEA52, .mEB52, .mT52 { margin-top: 52px; } .m-52, .mAT-52, .mAR-52, .mAL-52, .mV-52, .mEA-52, .mEB-52, .mT-52 { margin-top: -52px; } .m52, .mAR52, .mAB52, .mAL52, .mV52, .mED52, .mEC52, .mB52 { margin-bottom: 52px; } .m-52, .mAR-52, .mAB-52, .mAL-52, .mV-52, .mED-52, .mEC-52, .mB-52 { margin-bottom: -52px; } .m52, .mAT52, .mAB52, .mAL52, .mH52, .mEA52, .mED52, .mL52 { margin-left: 52px; } .m-52, .mAT-52, .mAB-52, .mAL-52, .mH-52, .mEA-52, .mED-52, .mL-52 { margin-left: -52px; } .m52, .mAT52, .mAR52, .mAB52, .mH52, .mEB52, .mEC52, .mR52 { margin-right: 52px; } .m-52, .mAT-52, .mAR-52, .mAB-52, .mH-52, .mEB-52, .mEC-52, .mR-52 { margin-right: -52px; }
+.m56, .mAT56, .mAR56, .mAL56, .mV56, .mEA56, .mEB56, .mT56 { margin-top: 56px; } .m-56, .mAT-56, .mAR-56, .mAL-56, .mV-56, .mEA-56, .mEB-56, .mT-56 { margin-top: -56px; } .m56, .mAR56, .mAB56, .mAL56, .mV56, .mED56, .mEC56, .mB56 { margin-bottom: 56px; } .m-56, .mAR-56, .mAB-56, .mAL-56, .mV-56, .mED-56, .mEC-56, .mB-56 { margin-bottom: -56px; } .m56, .mAT56, .mAB56, .mAL56, .mH56, .mEA56, .mED56, .mL56 { margin-left: 56px; } .m-56, .mAT-56, .mAB-56, .mAL-56, .mH-56, .mEA-56, .mED-56, .mL-56 { margin-left: -56px; } .m56, .mAT56, .mAR56, .mAB56, .mH56, .mEB56, .mEC56, .mR56 { margin-right: 56px; } .m-56, .mAT-56, .mAR-56, .mAB-56, .mH-56, .mEB-56, .mEC-56, .mR-56 { margin-right: -56px; }
 .m64, .mAT64, .mAR64, .mAL64, .mV64, .mEA64, .mEB64, .mT64 { margin-top: 64px; } .m-64, .mAT-64, .mAR-64, .mAL-64, .mV-64, .mEA-64, .mEB-64, .mT-64 { margin-top: -64px; } .m64, .mAR64, .mAB64, .mAL64, .mV64, .mED64, .mEC64, .mB64 { margin-bottom: 64px; } .m-64, .mAR-64, .mAB-64, .mAL-64, .mV-64, .mED-64, .mEC-64, .mB-64 { margin-bottom: -64px; } .m64, .mAT64, .mAB64, .mAL64, .mH64, .mEA64, .mED64, .mL64 { margin-left: 64px; } .m-64, .mAT-64, .mAB-64, .mAL-64, .mH-64, .mEA-64, .mED-64, .mL-64 { margin-left: -64px; } .m64, .mAT64, .mAR64, .mAB64, .mH64, .mEB64, .mEC64, .mR64 { margin-right: 64px; } .m-64, .mAT-64, .mAR-64, .mAB-64, .mH-64, .mEB-64, .mEC-64, .mR-64 { margin-right: -64px; }
 .m72, .mAT72, .mAR72, .mAL72, .mV72, .mEA72, .mEB72, .mT72 { margin-top: 72px; } .m-72, .mAT-72, .mAR-72, .mAL-72, .mV-72, .mEA-72, .mEB-72, .mT-72 { margin-top: -72px; } .m72, .mAR72, .mAB72, .mAL72, .mV72, .mED72, .mEC72, .mB72 { margin-bottom: 72px; } .m-72, .mAR-72, .mAB-72, .mAL-72, .mV-72, .mED-72, .mEC-72, .mB-72 { margin-bottom: -72px; } .m72, .mAT72, .mAB72, .mAL72, .mH72, .mEA72, .mED72, .mL72 { margin-left: 72px; } .m-72, .mAT-72, .mAB-72, .mAL-72, .mH-72, .mEA-72, .mED-72, .mL-72 { margin-left: -72px; } .m72, .mAT72, .mAR72, .mAB72, .mH72, .mEB72, .mEC72, .mR72 { margin-right: 72px; } .m-72, .mAT-72, .mAR-72, .mAB-72, .mH-72, .mEB-72, .mEC-72, .mR-72 { margin-right: -72px; }
 .m80, .mAT80, .mAR80, .mAL80, .mV80, .mEA80, .mEB80, .mT80 { margin-top: 80px; } .m-80, .mAT-80, .mAR-80, .mAL-80, .mV-80, .mEA-80, .mEB-80, .mT-80 { margin-top: -80px; } .m80, .mAR80, .mAB80, .mAL80, .mV80, .mED80, .mEC80, .mB80 { margin-bottom: 80px; } .m-80, .mAR-80, .mAB-80, .mAL-80, .mV-80, .mED-80, .mEC-80, .mB-80 { margin-bottom: -80px; } .m80, .mAT80, .mAB80, .mAL80, .mH80, .mEA80, .mED80, .mL80 { margin-left: 80px; } .m-80, .mAT-80, .mAB-80, .mAL-80, .mH-80, .mEA-80, .mED-80, .mL-80 { margin-left: -80px; } .m80, .mAT80, .mAR80, .mAB80, .mH80, .mEB80, .mEC80, .mR80 { margin-right: 80px; } .m-80, .mAT-80, .mAR-80, .mAB-80, .mH-80, .mEB-80, .mEC-80, .mR-80 { margin-right: -80px; }
 .m96, .mAT96, .mAR96, .mAL96, .mV96, .mEA96, .mEB96, .mT96 { margin-top: 96px; } .m-96, .mAT-96, .mAR-96, .mAL-96, .mV-96, .mEA-96, .mEB-96, .mT-96 { margin-top: -96px; } .m96, .mAR96, .mAB96, .mAL96, .mV96, .mED96, .mEC96, .mB96 { margin-bottom: 96px; } .m-96, .mAR-96, .mAB-96, .mAL-96, .mV-96, .mED-96, .mEC-96, .mB-96 { margin-bottom: -96px; } .m96, .mAT96, .mAB96, .mAL96, .mH96, .mEA96, .mED96, .mL96 { margin-left: 96px; } .m-96, .mAT-96, .mAB-96, .mAL-96, .mH-96, .mEA-96, .mED-96, .mL-96 { margin-left: -96px; } .m96, .mAT96, .mAR96, .mAB96, .mH96, .mEB96, .mEC96, .mR96 { margin-right: 96px; } .m-96, .mAT-96, .mAR-96, .mAB-96, .mH-96, .mEB-96, .mEC-96, .mR-96 { margin-right: -96px; }
 
-
+.mVar,  .mATVar,  .mARVar,  .mALVar,  .mVVar,  .mEAVar,  .mEBVar,  .mTVar  { margin-top: var(--uniVar);  } .m-Var,  .mAT-Var,  .mAR-Var,  .mAL-Var,  .mV-Var,  .mEA-Var,  .mEB-Var,  .mT-Var  { margin-top: calc(var(--uniVar)  * -1);  } .mVar,  .mARVar,  .mABVar,  .mALVar,  .mVVar,  .mEDVar,  .mECVar,  .mBVar  { margin-bottom: var(--uniVar);  } .m-Var,  .mAR-Var,  .mAB-Var,  .mAL-Var,  .mV-Var,  .mED-Var,  .mEC-Var,  .mB-Var  { margin-bottom: calc(var(--uniVar)  * -1); } .mVar,  .mATVar,  .mABVar,  .mALVar,  .mHVar,  .mEAVar,  .mEDVar,  .mLVar  { margin-left: var(--uniVar);  } .m-Var,  .mAT-Var,  .mAB-Var,  .mAL-Var,  .mH-Var,  .mEA-Var,  .mED-Var,  .mL-Var  { margin-left: calc(var(--uniVar)  * -1); } .mVar,  .mATVar,  .mARVar,  .mABVar,  .mHVar,  .mEBVar,  .mECVar,  .mRVar  { margin-right: var(--uniVar);  } .m-Var,  .mAT-Var,  .mAR-Var,  .mAB-Var,  .mH-Var,  .mEB-Var,  .mEC-Var,  .mR-Var  { margin-right: calc(var(--uniVar)  * -1); }
+.mVar1, .mATVar1, .mARVar1, .mALVar1, .mVVar1, .mEAVar1, .mEBVar1, .mTVar1 { margin-top: var(--uniVar1); } .m-Var1, .mAT-Var1, .mAR-Var1, .mAL-Var1, .mV-Var1, .mEA-Var1, .mEB-Var1, .mT-Var1 { margin-top: calc(var(--uniVar1) * -1); } .mVar1, .mARVar1, .mABVar1, .mALVar1, .mVVar1, .mEDVar1, .mECVar1, .mBVar1 { margin-bottom: var(--uniVar1); } .m-Var1, .mAR-Var1, .mAB-Var1, .mAL-Var1, .mV-Var1, .mED-Var1, .mEC-Var1, .mB-Var1 { margin-bottom: calc(var(--uniVar1) * -1); } .mVar1, .mATVar1, .mABVar1, .mALVar1, .mHVar1, .mEAVar1, .mEDVar1, .mLVar1 { margin-left: var(--uniVar1); } .m-Var1, .mAT-Var1, .mAB-Var1, .mAL-Var1, .mH-Var1, .mEA-Var1, .mED-Var1, .mL-Var1 { margin-left: calc(var(--uniVar1) * -1); } .mVar1, .mATVar1, .mARVar1, .mABVar1, .mHVar1, .mEBVar1, .mECVar1, .mRVar1 { margin-right: var(--uniVar1); } .m-Var1, .mAT-Var1, .mAR-Var1, .mAB-Var1, .mH-Var1, .mEB-Var1, .mEC-Var1, .mR-Var1 { margin-right: calc(var(--uniVar1) * -1); }
+.mVar2, .mATVar2, .mARVar2, .mALVar2, .mVVar2, .mEAVar2, .mEBVar2, .mTVar2 { margin-top: var(--uniVar2); } .m-Var2, .mAT-Var2, .mAR-Var2, .mAL-Var2, .mV-Var2, .mEA-Var2, .mEB-Var2, .mT-Var2 { margin-top: calc(var(--uniVar2) * -1); } .mVar2, .mARVar2, .mABVar2, .mALVar2, .mVVar2, .mEDVar2, .mECVar2, .mBVar2 { margin-bottom: var(--uniVar2); } .m-Var2, .mAR-Var2, .mAB-Var2, .mAL-Var2, .mV-Var2, .mED-Var2, .mEC-Var2, .mB-Var2 { margin-bottom: calc(var(--uniVar2) * -1); } .mVar2, .mATVar2, .mABVar2, .mALVar2, .mHVar2, .mEAVar2, .mEDVar2, .mLVar2 { margin-left: var(--uniVar2); } .m-Var2, .mAT-Var2, .mAB-Var2, .mAL-Var2, .mH-Var2, .mEA-Var2, .mED-Var2, .mL-Var2 { margin-left: calc(var(--uniVar2) * -1); } .mVar2, .mATVar2, .mARVar2, .mABVar2, .mHVar2, .mEBVar2, .mECVar2, .mRVar2 { margin-right: var(--uniVar2); } .m-Var2, .mAT-Var2, .mAR-Var2, .mAB-Var2, .mH-Var2, .mEB-Var2, .mEC-Var2, .mR-Var2 { margin-right: calc(var(--uniVar2) * -1); }
+.mVar3, .mATVar3, .mARVar3, .mALVar3, .mVVar3, .mEAVar3, .mEBVar3, .mTVar3 { margin-top: var(--uniVar3); } .m-Var3, .mAT-Var3, .mAR-Var3, .mAL-Var3, .mV-Var3, .mEA-Var3, .mEB-Var3, .mT-Var3 { margin-top: calc(var(--uniVar3) * -1); } .mVar3, .mARVar3, .mABVar3, .mALVar3, .mVVar3, .mEDVar3, .mECVar3, .mBVar3 { margin-bottom: var(--uniVar3); } .m-Var3, .mAR-Var3, .mAB-Var3, .mAL-Var3, .mV-Var3, .mED-Var3, .mEC-Var3, .mB-Var3 { margin-bottom: calc(var(--uniVar3) * -1); } .mVar3, .mATVar3, .mABVar3, .mALVar3, .mHVar3, .mEAVar3, .mEDVar3, .mLVar3 { margin-left: var(--uniVar3); } .m-Var3, .mAT-Var3, .mAB-Var3, .mAL-Var3, .mH-Var3, .mEA-Var3, .mED-Var3, .mL-Var3 { margin-left: calc(var(--uniVar3) * -1); } .mVar3, .mATVar3, .mARVar3, .mABVar3, .mHVar3, .mEBVar3, .mECVar3, .mRVar3 { margin-right: var(--uniVar3); } .m-Var3, .mAT-Var3, .mAR-Var3, .mAB-Var3, .mH-Var3, .mEB-Var3, .mEC-Var3, .mR-Var3 { margin-right: calc(var(--uniVar3) * -1); }
+.mVar4, .mATVar4, .mARVar4, .mALVar4, .mVVar4, .mEAVar4, .mEBVar4, .mTVar4 { margin-top: var(--uniVar4); } .m-Var4, .mAT-Var4, .mAR-Var4, .mAL-Var4, .mV-Var4, .mEA-Var4, .mEB-Var4, .mT-Var4 { margin-top: calc(var(--uniVar4) * -1); } .mVar4, .mARVar4, .mABVar4, .mALVar4, .mVVar4, .mEDVar4, .mECVar4, .mBVar4 { margin-bottom: var(--uniVar4); } .m-Var4, .mAR-Var4, .mAB-Var4, .mAL-Var4, .mV-Var4, .mED-Var4, .mEC-Var4, .mB-Var4 { margin-bottom: calc(var(--uniVar4) * -1); } .mVar4, .mATVar4, .mABVar4, .mALVar4, .mHVar4, .mEAVar4, .mEDVar4, .mLVar4 { margin-left: var(--uniVar4); } .m-Var4, .mAT-Var4, .mAB-Var4, .mAL-Var4, .mH-Var4, .mEA-Var4, .mED-Var4, .mL-Var4 { margin-left: calc(var(--uniVar4) * -1); } .mVar4, .mATVar4, .mARVar4, .mABVar4, .mHVar4, .mEBVar4, .mECVar4, .mRVar4 { margin-right: var(--uniVar4); } .m-Var4, .mAT-Var4, .mAR-Var4, .mAB-Var4, .mH-Var4, .mEB-Var4, .mEC-Var4, .mR-Var4 { margin-right: calc(var(--uniVar4) * -1); }
+.mVar5, .mATVar5, .mARVar5, .mALVar5, .mVVar5, .mEAVar5, .mEBVar5, .mTVar5 { margin-top: var(--uniVar5); } .m-Var5, .mAT-Var5, .mAR-Var5, .mAL-Var5, .mV-Var5, .mEA-Var5, .mEB-Var5, .mT-Var5 { margin-top: calc(var(--uniVar5) * -1); } .mVar5, .mARVar5, .mABVar5, .mALVar5, .mVVar5, .mEDVar5, .mECVar5, .mBVar5 { margin-bottom: var(--uniVar5); } .m-Var5, .mAR-Var5, .mAB-Var5, .mAL-Var5, .mV-Var5, .mED-Var5, .mEC-Var5, .mB-Var5 { margin-bottom: calc(var(--uniVar5) * -1); } .mVar5, .mATVar5, .mABVar5, .mALVar5, .mHVar5, .mEAVar5, .mEDVar5, .mLVar5 { margin-left: var(--uniVar5); } .m-Var5, .mAT-Var5, .mAB-Var5, .mAL-Var5, .mH-Var5, .mEA-Var5, .mED-Var5, .mL-Var5 { margin-left: calc(var(--uniVar5) * -1); } .mVar5, .mATVar5, .mARVar5, .mABVar5, .mHVar5, .mEBVar5, .mECVar5, .mRVar5 { margin-right: var(--uniVar5); } .m-Var5, .mAT-Var5, .mAR-Var5, .mAB-Var5, .mH-Var5, .mEB-Var5, .mEC-Var5, .mR-Var5 { margin-right: calc(var(--uniVar5) * -1); }
 
 
 
@@ -749,6 +802,13 @@ C  D
 .bs24 { border-spacing: 24px; } .bsH24 { border-spacing: 24px 0; } .bsV24 { border-spacing: 0 24px; } .gap24, .gapH24 { column-gap: 24px; } .gap24, .gapV24 { row-gap: 24px; }
 .bs32 { border-spacing: 32px; } .bsH32 { border-spacing: 32px 0; } .bsV32 { border-spacing: 0 32px; } .gap32, .gapH32 { column-gap: 32px; } .gap32, .gapV32 { row-gap: 32px; }
 .bs48 { border-spacing: 48px; } .bsH48 { border-spacing: 48px 0; } .bsV48 { border-spacing: 0 48px; } .gap48, .gapH48 { column-gap: 48px; } .gap48, .gapV48 { row-gap: 48px; }
+
+.bsVar  { border-spacing: var(--uniVar);  } .bsHVar  { border-spacing: var(--uniVar)  0; } .bsVVar  { border-spacing: 0 var(--uniVar);  } .gapVar,  .gapHVar  { column-gap: var(--uniVar);  } .gapVar,  .gapVVar  { row-gap: var(--uniVar);  }
+.bsVar1 { border-spacing: var(--uniVar1); } .bsHVar1 { border-spacing: var(--uniVar1) 0; } .bsVVar1 { border-spacing: 0 var(--uniVar1); } .gapVar1, .gapHVar1 { column-gap: var(--uniVar1); } .gapVar1, .gapVVar1 { row-gap: var(--uniVar1); }
+.bsVar2 { border-spacing: var(--uniVar2); } .bsHVar2 { border-spacing: var(--uniVar2) 0; } .bsVVar2 { border-spacing: 0 var(--uniVar2); } .gapVar2, .gapHVar2 { column-gap: var(--uniVar2); } .gapVar2, .gapVVar2 { row-gap: var(--uniVar2); }
+.bsVar3 { border-spacing: var(--uniVar3); } .bsHVar3 { border-spacing: var(--uniVar3) 0; } .bsVVar3 { border-spacing: 0 var(--uniVar3); } .gapVar3, .gapHVar3 { column-gap: var(--uniVar3); } .gapVar3, .gapVVar3 { row-gap: var(--uniVar3); }
+.bsVar4 { border-spacing: var(--uniVar4); } .bsHVar4 { border-spacing: var(--uniVar4) 0; } .bsVVar4 { border-spacing: 0 var(--uniVar4); } .gapVar4, .gapHVar4 { column-gap: var(--uniVar4); } .gapVar4, .gapVVar4 { row-gap: var(--uniVar4); }
+.bsVar5 { border-spacing: var(--uniVar5); } .bsHVar5 { border-spacing: var(--uniVar5) 0; } .bsVVar5 { border-spacing: 0 var(--uniVar5); } .gapVar5, .gapHVar5 { column-gap: var(--uniVar5); } .gapVar5, .gapVVar5 { row-gap: var(--uniVar5); }
 
 
 
@@ -810,16 +870,16 @@ C  D
     grid-row-end:      calc(var(--elzGridStartY) + var(--elzGridHeight, 1));
 }
 
-.grX1,  .grP1  { --elzGridStartX:  1; } .grY1,  .grP1  { --elzGridStartY:  1; } .grPW1  { --elzGridWidth:  1; } .grPH1  { --elzGridHeight:  1; }
-.grX2,  .grP2  { --elzGridStartX:  2; } .grY2,  .grP2  { --elzGridStartY:  2; } .grPW2  { --elzGridWidth:  2; } .grPH2  { --elzGridHeight:  2; }
-.grX3,  .grP3  { --elzGridStartX:  3; } .grY3,  .grP3  { --elzGridStartY:  3; } .grPW3  { --elzGridWidth:  3; } .grPH3  { --elzGridHeight:  3; }
-.grX4,  .grP4  { --elzGridStartX:  4; } .grY4,  .grP4  { --elzGridStartY:  4; } .grPW4  { --elzGridWidth:  4; } .grPH4  { --elzGridHeight:  4; }
-.grX5,  .grP5  { --elzGridStartX:  5; } .grY5,  .grP5  { --elzGridStartY:  5; } .grPW5  { --elzGridWidth:  5; } .grPH5  { --elzGridHeight:  5; }
-.grX6,  .grP6  { --elzGridStartX:  6; } .grY6,  .grP6  { --elzGridStartY:  6; } .grPW6  { --elzGridWidth:  6; } .grPH6  { --elzGridHeight:  6; }
-.grX7,  .grP7  { --elzGridStartX:  7; } .grY7,  .grP7  { --elzGridStartY:  7; } .grPW7  { --elzGridWidth:  7; } .grPH7  { --elzGridHeight:  7; }
-.grX8,  .grP8  { --elzGridStartX:  8; } .grY8,  .grP8  { --elzGridStartY:  8; } .grPW8  { --elzGridWidth:  8; } .grPH8  { --elzGridHeight:  8; }
-.grX9,  .grP9  { --elzGridStartX:  9; } .grY9,  .grP9  { --elzGridStartY:  9; } .grPW9  { --elzGridWidth:  9; } .grPH9  { --elzGridHeight:  9; }
-.grX10, .grP10 { --elzGridStartX: 10; } .grY10, .grP10 { --elzGridStartY: 10; } .grPW10 { --elzGridWidth: 10; } .grPH10 { --elzGridHeight: 10; }
+.grX1,  .grP1  { --elzGridStartX:  1; } .grY1,  .grP1  { --elzGridStartY:  1; } .grPW1,  .grPS1  { --elzGridWidth:  1; } .grPH1,  .grPS1  { --elzGridHeight:  1; }
+.grX2,  .grP2  { --elzGridStartX:  2; } .grY2,  .grP2  { --elzGridStartY:  2; } .grPW2,  .grPS2  { --elzGridWidth:  2; } .grPH2,  .grPS2  { --elzGridHeight:  2; }
+.grX3,  .grP3  { --elzGridStartX:  3; } .grY3,  .grP3  { --elzGridStartY:  3; } .grPW3,  .grPS3  { --elzGridWidth:  3; } .grPH3,  .grPS3  { --elzGridHeight:  3; }
+.grX4,  .grP4  { --elzGridStartX:  4; } .grY4,  .grP4  { --elzGridStartY:  4; } .grPW4,  .grPS4  { --elzGridWidth:  4; } .grPH4,  .grPS4  { --elzGridHeight:  4; }
+.grX5,  .grP5  { --elzGridStartX:  5; } .grY5,  .grP5  { --elzGridStartY:  5; } .grPW5,  .grPS5  { --elzGridWidth:  5; } .grPH5,  .grPS5  { --elzGridHeight:  5; }
+.grX6,  .grP6  { --elzGridStartX:  6; } .grY6,  .grP6  { --elzGridStartY:  6; } .grPW6,  .grPS6  { --elzGridWidth:  6; } .grPH6,  .grPS6  { --elzGridHeight:  6; }
+.grX7,  .grP7  { --elzGridStartX:  7; } .grY7,  .grP7  { --elzGridStartY:  7; } .grPW7,  .grPS7  { --elzGridWidth:  7; } .grPH7,  .grPS7  { --elzGridHeight:  7; }
+.grX8,  .grP8  { --elzGridStartX:  8; } .grY8,  .grP8  { --elzGridStartY:  8; } .grPW8,  .grPS8  { --elzGridWidth:  8; } .grPH8,  .grPS8  { --elzGridHeight:  8; }
+.grX9,  .grP9  { --elzGridStartX:  9; } .grY9,  .grP9  { --elzGridStartY:  9; } .grPW9,  .grPS9  { --elzGridWidth:  9; } .grPH9,  .grPS9  { --elzGridHeight:  9; }
+.grX10, .grP10 { --elzGridStartX: 10; } .grY10, .grP10 { --elzGridStartY: 10; } .grPW10, .grPS10 { --elzGridWidth: 10; } .grPH10, .grPS10 { --elzGridHeight: 10; }
 
 .grT00, .grTH00 { grid-template-columns: auto auto; } .grT00, .grTV00 { grid-template-rows: auto auto; }
 .grT11, .grTH11 { grid-template-columns:  1fr  1fr; } .grT11, .grTV11 { grid-template-rows:  1fr  1fr; }
@@ -854,6 +914,10 @@ C  D
 .z8,   .zBef8:before,   .zAft8:after   { z-index:     8; } .z-8,   .zBef-8:before,   .zAft-8:after   { z-index:     -8; }
 .z9,   .zBef9:before,   .zAft9:after   { z-index:     9; } .z-9,   .zBef-9:before,   .zAft-9:after   { z-index:     -9; }
 .z10,  .zBef10:before,  .zAft10:after  { z-index:    10; } .z-10,  .zBef-10:before,  .zAft-10:after  { z-index:    -10; }
+.z20,  .zBef20:before,  .zAft20:after  { z-index:    20; } .z-20,  .zBef-20:before,  .zAft-20:after  { z-index:    -20; }
+.z25,  .zBef25:before,  .zAft25:after  { z-index:    25; } .z-25,  .zBef-25:before,  .zAft-25:after  { z-index:    -25; }
+.z30,  .zBef30:before,  .zAft30:after  { z-index:    30; } .z-30,  .zBef-30:before,  .zAft-30:after  { z-index:    -30; }
+.z40,  .zBef40:before,  .zAft40:after  { z-index:    40; } .z-40,  .zBef-40:before,  .zAft-40:after  { z-index:    -40; }
 .z50,  .zBef50:before,  .zAft50:after  { z-index:    50; } .z-50,  .zBef-50:before,  .zAft-50:after  { z-index:    -50; }
 .z100, .zBef100:before, .zAft100:after { z-index:   100; } .z-100, .zBef-100:before, .zAft-100:after { z-index:   -100; }
 .z1k,  .zBef1k:before,  .zAft1k:after  { z-index:  1000; } .z-1k,  .zBef-1k:before,  .zAft-1k:after  { z-index:  -1000; }
@@ -906,26 +970,9 @@ C  D
 
 
 
-/* Animation */
-
-.anim05, .animBef05:before, .animAft05:after { animation-duration: 0.05s; }
-.anim1,  .animBef1:before,  .animAft1:after  { animation-duration:  0.1s; }
-.anim2,  .animBef2:before,  .animAft2:after  { animation-duration:  0.2s; }
-.anim25, .animBef25:before, .animAft25:after { animation-duration: 0.25s; }
-.anim3,  .animBef3:before,  .animAft3:after  { animation-duration:  0.3s; }
-.anim4,  .animBef4:before,  .animAft4:after  { animation-duration:  0.4s; }
-.anim5,  .animBef5:before,  .animAft5:after  { animation-duration:  0.5s; }
-.anim6,  .animBef6:before,  .animAft6:after  { animation-duration:  0.6s; }
-.anim7,  .animBef7:before,  .animAft7:after  { animation-duration:  0.7s; }
-.anim8,  .animBef8:before,  .animAft8:after  { animation-duration:  0.8s; }
-.anim9,  .animBef9:before,  .animAft9:after  { animation-duration:  0.9s; }
-.anim10, .animBef10:before, .animAft10:after { animation-duration:    1s; }
-
-
-
-
-
 /* Transform */
+
+.renderGPU { transform: translate3d(0, 0, 0); }
 
 .origEA { transform-origin: 0 0; }
 .origEB { transform-origin: 100% 0; }
@@ -1279,6 +1326,13 @@ C  D
 .bg-repX,  .bgBef-repX:before,  .bgAft-repX:after  { background-repeat:  repeat-x; }
 .bg-repY,  .bgBef-repY:before,  .bgAft-repY:after  { background-repeat:  repeat-y; }
 
+.bg-cover,   .bgBef-cover:before,   .bgAft-cover:after   { background-size:     cover; }
+.bg-contain, .bgBef-contain:before, .bgAft-contain:after { background-size:   contain; }
+.bg-full,    .bgBef-full:before,    .bgAft-full:after    { background-size: 100% 100%; }
+.bg-fullX,   .bgBef-fullX:before,   .bgAft-fullX:after   { background-size: 100% auto; }
+.bg-fullY,   .bgBef-fullY:before,   .bgAft-fullY:after   { background-size: auto 100%; }
+.bg-auto,    .bgBef-auto:before,    .bgAft-auto:after    { background-size:      auto; }
+
 .bg-T, .bgBef-T:before, .bgAft-T:after { background-position:    top; }
 .bg-R, .bgBef-R:before, .bgAft-R:after { background-position:  right; }
 .bg-B, .bgBef-B:before, .bgAft-B:after { background-position: bottom; }
@@ -1295,14 +1349,7 @@ C  D
 .bg-L.bg-M, .bgBef-L:before.bgAft-M:after, .bgAft-L:after.bgAft-M:after { background-position: left  center; }
 .bg-R.bg-M, .bgBef-R:before.bgAft-M:after, .bgAft-R:after.bgAft-M:after { background-position: right center; }
 
-.bg-X, .bgBef-CM:before, .bgAft-MC:after { background-position: center center; }
-
-.bg-cover,   .bgBef-cover:before,   .bgAft-cover:after   { background-size:     cover; }
-.bg-contain, .bgBef-contain:before, .bgAft-contain:after { background-size:   contain; }
-.bg-full,    .bgBef-full:before,    .bgAft-full:after    { background-size: 100% 100%; }
-.bg-fullX,   .bgBef-fullX:before,   .bgAft-fullX:after   { background-size: 100% auto; }
-.bg-fullY,   .bgBef-fullY:before,   .bgAft-fullY:after   { background-size: auto 100%; }
-.bg-auto,    .bgBef-auto:before,    .bgAft-auto:after    { background-size:      auto; }
+.bg-X, .bgBef-X:before, .bgAft-X:after { background-position: center center; }
 
 
 
@@ -1310,10 +1357,29 @@ C  D
 
 /* Object */
 
-.obj-fill    { object-fit:    fill; }
-.obj-contain { object-fit: contain; }
-.obj-cover   { object-fit:   cover; }
-.obj-none    { object-fit:    none; }
+.obj-fill    { object-fit:       fill; }
+.obj-contain { object-fit:    contain; }
+.obj-cover   { object-fit:      cover; }
+.obj-none    { object-fit:       none; }
+.obj-scDown  { object-fit: scale-down; }
+
+.obj-T, .objBef-T:before, .objAft-T:after { object-position:    top; }
+.obj-R, .objBef-R:before, .objAft-R:after { object-position:  right; }
+.obj-B, .objBef-B:before, .objAft-B:after { object-position: bottom; }
+.obj-L, .objBef-L:before, .objAft-L:after { object-position:   left; }
+
+.obj-EA, .objBef-EA:before, .objAft-EA:after { object-position: left     top; }
+.obj-EB, .objBef-EB:before, .objAft-EB:after { object-position: right    top; }
+.obj-EC, .objBef-EC:before, .objAft-EC:after { object-position: right bottom; }
+.obj-ED, .objBef-ED:before, .objAft-ED:after { object-position: left  bottom; }
+
+.obj-T.obj-C, .objBef-T:before.objBef-C:before, .objAft-T:after.objAft-C:after { object-position: center    top; }
+.obj-B.obj-C, .objBef-B:before.objBef-C:before, .objAft-B:after.objAft-C:after { object-position: center bottom; }
+
+.obj-L.obj-M, .objBef-L:before.objAft-M:after, .objAft-L:after.objAft-M:after { object-position: left  center; }
+.obj-R.obj-M, .objBef-R:before.objAft-M:after, .objAft-R:after.objAft-M:after { object-position: right center; }
+
+.obj-X, .objBef-X:before, .objAft-X:after { object-position: center center; }
 
 
 
@@ -1331,6 +1397,13 @@ C  D
     -webkit-mask-size:     cover;
     mask-size:             cover;
 }
+
+.msk-cover,   .mskBef-cover:before,   .mskAft-cover:after   { -webkit-mask-size:     cover; mask-size:     cover; }
+.msk-contain, .mskBef-contain:before, .mskAft-contain:after { -webkit-mask-size:   contain; mask-size:   contain; }
+.msk-full,    .mskBef-full:before,    .mskAft-full:after    { -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+.msk-fullX,   .mskBef-fullX:before,   .mskAft-fullX:after   { -webkit-mask-size: 100% auto; mask-size: 100% auto; }
+.msk-fullY,   .mskBef-fullY:before,   .mskAft-fullY:after   { -webkit-mask-size: auto 100%; mask-size: auto 100%; }
+.msk-auto,    .mskBef-auto:before,    .mskAft-auto:after    { -webkit-mask-size: auto auto; mask-size: auto auto; }
 
 .msk-rep,   .mskBef-rep:before,   .mskAft-rep:after   { -webkit-mask-repeat:    repeat; mask-repeat:    repeat; }
 .msk-noRep, .mskBef-noRep:before, .mskAft-noRep:after { -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
@@ -1353,14 +1426,7 @@ C  D
 .msk-L.msk-M, .mskBef-L:before.mskAft-M:after, .mskAft-L:after.mskAft-M:after { -webkit-mask-position: left  center; mask-position: left  center; }
 .msk-R.msk-M, .mskBef-R:before.mskAft-M:after, .mskAft-R:after.mskAft-M:after { -webkit-mask-position: right center; mask-position: right center; }
 
-.msk-X, .mskBef-CM:before, .mskAft-MC:after { -webkit-mask-position: center center; mask-position: center center; }
-
-.msk-cover,   .mskBef-cover:before,   .mskAft-cover:after   { -webkit-mask-size:     cover; mask-size:     cover; }
-.msk-contain, .mskBef-contain:before, .mskAft-contain:after { -webkit-mask-size:   contain; mask-size:   contain; }
-.msk-full,    .mskBef-full:before,    .mskAft-full:after    { -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
-.msk-fullX,   .mskBef-fullX:before,   .mskAft-fullX:after   { -webkit-mask-size: 100% auto; mask-size: 100% auto; }
-.msk-fullY,   .mskBef-fullY:before,   .mskAft-fullY:after   { -webkit-mask-size: auto 100%; mask-size: auto 100%; }
-.msk-auto,    .mskBef-auto:before,    .mskAft-auto:after    { -webkit-mask-size: auto auto; mask-size: auto auto; }
+.msk-X, .mskBef-X:before, .mskAft-X:after { -webkit-mask-position: center center; mask-position: center center; }
 
 
 

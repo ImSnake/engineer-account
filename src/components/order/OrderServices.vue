@@ -100,7 +100,7 @@ export default {
       await this.$store.dispatch('orderPage/updateTypeServices', {
         tariffZone: zone,
         internetType: val,
-        typeOfService: 2
+        typeOfService: this.servicesHydra[idx].typeOfService
       });
       this.servicesHydra[idx].showUploader = false;
     },

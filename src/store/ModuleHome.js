@@ -6,19 +6,15 @@ export const ModuleHome = () => {
 		namespaced: true,
 
 		state: () => ({
-			orders: [],
-			headerIcons: {
-				case: 0,
-				clock: 0
-			}
+			orders: []
 		}),
 
 		mutations: {
 			SET_ORDERS(state, data) {
 				const orders = [];
 				data.forEach(order => orders.push(prepareOrder(order)));
-				state.headerIcons.case = orders.filter(el => +el.TroubleStatusID === 2).length;
-				state.headerIcons.clock = orders.filter(el => el.overdueSummary < 0,24).length;
+				//state.headerIcons.case = orders.filter(el => +el.TroubleStatusID === 2).length;
+				//state.headerIcons.clock = orders.filter(el => el.overdueSummary < 0,24).length;
 				state.orders = orders;
 				state.readyState = true;
 			},

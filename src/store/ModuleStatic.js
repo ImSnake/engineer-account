@@ -9,6 +9,11 @@ export const ModuleStatic = () => {
 			currentPage: '',
 			theme: 'elzTheme-dark',
 
+			headerIcons: {
+				case: 0,
+				clock: 0
+			},
+
 			user: {},
 			filters: {},
 			hydraInternetTypes: [],
@@ -54,12 +59,10 @@ export const ModuleStatic = () => {
 				localStorage.setItem('engineerAccountAppFilters',  JSON.stringify(state.filters));
 			},
 
-		/*
-			SET_HEADER_ICONS(state, data) {
+/*			SET_HEADER_ICONS(state, data) {
 				console.log(state);
 				console.log(data);
-			},
-		*/
+			},*/
 
 			SET_HYDRA_INTERNET_TYPES(state, data) {
 				state.hydraInternetTypes = data.map(({VALUE, NAME}) => ({value: VALUE, name: NAME}));
@@ -128,7 +131,7 @@ export const ModuleStatic = () => {
 					});
 			},
 
-			/*fetchHeaderIcons({ commit }) {
+/*			fetchHeaderIcons({ commit }) {
 				return AppDataServ.getHeaderIcons()
 					.then(response => {
 						commit('SET_HEADER_ICONS', response.data);
@@ -167,6 +170,8 @@ export const ModuleStatic = () => {
 						throw(error);
 					});
 			},
-		}
+		},
+
+		getters: {}
 	}
 }
