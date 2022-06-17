@@ -28,14 +28,18 @@ export const ModuleOrder = () => {
 				state.order.customerInfo.readyState = true;
 			},
 
-			SET_HYDRA_INTERNET_SERVICES(state, data) {
-				state.order.servicesHydra.find(el => el.name === "Интернет").tariffList = data.avaliableServices;
-				state.order.servicesHydra.find(el => el.name === "Интернет").baseContractHydraId = data.baseContractHydraId;
+			SET_HYDRA_TYPES_SERVICES(state, data) {
+				console.log(data);
+				const t = state.order.servicesHydra.find(({typeOfService}) => +typeOfService === +data.typeOfService);
+
+				t.tariffList = data.avaliableServices;
+				t.baseContractHydraId = data.baseContractHydraId;
+
+				console.log(t);
 			},
 
 			SET_HYDRA_SERVICES(state, data) {
 				state.order.servicesHydra = [];
-
 				data.forEach(i => {
 					state.order.servicesHydra.push({
 						name: i.name,
@@ -142,8 +146,8 @@ export const ModuleOrder = () => {
 					});
 			},
 
-			setInternetConnection(state, params) {
-				return AppDataServ.setInternetConnection(params)
+			setTariffication(state, params) {
+				return AppDataServ.setTariffication(params)
 					.then(response => {
 						console.log(response);
 						/*commit('SET_INTERNET_CONNECTION', response.data);*/
@@ -192,7 +196,8 @@ export const ModuleOrder = () => {
 			updateTypeServices({commit}, params) {
 				return AppDataServ.updateTypeServices(params)
 					.then(response => {
-						commit('SET_HYDRA_INTERNET_SERVICES', response.data);
+						console.log(response.data);
+						commit('SET_HYDRA_TYPES_SERVICES', response.data);
 					})
 					.catch(error => {
 						throw(error);

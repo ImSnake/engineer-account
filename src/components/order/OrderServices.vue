@@ -36,7 +36,7 @@
             @changeTariff="(val) => changeTariff(idx, val)"
             @changeType="(val, zone) => changeType(idx, val, zone)"
             @createConnection="createConnection(idx)"
-            @setInternetConnection="(tariff, ubn, contract) => setInternetConnection(idx, tariff, ubn, contract)"
+            @setTariffication="(tariff, ubn, contract) => setTariffication(idx, tariff, ubn, contract)"
             @toggleServiceView="servicesHydra[idx].isOpened = !servicesHydra[idx].isOpened"
             :service="service"   />
       </template>
@@ -64,8 +64,8 @@ export default {
 
     const dealId = store.state.orderPage.order.details.DealID;
 
-    if (!store.state.static.hydraInternetTypes.length) {
-      store.dispatch('static/fetchHydraInternetTypes');
+    if (!store.state.static.hydraServicesTypes.length) {
+      store.dispatch('static/fetchHydraServicesTypes');
     }
     store.dispatch('orderPage/fetchSDServices', dealId);
     store.dispatch('orderPage/fetchHydraServices', dealId);
@@ -82,11 +82,17 @@ export default {
   computed: {
     servicesHydra() {
      return this.$store.state.orderPage.order.servicesHydra;
+    },
+
+    customerUbn() {
+      return this.$store.state.orderPage.order.details.CustomerUBN;
     }
   },
 
   methods: {
     changeTariff(idx, val) {
+
+      console.log(val);
       const item = this.servicesHydra[idx];
 
       item.tariff = val;
@@ -99,8 +105,9 @@ export default {
       this.servicesHydra[idx].showUploader = true;
       await this.$store.dispatch('orderPage/updateTypeServices', {
         tariffZone: zone,
-        internetType: val,
-        typeOfService: this.servicesHydra[idx].typeOfService
+        typeOfMainService: val,
+        mainServiceSdId: this.servicesHydra[idx].typeOfService,
+        customerHydraId: this.customerUbn
       });
       this.servicesHydra[idx].showUploader = false;
     },
@@ -110,22 +117,23 @@ export default {
       item.showUploader = true;
       await this.$store.dispatch('orderPage/setHydraConnection', {
         goodName: item.name,
-        customerHydraId: this.$store.state.orderPage.order.details.CustomerUBN
+        customerHydraId: this.customerUbn
       });
       item.isConnected = true;
       item.isOpened = true;
       item.showUploader = false;
     },
 
-    async setInternetConnection(idx, tariff, ubn, contract) {
+    async setTariffication(idx, tariff, ubn, contract) {
       const item = this.servicesHydra[idx];
       item.showUploader = true;
-      await this.$store.dispatch('orderPage/setInternetConnection', {
+      await this.$store.dispatch('orderPage/setTariffication', {
         serviceId: tariff,
         customerId: ubn,
         accountId: 0, //если есть, если нет то 0
         objectId: 0,  //если есть, если нет то 0
-        baseContractHydraId: contract //передаю теперь в hydraworker/serviceConfig **
+        baseContractHydraId: contract, //передаю теперь в hydraworker/serviceConfig **
+        mainServiceSdId: this.servicesHydra[idx].typeOfService
       });
       item.billingStart = true;
       item.showUploader = false;

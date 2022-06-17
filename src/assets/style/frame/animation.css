@@ -1,30 +1,58 @@
-.anim0  { transition-duration:    0s; }
-.anim05 { transition-duration: 0.05s; }
+.anim0  { animation-duration:    0s; }
+.anim05 { animation-duration: 0.05s; }
 .anim,
-.anim1  { transition-duration:  0.1s; }
-.anim2  { transition-duration:  0.2s; }
-.anim25 { transition-duration: 0.25s; }
-.anim3  { transition-duration:  0.3s; }
-.anim4  { transition-duration:  0.4s; }
-.anim5  { transition-duration:  0.5s; }
-.anim6  { transition-duration:  0.6s; }
-.anim7  { transition-duration:  0.7s; }
-.anim8  { transition-duration:  0.8s; }
-.anim9  { transition-duration:  0.9s; }
-.anim10 { transition-duration:    1s; }
+.anim1  { animation-duration:  0.1s; }
+.anim2  { animation-duration:  0.2s; }
+.anim25 { animation-duration: 0.25s; }
+.anim3  { animation-duration:  0.3s; }
+.anim4  { animation-duration:  0.4s; }
+.anim5  { animation-duration:  0.5s; }
+.anim6  { animation-duration:  0.6s; }
+.anim7  { animation-duration:  0.7s; }
+.anim8  { animation-duration:  0.8s; }
+.anim9  { animation-duration:  0.9s; }
+.anim10 { animation-duration:    1s; }
+.anim20 { animation-duration:    2s; }
+.anim30 { animation-duration:    3s; }
+.anim40 { animation-duration:    4s; }
+.anim50 { animation-duration:    5s; }
 
+.anCount-infinite { animation-iteration-count: infinite; }
+.anCount-once,
+.anCount-1        { animation-iteration-count:  1; }
+.anCount-2        { animation-iteration-count:  2; }
+.anCount-3        { animation-iteration-count:  3; }
+.anCount-4        { animation-iteration-count:  4; }
+.anCount-5        { animation-iteration-count:  5; }
+.anCount-6        { animation-iteration-count:  6; }
+.anCount-7        { animation-iteration-count:  7; }
+.anCount-8        { animation-iteration-count:  8; }
+.anCount-9        { animation-iteration-count:  9; }
+.anCount-10       { animation-iteration-count: 10; }
 
+.anStatePause   { animation-play-state:  paused; }
+.anStateRunning { animation-play-state: running; }
+
+.anRestartHov:hover,
+.anRestartHov:active,
+.anRestartAct:active,
+.anRestartHovOut:hover  .anRestartHovIn, .anRestartHovOut1:hover  .anRestartHovIn1, .anRestartHovOut2:hover  .anRestartHovIn2,
+.anRestartHovOut:active .anRestartHovIn, .anRestartHovOut1:active .anRestartHovIn1, .anRestartHovOut2:active .anRestartHovIn2,
+.anRestartActOut:active .anRestartActIn, .anRestartActOut1:active .anRestartActIn1, .anRestartActOut2:active .anRestartActIn2 { animation-name: none !important; }
 
 
 /* Крутится вокруг своей оси */
 
 .an-spinner {
     animation-timing-function: linear;
-    animation-iteration-count: infinite;
     animation-fill-mode: forwards;
 }
 
-.an-spinner.animit { animation-name: elzAnimSpinner; }
+.an-spinner.animit,
+.an-spinner.animitHov:hover,
+.an-spinner.animitHov:active,
+.an-spinner.animitAct:active,
+.an-spinner.animitSel.sel.sel { animation-name: elzAnimSpinner; }
 
 @keyframes elzAnimSpinner {
     from { transform: rotate(0deg); }
@@ -42,7 +70,11 @@
     animation-fill-mode: forwards;
 }
 
-.an-opShow.animit { animation-name: elzAnimOpShow; }
+.an-opShow.animit,
+.an-opShow.animitHov:hover,
+.an-opShow.animitHov:active,
+.an-opShow.animitAct:active,
+.an-opShow.animitSel.sel.sel { animation-name: elzAnimOpShow; }
 
 @keyframes elzAnimOpShow {
     from { opacity: 0; visibility: hidden; }
@@ -60,9 +92,36 @@
     animation-fill-mode: forwards;
 }
 
-.an-opShow.animit { animation-name: elzAnimOpHide; }
+.an-opHide.animit,
+.an-opHide.animitHov:hover,
+.an-opHide.animitHov:active,
+.an-opHide.animitAct:active,
+.an-opHide.animitSel.sel.sel { animation-name: elzAnimOpHide; }
 
 @keyframes elzAnimOpHide {
     from { opacity: 1; }
     to   { opacity: 0; visibility: hidden; }
+}
+
+
+
+
+
+/* Крутится вокруг своей оси */
+
+.an-blink {
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+.an-blink.animit,
+.an-blink.animitHov:hover,
+.an-blink.animitHov:active,
+.an-blink.animitAct:active,
+.an-blink.animitSel.sel.sel { animation-name: elzAnimBlink; }
+
+@keyframes elzAnimBlink {
+    0%   { opacity: 0; }
+    50%  { opacity: 1; }
+    100% { opacity: 0; }
 }

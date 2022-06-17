@@ -61,7 +61,6 @@
       </div>
 
       <template v-if="serviceType">
-
         <div class="elz d-flex a-H f-wrap fn16 pAT16 gap8">
           <div class="elz d-block fb320">Тарифный план:</div>
           <div v-if="service.tariffList.length" class="elz d-flex f-wrap gap8 fb480 grow">
@@ -150,7 +149,7 @@
         </div>
 
         <div v-if="service.monthly.length && service.tariffList.length" :class="selectedTariff ? '' : 'uDisabled' " class="elz p-rel d-flex f-wrap a-X gap8 pV8 borT1 br br-primary brL-10 brLInvD">
-          <div @click="$emit('setInternetConnection', selectedTariff, order.CustomerUBN, service.baseContractHydraId)" class="elz d-flex gap8 a-X al-center r3 hmn36 mV12 pH24 cur-pointer opAct07 bg bg-ok bgHovL10 fn fn-ok-t">
+          <div @click="$emit('setTariffication', selectedTariff, order.CustomerUBN, service.baseContractHydraId)" class="elz d-flex gap8 a-X al-center r3 hmn36 mV12 pH24 cur-pointer opAct07 bg bg-ok bgHovL10 fn fn-ok-t">
             <div class="elz d-block">{{service.billingStart ? 'На тарификации' : 'Поставить на тарификацию' }}</div>
           </div>
         </div>
@@ -176,7 +175,7 @@ import { numberFormat } from "@/helpers/formating";
 export default {
   name: "OrderServicesHydra",
 
-  emits: [ 'createConnection', 'changeTariff', 'changeType', 'setInternetConnection', 'toggleServiceView' ],
+  emits: [ 'createConnection', 'changeTariff', 'changeType', 'setTariffication', 'toggleServiceView' ],
 
   props: {
     service: { required: true, type: Object }
@@ -204,7 +203,7 @@ export default {
     },
 
     types() {
-      return this.$store.state.static.hydraInternetTypes;
+      return this.$store.state.static.hydraServicesTypes.find(({typeOfService}) => +typeOfService === +this.service.typeOfService).list;
     },
 
     typeName() {
@@ -221,31 +220,6 @@ export default {
   },
 
   methods: {
-/*    async changeType(e) {
-      await this.$store.dispatch('orderPage/updateTypeServices', {
-        tariffZone: this.order.TariffZoneSDId,
-        internetType: e.target.value,
-        typeOfService: 2
-      });
-      this.selectedTariff = '';
-    },*/
-
-/*    async setInternetConnection() {
-      await this.$store.dispatch('orderPage/setInternetConnection', {
-        serviceId: this.selectedTariff,
-        customerId: this.order.CustomerUBN,
-        accountId: 0, //если есть, если нет то 0
-        objectId: 0,  //если есть, если нет то 0
-        baseContractHydraId: this.service.baseContractHydraId //передаю теперь в hydraworker/serviceConfig **
-      });
-      this.service.billingStart = true;
-    },*/
-
-/*    setInternetTariff(e) {
-      this.selectedTariff = e.target.value;
-      this.$emit('changeTariff', e.target.value);
-    },*/
-
 /*    setPurchaseValue(e) {
       const checkbox = e.currentTarget.closest('.oneTimeItem').getElementsByClassName('oneTimeItemCheckbox')[0];
       if (e.target.value > 0) {

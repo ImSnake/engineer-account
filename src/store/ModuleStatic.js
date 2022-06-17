@@ -16,7 +16,7 @@ export const ModuleStatic = () => {
 
 			user: {},
 			filters: {},
-			hydraInternetTypes: [],
+			hydraServicesTypes: [],
 			responsibleList: [],
 			visitStatuses: [],
 			scoreServices: [],
@@ -64,12 +64,18 @@ export const ModuleStatic = () => {
 				console.log(data);
 			},*/
 
-			SET_HYDRA_INTERNET_TYPES(state, data) {
-				state.hydraInternetTypes = data.map(({VALUE, NAME}) => ({value: VALUE, name: NAME}));
-				state.hydraInternetTypes.unshift({
-					value: '',
-					name: 'Выбрать тип услуги'
-				})
+			SET_HYDRA_SERVICES_TYPES(state, data) {
+				data.forEach(el => {
+					const t = {
+						typeOfService: el.typeOfService
+					}
+
+					t.list = el.list.map(({VALUE, NAME}) => ({value: VALUE, name: NAME}));
+					t.list.unshift({
+						value:  '',
+						name: 'Выбрать тип услуги',});
+					state.hydraServicesTypes.push(t);
+				});
 			},
 
 			SET_VISIT_STATUSES(state, data) {
@@ -121,10 +127,10 @@ export const ModuleStatic = () => {
 					});
 			},
 
-			fetchHydraInternetTypes({ commit }) {
-				return AppDataServ.getHydraInternetTypes()
+			fetchHydraServicesTypes({ commit }) {
+				return AppDataServ.getHydraServicesTypes()
 					.then(response => {
-						commit('SET_HYDRA_INTERNET_TYPES', response.data);
+						commit('SET_HYDRA_SERVICES_TYPES', response.data);
 					})
 					.catch(error => {
 						throw(error);

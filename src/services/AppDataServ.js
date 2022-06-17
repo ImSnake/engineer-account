@@ -47,7 +47,7 @@ export default {
 		return apiConnection.get(`/customer/getInfo/${customerId}/${dealId}`);
 	},
 
-	getHydraInternetTypes() {
+	getHydraServicesTypes() {
 		return apiConnection.get(`/hydraWorker/serviceConfig/serviceType/getList`);
 	},
 
@@ -100,7 +100,7 @@ export default {
 		return apiConnection.get(`/deal/getStatusList`);
 	},
 
-	setInternetConnection(params){
+	setTariffication(params){
 		return apiConnection.post(`/hydraWorker/createSubscription`, params);
 	},
 
