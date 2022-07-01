@@ -2,7 +2,7 @@
 
   <Header @logOutApp="$emit('logEvent')"/>
 
-  <template v-if="dataIsLoaded">
+  <template v-if="dataIsReady">
 
     <OrdersFilters  />
 
@@ -43,17 +43,16 @@ export default {
 
   setup() {
     const store = useStore();
+
     store.dispatch('homePage/fetchOrders');
 
-    if (!store.state.static.filters.readyState) {
-      store.dispatch('static/fetchFilters');
-    }
+    store.dispatch('static/fetchFilters');
 
     onUnmounted(() => store.state.homePage.orders = []);
   },
 
   computed: {
-    dataIsLoaded() {
+    dataIsReady() {
       return this.$store.state.static.filters.readyState && this.$store.state.homePage.readyState;
     },
 

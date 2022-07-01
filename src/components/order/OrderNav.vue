@@ -5,6 +5,7 @@
 
         <OrderNavItem ref="works"
             @onItemClick="navClick('works')"
+            :bookmark="'works'"
             :iconName="'hammer1'"
             :title="'Работы по заявке'"
             :label="$store.state.scoreWorks.works.length"   />
@@ -13,16 +14,19 @@
 
           <OrderNavItem ref="customer"
               @onItemClick="navClick('customer')"
+              :bookmark="'customer'"
               :iconName="'user'"
               :title="'Данные клиента'"   />
 
           <OrderNavItem ref="services"
               @onItemClick="navClick('services')"
+              :bookmark="'services'"
               :iconName="'hammer-wrench'"
               :title="'Конфигурация услуг'"   />
 
           <OrderNavItem ref="finishing"
               @onItemClick="navClick('finishing')"
+              :bookmark="'finishing'"
               :iconName="'file-text'"
               :title="'Завершение'"   />
 
@@ -42,6 +46,7 @@ export default {
   emit: [ 'switchOrderContent' ],
 
   props: {
+    hash: { required: false, type: String },
     isConnection: { required: true, type: Boolean }
   },
 
@@ -50,22 +55,10 @@ export default {
   },
 
   mounted() {
-    this.$refs[Object.keys(this.$refs)[0]].isActive = true;
+    this.hash ? this.$refs[this.hash].isActive = true : this.$refs[Object.keys(this.$refs)[0]].isActive = true;
   },
 
-  computed: {
-/*    isConnection() {
-      return (+this.order.OrderTypeID === 2 || +this.order.OrderTypeID === 11) && (+this.order.CustomerTypeID === 2);
-    },
-
-    order() {
-      return this.$store.state.orderPage.order.details;
-    },*/
-
-/*    worksLength() {
-      return this.$store.state.orderPage.works.length;
-    }*/
-  },
+  computed: {},
 
   methods: {
     navClick(bookmarkName) {

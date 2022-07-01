@@ -47,7 +47,7 @@
       </div>
 
       <template v-if="isConnection">
-        <OrderHeaderConnection />
+        <OrderHeaderConnection   />
       </template>
 
     </div>
@@ -64,15 +64,12 @@ export default {
     OrderHeaderConnection
   },
 
+  props: {
+    order: { required: true, type: Object },
+    isConnection: { required: true, type: Boolean }
+  },
+
   computed: {
-    isConnection() {
-      return (+this.$store.state.orderPage.order.details.OrderTypeID === 2 || +this.$store.state.orderPage.order.details.OrderTypeID === 11);
-    },
-
-    order() {
-      return this.$store.state.orderPage.order.details;
-    },
-
     orderAddress() {
       let txt = this.order.locationAddress ? this.order.locationAddress : null;
       if (txt) {

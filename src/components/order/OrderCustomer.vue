@@ -1,7 +1,6 @@
 <template>
 
-  <template v-if="isActive">
-
+  <template v-if="isActive && dataIsReady">
     <div @input="defineSendButtonState" class="elz d-block cnnClientWrap">
       <div class="elz cnnInfoCaption d-block bold pV8 mB16 fn18 borB1 br br-primary brL-10 brLInvD">Паспортные данные</div>
       <div class="elz cnnInfoGrid d-block mL-24">
@@ -197,18 +196,15 @@
     </div>
 
     <div class="elz d-flex a-X mT48">
-      <BaseButton @onButtonClick="updateCustomerData"
-                  :classList="buttonClass"
-                  :title="dataSaved ? 'Данные сохранены' : 'Сохранить данные'"   />
+      <BaseButton @onButtonClick="updateCustomerData" :classList="buttonClass" :title="dataSaved ? 'Данные сохранены' : 'Сохранить данные'"   />
     </div>
+  </template>
 
-    <template v-if="showUploader">
-      <Uploader
-          :circleSize   = "'s120'"
-          :circleWidth  = "'2'"
-          :viewSettings = "'p-abs p16 r3 z10 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
-    </template>
-
+  <template v-if="showUploader">
+    <Uploader
+        :circleSize   = "'s100'"
+        :circleWidth  = "'2'"
+        :viewSettings = "'p-abs p16 r3 z10 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
   </template>
 
 </template>
@@ -233,12 +229,10 @@ export default {
 
     const dealId = store.state.orderPage.order.details.DealID;
 
-    if (!store.state.orderPage.order.customerInfo) {
-      store.dispatch('orderPage/fetchCustomerInfo', {
-        customerId: store.state.orderPage.order.details.CustomerIDTTS,
-        dealId: dealId
-      });
-    }
+    store.dispatch('orderPage/fetchCustomerInfo', {
+      customerId: store.state.orderPage.order.details.CustomerIDTTS,
+      dealId: dealId
+    });
 
     return {
       dealId,
@@ -296,7 +290,7 @@ export default {
       dataSaved: false,
       formIsValid: false,
       isActive: false,
-      showUploader: false,
+      showUploader: true,
       addressFactList: [],
       addressServiceList: [],
       ufmsList: []
@@ -304,6 +298,10 @@ export default {
   },
 
   watch: {
+    dataIsReady() {
+      this.showUploader = !this.dataIsReady;
+    },
+
     customer: {
       deep: true,
       handler: function() {
@@ -313,8 +311,12 @@ export default {
   },
 
   computed: {
+    dataIsReady() {
+      return this.$store.state.orderPage.customerInfo.readyState;
+    },
+
     customer() {
-      return this.$store.state.orderPage.order.customerInfo;
+      return this.$store.state.orderPage.customerInfo;
     },
 
     buttonClass() {
@@ -324,7 +326,7 @@ export default {
 
   methods: {
     defineSendButtonState() {
-      this.formIsValid = /*(this.$refs.surname.$el.classList.contains('isValidValue')
+      this.formIsValid = (this.$refs.surname.$el.classList.contains('isValidValue')
           && this.$refs.name.$el.classList.contains('isValidValue')
           && this.$refs.birthdayDate.$el.classList.contains('isValidValue')
           && this.$refs.birthdayPlace.$el.classList.contains('isValidValue')
@@ -334,8 +336,8 @@ export default {
           && this.$refs.ufmsCode.$el.classList.contains('isValidValue')
           && this.$refs.issueDepartment.$el.classList.contains('isValidValue')
           && this.$refs.registrationAddress.$el.classList.contains('isValidValue')
-          && */this.$refs.mobile.$el.classList.contains('isValidValue')
-          /*&& this.$refs.email.$el.classList.contains('isValidValue'))*/;
+          && this.$refs.mobile.$el.classList.contains('isValidValue')
+          && this.$refs.email.$el.classList.contains('isValidValue'));
     },
 
     async updateCustomerData(){

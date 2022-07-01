@@ -144,9 +144,9 @@ export default {
 		return apiConnection.patch(`scoreWorks/${workId}/services/${serviceId}`, params);
 	},
 
-	updateToken() {
+	updateToken(token) {
 		console.log('API Update token');
-		apiConnection.defaults.headers.common['token'] = localStorage.engineerAccountAppToken;
+		apiConnection.defaults.headers.common['token'] = token;
 	},
 
 	updateTypeServices(params) {

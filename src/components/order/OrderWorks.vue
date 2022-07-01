@@ -34,7 +34,7 @@
 
     <template v-if="showUploader">
       <Uploader
-          :circleSize   = "'s120'"
+          :circleSize   = "'s100'"
           :circleWidth  = "'2'"
           :viewSettings = "'p-abs p16 r3 z10 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
     </template>
@@ -61,6 +61,10 @@ export default {
 
     const orderId = store.state.orderPage.ORDER_ID;
 
+    if (!store.state.static.scoreServices.length) {
+      store.dispatch('static/fetchScoreServices');
+    }
+
     store.dispatch('scoreWorks/fetchOrderWorks', {
       sectionId: store.state.orderPage.SECTION_ID,
       subSectionId: orderId
@@ -74,8 +78,7 @@ export default {
 
     onUnmounted(() => {
       store.dispatch('scoreWorks/socketOffScoreWorks');
-      store.state.scoreWorks.works = [];
-      store.state.scoreWorks.readyState = false;
+      store.commit('scoreWorks/CLEAR_STATE');
     });
   },
 
@@ -89,22 +92,22 @@ export default {
   },
 
   watch: {
-    isReady() {
-      this.showUploader = !this.isReady;
+    dataIsReady() {
+      this.showUploader = !this.dataIsReady;
     }
   },
 
   computed: {
-    hasFinished() {
-      return this.$store.state.scoreWorks.works.filter(el => +el.ScoreWorkStatusID === 3).length;
+    dataIsReady() {
+      return this.$store.state.scoreWorks.readyState;
     },
 
     hasCanceled() {
       return this.$store.state.scoreWorks.works.filter(el => +el.ScoreWorkStatusID === 4).length;
     },
 
-    isReady() {
-      return this.$store.state.scoreWorks.readyState;
+    hasFinished() {
+      return this.$store.state.scoreWorks.works.filter(el => +el.ScoreWorkStatusID === 3).length;
     },
 
     works() {

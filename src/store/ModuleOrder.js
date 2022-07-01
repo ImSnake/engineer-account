@@ -7,51 +7,83 @@ export const ModuleOrder = () => {
 		namespaced: true,
 
 		state: () => ({
-			order: {},
+			order: {
+				readyState: false
+			},
+
+			customerInfo: {
+				readyState: false
+			},
+
+			services: {
+				readyState: false
+			},
 
 			files: {
 				act: [],
 				blanc: [],
 				doc: []
-			}
+			},
+
+			SECTION_ID: null,
+
+			ORDER_ID: null
 		}),
 
 		mutations: {
+			CLEAR_STATE(state) {
+				state.order =  {
+					readyState: false
+				};
+				state.customerInfo =  {
+						readyState: false
+				};
+				state.services = {
+					readyState: false
+				}
+				state.SECTION_ID = null;
+				state.ORDER_ID = null;
+			},
+
 			SET_ORDER_DETAILS(state, data) {
 				state.order.details = data[0];
 				state.order.readyState = true;
 			},
 
 			SET_CUSTOMER_INFO(state, data) {
-				state.order.customerInfo = prepareCustomer(data);
-				state.order.customerInfo.UBN = state.order.details.CustomerUBN;
-				state.order.customerInfo.readyState = true;
+				state.customerInfo = prepareCustomer(data);
+				state.customerInfo.UBN = state.order.details.CustomerUBN;
+				state.customerInfo.readyState = true;
 			},
 
 			SET_HYDRA_TYPES_SERVICES(state, data) {
 				console.log(data);
-				const t = state.order.servicesHydra.find(({typeOfService}) => +typeOfService === +data.typeOfService);
+				const t = state.services.fromHydra.find(({typeOfService}) => +typeOfService === +data.typeOfService);
 
-				t.tariffList = data.avaliableServices;
+				t.tariffList = data.avaliableServices || [];
 				t.baseContractHydraId = data.baseContractHydraId;
+				t.serviceTypeId = data.serviceTypeId;
 
 				console.log(t);
 			},
 
 			SET_HYDRA_SERVICES(state, data) {
-				state.order.servicesHydra = [];
+				state.services.fromHydra = [];
+
 				data.forEach(i => {
-					state.order.servicesHydra.push({
+					const hasHydraConnection = Object.keys(i.connectionData).length !== 0;
+
+					state.services.fromHydra.push({
+						connectionData: hasHydraConnection ? i.connectionData : '',
 						name: i.name,
 						typeOfService: i.typeOfService,
-						type: "Выбрать тип услуги",
-						tariff: "Выбрать тарифный план",
-						billingStart: false,
+						billingStart: hasHydraConnection,
 						isConnected: false,
-						isOpened: false,
+						isOpened: hasHydraConnection,
 						showUploader: false,
 						tariffList: [],
-						monthly: [
+						contractsList: [],
+/*						monthly: [
 							{
 								name: 'Какая-то услуга 1',
 								price: '200'
@@ -68,19 +100,26 @@ export const ModuleOrder = () => {
 								name: 'Какая-то услуга 4',
 								price: '200'
 							}
-						],
-					})
+						],*/
+					});
 				});
+
+				state.services.readyState = true;
 			},
 
 			SET_SD_SERVICES(state, data) {
-				state.order.servicesSD = data;
+				state.services.fromSD = data;
 			},
 
-/*			SET_INTERNET_CONNECTION(state, data) {
-				console.log(state.works.find(({ScoreWorkID}) => +ScoreWorkID === +data.work.ScoreWorkID));
-				console.log(data);
-			},*/
+			SET_HYDRA_TARIFFICATION(state, data) {
+				const t = state.services.fromHydra.find(({typeOfService}) => +typeOfService === +data.mainServiceSdId);
+
+				t.connectionData = {
+					name: data.serviceName,
+					amount: data.serviceAmount,
+					type_name: data.serviceTypeName
+				}
+			},
 
 			UPDATE_CUSTOMER_INFO(state, data) {
 				console.log(data);
@@ -118,8 +157,8 @@ export const ModuleOrder = () => {
 			fetchHydraServices({ commit }, dealId) {
 				return AppDataServ.getHydraServices(dealId)
 					.then(response => {
+						console.log(response);
 						commit('SET_HYDRA_SERVICES', response.data);
-
 					})
 					.catch(error => {
 						throw(error);
@@ -146,11 +185,11 @@ export const ModuleOrder = () => {
 					});
 			},
 
-			setTariffication(state, params) {
+			setTariffication({ commit }, params) {
 				return AppDataServ.setTariffication(params)
-					.then(response => {
-						console.log(response);
-						/*commit('SET_INTERNET_CONNECTION', response.data);*/
+					.then(res => {
+						console.log(res);
+						commit('SET_HYDRA_TARIFFICATION', params);
 					})
 					.catch(error => {
 						throw(error);
@@ -159,9 +198,6 @@ export const ModuleOrder = () => {
 
 			setHydraConnection(state, params) {
 				return AppDataServ.createSubscriber(params)
-					.then(response => {
-						console.log(response);
-					})
 					.catch(error => {
 						throw(error);
 					});
@@ -196,7 +232,7 @@ export const ModuleOrder = () => {
 			updateTypeServices({commit}, params) {
 				return AppDataServ.updateTypeServices(params)
 					.then(response => {
-						console.log(response.data);
+						response.data.serviceTypeId = params.typeOfMainService;
 						commit('SET_HYDRA_TYPES_SERVICES', response.data);
 					})
 					.catch(error => {

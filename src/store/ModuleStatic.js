@@ -6,7 +6,6 @@ export const ModuleStatic = () => {
 		namespaced: true,
 
 		state: () => ({
-			currentPage: '',
 			theme: 'elzTheme-dark',
 
 			headerIcons: {
@@ -15,11 +14,16 @@ export const ModuleStatic = () => {
 			},
 
 			user: {},
+
 			filters: {},
-			hydraServicesTypes: [],
+
 			responsibleList: [],
+
 			visitStatuses: [],
+
 			scoreServices: [],
+
+			hydraServicesTypes: [],
 		}),
 
 		mutations: {
@@ -37,13 +41,35 @@ export const ModuleStatic = () => {
 			APP_STATIC_UPDATE(state) {
 				const userData = localStorage.getItem('engineerAccountAppUserData');
 				state.user = JSON.parse(userData);
-
-				const filters = localStorage.getItem('engineerAccountAppFilters');
-				state.filters = JSON.parse(filters);
 			},
 
-			SET_CURRENT_PAGE(state, path) {
-				state.currentPage = path;
+			STATE_CLEAR(state) {
+				state.user = {};
+				state.filters = {};
+				state.responsibleList = [];
+				state.visitStatuses = [];
+				state.scoreServices = [];
+				state.hydraServiceTypes = [];
+
+				/*
+				localStorage.removeItem('engineerAccountAppWorkStatuses');
+				localStorage.removeItem('engineerAccountAppScoreServices');
+				localStorage.removeItem('engineerAccountAppScoreServicesRaw');
+				localStorage.removeItem('engineerAccountAppVisitStatuses');
+				localStorage.removeItem('engineerAccountAppHydraServicesTypes');
+				localStorage.removeItem('engineerAccountAppUserData');
+				localStorage.removeItem('engineerAccountAppFilters');
+				localStorage.removeItem('engineerAccountAppToken');
+				*/
+			},
+
+			STATE_SET(state) {
+				state.theme = localStorage.getItem('engineerAccountAppThemeSettings');
+
+				if (!state.theme) {
+					localStorage.setItem('engineerAccountAppThemeSettings', 'elzTheme-dark');
+					state.theme = 'elzTheme-dark';
+				}
 			},
 
 			SET_FILTERS(state, data){
@@ -59,33 +85,49 @@ export const ModuleStatic = () => {
 				localStorage.setItem('engineerAccountAppFilters',  JSON.stringify(state.filters));
 			},
 
-/*			SET_HEADER_ICONS(state, data) {
+      /*SET_HEADER_ICONS(state, data) {
 				console.log(state);
 				console.log(data);
 			},*/
 
 			SET_HYDRA_SERVICES_TYPES(state, data) {
+				const list = [];
+
 				data.forEach(el => {
 					const t = {
 						typeOfService: el.typeOfService
 					}
-
 					t.list = el.list.map(({VALUE, NAME}) => ({value: VALUE, name: NAME}));
 					t.list.unshift({
-						value:  '',
-						name: 'Выбрать тип услуги',});
-					state.hydraServicesTypes.push(t);
+						value: '',
+						name: +el.typeOfService === 1 ? 'Выбрать тарифную зону' : 'Выбрать тип услуги'
+					});
+					list.push(t);
 				});
+
+				state.hydraServicesTypes = list;
+
+				localStorage.setItem('engineerAccountAppHydraServicesTypes', JSON.stringify(list));
+			},
+
+			SET_THEME(state, theme) {
+				state.theme = theme;
+				localStorage.setItem('engineerAccountAppThemeSettings', theme.class);
 			},
 
 			SET_VISIT_STATUSES(state, data) {
 				state.visitStatuses = data;
+				localStorage.setItem('engineerAccountAppVisitStatuses',  JSON.stringify(state.visitStatuses));
 			},
 
 			SET_SCORE_SERVICES(state, data) {
 				state.scoreServicesRaw = data.services;
 				state.scoreServices = prepareScoreServices(data);
 				state.workStatuses = data.workStatuses;
+
+				localStorage.setItem('engineerAccountAppScoreServicesRaw', JSON.stringify(state.scoreServicesRaw));
+				localStorage.setItem('engineerAccountAppScoreServices', JSON.stringify(state.scoreServices));
+				localStorage.setItem('engineerAccountAppWorkStatuses', JSON.stringify(data.workStatuses));
 			},
 
 			UPDATE_RESPONSIBLE(state, data) {
@@ -112,29 +154,45 @@ export const ModuleStatic = () => {
 			},
 
 			fetchAuthUserToken({ commit }) {
-				commit('APP_STATIC_UPDATE');
-				AppDataServ.updateToken();
-				console.log('USER TOKEN WAS UPDATED');
+				if (localStorage.engineerAccountAppToken && localStorage.engineerAccountAppUserData) {
+					console.log('USER HAS TOKEN!');
+
+					commit('APP_STATIC_UPDATE');
+
+					AppDataServ.updateToken(localStorage.engineerAccountAppToken);
+
+					console.log('USER TOKEN WAS UPDATED');
+				}
 			},
 
-			fetchFilters({ commit }) {
-				return AppDataServ.getFilterData()
-					.then(response => {
-						commit('SET_FILTERS', response.data);
-					})
-					.catch(error => {
-						throw(error);
-					});
+			fetchFilters({ commit, state }) {
+				const f = localStorage.getItem('engineerAccountAppFilters');
+				state.filters = JSON.parse(f) || [];
+
+				if(!state.filters.length) {
+					return AppDataServ.getFilterData()
+						.then(response => {
+							commit('SET_FILTERS', response.data);
+						})
+						.catch(error => {
+							throw(error);
+						});
+				}
 			},
 
-			fetchHydraServicesTypes({ commit }) {
-				return AppDataServ.getHydraServicesTypes()
-					.then(response => {
-						commit('SET_HYDRA_SERVICES_TYPES', response.data);
-					})
-					.catch(error => {
-						throw(error);
-					});
+			fetchHydraServicesTypes({ commit, state }) {
+				const hst = localStorage.getItem('engineerAccountAppHydraServicesTypes');
+				state.hydraServicesTypes = JSON.parse(hst) || [];
+
+				if (!state.hydraServicesTypes.length) {
+					return AppDataServ.getHydraServicesTypes()
+						.then(response => {
+							commit('SET_HYDRA_SERVICES_TYPES', response.data);
+						})
+						.catch(error => {
+							throw(error);
+						});
+				}
 			},
 
 /*			fetchHeaderIcons({ commit }) {
@@ -157,24 +215,39 @@ export const ModuleStatic = () => {
 					});
 			},
 
-			fetchVisitStatuses({commit}) {
-				return AppDataServ.getVisitStatuses()
-					.then(response => {
-						commit('SET_VISIT_STATUSES', response.data);
-					})
-					.catch(error => {
-						throw(error);
-					});
+			fetchVisitStatuses({ commit, state }) {
+				const vs = localStorage.getItem('engineerAccountAppVisitStatuses');
+				state.visitStatuses = JSON.parse(vs) || [];
+
+				if (!state.visitStatuses.length) {
+					return AppDataServ.getVisitStatuses()
+						.then(response => {
+							commit('SET_VISIT_STATUSES', response.data);
+						})
+						.catch(error => {
+							throw(error);
+						});
+				}
 			},
 
-			fetchScoreServices({commit}) {
-				return AppDataServ.getScoreServices()
-					.then(response => {
-						commit('SET_SCORE_SERVICES', response.data);
-					})
-					.catch(error => {
-						throw(error);
-					});
+			fetchScoreServices({ commit, state }) {
+				if (localStorage.engineerAccountAppScoreServicesRaw && localStorage.engineerAccountAppScoreServices && localStorage.engineerAccountAppWorkStatuses) {
+					const ssr = localStorage.getItem('engineerAccountAppScoreServicesRaw');
+					const ss = localStorage.getItem('engineerAccountAppScoreServices');
+					const ws = localStorage.getItem('engineerAccountAppWorkStatuses');
+
+					state.scoreServicesRaw = JSON.parse(ssr) || [];
+					state.scoreServices = JSON.parse(ss) || [];
+					state.workStatuses = JSON.parse(ws) || [];
+				} else {
+					return AppDataServ.getScoreServices()
+						.then(response => {
+							commit('SET_SCORE_SERVICES', response.data);
+						})
+						.catch(error => {
+							throw(error);
+						});
+				}
 			},
 		},
 

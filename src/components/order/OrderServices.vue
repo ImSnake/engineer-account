@@ -1,6 +1,6 @@
 <template>
 
-  <template v-if="isActive">
+  <template v-if="isActive && dataIsReady">
 
     <div class="elz d-block r3 bor1 fn12 mB32 oAuto br br-ok bg bg-ok bgA10 showSelOut hideSelOut">
       <div @click="toggleTableView" class="elz d-flex gap8 a-H p16 fn16 opAct07 cur-pointer">
@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody class="tbody pad pV10 pH16 fn14 uStrip stripEven strip005 stripHover stripLD va-M lh15">
-        <tr v-for="(service,index) in $store.state.orderPage.order.servicesSD" :key="index" class="tr">
+        <tr v-for="(service,index) in $store.state.orderPage.services.fromSD" :key="index" class="tr">
           <td class="td">{{service.businessName}}</td>
           <td class="td">{{ service.billName }}</td>
           <td class="td">{{ service.incomingType }}</td>
@@ -28,35 +28,54 @@
       </table>
     </div>
 
-
     <div class="elz d-flex dir-y gap16">
 
-      <template v-for="(service, idx) in $store.state.orderPage.order.servicesHydra" :key="idx">
-        <OrderServicesHydra
-            @changeTariff="(val) => changeTariff(idx, val)"
-            @changeType="(val, zone) => changeType(idx, val, zone)"
-            @createConnection="createConnection(idx)"
-            @setTariffication="(tariff, ubn, contract) => setTariffication(idx, tariff, ubn, contract)"
-            @toggleServiceView="servicesHydra[idx].isOpened = !servicesHydra[idx].isOpened"
-            :service="service"   />
+      <template v-for="(service, idx) in servicesHydra" :key="idx">
+
+        <template v-if="+service.typeOfService === 1">
+          <OrderServicesHydraPhone
+              @createConnection="createConnection(idx)"
+              @toggleServiceView="servicesHydra[idx].isOpened = !servicesHydra[idx].isOpened"
+              :service="service"  />
+        </template>
+
+        <template v-else>
+          <OrderServicesHydra
+              @changeTariff="(val) => service.tariff = val"
+              @changeType="(val, zone) => changeType(idx, val, zone)"
+              @createConnection="createConnection(idx)"
+              @setTariffication="(tariff, ubn, contract) => setTariffication(idx,tariff, ubn, contract)"
+              @toggleServiceView="servicesHydra[idx].isOpened = !servicesHydra[idx].isOpened"
+              :dataIsReady="dataIsReady"
+              :service="service"   />
+        </template>
+
       </template>
 
     </div>
 
    </template>
 
+  <template v-if="showUploader">
+    <Uploader
+        :circleSize   = "'s100'"
+        :circleWidth  = "'2'"
+        :viewSettings = "'p-abs p16 r3 z10 bg bg-primary bgL5 br br-primary brL-10 brLInvD bgA50'"  />
+  </template>
+
 </template>
 
 <script>
 import { useStore } from "vuex";
 import OrderServicesHydra from "@/components/order/OrderServicesHydra";
+import OrderServicesHydraPhone from "@/components/order/OrderServicesHydraPhone";
 
 export default {
   name: "OrderServices",
 
   components: {
-    //BaseButton,
-    OrderServicesHydra
+    OrderServicesHydra,
+    OrderServicesHydraPhone
   },
 
   setup() {
@@ -64,10 +83,10 @@ export default {
 
     const dealId = store.state.orderPage.order.details.DealID;
 
-    if (!store.state.static.hydraServicesTypes.length) {
-      store.dispatch('static/fetchHydraServicesTypes');
-    }
+    store.dispatch('static/fetchHydraServicesTypes');
+
     store.dispatch('orderPage/fetchSDServices', dealId);
+
     store.dispatch('orderPage/fetchHydraServices', dealId);
 
     return { dealId }
@@ -75,39 +94,39 @@ export default {
 
   data() {
     return {
-      isActive: false
+      isActive: false,
+      showUploader: true
+    }
+  },
+
+  watch: {
+    dataIsReady() {
+      this.showUploader = !this.dataIsReady;
     }
   },
 
   computed: {
-    servicesHydra() {
-     return this.$store.state.orderPage.order.servicesHydra;
+    dataIsReady() {
+      return this.$store.state.orderPage.services.readyState && this.$store.state.static.hydraServicesTypes.length;
     },
 
-    customerUbn() {
-      return this.$store.state.orderPage.order.details.CustomerUBN;
+    servicesHydra() {
+     return this.$store.state.orderPage.services.fromHydra;
+    },
+
+    order() {
+      return this.$store.state.orderPage.order.details;
     }
   },
 
   methods: {
-    changeTariff(idx, val) {
-
-      console.log(val);
-      const item = this.servicesHydra[idx];
-
-      item.tariff = val;
-/*      if (!val) {
-        item.tariffList = [];
-      }*/
-    },
-
     async changeType(idx, val, zone) {
       this.servicesHydra[idx].showUploader = true;
       await this.$store.dispatch('orderPage/updateTypeServices', {
         tariffZone: zone,
         typeOfMainService: val,
         mainServiceSdId: this.servicesHydra[idx].typeOfService,
-        customerHydraId: this.customerUbn
+        customerHydraId: this.order.CustomerUBN
       });
       this.servicesHydra[idx].showUploader = false;
     },
@@ -115,10 +134,12 @@ export default {
     async createConnection(idx) {
       const item = this.servicesHydra[idx];
       item.showUploader = true;
+
       await this.$store.dispatch('orderPage/setHydraConnection', {
         goodName: item.name,
-        customerHydraId: this.customerUbn
+        customerHydraId: this.order.CustomerUBN
       });
+
       item.isConnected = true;
       item.isOpened = true;
       item.showUploader = false;
@@ -127,14 +148,24 @@ export default {
     async setTariffication(idx, tariff, ubn, contract) {
       const item = this.servicesHydra[idx];
       item.showUploader = true;
+
+      const serviceTypes = this.$store.state.static.hydraServicesTypes.find(({typeOfService}) => +typeOfService === +item.typeOfService ).list;
+      const tariffData = this.servicesHydra[idx].tariffList.find(el => +el.value === +tariff);
+
       await this.$store.dispatch('orderPage/setTariffication', {
         serviceId: tariff,
         customerId: ubn,
         accountId: 0, //если есть, если нет то 0
         objectId: 0,  //если есть, если нет то 0
         baseContractHydraId: contract, //передаю теперь в hydraworker/serviceConfig **
-        mainServiceSdId: this.servicesHydra[idx].typeOfService
+        mainServiceSdId: this.servicesHydra[idx].typeOfService,
+        orderTTSId: this.order.OrderID,
+        orderSdId: this.order.DealID,
+        serviceName: tariffData.name,
+        serviceAmount: tariffData.price,
+        serviceTypeName: serviceTypes.find(el => +el.value === +item.serviceTypeId).name
       });
+
       item.billingStart = true;
       item.showUploader = false;
     },
@@ -145,7 +176,6 @@ export default {
     },
 
   }
-
 }
 </script>
 

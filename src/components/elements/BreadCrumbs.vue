@@ -20,7 +20,7 @@ export default {
   methods: {
     async toPreviousPage(){
       await this.$router.push({name: this.path});
-      this.$store.commit('static/SET_CURRENT_PAGE', window.location.pathname);
+/*      this.$store.commit('static/SET_CURRENT_PAGE', window.location.pathname);*/
     }
   }
 }

@@ -8,9 +8,15 @@ export const ModuleWorks = () => {
 
 		state: () => ({
 			works: [],
+			readyState: false
 		}),
 
 		mutations: {
+			CLEAR_STATE(state) {
+				state.works = [];
+				state.readyState = false;
+			},
+
 			DELETE_ORDER_WORK(state, scoreWorkId) {
 				state.works.find(w => w.ScoreWorkID === scoreWorkId).ScoreWorkStatusID = 4;
 			},

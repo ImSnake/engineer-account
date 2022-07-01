@@ -410,8 +410,7 @@ export default {
       this.loader.classList.remove(this.themeProps.find(el => el.name === this.activeTheme.name).class);
       this.activeTheme = this.themeProps.filter(el => el.name !== this.activeTheme.name)[0];
       this.loader.classList.add(this.activeTheme.class);
-      this.$store.state.static.theme = this.activeTheme.class;
-      localStorage.setItem('engineerAccountAppThemeSettings', this.activeTheme.class);
+      this.$store.commit('static/SET_THEME', this.activeTheme);
     }
   }
 }

@@ -155,7 +155,7 @@ export default {
         name: 'Order',
         params: { orderId: this.order.OrderID }
       });
-      this.$store.commit('static/SET_CURRENT_PAGE', window.location.pathname);
+/*      this.$store.commit('static/SET_CURRENT_PAGE', window.location.pathname);*/
     },
 
     toggleOrderView(e) {

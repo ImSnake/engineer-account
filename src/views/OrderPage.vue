@@ -6,11 +6,11 @@
 
   <template v-if="dataIsReady">
 
-    <OrderHeader   />
+    <OrderHeader :isConnection="isConnection" :order="order" />
 
-    <OrderNav @switchOrderContent="switchComponentView" :isConnection="isConnection"  />
+    <OrderNav @switchOrderContent="switchComponentView" :hash="hash" :isConnection="isConnection"  />
 
-    <div class="elz d-block p16 p-rel wmx1200 mAuto">
+    <div class="elz d-block p16 p-rel wmx1200 mAuto" style="padding-bottom: 50px">
 
       <OrderWorks ref="works"   />
 
@@ -48,6 +48,7 @@ import OrderServices from "@/components/order/OrderServices";
 import OrderFinish   from "@/components/order/OrderFinish";
 
 import { useStore } from "vuex";
+import { useRouter } from 'vue-router';
 import { onMounted, onUnmounted } from "vue";
 
 export default {
@@ -74,29 +75,28 @@ export default {
     // eslint-disable-next-line vue/no-setup-props-destructure
     const orderId = props.orderId;
     const store = useStore();
+    const router = useRouter();
 
     store.state.orderPage.SECTION_ID = 6;
     store.state.orderPage.ORDER_ID = orderId;
 
-    if (!store.state.static.scoreServices.length) {
-      store.dispatch('static/fetchScoreServices');
-    }
-
-    if (!store.state.static.visitStatuses.length) {
-      store.dispatch('static/fetchVisitStatuses');
-    }
+    store.dispatch('static/fetchVisitStatuses');
 
     store.dispatch('orderPage/fetchOrderDetails', orderId);
 
     onMounted(() => store.dispatch('orderPage/socketRegisterOrder', orderId));
 
-    onUnmounted(() => store.state.orderPage.order = {});
+    onUnmounted(() => store.commit('orderPage/CLEAR_STATE'));
+
+    const hash = router.currentRoute._rawValue.hash.slice(1);
+
+    return { hash }
   },
 
   watch: {
     dataIsReady() {
       setTimeout(()=> {
-        this.switchComponentView(Object.keys(this.$refs)[0]);
+        this.switchComponentView(this.hash ? this.hash : Object.keys(this.$refs)[0]);
       }, 100);
     }
   },
@@ -118,7 +118,7 @@ export default {
   methods: {
     switchComponentView(bookmarkName){
       Object.keys(this.$refs).forEach(el => {
-        (el === bookmarkName) ? this.$refs[el].isActive = true : this.$refs[el].isActive = false;
+        this.$refs[el].isActive = false;
       });
       this.$refs[bookmarkName].isActive = true;
     }
