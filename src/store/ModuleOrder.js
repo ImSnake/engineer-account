@@ -83,24 +83,6 @@ export const ModuleOrder = () => {
 						showUploader: false,
 						tariffList: [],
 						contractsList: [],
-/*						monthly: [
-							{
-								name: 'Какая-то услуга 1',
-								price: '200'
-							},
-							{
-								name: 'Какая-то услуга 2',
-								price: '150'
-							},
-							{
-								name: 'Какая-то услуга 3',
-								price: '150'
-							},
-							{
-								name: 'Какая-то услуга 4',
-								price: '200'
-							}
-						],*/
 					});
 				});
 
@@ -111,13 +93,23 @@ export const ModuleOrder = () => {
 				state.services.fromSD = data;
 			},
 
-			SET_HYDRA_TARIFFICATION(state, data) {
-				const t = state.services.fromHydra.find(({typeOfService}) => +typeOfService === +data.mainServiceSdId);
+			SET_HYDRA_TARIFFICATION(state, { params, serviceData, accountData }) {
+				const t = state.services.fromHydra.find(({typeOfService}) => +typeOfService === +params.mainServiceSdId);
+
+				console.log(serviceData);
+				console.log(accountData);
 
 				t.connectionData = {
-					name: data.serviceName,
-					amount: data.serviceAmount,
-					type_name: data.serviceTypeName
+					name: params.serviceName,
+					amount: params.serviceAmount,
+					type_name: params.serviceTypeName,
+					login: serviceData.serviceLogin,
+					pass: serviceData.servicePass
+				}
+
+				t.connectionData.accountData = {
+					login: accountData,
+					pass: accountData
 				}
 			},
 
@@ -189,7 +181,11 @@ export const ModuleOrder = () => {
 				return AppDataServ.setTariffication(params)
 					.then(res => {
 						console.log(res);
-						commit('SET_HYDRA_TARIFFICATION', params);
+						commit('SET_HYDRA_TARIFFICATION', {
+							params: params,
+							serviceData: res.data.serviceData,
+							accountData: res.data.serviceData
+						});
 					})
 					.catch(error => {
 						throw(error);

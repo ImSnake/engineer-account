@@ -26,8 +26,7 @@ export default {
   props: [ 'currentDate' ],
 
   setup(props) {
-    const date = props.currentDate ? props.currentDate : ref(new Date());
-    return { date };
+    return { date: props.currentDate ? props.currentDate : ref(new Date()) };
   },
 
   methods: {

@@ -2,10 +2,7 @@
   <template v-if="isActive">
 
     <div :class="showUploader ? 'uDisabled' : ''" class="elz cnnCreateWork p-rel d-flex a-X mB48">
-      <BaseButton
-          @onButtonClick="setWorkItem"
-          :classList="'hmn48 bg-ok bgHovL10 fn-ok-t'"
-          :title="'Создать работу'"      />
+      <ButtonBase @onButtonClick="setWorkItem" :classList="'hmn48 bg-ok bgHovL10 fn-ok-t'">Создать работу</ButtonBase>
 
       <div class="elz cnnCompletedLabel p-abs d-flex a-X gapH24 gapV8 p-R">
         <label v-if="hasFinished" class="elz d-flex a-X nowrap fn12 gap8 bold cur-pointer">
@@ -44,7 +41,7 @@
 
 <script>
 import { useStore } from "vuex";
-import BaseButton from "@/components/elements/BaseButton";
+import ButtonBase from "@/components/elements/ButtonBase";
 import OrderWorksItem from "@/components/order/OrderWorksItem";
 import {onMounted, onUnmounted} from "vue";
 
@@ -52,7 +49,7 @@ export default {
   name: "OrderWorks",
 
   components: {
-    BaseButton,
+    ButtonBase,
     OrderWorksItem
   },
 

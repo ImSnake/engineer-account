@@ -2,7 +2,7 @@
 
   <Header @logOutApp="$emit('logEvent')"/>
 
-  <BreadCrumbs :title="'К списку заявок'" :path="'Home'" :url="'/'" />
+  <BreadCrumbs :path="'Home'" :url="'/'">К списку заявок</BreadCrumbs>
 
   <template v-if="dataIsReady">
 

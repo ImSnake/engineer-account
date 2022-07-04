@@ -1,15 +1,15 @@
 <template>
 
-  <div @click="$emit('onButtonClick')" :class="classList" class="elz d-flex gap8 a-X r3 pH32 cur-pointer opAct07 bg fn">
+  <div @click="$emit('onButtonClick')" class="elz d-flex gap8 a-X r3 pH32 cur-pointer opAct07 bg fn" :class="classList" >
     <div v-if="iconName" class="elz p-rel d-block p-rel noShrink mskBef s16 cFillBef bgBef-CC" :style="iconPath"></div>
-    <div class="elz d-block grow al-center">{{ title }}</div>
+    <div class="elz d-block grow al-center">{{ title }}<slot></slot></div>
   </div>
 
 </template>
 
 <script>
 export default {
-  name: "BaseButton",
+  name: "ButtonBase",
 
   emit: [ 'onButtonClick' ],
 

@@ -196,7 +196,7 @@
     </div>
 
     <div class="elz d-flex a-X mT48">
-      <BaseButton @onButtonClick="updateCustomerData" :classList="buttonClass" :title="dataSaved ? 'Данные сохранены' : 'Сохранить данные'"   />
+      <ButtonBase @onButtonClick="updateCustomerData" :classList="buttonClass" :title="dataSaved ? 'Данные сохранены' : 'Сохранить данные'"   />
     </div>
   </template>
 
@@ -211,8 +211,9 @@
 
 <script>
 import InputItem  from "@/components/elements/InputItem";
-import BaseButton from "@/components/elements/BaseButton";
+import ButtonBase from "@/components/elements/ButtonBase";
 import DaDataService from "@/services/DaDataService";
+import { inputOptions, inputValidation } from "@/helpers/elements_options";
 import { useStore } from "vuex";
 
 
@@ -221,7 +222,7 @@ export default {
 
   components: {
     InputItem,
-    BaseButton
+    ButtonBase
   },
 
   setup(){
@@ -236,52 +237,8 @@ export default {
 
     return {
       dealId,
-      elemProps: {
-        error: {
-          classApproval: '',
-          classList: 'fn fn-error',
-          icon: "--elzMsk: url('/style/icons/info.svg');",
-          tooltip: 'fn fn-error bgHov bgHov-error fnHov-error-t',
-        },
-        success: {
-          classApproval: 'isValidValue',
-          classList: 'isValidValue fn fn-success',
-          icon: "--elzMsk: url('/style/icons/checkmark.svg')",
-          tooltip: 'fn fn-success bgHov bgHov-success fnHov-success-t',
-        },
-        waiting: {
-          classApproval: 'isValidValue',
-          classList: 'isValidValue fn fn-primary-t',
-          icon: "--elzMsk: url('/style/icons/clock.svg')",
-          tooltip: 'fn fn-primary-t bgHov bgHov-primary-t fnHov-primary',
-        }
-      },
-      validation: {
-        email: {
-          mask: 'E*',
-          tokens: {
-            'E': {
-              pattern: /^[!#$%&'*+/=?^_`{|}~@\-.a-zA-Z0-9\s]+/
-            }
-          }
-        },
-        text: {
-          mask: 'T*',
-          tokens: {
-            'T': {
-              pattern: /^[-_,.:а-яА-ЯёЁ0-9\s]+/u
-            }
-          }
-        },
-        word: {
-          mask: 'RR*',
-          tokens: {
-            'R': {
-              pattern: /[а-яёА-ЯЁ]+/u
-            }
-          }
-        }
-      }
+      elemProps: inputOptions(),
+      validation: inputValidation()
     }
   },
 

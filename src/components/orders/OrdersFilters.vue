@@ -17,31 +17,31 @@
         </span>
       </label>
 
-      <FilterSelect
+      <SelectFilter
           v-model="prioritySelected"
           @update:modelValue="changePriority"
           :options="priorities"
           :title="'Приоритет'"  />
 
-      <FilterSelect
+      <SelectFilter
           v-model="roleSelected"
           @update:modelValue="changeRole"
           :options="roles"
           :title="'Роль'"  />
 
-      <FilterSelect
+      <SelectFilter
           v-model="statusSelected"
           @update:modelValue="changeStatus"
           :options="statuses"
           :title="'Статус'"  />
 
-      <FilterSelect
+      <SelectFilter
           v-model="departmentSelected"
           @update:modelValue="changeDepartment"
           :options="department"
           :title="'Подразделение'"  />
 
-      <FilterSelect
+      <SelectFilter
           v-model="typeSelected"
           @update:modelValue="changeType"
           :options="types"
@@ -64,13 +64,13 @@
 </template>
 
 <script>
-import FilterSelect from "@/components/elements/FilterSelect";
+import SelectFilter from "@/components/elements/SelectFilter";
 
 export default {
   name: "OrdersFilters",
 
   components: {
-    FilterSelect
+    SelectFilter
   },
 
   setup() {

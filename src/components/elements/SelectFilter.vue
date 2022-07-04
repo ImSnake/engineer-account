@@ -11,7 +11,7 @@
             </span>
           </span>
         </span>
-    <select @change.stop="updateSelect" :value="modelValue" class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
+    <select @change.stop="$emit('update:modelValue', parseInt($event.target.value))" :value="modelValue" class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
       <option v-for="(option,index) in options" :key="index" :value="option.value" v-html="option.name"></option>
     </select>
   </div>
@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: "FilterSelect",
+  name: "SelectFilter",
 
   emits: [ 'update:modelValue' ],
 
@@ -40,10 +40,10 @@ export default {
     }
   },
 
-  methods: {
+/*  methods: {
     updateSelect(event) {
       this.$emit("update:modelValue", parseInt(event.target.value));
     }
-  }
+  }*/
 }
 </script>

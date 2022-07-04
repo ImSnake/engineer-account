@@ -33,7 +33,7 @@
       <div v-if="work.hasDetails" class="elz d-block borT1 br br-primary brL-10 brLInvD fn12 showSelIn">
         <div class="elz p-sticky p-TEP pH16 pV8 mV16 z10 bg bg-primary bgL5">
           <div class="elz p-rel d-flex pH36 f-wrap a-X gap8">
-            <BaseButton
+            <ButtonBase
                 @onButtonClick="confirmChangeWorkStatus"
                 :classList="['changeWorkStatus hmn36 ', buttonClass]"
                 :title="buttonTitle"   />
@@ -61,7 +61,7 @@
               <div class="elz d-block fn11 mT4">{{ setDateTime(participant.CreatedAt, 'Не назначен') }}</div>
             </div>
 
-            <div @click="participantFinish(participant.UserID)" v-if="participant.UserSelected" :class="participant.StoppedAt ? 'or1' : 'or3'" class="elz d-flex a-PR wmn56 pR16 s-SV cur-pointer opAct07 fnHov fnHov-primary-t fnHovL-20 fnHovLInvD" title="Завершить участие">
+            <div @click="participantFinish(participant.UserID)" v-if="participant.UserSelected" :class="participant.StoppedAt ? 'or1' : 'or3'" class="elz d-flex a-PR wmn56 pR12 s-SV cur-pointer opAct07 fnHov fnHov-primary-t fnHovL-20 fnHovLInvD" title="Завершить участие">
               <div class="elz d-flex a-X noShrink r3 s32">
                 <div class="elz d-flex a-X rRound bor2 s20 noShrink br-CC">
                   <div class="elz p-rel d-block p-rel noShrink mskBef s8 cFillBef bgBef-CC" style="--elzMsk: url('https://lelouch.ru/dev/elize/design/icons/stop.svg');"></div>
@@ -112,15 +112,16 @@
 </template>
 
 <script>
-import BaseButton from "@/components/elements/BaseButton";
+import ButtonBase from "@/components/elements/ButtonBase";
 import CheckboxInputFieldWrapper from "@/components/elements/CheckboxInputFieldWrapper";
+import { scoreWorksStatusOptions } from "@/helpers/elements_options";
 import { dateFormatDdMmYyyy, dateTimeFormatHHMM } from "@/helpers/formating";
 
 export default {
   name: "OrderWorksItem",
 
   components: {
-    BaseButton,
+    ButtonBase,
     CheckboxInputFieldWrapper,
   },
 
@@ -128,36 +129,6 @@ export default {
 
   props: {
     work: { required: true,  type: Object }
-  },
-
-  setup() {
-    const workStatusProps = [
-      {
-        statusId: 1,
-        buttonClass: 'bg-ok bgHovL10 fn-ok-t',
-        buttonTitle: 'Начать работу',
-        tagClass: 'bg-ok fn-ok-t'
-      },
-      {
-        statusId: 2,
-        buttonClass: 'bg-success bgHovL10 fn-success-t',
-        buttonTitle: 'Завершить работу',
-        tagClass: 'bg-success fn-success-t'
-      },
-      {
-        statusId: 3,
-        buttonClass: 'bg-primary-t fn-primary bgLInvD bgHovL-10 uDisabled',
-        buttonTitle: 'Работы завершены',
-        tagClass: 'bg-primary-t fn-primary'
-      },
-      {
-        statusId: 4,
-        buttonClass: 'bg-error fn-error-t bgL-5 bgLInvD bgHovL-10 uDisabled',
-        buttonTitle: 'Работы отменены',
-        tagClass: 'bg-error fn-error-t '
-      }
-    ];
-    return { workStatusProps }
   },
 
   data() {
@@ -183,11 +154,11 @@ export default {
 
   computed: {
     buttonClass() {
-      return this.workStatusProps.find(({statusId}) => +statusId === this.work.ScoreWorkStatusID)?.buttonClass;
+      return scoreWorksStatusOptions(this.work.ScoreWorkStatusID)?.buttonClass;
     },
 
     buttonTitle() {
-      let title = this.workStatusProps.find(({statusId}) => +statusId === this.work.ScoreWorkStatusID)?.buttonTitle;
+      let title = scoreWorksStatusOptions(this.work.ScoreWorkStatusID)?.buttonTitle;
       return title += this.changeWorkStatus ? "?" : "";
     },
 
@@ -231,7 +202,7 @@ export default {
     },
 
     statusClass() {
-      return this.workStatusProps.find(({statusId}) => statusId === +this.work.ScoreWorkStatusID)?.tagClass;
+      return scoreWorksStatusOptions(this.work.ScoreWorkStatusID)?.tagClass;
     }
   },
 

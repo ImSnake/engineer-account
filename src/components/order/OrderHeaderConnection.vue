@@ -1,18 +1,18 @@
 <template>
   <div class="elz p-rel d-flex grow fb280 dir-y gap16 lh12">
-    <BaseButton
+    <ButtonBase
         @click="datepicker = true"
         :iconName="'truck'"
         :classList="[{uDisabled: order.meetingStatusId > 2},' hmn48 grow bg-primary bgL-5 bgLInvD bgHovL-10']"
         :title="formattedDateTime"   />
 
-    <BaseButton
+    <ButtonBase
         @onButtonClick="confirmAction('onWayConfirm', 'onWayDateTime', 3, )"
         :iconName="onWayConfirm ? 'question' : 'location1'"
         :classList="[{uDisabled: order.meetingStatusId > 2 || !order.meetingDateTime}, 'onWayConfirm hmn48 grow bg-ok bgHovL10 fn-ok-t']"
         :title="onWayConfirm ? 'Подтвердить выезд' : titleOnWay"   />
 
-    <BaseButton
+    <ButtonBase
         @onButtonClick="confirmAction('onPlaceConfirm', 'onPlaceDateTime', 4)"
         :iconName="onPlaceConfirm ? 'question' : 'flag'"
         :classList="[{uDisabled: order.meetingStatusId < 3 || order.meetingStatusId === 4}, 'onPlaceConfirm hmn48 grow bg-success bgHovL10 fn-ok-t']"
@@ -29,14 +29,14 @@
 <script>
 import DateTimePicker from "@/components/elements/DateTimePicker";
 import PopUpWindow from "@/components/elements/PopUpWindow";
-import BaseButton from "@/components/elements/BaseButton";
+import ButtonBase from "@/components/elements/ButtonBase";
 import { dateFormatDdMmYyyy, dateTimeFormatHHMM } from "@/helpers/formating";
 
 export default {
   name: "OrderHeaderConnection",
 
   components: {
-    BaseButton,
+    ButtonBase,
     DateTimePicker,
     PopUpWindow
   },

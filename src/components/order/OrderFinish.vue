@@ -4,7 +4,7 @@
       <a :href="`http://tts.naukanet.ru/customers/orderinfo.asp?OrderID=${$store.state.orderPage.order.details.OrderID}`" target="_blank" :class="[{ uDisabled: !isDisabled },'h48 bg-ok fn-ok-t']" :title="buttonTitle" class="elz d-flex gap8 a-X r3 pH32 cur-pointer opAct07 bg fn">
         <div class="elz d-block grow al-center">{{ buttonTitle }}</div>
       </a>
-<!--      <BaseButton
+<!--      <ButtonBase
           @onButtonClick="finishOrder"
           :classList="[{ uDisabled: !isDisabled },'h48 bg-ok fn-ok-t']"
           :title="buttonTitle"   />-->
@@ -39,14 +39,14 @@
 </template>
 
 <script>
-//import BaseButton     from "@/components/elements/BaseButton";
+//import ButtonBase     from "@/components/elements/ButtonBase";
 import FileUploadWrap from "@/components/elements/FileUploadWrap";
 
 export default {
   name: "OrderFinish",
 
   components: {
-    //BaseButton,
+    //ButtonBase,
     FileUploadWrap
   },
 

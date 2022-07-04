@@ -31,7 +31,6 @@ export default {
 	},
 
 	deleteOrderWork(workId) {
-		console.log('API Delete Work Item');
 		return apiConnection.delete(`/scoreWorks/${workId}`);
 	},
 

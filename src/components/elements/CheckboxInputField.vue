@@ -24,8 +24,8 @@ export default {
 
   props: {
     field: { required: true, type: Object },
-    isDisabled: { required: true, type: Boolean },
-    params: { required: true, type: Object }
+    params: { required: true, type: Object },
+    isDisabled: { required: true, type: Boolean }
   }
 }
 </script>

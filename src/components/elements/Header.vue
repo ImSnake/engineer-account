@@ -330,25 +330,23 @@ export default {
   emits: [ 'logOutApp' ],
 
   setup() {
-    //const store = useStore();
-    //store.dispatch('static/fetchHeaderIcons');
-
-    const themeProps = [
-      {
-        name: 'darkMode',
-        title: 'Темная тема',
-        class: 'elzTheme-dark'
-      },
-      {
-        name: 'lightMode',
-        title: 'Светлая тема',
-        class: 'elzTheme-light'
-      }
-    ];
-
     const loader = document.getElementById('engineer-account');
 
-    return { themeProps, loader }
+    return {
+      loader,
+      themeProps: [
+        {
+          name: 'darkMode',
+          title: 'Темная тема',
+          class: 'elzTheme-dark'
+        },
+        {
+          name: 'lightMode',
+          title: 'Светлая тема',
+          class: 'elzTheme-light'
+        }
+      ]
+    }
   },
 
   data() {
