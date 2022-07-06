@@ -64,7 +64,7 @@
             <div @click="participantFinish(participant.UserID)" v-if="participant.UserSelected" :class="participant.StoppedAt ? 'or1' : 'or3'" class="elz d-flex a-PR wmn56 pR12 s-SV cur-pointer opAct07 fnHov fnHov-primary-t fnHovL-20 fnHovLInvD" title="Завершить участие">
               <div class="elz d-flex a-X noShrink r3 s32">
                 <div class="elz d-flex a-X rRound bor2 s20 noShrink br-CC">
-                  <div class="elz p-rel d-block p-rel noShrink mskBef s8 cFillBef bgBef-CC" style="--elzMsk: url('https://lelouch.ru/dev/elize/design/icons/stop.svg');"></div>
+                  <div class="elz p-rel d-block p-rel noShrink mskBef s8 cFillBef bgBef-CC" style="--elzMsk: url('/style/icons/stop.svg');"></div>
                 </div>
               </div>
             </div>

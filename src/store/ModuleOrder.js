@@ -60,17 +60,36 @@ export const ModuleOrder = () => {
 				console.log(data);
 				const t = state.services.fromHydra.find(({typeOfService}) => +typeOfService === +data.typeOfService);
 
-				t.tariffList = data.avaliableServices || [];
 				t.baseContractHydraId = data.baseContractHydraId;
 				t.serviceTypeId = data.serviceTypeId;
+
+				if (data.avaliableServices) {
+					t.tariffList = data.avaliableServices || [];
+				}
+
+				if (data.avalibleContracts) {
+					t.contractsList = data.avalibleContracts || [];
+
+					t.contractsList.unshift({
+						name: 'Выбрать контракт',
+						value: ''
+					});
+				}
 
 				console.log(t);
 			},
 
 			SET_HYDRA_SERVICES(state, data) {
+				console.log(data);
+
 				state.services.fromHydra = [];
 
 				data.forEach(i => {
+
+					if (Object.keys(i.accountData).length !== 0) {
+						state.services.account = i.accountData;
+					}
+
 					const hasHydraConnection = Object.keys(i.connectionData).length !== 0;
 
 					state.services.fromHydra.push({
@@ -84,6 +103,7 @@ export const ModuleOrder = () => {
 						tariffList: [],
 						contractsList: [],
 					});
+
 				});
 
 				state.services.readyState = true;
@@ -105,11 +125,11 @@ export const ModuleOrder = () => {
 					type_name: params.serviceTypeName,
 					login: serviceData.serviceLogin,
 					pass: serviceData.servicePass
-				}
+				};
 
-				t.connectionData.accountData = {
-					login: accountData,
-					pass: accountData
+				state.services.account = {
+					login: accountData.accountLogin,
+					pass: accountData.accountPass
 				}
 			},
 
@@ -184,7 +204,7 @@ export const ModuleOrder = () => {
 						commit('SET_HYDRA_TARIFFICATION', {
 							params: params,
 							serviceData: res.data.serviceData,
-							accountData: res.data.serviceData
+							accountData: res.data.accountData
 						});
 					})
 					.catch(error => {

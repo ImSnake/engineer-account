@@ -12,39 +12,45 @@
           </div>
         </div>
       </div>
+
       <template v-if="beforeTariffication">
         <div class="elz p-rel d-block noShrink p-rel mskBef s8 deg180 cFillBef bgBef-CC hideSelIn" style="--elzMsk: url('/style/icons/arrow1.svg');"></div>
         <div class="elz p-rel d-block noShrink p-rel mskBef s8 cFillBef bgBef-CC showSelIn" style="--elzMsk: url('/style/icons/arrow1.svg');"></div>
       </template>
+
       <template v-else-if="service.billingStart">
         <div class="empLogPassWrap elz d-flex a-H">
           <div class="elz p-rel d-block">
             <Tooltip ref='login' :type="'ok'" :hasTail="true" :duration="2000">Логин скопирован</Tooltip>
             <InputBase
-                @on:click="(e) => showTooltip('login', e.currentTarget.querySelector('input'))"
+                @on:click="(e) => $emit('showTooltip', 'login', e.currentTarget.querySelector('input'))"
                 :modelValue="service.connectionData.login || null"
                 :inputType="'text'"
                 :readonly="true"
                 :icon="'user'"
-                :classLabel="'empLogPassInput'"   />
+                :classInput="'rL3 selNone cur-inh h32'"
+                :classLabel="'empLogPassInput grow mR-1 cur-pointer'"   />
           </div>
           <div class="elz p-rel d-block">
             <Tooltip ref="password" :type="'ok'" :hasTail="true" :duration="2000">Пароль скопирован</Tooltip>
             <InputBase
-                @on:click="(e) => showTooltip('password', e.currentTarget.querySelector('input'))"
+                @on:click="(e) => $emit('showTooltip', 'password', e.currentTarget.querySelector('input'))"
                 :modelValue="service.connectionData.pass || null"
                 :inputType="'password'"
                 :readonly="true"
                 :icon="'key'"
-                :classLabel="'empLogPassInput'"   />
+                :classInput="'rR3 selNone cur-inh h32'"
+                :classLabel="'empLogPassInput grow cur-pointer'"   />
           </div>
         </div>
-        <div class="elz d-flex a-X hmn28 p8 r3 fn11 bold bg cur-help bg-success fn fn-success-t" title="Услуга подключена">На тарификации</div>
+        <div class="elz d-flex a-X wmn120 hmn28 p8 r3 fn11 bold bg cur-help bg-success fn fn-success-t" title="Услуга подключена">На тарификации</div>
       </template>
+
       <template v-else>
-        <div @click="$emit('createConnection')" class="elz d-flex a-X hmn28 p8 r3 fn11 bold bg cur-pointer opAct07 bg-success fn fn-success-t">Настроить тарификацию</div>
+        <div @click="$emit('createConnection')" class="elz d-flex a-X wmn120 hmn28 p8 r3 fn11 bold bg cur-pointer opAct07 bg-success fn fn-success-t">Настроить тарификацию</div>
       </template>
     </div>
+
     <div :class="service.billingStart ? 'uDisabled' : '' " class="elz d-block borT1 br br-primary brL-10 brLInvD fn12 showSelIn">
       <div class="elz d-flex a-H f-wrap fn16 p16 gap8">
         <div class="elz d-block fb320 fn fn14">Тип услуги:</div>
@@ -112,7 +118,7 @@ export default {
     Tooltip
   },
 
-  emits: [ 'createConnection', 'changeTariff', 'changeType', 'setTariffication', 'toggleServiceView' ],
+  emits: [ 'createConnection', 'changeTariff', 'changeType', 'setTariffication', 'showTooltip', 'toggleServiceView' ],
 
   props: {
     service: { required: true, type: Object }
@@ -130,23 +136,23 @@ export default {
       return this.service.isConnected && !this.service.billingStart;
     },
 
-    tariffPrice() {
-      return this.service.billingStart ? numberFormat(+this.service.connectionData.amount, 2, ',', ' ') : numberFormat(this.service.tariffList.find(el => +el.value === +this.selectedTariff)?.price, 2, ',', ' ');
+    order() {
+      return this.$store.state.orderPage.order.details;
     },
 
-    types() {
-      return this.$store.state.static.hydraServicesTypes.find(({typeOfService}) => +typeOfService === +this.service.typeOfService).list;
+    tariffPrice() {
+      return this.service.billingStart ? numberFormat(+this.service.connectionData.amount, 2, ',', ' ') : numberFormat(this.service.tariffList.find(el => +el.value === +this.selectedTariff)?.price, 2, ',', ' ');
     },
 
     total() {
       return numberFormat(+(this.service.tariffList.find(el => +el.value === +this.selectedTariff)?.price), 2, ',', ' ');
     },
 
-    order() {
-      return this.$store.state.orderPage.order.details;
+    types() {
+      return this.$store.state.static.hydraServicesTypes.find(({typeOfService}) => +typeOfService === +this.service.typeOfService).list;
     }
   },
-
+/*
   methods: {
     showTooltip(name, el) {
       if (name === 'password') {
@@ -159,17 +165,9 @@ export default {
           this.$refs[name].isOpen = true;
         });
     }
-  }
+
+  }*/
 }
 </script>
 
-<style scoped>
-@media (max-width: 768px) {
-  .empLogPassWrap {
-    order: 2;
-    width: 100%;
-  }
 
-  .empLogPassWrap .empLogPassInput { flex-grow: 1; }
-}
-</style>

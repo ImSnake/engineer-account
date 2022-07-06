@@ -30,7 +30,7 @@ export default {
 
   computed: {
     iconPath() {
-      return `--elzMsk: url('https://lelouch.ru/uploads/icons/${this.iconName}.svg');`;
+      return `--elzMsk: url('/style/icons/${this.iconName}.svg');`;
     }
   }
 }

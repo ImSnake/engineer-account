@@ -30,11 +30,48 @@
 
     <div class="elz d-flex dir-y gap16">
 
+      <div v-if="accountData" class="elz d-block p-rel bor1 r3 mB16 bg bg-primary bgL5 br br-primary brL-10 brLInvD hideSelOut showSelOut">
+        <div class="elz d-flex f-wrap gap8 a-H p16 hmn64">
+          <div class="elz d-flex f-wrap a-H grow gap8">
+            <div class="elz d-block grow fb320 lh12">
+              <div class="elz d-block bold">Личный кабинет</div>
+            </div>
+          </div>
+          <div class="empLogPassWrap elz d-flex a-H">
+            <div class="elz p-rel d-block">
+              <Tooltip ref='login' :type="'ok'" :hasTail="true" :duration="2000">Логин скопирован</Tooltip>
+              <InputBase
+                  @on:click="(e) => showTooltip('login', e.currentTarget.querySelector('input'))"
+                  :modelValue="accountData.login"
+                  :inputType="'text'"
+                  :readonly="true"
+                  :icon="'user'"
+                  :classInput="'rL3 selNone cur-inh h32'"
+                  :classLabel="'empLogPassInput grow mR-1 cur-pointer'"   />
+            </div>
+            <div class="elz p-rel d-block">
+              <Tooltip ref="password" :type="'ok'" :hasTail="true" :duration="2000">Пароль скопирован</Tooltip>
+              <InputBase
+                  @on:click="(e) => showTooltip('password', e.currentTarget.querySelector('input'))"
+                  :modelValue="accountData.pass"
+                  :inputType="'password'"
+                  :readonly="true"
+                  :icon="'key'"
+                  :classInput="'rR3 selNone cur-inh h32'"
+                  :classLabel="'empLogPassInput grow cur-pointer'"   />
+            </div>
+          </div>
+          <div class="elz d-flex a-X wmn120 hmn28 p8 r3 fn11 bold bg cur-help bg-success fn fn-success-t" title="Услуга подключена">Подключен</div>
+        </div>
+      </div>
+
       <template v-for="(service, idx) in servicesHydra" :key="idx">
 
         <template v-if="+service.typeOfService === 1">
           <OrderServicesHydraPhone
+              @changeZone="(val, zone) => changeType(idx, val, zone)"
               @createConnection="createConnection(idx)"
+              @setPhoneTariffication="setPhoneTariffication"
               @toggleServiceView="servicesHydra[idx].isOpened = !servicesHydra[idx].isOpened"
               :service="service"  />
         </template>
@@ -45,12 +82,14 @@
               @changeType="(val, zone) => changeType(idx, val, zone)"
               @createConnection="createConnection(idx)"
               @setTariffication="(tariff, ubn, contract) => setTariffication(idx,tariff, ubn, contract)"
+              @showTooltip="(name, el) => showTooltip(name, el)"
               @toggleServiceView="servicesHydra[idx].isOpened = !servicesHydra[idx].isOpened"
               :dataIsReady="dataIsReady"
               :service="service"   />
         </template>
 
       </template>
+
 
     </div>
 
@@ -67,6 +106,8 @@
 
 <script>
 import { useStore } from "vuex";
+import Tooltip from "@/components/elements/Tooltip";
+import InputBase from "@/components/elements/InputBase";
 import OrderServicesHydra from "@/components/order/OrderServicesHydra";
 import OrderServicesHydraPhone from "@/components/order/OrderServicesHydraPhone";
 
@@ -74,6 +115,8 @@ export default {
   name: "OrderServices",
 
   components: {
+    Tooltip,
+    InputBase,
     OrderServicesHydra,
     OrderServicesHydraPhone
   },
@@ -106,6 +149,10 @@ export default {
   },
 
   computed: {
+    accountData() {
+      return this.$store.state.orderPage.services.account;
+    },
+
     dataIsReady() {
       return this.$store.state.orderPage.services.readyState && this.$store.state.static.hydraServicesTypes.length;
     },
@@ -145,6 +192,10 @@ export default {
       item.showUploader = false;
     },
 
+    setPhoneTariffication() {
+      console.log('SET AND CONNECT PHONE TARIFF');
+    },
+
     async setTariffication(idx, tariff, ubn, contract) {
       const item = this.servicesHydra[idx];
       item.showUploader = true;
@@ -168,6 +219,18 @@ export default {
 
       item.billingStart = true;
       item.showUploader = false;
+    },
+
+    showTooltip(name, el) {
+      if (name === 'password') {
+        el.type = 'text';
+        setTimeout(() => el.type = 'password', 3500);
+      }
+
+      navigator.clipboard.writeText(el.value)
+          .then(() => {
+            this.$refs[name].isOpen = true;
+          });
     },
 
     toggleTableView(e){

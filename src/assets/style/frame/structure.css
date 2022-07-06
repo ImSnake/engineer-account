@@ -402,6 +402,8 @@
 
 .selNone, .selHovNone:hover, .selHovNone:active, .selActNone:active:active { user-select: none; }
 
+.selNone::selection { background: transparent; }
+
 
 
 
@@ -802,6 +804,11 @@ C  D
 .bs24 { border-spacing: 24px; } .bsH24 { border-spacing: 24px 0; } .bsV24 { border-spacing: 0 24px; } .gap24, .gapH24 { column-gap: 24px; } .gap24, .gapV24 { row-gap: 24px; }
 .bs32 { border-spacing: 32px; } .bsH32 { border-spacing: 32px 0; } .bsV32 { border-spacing: 0 32px; } .gap32, .gapH32 { column-gap: 32px; } .gap32, .gapV32 { row-gap: 32px; }
 .bs48 { border-spacing: 48px; } .bsH48 { border-spacing: 48px 0; } .bsV48 { border-spacing: 0 48px; } .gap48, .gapH48 { column-gap: 48px; } .gap48, .gapV48 { row-gap: 48px; }
+.bs56 { border-spacing: 56px; } .bsH56 { border-spacing: 56px 0; } .bsV56 { border-spacing: 0 56px; } .gap56, .gapH56 { column-gap: 56px; } .gap56, .gapV56 { row-gap: 56px; }
+.bs64 { border-spacing: 64px; } .bsH64 { border-spacing: 64px 0; } .bsV64 { border-spacing: 0 64px; } .gap64, .gapH64 { column-gap: 64px; } .gap64, .gapV64 { row-gap: 64px; }
+.bs72 { border-spacing: 72px; } .bsH72 { border-spacing: 72px 0; } .bsV72 { border-spacing: 0 72px; } .gap72, .gapH72 { column-gap: 72px; } .gap72, .gapV72 { row-gap: 72px; }
+.bs80 { border-spacing: 80px; } .bsH80 { border-spacing: 80px 0; } .bsV80 { border-spacing: 0 80px; } .gap80, .gapH80 { column-gap: 80px; } .gap80, .gapV80 { row-gap: 80px; }
+.bs96 { border-spacing: 96px; } .bsH96 { border-spacing: 96px 0; } .bsV96 { border-spacing: 0 96px; } .gap96, .gapH96 { column-gap: 96px; } .gap96, .gapV96 { row-gap: 96px; }
 
 .bsVar  { border-spacing: var(--uniVar);  } .bsHVar  { border-spacing: var(--uniVar)  0; } .bsVVar  { border-spacing: 0 var(--uniVar);  } .gapVar,  .gapHVar  { column-gap: var(--uniVar);  } .gapVar,  .gapVVar  { row-gap: var(--uniVar);  }
 .bsVar1 { border-spacing: var(--uniVar1); } .bsHVar1 { border-spacing: var(--uniVar1) 0; } .bsVVar1 { border-spacing: 0 var(--uniVar1); } .gapVar1, .gapHVar1 { column-gap: var(--uniVar1); } .gapVar1, .gapVVar1 { row-gap: var(--uniVar1); }

@@ -24,6 +24,10 @@ export const ModuleStatic = () => {
 			scoreServices: [],
 
 			hydraServicesTypes: [],
+
+			hydraPhoneOperators: [],
+
+			hydraPhonePbx: []
 		}),
 
 		mutations: {
@@ -52,6 +56,8 @@ export const ModuleStatic = () => {
 				state.hydraServiceTypes = [];
 
 				/*
+				localStorage.removeItem('engineerAccountAppHydraPhonePbx');
+				localStorage.removeItem('engineerAccountAppHydraPhoneOperators');
 				localStorage.removeItem('engineerAccountAppWorkStatuses');
 				localStorage.removeItem('engineerAccountAppScoreServices');
 				localStorage.removeItem('engineerAccountAppScoreServicesRaw');
@@ -90,10 +96,30 @@ export const ModuleStatic = () => {
 				console.log(data);
 			},*/
 
-			SET_HYDRA_SERVICES_TYPES(state, data) {
+			SET_HYDRA_SERVICES_LIBRARIES(state, data) {
+				console.log(data);
+
 				const list = [];
 
 				data.forEach(el => {
+					// если телефония, то извлечь библиотеку "Операторы"
+					if (+el.typeOfService === 1) {
+						state.hydraPhoneOperators = el.operator.map(({VALUE, NAME}) => ({value: VALUE, name: NAME}));
+						state.hydraPhoneOperators.unshift({
+							value: '',
+							name: 'Выбрать оператора'
+						});
+						localStorage.setItem('engineerAccountAppHydraPhoneOperators', JSON.stringify(state.hydraPhoneOperators));
+
+						state.hydraPhonePbx = el.pbx.map(({VALUE, NAME}) => ({value: VALUE, name: NAME}));
+						state.hydraPhonePbx.unshift({
+							value: '',
+							name: 'Указать привязку к pbx'
+						});
+						localStorage.setItem('engineerAccountAppHydraPhonePbx', JSON.stringify(state.hydraPhonePbx));
+					}
+
+					// извлечь библиотеку "Типы услуг"
 					const t = {
 						typeOfService: el.typeOfService
 					}
@@ -102,13 +128,13 @@ export const ModuleStatic = () => {
 						value: '',
 						name: +el.typeOfService === 1 ? 'Выбрать тарифную зону' : 'Выбрать тип услуги'
 					});
+
 					list.push(t);
 				});
 
 				state.hydraServicesTypes = list;
-
 				localStorage.setItem('engineerAccountAppHydraServicesTypes', JSON.stringify(list));
-			},
+				},
 
 			SET_THEME(state, theme) {
 				state.theme = theme;
@@ -184,10 +210,16 @@ export const ModuleStatic = () => {
 				const hst = localStorage.getItem('engineerAccountAppHydraServicesTypes');
 				state.hydraServicesTypes = JSON.parse(hst) || [];
 
-				if (!state.hydraServicesTypes.length) {
+				const hpo = localStorage.getItem('engineerAccountAppHydraPhoneOperators');
+				state.hydraPhoneOperators = JSON.parse(hpo) || [];
+
+				const pbx = localStorage.getItem('engineerAccountAppHydraPhonePbx');
+				state.hydraPhonePbx = JSON.parse(pbx) || [];
+
+				if (!state.hydraServicesTypes.length || !state.hydraPhoneOperators.length || !state.hydraPhonePbx.length) {
 					return AppDataServ.getHydraServicesTypes()
 						.then(response => {
-							commit('SET_HYDRA_SERVICES_TYPES', response.data);
+							commit('SET_HYDRA_SERVICES_LIBRARIES', response.data);
 						})
 						.catch(error => {
 							throw(error);

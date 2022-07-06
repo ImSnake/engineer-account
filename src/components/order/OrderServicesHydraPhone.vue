@@ -21,7 +21,7 @@
         </template>
 
         <template v-else>
-          <div @click="$emit('createConnection')" class="elz d-block p8 r3 fn11 bold bg cur-pointer opAct07 bg-success fn fn-success-t">Настроить тарификацию</div>
+          <div @click="$emit('createConnection')" class="elz d-block wmn120 p8 r3 fn11 bold bg cur-pointer opAct07 bg-success fn fn-success-t">Настроить тарификацию</div>
         </template>
       </div>
 
@@ -30,172 +30,87 @@
           <div class="elz d-block fb320">Тарифная зона:</div>
           <div class="elz d-flex f-wrap gap8 fb480 grow">
             <div class="elz d-block fb320 growMax">
-              <div class="elz d-grid w100p grPos fn14 fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0 cHovOut">
-                <div class="elz elzInput d-flex grPin a-H grY2 w100p bor1 r3 h40 pL16 pR24 ellipsis trns2 invPssSib bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovInL-20 brFoc-focus brFocL0 fn fn-primary-t">
-                  <div class="elz growX pV8 oH nowrap ellipsis">Здесь будет выбор тарифной зоны</div>
-                </div>
-                <span v-if="!service.billingStart" class="elz d-flex grPin grY2 a-H bor1 pH7 z6 evNone">
-                <span class="elz p-rel growX d-flex a-PR">
-                  <span class="elz p-rel d-flex a-X s24 r2 trns2">
-                    <span class="elz p-rel d-block mskBef s8 cFillBef bgBef-CC deg180" style="--elzMsk: url('/style/icons/arrow2.svg');"></span>
-                  </span>
-                </span>
-              </span>
-                <select v-model="tariffZone" @change="(e) => { $emit('changeZone', e.target.value, order.TariffZoneSDId ); contractType = '' }"
-                        class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
-                  <!--                <template v-for="(type, index) in types" :key="index">
-                                    <option :value="type.value">{{ type.name }}</option>
-                                  </template>-->
-                </select>
-              </div>
+              <SelectBase
+                  v-model="tariffZone"
+                  @update:modelValue="updateTariffZone"
+                  :disabled="service.billingStart"
+                  :options="types"
+                  :title="service.billingStart ? service.connectionData.type_name : 'Выбрать тарифную зону'"  />
             </div>
           </div>
         </div>
 
-        <div class="elz d-flex a-H f-wrap fn16 p16 gap8">
+        <div v-if="tariffZone" class="elz d-flex a-H f-wrap fn16 p16 gap8">
           <div class="elz d-block fb320">Тип договора:</div>
           <div class="elz d-flex f-wrap gap8 fb480 grow">
             <div class="elz d-block fb320 growMax">
-              <div class="elz d-grid w100p grPos fn14 fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0 cHovOut">
-                <div class="elz elzInput d-flex grPin a-H grY2 w100p bor1 r3 h40 pL16 pR24 ellipsis trns2 invPssSib bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovInL-20 brFoc-focus brFocL0 fn fn-primary-t">
-                  <div class="elz growX pV8 oH nowrap ellipsis">Здесь будет выбор типа договора</div>
-                </div>
-                <span v-if="!service.billingStart" class="elz d-flex grPin grY2 a-H bor1 pH7 z6 evNone">
-                <span class="elz p-rel growX d-flex a-PR">
-                  <span class="elz p-rel d-flex a-X s24 r2 trns2">
-                    <span class="elz p-rel d-block mskBef s8 cFillBef bgBef-CC deg180" style="--elzMsk: url('/style/icons/arrow2.svg');"></span>
-                  </span>
-                </span>
-              </span>
-                <!--              <select v-model="contarctType" @change="(e) => { $emit('changeType', e.target.value, order.TariffZoneSDId ); selectedTariff = '' }"
-                                      class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
-                                <template v-for="(type, index) in types" :key="index">
-                                  <option :value="type.value">{{ type.name }}</option>
-                                </template>
-                              </select>-->
-              </div>
+              <SelectBase
+                  v-model="contractType"
+                  @update:modelValue="setTariffList"
+                  :disabled="service.billingStart"
+                  :options="service.contractsList"
+                  :title="service.billingStart ? service.connectionData.contract_name : 'Выбрать тип договора'"  />
             </div>
           </div>
         </div>
 
-        <div class="elz d-flex a-H f-wrap fn16 p16 gap8">
+        <div v-if="contractType" class="elz d-flex a-H f-wrap fn16 p16 gap8">
           <div class="elz d-block fb320">Тариф:</div>
           <div class="elz d-flex f-wrap gap8 fb480 grow">
             <div class="elz d-block fb320 growMax">
-              <div class="elz d-grid w100p grPos fn14 fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0 cHovOut">
-                <div class="elz elzInput d-flex grPin a-H grY2 w100p bor1 r3 h40 pL16 pR24 ellipsis trns2 invPssSib bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovInL-20 brFoc-focus brFocL0 fn fn-primary-t">
-                  <div class="elz growX pV8 oH nowrap ellipsis">Здесь будет выбор тарифа</div>
-                </div>
-                <span v-if="!service.billingStart" class="elz d-flex grPin grY2 a-H bor1 pH7 z6 evNone">
-                <span class="elz p-rel growX d-flex a-PR">
-                  <span class="elz p-rel d-flex a-X s24 r2 trns2">
-                    <span class="elz p-rel d-block mskBef s8 cFillBef bgBef-CC deg180" style="--elzMsk: url('/style/icons/arrow2.svg');"></span>
-                  </span>
-                </span>
-              </span>
-                <!--              <select v-model="contarctType" @change="(e) => { $emit('changeType', e.target.value, order.TariffZoneSDId ); selectedTariff = '' }"
-                                      class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
-                                <template v-for="(type, index) in types" :key="index">
-                                  <option :value="type.value">{{ type.name }}</option>
-                                </template>
-                              </select>-->
-              </div>
+              <SelectBase
+                  v-model="selectedTariff"
+                  @update:modelValue="selectedOperator = ''; selectedPbx = '';"
+                  :disabled="service.billingStart"
+                  :options="tariffOptions"
+                  :title="service.billingStart ? service.connectionData.tariff_name : 'Выбрать тариф'"  />
+            </div>
+            <div class="elz d-block fb120 grow wmn160">
+              <div class="elz d-flex a-X bor1 r3 h40 pH16 bold al-center bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10">{{ tariffPrice }}</div>
             </div>
           </div>
         </div>
 
-        <div class="elz d-flex a-H f-wrap fn16 p16 gap8">
+        <div v-if="selectedTariff" class="elz d-flex a-H f-wrap fn16 p16 gap8">
           <div class="elz d-block fb320">Оператор:</div>
           <div class="elz d-flex f-wrap gap8 fb480 grow">
             <div class="elz d-block fb320 growMax">
-              <div class="elz d-grid w100p grPos fn14 fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0 cHovOut">
-                <div class="elz elzInput d-flex grPin a-H grY2 w100p bor1 r3 h40 pL16 pR24 ellipsis trns2 invPssSib bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovInL-20 brFoc-focus brFocL0 fn fn-primary-t">
-                  <div class="elz growX pV8 oH nowrap ellipsis">Здесь будет ПРЕДУПРЕЖДЕНИЕ и выбор оператора</div>
-                </div>
-                <span v-if="!service.billingStart" class="elz d-flex grPin grY2 a-H bor1 pH7 z6 evNone">
-                <span class="elz p-rel growX d-flex a-PR">
-                  <span class="elz p-rel d-flex a-X s24 r2 trns2">
-                    <span class="elz p-rel d-block mskBef s8 cFillBef bgBef-CC deg180" style="--elzMsk: url('/style/icons/arrow2.svg');"></span>
-                  </span>
-                </span>
-              </span>
-                <!--              <select v-model="contarctType" @change="(e) => { $emit('changeType', e.target.value, order.TariffZoneSDId ); selectedTariff = '' }"
-                                      class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
-                                <template v-for="(type, index) in types" :key="index">
-                                  <option :value="type.value">{{ type.name }}</option>
-                                </template>
-                              </select>-->
-              </div>
+              <SelectBase
+                  v-model="selectedOperator"
+                  @update:modelValue="selectedPbx = '';"
+                  :disabled="service.billingStart"
+                  :options="$store.state.static.hydraPhoneOperators"
+                  :title="service.billingStart ? service.connectionData.operator_name : 'Выбрать оператора'"  />
             </div>
           </div>
         </div>
 
-        <div class="elz d-flex a-H f-wrap fn16 p16 gap8">
-          <div class="elz d-block fb320">Последняя колонка:</div>
+        <div v-if="selectedOperator" class="elz d-flex a-H f-wrap fn16 p16 gap8">
+          <div class="elz d-block fb320">Привязка к pbx:</div>
           <div class="elz d-flex f-wrap gap8 fb480 grow">
             <div class="elz d-block fb320 growMax">
-              <div class="elz d-grid w100p grPos fn14 fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0 cHovOut">
-                <div class="elz elzInput d-flex grPin a-H grY2 w100p bor1 r3 h40 pL16 pR24 ellipsis trns2 invPssSib bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovInL-20 brFoc-focus brFocL0 fn fn-primary-t">
-                  <div class="elz growX pV8 oH nowrap ellipsis">Что-то выбрано</div>
-                </div>
-                <span v-if="!service.billingStart" class="elz d-flex grPin grY2 a-H bor1 pH7 z6 evNone">
-                <span class="elz p-rel growX d-flex a-PR">
-                  <span class="elz p-rel d-flex a-X s24 r2 trns2">
-                    <span class="elz p-rel d-block mskBef s8 cFillBef bgBef-CC deg180" style="--elzMsk: url('/style/icons/arrow2.svg');"></span>
-                  </span>
-                </span>
-              </span>
-                <!--              <select v-model="serviceType" @change="(e) => { $emit('changeType', e.target.value, order.TariffZoneSDId ); selectedTariff = '' }"
-                                      class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
-                                <template v-for="(type, index) in types" :key="index">
-                                  <option :value="type.value">{{ type.name }}</option>
-                                </template>
-                              </select>-->
-              </div>
+              <SelectBase
+                  v-model="selectedPbx"
+                  :disabled="service.billingStart"
+                  :options="$store.state.static.hydraPhonePbx"
+                  :title="service.billingStart ? service.connectionData.pbx_name : 'Указать привязку к pbx'"  />
             </div>
             <div class="elz d-block fb200 grow">
-              <label class="elz d-grid grPos fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0">
-                <input type="text" value="" placeholder="+7(963)999-64-40" class="elz elzInput d-block grPin grY2 w100p bor1 r3 h40 pL40 pR8 fn12 ellipsis trns2 invPssSib bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovL-20 brFoc-focus brFocL0 fn fn-primary-t">
-                <span class="elz d-flex grPin grY2 a-H bor1 pH7 z6 evNone">
-              <span class="elz p-rel d-flex a-X s24 trns2">
-                <span class="elz p-rel d-block mskBef s16 cFillBef bgBef-CC" style="--elzMsk:url('https://lelouch.ru/dev/elize/design/icons/user.svg');" data-v-5573b587=""></span>
-              </span>
-            </span>
-              </label>
+              <InputBase
+                  @on:change="test"
+                  :modelValue="phoneNumber"
+                  :classInput="'r3 h40'"
+                  :classLabel="'empLogPassInput grow'"
+                  :icon="'phone'"
+                  :inputMask="'+7 (###) ###-##-##'"
+                  :inputType="'text'"
+                  :placeholder="'+7 (123) 456-78-90'"   />
             </div>
           </div>
         </div>
 
-        <div v-if="service.contractsList.length" class="elz d-flex a-H f-wrap fn16 p16 gap8">
-          <div class="elz d-block fb320">Тип договора:</div>
-          <div class="elz d-flex f-wrap gap8 fb480 grow">
-            <div class="elz d-block fb320 growMax">
-              <div class="elz d-grid w100p grPos fn14 fn fn-primary-t fnL20 fnLInvD fnHovL10 fnFow-focus fnFowL0 cHovOut">
-                <div class="elz elzInput d-flex grPin a-H grY2 w100p bor1 r3 h40 pL16 pR24 ellipsis trns2 invPssSib bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovInL-20 brFoc-focus brFocL0 fn fn-primary-t">
-                  <div class="elz growX pV8 oH nowrap ellipsis">Здесь выбранный контракт</div>
-                </div>
-                <span class="elz d-flex grPin grY2 a-H bor1 pH7 z6 evNone">
-                <span class="elz p-rel growX d-flex a-PR">
-                  <span class="elz p-rel d-flex a-X s24 r2 trns2">
-                    <span class="elz p-rel d-block mskBef s8 cFillBef bgBef-CC deg180" style="--elzMsk: url('/style/icons/arrow2.svg');"></span>
-                  </span>
-                </span>
-              </span>
-                <select @change="(e) => { selectedContract = e.target.value; $emit('changeContract', selectedContract )}"
-                        class="elz d-block grPin grY2 p-EA s100p op0 pH16 z7 cur-pointer fn12 bg bg-primary bgL10 bgLInvD fn fn-primary-t">
-                  <template v-for="(contract, index) in service.contractsList" :key="index">
-                    <option :value="contract.value">{{ contract.name }}</option>
-                  </template>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="elz p-rel d-flex f-wrap a-X gap8 pV8 borT1 br br-primary brL-10 brLInvD">
-          <div class="elz d-flex gap8 a-X al-center r3 hmn36 mV12 pH24 cur-pointer opAct07 bg bg-ok bgHovL10 fn fn-ok-t">
-            <div class="elz d-block">Поставить на тарификацию</div>
-          </div>
+        <div v-if="selectedPbx" class="elz p-rel d-flex f-wrap a-X gap8 pV8 borT1 br br-primary brL-10 brLInvD">
+          <ButtonBase @onButtonClick="$emit('setPhoneTariffication')" :classList="'hmn36 bg-ok bgHovL10 fn-ok-t'">Подключить телефонию</ButtonBase>
         </div>
 
       </div>
@@ -212,10 +127,21 @@
 </template>
 
 <script>
+import SelectBase from "@/components/elements/SelectBase";
+import InputBase from "@/components/elements/InputBase";
+import ButtonBase from "@/components/elements/ButtonBase";
+import {numberFormat} from "@/helpers/formating";
+
 export default {
   name: "OrderServicesHydraPhone",
 
-  emits: ['changeZone', 'createConnection','toggleServiceView'],
+  components: {
+    SelectBase,
+    InputBase,
+    ButtonBase
+  },
+
+  emits: ['changeZone', 'createConnection','toggleServiceView', 'setPhoneTariffication'],
 
   props: {
     service: { required: true, type: Object }
@@ -224,8 +150,56 @@ export default {
   data() {
     return {
       tariffZone: '',
-      contractType: ''
+      contractType: '',
+      tariffOptions: [],
+      selectedTariff: '',
+      selectedOperator: '',
+      selectedPbx: '',
+      phoneNumber: ''
     }
+  },
+
+  computed: {
+    tariffPrice() {
+      return this.service.billingStart ? numberFormat(+this.service.connectionData.amount, 2, ',', ' ') : numberFormat(this.tariffOptions.find(el => +el.value === +this.selectedTariff)?.price, 2, ',', ' ');
+    },
+
+    total() {
+      if (!this.tariffOptions.length) {
+        return 0;
+      }
+      return numberFormat(+(this.tariffOptions.find(el => +el.value === +this.selectedTariff)?.price), 2, ',', ' ') || 0;
+    },
+
+    types() {
+      return this.$store.state.static.hydraServicesTypes.find(({typeOfService}) => +typeOfService === +this.service.typeOfService).list || [];
+    },
+  },
+
+  methods: {
+    test(val) {
+      console.log(val);
+    },
+
+    updateTariffZone(val) {
+      this.$emit('changeZone', 0, val );
+
+      this.contractType = '';
+      this.tariffOptions = [];
+      this.selectedTariff = '';
+      this.selectedOperator = '';
+      this.selectedPbx = '';
+    },
+
+    setTariffList(val) {
+      this.tariffOptions = this.service.contractsList.find(el => +el.value === +val).tariffList;
+
+      this.selectedTariff = '';
+      this.selectedOperator = '';
+      this.selectedPbx = '';
+    }
+
+
   }
 
 }
