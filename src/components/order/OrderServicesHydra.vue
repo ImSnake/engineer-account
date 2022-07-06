@@ -1,5 +1,5 @@
 <template>
-  <div :class="service.isOpened ? 'sel' : ''" class="elz d-block p-rel bor1 r3 mB16 bg bg-primary bgL5 br br-primary brL-10 brLInvD hideSelOut showSelOut">
+  <div :class="{sel: service.isOpened}" class="elz d-block p-rel bor1 r3 mB16 bg bg-primary bgL5 br br-primary brL-10 brLInvD hideSelOut showSelOut">
     <div @click="beforeTariffication ? $emit('toggleServiceView') : ''" :class="beforeTariffication ? 'cur-pointer opAct07' : ''" class="elz d-flex f-wrap gap8 a-H p16 hmn64">
       <div class="elz d-flex f-wrap a-H grow gap8">
         <div class="elz d-block grow fb320 lh12">
@@ -51,7 +51,7 @@
       </template>
     </div>
 
-    <div :class="service.billingStart ? 'uDisabled' : '' " class="elz d-block borT1 br br-primary brL-10 brLInvD fn12 showSelIn">
+    <div :class="{uDisabled: service.billingStart}" class="elz d-block borT1 br br-primary brL-10 brLInvD fn12 showSelIn">
       <div class="elz d-flex a-H f-wrap fn16 p16 gap8">
         <div class="elz d-block fb320 fn fn14">Тип услуги:</div>
         <div class="elz d-flex f-wrap gap8 fb480 grow">
@@ -85,7 +85,8 @@
         </template>
       </div>
       <div v-if="selectedTariff && !service.billingStart" class="elz p-rel d-flex f-wrap a-X gap8 pV16 borT1 br br-primary brL-10 brLInvD">
-        <ButtonBase @onButtonClick="$emit('setTariffication', selectedTariff, service.baseContractHydraId)"
+        <ButtonBase
+            @onButtonClick="$emit('setTariffication', selectedTariff, service.baseContractHydraId)"
             :classList="'hmn36 bg-ok bgHovL10 fn-ok-t'">Поставить на тарификацию</ButtonBase>
       </div>
     </div>

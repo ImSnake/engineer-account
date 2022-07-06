@@ -9,7 +9,7 @@
       <div :class="statusColor" class="elz d-block w50p p16 rEB3 bg fn bgHovInL-10">{{ statusName }}</div>
     </a>
 
-    <div class="elz d-block p-rel showSelOut invSelOut grow ">
+    <div :class="{sel:commentOpened}" class="elz d-block p-rel showSelOut invSelOut grow ">
       <div class="elz d-block invSelIn">
         <div class="elz d-flex a-H pV8 pH16 mH8 fn14 lh14 al-center borB1 hmn80 br br-primary brL-5 brLF20 brFD bold">
           <div class="elz d-block al-center grow">{{ order.Descr }}</div>
@@ -48,12 +48,12 @@
       </div>
     </div>
 
-    <div @click="toggleOrderView" class="elz d-block pAB16 pAT6">
-      <input :class="hasComments ? '' : 'uDisabled'" :data-text-bef="hasComments ? 'Показать комментарий' : 'Комментарий отсутствует'" data-text-bef-check="Скрыть комментарий" type="checkbox" class="elz d-flex a-X w100p h36 hAuto r3 cur-pointer bold opAct07 cTextBef cTextChkBef bg bg-primary bgL-5 bgHovL-10"  />
+    <div @click="hasComments ? commentOpened = !commentOpened : ''" class="elz d-block pAB16 pAT6">
+      <input :class="{uDisabled: !hasComments}" :data-text-bef="hasComments ? 'Показать комментарий' : 'Комментарий отсутствует'" data-text-bef-check="Скрыть комментарий" type="checkbox" class="elz d-flex a-X w100p h36 hAuto r3 cur-pointer bold opAct07 cTextBef cTextChkBef bg bg-primary bgL-5 bgHovL-10"  />
     </div>
 
-    <template v-if="responsible">
-      <PopUpWindow @closePopUp="responsible = false" :className="'p-F m4'">
+    <template v-if="responsibleOpened">
+      <PopUpWindow @closePopUp="responsibleOpened = false" :className="'p-F m4'">
         <div class="elz d-block s-M">
           <div class="elz d-block mAuto mT36 s64 oH rCircle">
             <img alt="" class="elz d-block s100p obj-cover" :src="'https://kpi2.naukanet.ru:24137/customer/getInfo/getAvatar/user/'+responsibleDetails.ResponsibleID">
@@ -107,7 +107,8 @@ export default {
 
   data() {
     return {
-      responsible: false
+      commentOpened: false,
+      responsibleOpened: false
     }
   },
 
@@ -147,7 +148,7 @@ export default {
       if (!this.responsibleDetails) {
         await this.$store.dispatch('static/fetchResponsible', this.order.ResponsibleID);
       }
-      this.responsible = true;
+      this.responsibleOpened = true;
     },
 
     async toOrderDetails() {
@@ -155,15 +156,14 @@ export default {
         name: 'Order',
         params: { orderId: this.order.OrderID }
       });
-/*      this.$store.commit('static/SET_CURRENT_PAGE', window.location.pathname);*/
     },
 
-    toggleOrderView(e) {
+/*    toggleOrderView(e) {
       const $elem = e.currentTarget;
       if (!$elem.children[0].classList.contains('uDisabled')) {
         $elem.previousElementSibling.classList.toggle('sel');
       }
-    }
+    }*/
   }
 }
 </script>

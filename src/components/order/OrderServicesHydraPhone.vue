@@ -1,6 +1,6 @@
 <template>
 
-    <div :class="service.isOpened ? 'sel' : ''" class="elz d-block p-rel bor1 r3 bg bg-primary bgL5 br br-primary brL-10 brLInvD hideSelOut showSelOut">
+    <div :class="{sel: service.isOpened}" class="elz d-block p-rel bor1 r3 bg bg-primary bgL5 br br-primary brL-10 brLInvD hideSelOut showSelOut">
 
       <div @click="service.isConnected ? $emit('toggleServiceView') : ''" :class="service.isConnected ? 'cur-pointer opAct07' : ''" class="elz d-flex gap8 a-H p16">
         <div class="elz d-flex f-wrap a-H grow gap8">
@@ -207,11 +207,7 @@ export default {
     },
 
     phoneValidation(val, raw) {
-      if(raw.length === 10) {
-        this.phoneRaw = '7' + raw;
-      } else {
-        this.phoneRaw = '';
-      }
+      this.phoneRaw = raw.length === 10 ? '7' + raw : '';
     },
 
     updateTariffZone(val) {
@@ -232,8 +228,6 @@ export default {
       this.pbx = '';
     }
 
-
   }
-
 }
 </script>
