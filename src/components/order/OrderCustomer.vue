@@ -213,7 +213,7 @@
 import InputItem  from "@/components/elements/InputItem";
 import ButtonBase from "@/components/elements/ButtonBase";
 import DaDataService from "@/services/DaDataService";
-import { inputOptions, inputValidation } from "@/helpers/elements_options";
+import { inputOptions, inputValidation } from "@/helpers/elements_common";
 import { useStore } from "vuex";
 
 

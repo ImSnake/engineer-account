@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { tooltipOptions } from "@/helpers/elements_options";
+import { tooltipOptions } from "@/helpers/elements_common";
 
 export default {
   name: "Tooltip",

@@ -39,7 +39,7 @@
           </div>
           <div class="empLogPassWrap elz d-flex a-H">
             <div class="elz p-rel d-block">
-              <Tooltip ref='login' :type="'ok'" :hasTail="true" :duration="2000">Логин скопирован</Tooltip>
+              <Tooltip ref='login' :type="'ok'" :hasTail="true" :duration="1500">Логин скопирован</Tooltip>
               <InputBase
                   @on:click="(e) => showTooltip('login', e.currentTarget.querySelector('input'))"
                   :modelValue="accountData.login"
@@ -50,7 +50,7 @@
                   :classLabel="'empLogPassInput grow mR-1 cur-pointer'"   />
             </div>
             <div class="elz p-rel d-block">
-              <Tooltip ref="password" :type="'ok'" :hasTail="true" :duration="2000">Пароль скопирован</Tooltip>
+              <Tooltip ref="password" :type="'ok'" :hasTail="true" :duration="1500">Пароль скопирован</Tooltip>
               <InputBase
                   @on:click="(e) => showTooltip('password', e.currentTarget.querySelector('input'))"
                   :modelValue="accountData.pass"
@@ -61,7 +61,7 @@
                   :classLabel="'empLogPassInput grow cur-pointer'"   />
             </div>
           </div>
-          <div class="elz d-flex a-X wmn120 hmn28 p8 r3 fn11 bold bg cur-help bg-success fn fn-success-t" title="Услуга подключена">Подключен</div>
+          <div class="elz d-flex a-X wmn120 hmn28 p8 r3 fn11 bold bg cur-help bg-success fn fn-success-t" title="Доступ к личному кабинету предоставлен">Подключен</div>
         </div>
       </div>
 
@@ -71,7 +71,7 @@
           <OrderServicesHydraPhone
               @changeZone="(val, zone) => changeType(idx, val, zone)"
               @createConnection="createConnection(idx)"
-              @setPhoneTariffication="setPhoneTariffication"
+              @setTarifficationPhone="(contract, tariff, operator, pbx, phone) => setTarifficationPhone(idx, contract, tariff, operator, pbx, phone)"
               @toggleServiceView="servicesHydra[idx].isOpened = !servicesHydra[idx].isOpened"
               :service="service"  />
         </template>
@@ -79,13 +79,13 @@
         <template v-else>
           <OrderServicesHydra
               @changeTariff="(val) => service.tariff = val"
-              @changeType="(val, zone) => changeType(idx, val, zone)"
+              @changeType="(val) => changeType(idx, val, order.TariffZoneSDId)"
               @createConnection="createConnection(idx)"
-              @setTariffication="(tariff, ubn, contract) => setTariffication(idx,tariff, ubn, contract)"
-              @showTooltip="(name, el) => showTooltip(name, el)"
+              @setTariffication="(tariff, contract) => setTariffication(idx, tariff, contract)"
               @toggleServiceView="servicesHydra[idx].isOpened = !servicesHydra[idx].isOpened"
               :dataIsReady="dataIsReady"
-              :service="service"   />
+              :service="service">
+          </OrderServicesHydra>
         </template>
 
       </template>
@@ -105,11 +105,13 @@
 </template>
 
 <script>
-import { useStore } from "vuex";
 import Tooltip from "@/components/elements/Tooltip";
 import InputBase from "@/components/elements/InputBase";
 import OrderServicesHydra from "@/components/order/OrderServicesHydra";
 import OrderServicesHydraPhone from "@/components/order/OrderServicesHydraPhone";
+
+import { useStore } from "vuex";
+import { tooltipShowLoginPassword } from "@/helpers/elements_common";
 
 export default {
   name: "OrderServices",
@@ -168,14 +170,19 @@ export default {
 
   methods: {
     async changeType(idx, val, zone) {
-      this.servicesHydra[idx].showUploader = true;
+      //this.servicesHydra[idx].showUploader = true;
+      const item = this.servicesHydra[idx];
+      item.showUploader = true;
+
       await this.$store.dispatch('orderPage/updateTypeServices', {
         tariffZone: zone,
         typeOfMainService: val,
-        mainServiceSdId: this.servicesHydra[idx].typeOfService,
+        mainServiceSdId: item.typeOfService,
         customerHydraId: this.order.CustomerUBN
       });
-      this.servicesHydra[idx].showUploader = false;
+
+      item.showUploader = false;
+      //this.servicesHydra[idx].showUploader = false;
     },
 
     async createConnection(idx) {
@@ -192,11 +199,31 @@ export default {
       item.showUploader = false;
     },
 
-    setPhoneTariffication() {
+    async setTarifficationPhone(idx, contract, tariff, operator, pbx, phone) {
       console.log('SET AND CONNECT PHONE TARIFF');
+      const item = this.servicesHydra[idx];
+      item.showUploader = true;
+
+      await this.$store.dispatch('orderPage/setTarifficationPhone', {
+        serviceId: tariff,
+        customerId: this.order.CustomerUBN,
+        accountId: 0, //если есть, если нет то 0
+        objectId: 0,  //если есть, если нет то 0
+
+        baseContractHydraId: contract, //передаю теперь в hydraworker/serviceConfig **
+        mainServiceSdId: item.typeOfService,
+        orderTTSId: this.order.OrderID,
+        orderSdId: this.order.DealID,
+        operatorContractId: operator,
+        pbxId: pbx,
+        phoneNumber: phone
+      });
+
+      item.billingStart = true;
+      item.showUploader = false;
     },
 
-    async setTariffication(idx, tariff, ubn, contract) {
+    async setTariffication(idx, tariff, contract) {
       const item = this.servicesHydra[idx];
       item.showUploader = true;
 
@@ -205,11 +232,11 @@ export default {
 
       await this.$store.dispatch('orderPage/setTariffication', {
         serviceId: tariff,
-        customerId: ubn,
+        customerId: this.order.CustomerUBN,
         accountId: 0, //если есть, если нет то 0
         objectId: 0,  //если есть, если нет то 0
         baseContractHydraId: contract, //передаю теперь в hydraworker/serviceConfig **
-        mainServiceSdId: this.servicesHydra[idx].typeOfService,
+        mainServiceSdId: item.typeOfService,
         orderTTSId: this.order.OrderID,
         orderSdId: this.order.DealID,
         serviceName: tariffData.name,
@@ -222,22 +249,13 @@ export default {
     },
 
     showTooltip(name, el) {
-      if (name === 'password') {
-        el.type = 'text';
-        setTimeout(() => el.type = 'password', 3500);
-      }
-
-      navigator.clipboard.writeText(el.value)
-          .then(() => {
-            this.$refs[name].isOpen = true;
-          });
+      tooltipShowLoginPassword(name, el, this.$refs);
     },
 
     toggleTableView(e){
       const elem = e.currentTarget.parentNode;
       elem.classList.contains('sel') ? elem.classList.remove('sel') :  elem.classList.add('sel');
-    },
-
+    }
   }
 }
 </script>

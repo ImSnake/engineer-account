@@ -5,6 +5,7 @@
 
     <input class="elz elzInput d-block grPin grY2 w100p bor1 pL40 pR8 fn12 ellipsis trns2 invPssSib bg bg-primary bgL10 bgLInvD br brLInvD br-primary brL-10 brHovL-20 brFoc-focus brFocL0 fn fn-primary-t"
          @change="$emit('on:change', $event.target.value)"
+         @keyup="$emit('on:keyup', $event.target.value, $event.target.getAttribute('data-mask-raw-value'))"
          v-maska="inputMask"
          :class="classInput"
          :placeholder="placeholder"
@@ -25,7 +26,7 @@
 export default {
   name: "InputBase",
 
-  emits: ['on:change', 'on:click' ],
+  emits: ['on:change', 'on:click', 'on:keyup' ],
 
   props: {
     modelValue:  { required: true,  type: [Number, String, null] },

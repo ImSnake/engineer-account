@@ -47,7 +47,7 @@ export default {
 	},
 
 	getHydraServicesTypes() {
-		return apiConnection.get(`/hydraWorker/serviceConfig/serviceType/getList`);
+		return apiConnection.get('/hydraWorker/serviceConfig/serviceType/getList');
 	},
 
 	getHydraServices(dealId) {
@@ -72,7 +72,7 @@ export default {
 	},
 
 	getOrders() {
-		return apiConnection.get(`/order/getList/`);
+		return apiConnection.get('/order/getList/');
 	},
 
 	getOrderSingleSearch(orderId) {
@@ -96,11 +96,15 @@ export default {
 	},
 
 	getVisitStatuses() {
-		return apiConnection.get(`/deal/getStatusList`);
+		return apiConnection.get('/deal/getStatusList');
 	},
 
-	setTariffication(params){
-		return apiConnection.post(`/hydraWorker/createSubscription`, params);
+	setTariffication(params) {
+		return apiConnection.post('/hydraWorker/createSubscription', params);
+	},
+
+	setTarifficationPhone(params) {
+		return apiConnection.post('hydraWorker/createSubscription/phone', params);
 	},
 
 	setOrderWork(params) {
@@ -120,11 +124,11 @@ export default {
 	},
 
 	updateCustomerInfo(customerData) {
-		return apiConnection.post(`/customer/updateInfo`, customerData);
+		return apiConnection.post('/customer/updateInfo', customerData);
 	},
 
 	updateMeetingDateTime(params) {
-		return apiConnection.post(`/deal/updateDealInfo`, params);
+		return apiConnection.post('/deal/updateDealInfo', params);
 	},
 
 	updateOrderWorkFinished(workId, params) {
@@ -149,7 +153,7 @@ export default {
 	},
 
 	updateTypeServices(params) {
-		return apiConnection.post(`/hydraWorker/serviceConfig/postConnectionType`, params);
+		return apiConnection.post('/hydraWorker/serviceConfig/postConnectionType', params);
 	},
 }
 

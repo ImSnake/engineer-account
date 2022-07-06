@@ -114,7 +114,7 @@
 <script>
 import ButtonBase from "@/components/elements/ButtonBase";
 import CheckboxInputFieldWrapper from "@/components/elements/CheckboxInputFieldWrapper";
-import { scoreWorksStatusOptions } from "@/helpers/elements_options";
+import { scoreWorksStatusOptions } from "@/helpers/elements_common";
 import { dateFormatDdMmYyyy, dateTimeFormatHHMM } from "@/helpers/formating";
 
 export default {

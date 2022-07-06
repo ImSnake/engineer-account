@@ -59,8 +59,8 @@
           <div class="elz d-flex f-wrap gap8 fb480 grow">
             <div class="elz d-block fb320 growMax">
               <SelectBase
-                  v-model="selectedTariff"
-                  @update:modelValue="selectedOperator = ''; selectedPbx = '';"
+                  v-model="tariff"
+                  @update:modelValue="operator = ''; pbx = '';"
                   :disabled="service.billingStart"
                   :options="tariffOptions"
                   :title="service.billingStart ? service.connectionData.tariff_name : 'Выбрать тариф'"  />
@@ -71,13 +71,13 @@
           </div>
         </div>
 
-        <div v-if="selectedTariff" class="elz d-flex a-H f-wrap fn16 p16 gap8">
+        <div v-if="tariff" class="elz d-flex a-H f-wrap fn16 p16 gap8">
           <div class="elz d-block fb320">Оператор:</div>
           <div class="elz d-flex f-wrap gap8 fb480 grow">
             <div class="elz d-block fb320 growMax">
               <SelectBase
-                  v-model="selectedOperator"
-                  @update:modelValue="selectedPbx = '';"
+                  v-model="operator"
+                  @update:modelValue="pbx = '';"
                   :disabled="service.billingStart"
                   :options="$store.state.static.hydraPhoneOperators"
                   :title="service.billingStart ? service.connectionData.operator_name : 'Выбрать оператора'"  />
@@ -85,19 +85,19 @@
           </div>
         </div>
 
-        <div v-if="selectedOperator" class="elz d-flex a-H f-wrap fn16 p16 gap8">
+        <div v-if="operator" class="elz d-flex a-H f-wrap fn16 p16 gap8">
           <div class="elz d-block fb320">Привязка к pbx:</div>
           <div class="elz d-flex f-wrap gap8 fb480 grow">
             <div class="elz d-block fb320 growMax">
               <SelectBase
-                  v-model="selectedPbx"
+                  v-model="pbx"
                   :disabled="service.billingStart"
                   :options="$store.state.static.hydraPhonePbx"
                   :title="service.billingStart ? service.connectionData.pbx_name : 'Указать привязку к pbx'"  />
             </div>
             <div class="elz d-block fb200 grow">
               <InputBase
-                  @on:change="test"
+                  @on:keyup="(v, r) => phoneValidation(v, r)"
                   :modelValue="phoneNumber"
                   :classInput="'r3 h40'"
                   :classLabel="'empLogPassInput grow'"
@@ -109,8 +109,12 @@
           </div>
         </div>
 
-        <div v-if="selectedPbx" class="elz p-rel d-flex f-wrap a-X gap8 pV8 borT1 br br-primary brL-10 brLInvD">
-          <ButtonBase @onButtonClick="$emit('setPhoneTariffication')" :classList="'hmn36 bg-ok bgHovL10 fn-ok-t'">Подключить телефонию</ButtonBase>
+        <div v-if="pbx && phoneRaw && !service.billingStart" class="elz p-rel d-flex f-wrap a-X gap8 pV16 borT1 br br-primary brL-10 brLInvD">
+          <ButtonBase
+              @onButtonClick="checkButtonState"
+              :classList="'confirmAction hmn36 bg-ok bgHovL10 fn-ok-t'">
+            {{ confirmAction ? 'Уверен???' : 'Подключить телефонию' }}
+          </ButtonBase>
         </div>
 
       </div>
@@ -141,7 +145,7 @@ export default {
     ButtonBase
   },
 
-  emits: ['changeZone', 'createConnection','toggleServiceView', 'setPhoneTariffication'],
+  emits: ['changeZone', 'createConnection','toggleServiceView', 'setTarifficationPhone'],
 
   props: {
     service: { required: true, type: Object }
@@ -149,26 +153,28 @@ export default {
 
   data() {
     return {
+      confirmAction: false,
       tariffZone: '',
       contractType: '',
       tariffOptions: [],
-      selectedTariff: '',
-      selectedOperator: '',
-      selectedPbx: '',
-      phoneNumber: ''
+      tariff: '',
+      operator: '',
+      pbx: '',
+      phoneNumber: '',
+      phoneRaw: ''
     }
   },
 
   computed: {
     tariffPrice() {
-      return this.service.billingStart ? numberFormat(+this.service.connectionData.amount, 2, ',', ' ') : numberFormat(this.tariffOptions.find(el => +el.value === +this.selectedTariff)?.price, 2, ',', ' ');
+      return this.service.billingStart ? numberFormat(+this.service.connectionData.amount, 2, ',', ' ') : numberFormat(this.tariffOptions.find(el => +el.value === +this.tariff)?.price, 2, ',', ' ');
     },
 
     total() {
       if (!this.tariffOptions.length) {
         return 0;
       }
-      return numberFormat(+(this.tariffOptions.find(el => +el.value === +this.selectedTariff)?.price), 2, ',', ' ') || 0;
+      return numberFormat(+(this.tariffOptions.find(el => +el.value === +this.tariff)?.price), 2, ',', ' ') || 0;
     },
 
     types() {
@@ -177,8 +183,35 @@ export default {
   },
 
   methods: {
-    test(val) {
-      console.log(val);
+    checkButtonState() {
+      if (!this.confirmAction) {
+        this.confirmAction = true;
+        document.addEventListener("click", this.clickOut.bind(null, 'confirmAction'), { capture: true, once:true });
+      } else {
+        this.$emit(
+            'setTarifficationPhone',
+            this.contractType,
+            this.tariff,
+            this.operator,
+            this.pbx,
+            this.phoneRaw
+        );
+        this.confirmAction = false;
+      }
+    },
+
+    clickOut(actionName, e) {
+      if (this[actionName] === false || !e.target.closest(`.${actionName}`)) {
+        this[actionName] = false;
+      }
+    },
+
+    phoneValidation(val, raw) {
+      if(raw.length === 10) {
+        this.phoneRaw = '7' + raw;
+      } else {
+        this.phoneRaw = '';
+      }
     },
 
     updateTariffZone(val) {
@@ -186,17 +219,17 @@ export default {
 
       this.contractType = '';
       this.tariffOptions = [];
-      this.selectedTariff = '';
-      this.selectedOperator = '';
-      this.selectedPbx = '';
+      this.tariff = '';
+      this.operator = '';
+      this.pbx = '';
     },
 
     setTariffList(val) {
       this.tariffOptions = this.service.contractsList.find(el => +el.value === +val).tariffList;
 
-      this.selectedTariff = '';
-      this.selectedOperator = '';
-      this.selectedPbx = '';
+      this.tariff = '';
+      this.operator = '';
+      this.pbx = '';
     }
 
 

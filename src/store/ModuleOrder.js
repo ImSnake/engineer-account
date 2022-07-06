@@ -116,9 +116,6 @@ export const ModuleOrder = () => {
 			SET_HYDRA_TARIFFICATION(state, { params, serviceData, accountData }) {
 				const t = state.services.fromHydra.find(({typeOfService}) => +typeOfService === +params.mainServiceSdId);
 
-				console.log(serviceData);
-				console.log(accountData);
-
 				t.connectionData = {
 					name: params.serviceName,
 					amount: params.serviceAmount,
@@ -133,9 +130,14 @@ export const ModuleOrder = () => {
 				}
 			},
 
+			SET_HYDRA_TARIFFICATION_PHONE(state, { params, data }) {
+				console.log(params);
+				console.log(data);
+			},
+
 			UPDATE_CUSTOMER_INFO(state, data) {
 				console.log(data);
-				console.log(state);
+				//console.log(state);
 			},
 
 			UPDATE_FILES(state, data) {
@@ -200,16 +202,29 @@ export const ModuleOrder = () => {
 			setTariffication({ commit }, params) {
 				return AppDataServ.setTariffication(params)
 					.then(res => {
-						console.log(res);
+						console.log(res.data);
 						commit('SET_HYDRA_TARIFFICATION', {
-							params: params,
+							accountData: res.data.accountData,
 							serviceData: res.data.serviceData,
-							accountData: res.data.accountData
+							params: params
 						});
 					})
 					.catch(error => {
 						throw(error);
 					});
+			},
+
+			setTarifficationPhone({ commit }, params) {
+				return AppDataServ.setTarifficationPhone(params)
+					.then(res => {
+						commit('SET_HYDRA_TARIFFICATION_PHONE', {
+							data: res.data,
+							params: params
+						});
+					})
+					.catch(error => {
+						throw(error);
+					})
 			},
 
 			setHydraConnection(state, params) {

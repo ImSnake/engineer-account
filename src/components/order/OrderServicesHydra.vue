@@ -21,9 +21,9 @@
       <template v-else-if="service.billingStart">
         <div class="empLogPassWrap elz d-flex a-H">
           <div class="elz p-rel d-block">
-            <Tooltip ref='login' :type="'ok'" :hasTail="true" :duration="2000">Логин скопирован</Tooltip>
+            <Tooltip ref="login" :type="'ok'" :hasTail="true" :duration="1500">Логин скопирован</Tooltip>
             <InputBase
-                @on:click="(e) => $emit('showTooltip', 'login', e.currentTarget.querySelector('input'))"
+                @on:click="(e) => showTooltip('login', e.currentTarget.querySelector('input'))"
                 :modelValue="service.connectionData.login || null"
                 :inputType="'text'"
                 :readonly="true"
@@ -32,9 +32,9 @@
                 :classLabel="'empLogPassInput grow mR-1 cur-pointer'"   />
           </div>
           <div class="elz p-rel d-block">
-            <Tooltip ref="password" :type="'ok'" :hasTail="true" :duration="2000">Пароль скопирован</Tooltip>
+            <Tooltip ref="password" :type="'ok'" :hasTail="true" :duration="1500">Пароль скопирован</Tooltip>
             <InputBase
-                @on:click="(e) => $emit('showTooltip', 'password', e.currentTarget.querySelector('input'))"
+                @on:click="(e) => showTooltip('password', e.currentTarget.querySelector('input'))"
                 :modelValue="service.connectionData.pass || null"
                 :inputType="'password'"
                 :readonly="true"
@@ -58,7 +58,7 @@
           <div class="elz d-block fb320 growMax">
             <SelectBase
                 v-model="serviceType"
-                @update:modelValue="(val) => { $emit('changeType', val, this.order.TariffZoneSDId ); selectedTariff = '' }"
+                @update:modelValue="(val) => { $emit('changeType', val); selectedTariff = '' }"
                 :disabled="service.billingStart"
                 :options="types"
                 :title="service.billingStart ? service.connectionData.type_name : 'Выбрать тип услуги'"  />
@@ -85,7 +85,7 @@
         </template>
       </div>
       <div v-if="selectedTariff && !service.billingStart" class="elz p-rel d-flex f-wrap a-X gap8 pV16 borT1 br br-primary brL-10 brLInvD">
-        <ButtonBase @onButtonClick="$emit('setTariffication', selectedTariff, order.CustomerUBN, service.baseContractHydraId)"
+        <ButtonBase @onButtonClick="$emit('setTariffication', selectedTariff, service.baseContractHydraId)"
             :classList="'hmn36 bg-ok bgHovL10 fn-ok-t'">Поставить на тарификацию</ButtonBase>
       </div>
     </div>
@@ -106,7 +106,9 @@ import ButtonBase from '@/components/elements/ButtonBase';
 import InputBase from "@/components/elements/InputBase";
 import SelectBase from "@/components/elements/SelectBase"
 import Tooltip from "@/components/elements/Tooltip";
+
 import { numberFormat } from "@/helpers/formating";
+import { tooltipShowLoginPassword } from "@/helpers/elements_common";
 
 export default {
   name: "OrderServicesHydra",
@@ -136,10 +138,6 @@ export default {
       return this.service.isConnected && !this.service.billingStart;
     },
 
-    order() {
-      return this.$store.state.orderPage.order.details;
-    },
-
     tariffPrice() {
       return this.service.billingStart ? numberFormat(+this.service.connectionData.amount, 2, ',', ' ') : numberFormat(this.service.tariffList.find(el => +el.value === +this.selectedTariff)?.price, 2, ',', ' ');
     },
@@ -152,21 +150,12 @@ export default {
       return this.$store.state.static.hydraServicesTypes.find(({typeOfService}) => +typeOfService === +this.service.typeOfService).list;
     }
   },
-/*
+
   methods: {
     showTooltip(name, el) {
-      if (name === 'password') {
-        el.type = 'text';
-        setTimeout(() => el.type = 'password', 3500);
-      }
-
-      navigator.clipboard.writeText(el.value)
-        .then(() => {
-          this.$refs[name].isOpen = true;
-        });
-    }
-
-  }*/
+      tooltipShowLoginPassword(name, el, this.$refs);
+    },
+  }
 }
 </script>
 

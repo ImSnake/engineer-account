@@ -2,7 +2,8 @@
   <template v-if="isActive">
 
     <div :class="showUploader ? 'uDisabled' : ''" class="elz cnnCreateWork p-rel d-flex a-X mB48">
-      <ButtonBase @onButtonClick="setWorkItem" :classList="'hmn48 bg-ok bgHovL10 fn-ok-t'">Создать работу</ButtonBase>
+      <ButtonBase
+          @onButtonClick="setWorkItem" :classList="'createWorkConfirm hmn48 bg-ok bgHovL10 fn-ok-t'">Создать работу {{ createWorkConfirm ? '?' : '' }}</ButtonBase>
 
       <div class="elz cnnCompletedLabel p-abs d-flex a-X gapH24 gapV8 p-R">
         <label v-if="hasFinished" class="elz d-flex a-X nowrap fn12 gap8 bold cur-pointer">
@@ -81,6 +82,7 @@ export default {
 
   data() {
     return {
+      createWorkConfirm: false,
       isActive: false,
       showFinished: false,
       showCancelled: false,
@@ -140,6 +142,12 @@ export default {
       this.works[index].ScoreWorkStatusID = newStatus;
     },
 
+    clickOut(actionName, e) {
+      if (this[actionName] === false || !e.target.closest(`.${actionName}`)) {
+        this[actionName] = false;
+      }
+    },
+
     countServicesSummary(index) {
       let count = 0;
       let summary = 0;
@@ -168,13 +176,19 @@ export default {
     },
 
     async setWorkItem() {
-      this.showUploader = true;
-      const workId = await this.$store.dispatch('scoreWorks/setOrderWork',{
-        sectionId: +this.$store.state.orderPage.SECTION_ID,
-        subSectionId: +this.$store.state.orderPage.ORDER_ID
-      });
-      await this.$store.dispatch('scoreWorks/fetchOrderWork', workId);
-      this.showUploader = false;
+      if (!this.createWorkConfirm) {
+        this.createWorkConfirm = true;
+        document.addEventListener("click", this.clickOut.bind(null, 'createWorkConfirm'), { capture: true, once:true });
+      } else {
+        this.showUploader = true;
+        const workId = await this.$store.dispatch('scoreWorks/setOrderWork',{
+          sectionId: +this.$store.state.orderPage.SECTION_ID,
+          subSectionId: +this.$store.state.orderPage.ORDER_ID
+        });
+        await this.$store.dispatch('scoreWorks/fetchOrderWork', workId);
+        this.showUploader = false;
+        this.createWorkConfirm = false;
+      }
     },
 
     async participantFinish(index, participantId, timeStamp) {

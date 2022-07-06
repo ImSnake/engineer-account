@@ -102,3 +102,13 @@ export const tooltipOptions = (type) => {
 
 	return options.find(o => o.type === type);
 }
+
+export const tooltipShowLoginPassword = (name, el, refs) => {
+	if (name.includes('password')) {
+		el.type = 'text';
+		setTimeout(() => el.type = 'password', 3500);
+	}
+
+	navigator.clipboard.writeText(el.value)
+		.then(() => refs[name].isOpen = true);
+}
