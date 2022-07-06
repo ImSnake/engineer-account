@@ -2,8 +2,8 @@
 
   <template v-if="isActive && dataIsReady">
 
-    <div class="elz d-block r3 bor1 fn12 mB32 oAuto br br-ok bg bg-ok bgA10 showSelOut hideSelOut">
-      <div @click="toggleTableView" class="elz d-flex gap8 a-H p16 fn16 opAct07 cur-pointer">
+    <div :class="{sel: isOpened}" class="elz d-block r3 bor1 fn12 mB32 oAuto br br-ok bg bg-ok bgA10 showSelOut hideSelOut">
+      <div @click="isOpened = !isOpened" class="elz d-flex gap8 a-H p16 fn16 opAct07 cur-pointer">
         <div class="elz d-block grow bold">Услуги по сделке: #{{ dealId }}</div>
         <div class="elz p-rel d-block noShrink p-rel mskBef s8 deg180 cFillBef bgBef-CC hideSelIn" style="--elzMsk: url('/style/icons/arrow1.svg');"></div>
         <div class="elz p-rel d-block noShrink p-rel mskBef s8 cFillBef bgBef-CC showSelIn" style="--elzMsk: url('/style/icons/arrow1.svg');"></div>
@@ -90,10 +90,9 @@
 
       </template>
 
-
     </div>
 
-   </template>
+  </template>
 
   <template v-if="showUploader">
     <Uploader
@@ -140,6 +139,7 @@ export default {
   data() {
     return {
       isActive: false,
+      isOpened: false,
       showUploader: true
     }
   },
@@ -170,7 +170,6 @@ export default {
 
   methods: {
     async changeType(idx, val, zone) {
-      //this.servicesHydra[idx].showUploader = true;
       const item = this.servicesHydra[idx];
       item.showUploader = true;
 
@@ -182,7 +181,6 @@ export default {
       });
 
       item.showUploader = false;
-      //this.servicesHydra[idx].showUploader = false;
     },
 
     async createConnection(idx) {
@@ -200,7 +198,6 @@ export default {
     },
 
     async setTarifficationPhone(idx, contract, tariff, operator, pbx, phone) {
-      console.log('SET AND CONNECT PHONE TARIFF');
       const item = this.servicesHydra[idx];
       item.showUploader = true;
 
@@ -250,11 +247,6 @@ export default {
 
     showTooltip(name, el) {
       tooltipShowLoginPassword(name, el, this.$refs);
-    },
-
-    toggleTableView(e){
-      const elem = e.currentTarget.parentNode;
-      elem.classList.contains('sel') ? elem.classList.remove('sel') :  elem.classList.add('sel');
     }
   }
 }
