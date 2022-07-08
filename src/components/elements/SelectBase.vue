@@ -23,10 +23,10 @@ export default {
   emits: [ 'update:modelValue' ],
 
   props: {
-    modelValue: [String, Number],
-    disabled: { type: Boolean, required: false },
-    options: { type: Array, required: true },
-    title: { type: String, required: true }
+    modelValue: [String, Number, null],
+    disabled: { required: false, type: Boolean },
+    options: { required: true, type: Array },
+    title: { required: true, type: String }
   },
 
   computed: {
@@ -34,12 +34,6 @@ export default {
       return (this.modelValue) ? this.options.find(el => el.value == this.modelValue).name : this.title;
     }
   }
-
-/*  methods: {
-    updateSelect(event) {
-      this.$emit("update:modelValue", parseInt(event.target.value));
-    }
-  }*/
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div :class="isClosed ? '' : 'sel'" class="elz d-block showSelOut1 hideSelOut1">
+  <div :class="{sel: isClosed}" class="elz d-block showSelOut1 hideSelOut1">
     <div @click="isClosed = !isClosed" class="elz d-flex a-H borV1 pH16 gap16 pV10 lh12 opAct07 cur-pointer bg bg-primary br br-primary brL-10 brHovL-15 brLInvD">
       <div class="elz p-rel d-block noShrink p-rel mskBef s8 cFillBef bgBef-CC showSelIn1" style="--elzMsk: url('/style/icons/arrow1.svg');margin-left: 5px;margin-right: 4px;"></div>
       <div class="elz p-rel d-block noShrink p-rel mskBef s8 deg180 cFillBef bgBef-CC hideSelIn1" style="--elzMsk: url('/style/icons/arrow1.svg');margin-left: 5px;margin-right: 4px;"></div>
@@ -73,7 +73,6 @@ export default {
         if (this.itemsList.list.find(chEl => +chEl.id === +parEl.scoreServiceId)) {
           count ++;
           summary += +parEl.serviceAmount * +parEl.serviceScore;
-          //summary += +parEl.serviceAmount * this.itemsList.list.find(chEl => +chEl.id === +parEl.scoreServiceId).value;
         }
       });
       this.total.count = count;

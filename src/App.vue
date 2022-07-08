@@ -30,7 +30,7 @@ export default {
 
   methods: {
     defineLogAction(logData) {
-      (logData) ? this.logInn(logData) : this.logOut();
+      logData ? this.logInn(logData) : this.logOut();
     },
 
     definePageView() {

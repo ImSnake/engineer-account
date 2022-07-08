@@ -91,6 +91,7 @@
 <script>
 import PopUpWindow       from "@/components/elements/PopUpWindow";
 import OrdersCardDetails from "@/components/orders/OrdersCardDetails";
+
 import { dateFormatDdMmYyyy } from "@/helpers/formating";
 
 export default {

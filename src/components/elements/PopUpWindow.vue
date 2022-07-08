@@ -22,5 +22,3 @@ export default {
   }
 }
 </script>
-
-<!--<style src="../../assets/style/datepicker/dp.css"></style>-->

@@ -25,8 +25,8 @@ export default {
 
   props: {
     modelValue: [String, Number],
-    options: {type: Array, required: true},
-    title: {type: String, required: true},
+    options: { required: true, type: Array },
+    title: { required: true, type: String }
   },
 
   computed: {
