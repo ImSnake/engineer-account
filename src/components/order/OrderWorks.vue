@@ -41,9 +41,10 @@
 </template>
 
 <script>
-import { useStore } from "vuex";
 import ButtonBase from "@/components/elements/ButtonBase";
 import OrderWorksItem from "@/components/order/OrderWorksItem";
+import clickOut from "@/mixins/clickOut";
+import { useStore } from "vuex";
 import {onMounted, onUnmounted} from "vue";
 
 export default {
@@ -53,6 +54,8 @@ export default {
     ButtonBase,
     OrderWorksItem
   },
+
+  mixins: [ clickOut ],
 
   setup() {
     const store = useStore();
@@ -140,12 +143,6 @@ export default {
         this.works[index].FinishedAt = timeStamp;
       }
       this.works[index].ScoreWorkStatusID = newStatus;
-    },
-
-    clickOut(actionName, e) {
-      if (this[actionName] === false || !e.target.closest(`.${actionName}`)) {
-        this[actionName] = false;
-      }
     },
 
     countServicesSummary(index) {

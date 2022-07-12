@@ -26,10 +26,12 @@
   </div>
 </template>
 
+
 <script>
 import DateTimePicker from "@/components/elements/DateTimePicker";
 import PopUpWindow from "@/components/elements/PopUpWindow";
 import ButtonBase from "@/components/elements/ButtonBase";
+import clickOut from "@/mixins/clickOut";
 import { dateFormatDdMmYyyy, dateTimeFormatHHMM } from "@/helpers/formating";
 
 export default {
@@ -40,6 +42,8 @@ export default {
     DateTimePicker,
     PopUpWindow
   },
+
+  mixins: [ clickOut ],
 
   data() {
     return {
@@ -73,12 +77,6 @@ export default {
         time: date,
         status: status,
         orderId: this.order.OrderID
-      }
-    },
-
-    clickOut(actionName, e) {
-      if (this[actionName] === false || !e.target.closest(`.${actionName}`)) {
-        this[actionName] = false;
       }
     },
 

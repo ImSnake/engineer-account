@@ -114,6 +114,7 @@
 <script>
 import ButtonBase from "@/components/elements/ButtonBase";
 import CheckboxInputFieldWrapper from "@/components/elements/CheckboxInputFieldWrapper";
+import clickOut from "@/mixins/clickOut";
 import { scoreWorksStatusOptions } from "@/helpers/elements_common";
 import { dateFormatDdMmYyyy, dateTimeFormatHHMM } from "@/helpers/formating";
 
@@ -124,6 +125,8 @@ export default {
     ButtonBase,
     CheckboxInputFieldWrapper,
   },
+
+  mixins: [ clickOut ],
 
   emits: [ 'changeWorkStatus', 'deleteWorkItem', 'participantFinish', 'participantToggle', 'updateServiceCount', 'updateServicesList' ],
 
@@ -207,12 +210,6 @@ export default {
   },
 
   methods: {
-    clickOut(actionName, e) {
-      if (this[actionName] === false || !e.target.closest(`.${actionName}`)) {
-        this[actionName] = false;
-      }
-    },
-
     confirmDeleteAction() {
       if (!this.deleteWorkItem) {
         this.deleteWorkItem = true;

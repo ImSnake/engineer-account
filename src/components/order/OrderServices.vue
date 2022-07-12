@@ -71,7 +71,7 @@
           <OrderServicesHydraPhone
               @changeZone="(val, zone) => changeType(idx, val, zone)"
               @createConnection="createConnection(idx)"
-              @setTarifficationPhone="(contract, tariff, operator, pbx, phone) => setTarifficationPhone(idx, contract, tariff, operator, pbx, phone)"
+              @setTarifficationPhone="(params) => setTarifficationPhone(idx, params)"
               @toggleServiceView="servicesHydra[idx].isOpened = !servicesHydra[idx].isOpened"
               :service="service"  />
         </template>
@@ -197,7 +197,7 @@ export default {
       item.showUploader = false;
     },
 
-    async setTarifficationPhone(idx, contract, tariff, operator, pbx, phone) {
+    async setTarifficationPhone(idx, { contract, tariff, operator, pbx, phone, tariffZone, serviceTypeName, serviceName, serviceAmount, operatorContractName, pbxName }) {
       const item = this.servicesHydra[idx];
       item.showUploader = true;
 
@@ -213,7 +213,14 @@ export default {
         orderSdId: this.order.DealID,
         operatorContractId: operator,
         pbxId: pbx,
-        phoneNumber: phone
+        phoneNumber: phone,
+
+        tariffZone: tariffZone,
+        serviceTypeName: serviceTypeName,
+        serviceName: serviceName,
+        serviceAmount: serviceAmount,
+        operatorContractName: operatorContractName,
+        pbxName: pbxName
       });
 
       item.billingStart = true;

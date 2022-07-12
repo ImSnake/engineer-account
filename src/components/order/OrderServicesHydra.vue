@@ -86,8 +86,10 @@
       </div>
       <div v-if="selectedTariff && !service.billingStart" class="elz p-rel d-flex f-wrap a-X gap8 pV16 borT1 br br-primary brL-10 brLInvD">
         <ButtonBase
-            @onButtonClick="$emit('setTariffication', selectedTariff, service.baseContractHydraId)"
-            :classList="'hmn36 bg-ok bgHovL10 fn-ok-t'">Поставить на тарификацию</ButtonBase>
+            @onButtonClick="checkButtonState"
+            :classList="'hmn36 bg-ok bgHovL10 fn-ok-t'">
+          {{ confirmAction ? 'Уверен???' : 'Поставить на тарификацию' }}
+        </ButtonBase>
       </div>
     </div>
 
@@ -107,7 +109,7 @@ import ButtonBase from '@/components/elements/ButtonBase';
 import InputBase from "@/components/elements/InputBase";
 import SelectBase from "@/components/elements/SelectBase"
 import Tooltip from "@/components/elements/Tooltip";
-
+import clickOut from "@/mixins/clickOut";
 import { numberFormat } from "@/helpers/formating";
 import { tooltipShowLoginPassword } from "@/helpers/elements_common";
 
@@ -121,6 +123,8 @@ export default {
     Tooltip
   },
 
+  mixins: [ clickOut ],
+
   emits: [ 'createConnection', 'changeTariff', 'changeType', 'setTariffication', 'showTooltip', 'toggleServiceView' ],
 
   props: {
@@ -129,6 +133,7 @@ export default {
 
   data() {
     return {
+      confirmAction: false,
       serviceType: '',
       selectedTariff: '',
     }
@@ -153,6 +158,16 @@ export default {
   },
 
   methods: {
+    checkButtonState() {
+      if (!this.confirmAction) {
+        this.confirmAction = true;
+        document.addEventListener("click", this.clickOut.bind(null, 'confirmAction'), { capture: true, once:true });
+      } else {
+        this.$emit('setTariffication', this.selectedTariff, this.service.baseContractHydraId);
+        this.confirmAction = false;
+      }
+    },
+
     showTooltip(name, el) {
       tooltipShowLoginPassword(name, el, this.$refs);
     },
